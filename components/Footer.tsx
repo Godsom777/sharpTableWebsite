@@ -14,7 +14,7 @@ export const Footer: React.FC = () => {
           className="mb-6 flex items-center gap-2 md:gap-3"
         >
           <img 
-            src="/assets/logos/sharptablelogonew(lowRES_WHITE).png" 
+            src="/assets/logos/logo-white.png" 
             alt="SharpTable" 
             className="h-8 md:h-10 w-auto"
           />

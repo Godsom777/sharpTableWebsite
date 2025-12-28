@@ -35,7 +35,7 @@ export const NavBar: React.FC = () => {
           whileTap={{ scale: 0.95 }}
         >
           <img 
-            src="/assets/logos/sharptablelogonew(lowRES_WHITE).png" 
+            src="/assets/logos/logo-white.png" 
             alt="SharpTable" 
             className="h-6 md:h-8 w-auto"
           />
