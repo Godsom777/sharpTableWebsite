@@ -145,7 +145,7 @@ export const Hero: React.FC = () => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6, duration: 1 }}
-        className="mt-16 relative w-full max-w-7xl h-[500px] perspective-1000 mx-auto"
+        className="mt-16 relative w-full max-w-7xl h-[280px] md:h-[500px] perspective-1000 mx-auto hidden md:block"
       >
         {/* Abstract Card 1: Guest (Left) */}
         <motion.div 
@@ -277,6 +277,64 @@ export const Hero: React.FC = () => {
                 <span className="text-blue-400 font-medium text-sm">Auto-Tracked</span>
             </div>
         </motion.div>
+      </motion.div>
+
+      {/* Mobile Cards - Simplified horizontal layout */}
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6, duration: 0.8 }}
+        className="mt-12 w-full px-4 md:hidden"
+      >
+        <div className="flex gap-3 overflow-x-auto pb-4 scrollbar-hide">
+          {/* Mobile Card 1 */}
+          <motion.div 
+            className="flex-shrink-0 w-36 h-44 bg-zinc-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex flex-col justify-between"
+            whileTap={{ scale: 0.95 }}
+          >
+            <Smartphone className="text-white w-5 h-5" />
+            <div>
+              <div className="h-1.5 w-16 bg-zinc-700 rounded-full mb-2" />
+              <div className="h-1.5 w-10 bg-zinc-800 rounded-full" />
+            </div>
+            <div className="text-[10px] text-zinc-500 leading-tight">
+              Guest Identity<br/>
+              <span className="text-white font-medium text-xs">Decoded</span>
+            </div>
+          </motion.div>
+
+          {/* Mobile Card 2 - Center */}
+          <motion.div 
+            className="flex-shrink-0 w-44 h-48 bg-gradient-to-br from-zinc-800 to-black border border-amber-500/30 rounded-2xl p-5 flex flex-col justify-between shadow-lg"
+            whileTap={{ scale: 0.95 }}
+          >
+            <TrendingUp className="text-amber-500 w-6 h-6" />
+            <div>
+              <div className="h-1.5 w-full bg-zinc-600 rounded-full mb-2" />
+              <div className="h-1.5 w-2/3 bg-zinc-700 rounded-full" />
+            </div>
+            <div className="text-[10px] text-zinc-400">
+              Revenue Growth<br/>
+              <span className="text-amber-500 font-bold text-sm">+32% Optimization</span>
+            </div>
+          </motion.div>
+
+          {/* Mobile Card 3 */}
+          <motion.div 
+            className="flex-shrink-0 w-36 h-44 bg-zinc-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex flex-col justify-between"
+            whileTap={{ scale: 0.95 }}
+          >
+            <Database className="text-blue-500 w-5 h-5" />
+            <div className="flex flex-col items-end">
+              <div className="h-1.5 w-16 bg-zinc-700 rounded-full mb-2" />
+              <div className="h-1.5 w-10 bg-zinc-800 rounded-full" />
+            </div>
+            <div className="text-[10px] text-zinc-500 leading-tight text-right">
+              Lifetime Value<br/>
+              <span className="text-blue-400 font-medium text-xs">Auto-Tracked</span>
+            </div>
+          </motion.div>
+        </div>
       </motion.div>
     </section>
   );
