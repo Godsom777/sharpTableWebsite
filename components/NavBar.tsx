@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
 export const NavBar: React.FC = () => {
@@ -24,51 +25,136 @@ export const NavBar: React.FC = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo(0,0)}>
-          <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center gap-2 cursor-pointer"
+          onClick={() => window.scrollTo(0,0)}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <motion.div
+            className="w-6 h-6 bg-white rounded-full flex items-center justify-center"
+            whileHover={{ rotate: 180 }}
+            transition={{ duration: 0.3 }}
+          >
             <div className="w-3 h-3 bg-black rounded-full" />
-          </div>
+          </motion.div>
           <span className="font-semibold text-xl tracking-tight text-white">SharpTable</span>
-        </div>
+        </motion.div>
 
-        <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
-          <a href="#features" className="hover:text-white transition-colors">Features</a>
-          <a href="#roles" className="hover:text-white transition-colors">Roles</a>
-          <a href="#analytics" className="hover:text-white transition-colors">Intelligence</a>
-          <a href="#scenario" className="hover:text-white transition-colors">Stories</a>
-          <button 
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300"
+        >
+          <motion.a
+            href="#features"
+            className="hover:text-white transition-colors"
+            whileHover={{ scale: 1.1, y: -2 }}
+          >
+            Features
+          </motion.a>
+          <motion.a
+            href="#roles"
+            className="hover:text-white transition-colors"
+            whileHover={{ scale: 1.1, y: -2 }}
+          >
+            Roles
+          </motion.a>
+          <motion.a
+            href="#analytics"
+            className="hover:text-white transition-colors"
+            whileHover={{ scale: 1.1, y: -2 }}
+          >
+            Intelligence
+          </motion.a>
+          <motion.a
+            href="#scenario"
+            className="hover:text-white transition-colors"
+            whileHover={{ scale: 1.1, y: -2 }}
+          >
+            Stories
+          </motion.a>
+          <motion.button
             onClick={handleContact}
             className="bg-white text-black px-4 py-2 rounded-full text-xs font-semibold hover:bg-gray-200 transition-colors"
+            whileHover={{ scale: 1.05, boxShadow: "0 4px 20px rgba(255,255,255,0.2)" }}
+            whileTap={{ scale: 0.95 }}
           >
             Get Started
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
 
-        <button 
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
           className="md:hidden text-white"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          whileTap={{ scale: 0.9 }}
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        </motion.button>
       </div>
 
       {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="absolute top-16 left-0 right-0 bg-black border-b border-white/10 p-6 md:hidden flex flex-col gap-4">
-          <a href="#features" className="text-gray-300 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>Features</a>
-          <a href="#roles" className="text-gray-300 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>Roles</a>
-          <a href="#analytics" className="text-gray-300 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>Intelligence</a>
-          <button 
-            onClick={() => {
-                handleContact();
-                setIsMobileMenuOpen(false);
-            }}
-            className="bg-white text-black px-4 py-3 rounded-full text-sm font-semibold w-full"
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="absolute top-16 left-0 right-0 bg-black border-b border-white/10 p-6 md:hidden flex flex-col gap-4 overflow-hidden"
           >
-            Get Started
-          </button>
-        </div>
-      )}
+            <motion.a
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.1 }}
+              href="#features"
+              className="text-gray-300 hover:text-white"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Features
+            </motion.a>
+            <motion.a
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.15 }}
+              href="#roles"
+              className="text-gray-300 hover:text-white"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Roles
+            </motion.a>
+            <motion.a
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              href="#analytics"
+              className="text-gray-300 hover:text-white"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Intelligence
+            </motion.a>
+            <motion.button
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.25 }}
+              onClick={() => {
+                  handleContact();
+                  setIsMobileMenuOpen(false);
+              }}
+              className="bg-white text-black px-4 py-3 rounded-full text-sm font-semibold w-full"
+            >
+              Get Started
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };

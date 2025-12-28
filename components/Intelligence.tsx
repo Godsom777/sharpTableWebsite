@@ -23,13 +23,19 @@ export const Intelligence: React.FC = () => {
   return (
     <section id="analytics" className="py-24 bg-zinc-950 border-y border-white/5">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Automatic Intelligence</h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
              When a session is paid, the trigger fires. 
              Orders are saved, profiles are updated, and favorites are recalculated instantly.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Chart 1: Customer Visits */}
@@ -37,13 +43,27 @@ export const Intelligence: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="bg-zinc-900/40 border border-white/10 rounded-3xl p-6 md:p-8"
+                whileHover={{ scale: 1.02, boxShadow: "0 20px 60px rgba(139, 92, 246, 0.15)" }}
+                transition={{ duration: 0.3 }}
+                className="bg-zinc-900/40 border border-white/10 rounded-3xl p-6 md:p-8 hover:border-purple-500/30 transition-colors cursor-pointer"
             >
-                <div className="mb-6">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="mb-6"
+                >
                     <h3 className="text-lg font-semibold text-white">Visit Patterns</h3>
                     <p className="text-sm text-gray-500">Know when your regulars usually come.</p>
-                </div>
-                <div className="h-[300px] w-full">
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                  className="h-[300px] w-full"
+                >
                     <ResponsiveContainer width="100%" height="100%">
                         <AreaChart data={visitData}>
                             <defs>
@@ -60,7 +80,7 @@ export const Intelligence: React.FC = () => {
                             <Area type="monotone" dataKey="visits" stroke="#8b5cf6" strokeWidth={2} fillOpacity={1} fill="url(#colorVisits)" />
                         </AreaChart>
                     </ResponsiveContainer>
-                </div>
+                </motion.div>
             </motion.div>
 
              {/* Chart 2: Item Popularity */}
@@ -69,13 +89,26 @@ export const Intelligence: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                className="bg-zinc-900/40 border border-white/10 rounded-3xl p-6 md:p-8"
+                whileHover={{ scale: 1.02, boxShadow: "0 20px 60px rgba(59, 130, 246, 0.15)" }}
+                className="bg-zinc-900/40 border border-white/10 rounded-3xl p-6 md:p-8 hover:border-blue-500/30 transition-colors cursor-pointer"
             >
-                <div className="mb-6">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4 }}
+                  className="mb-6"
+                >
                     <h3 className="text-lg font-semibold text-white">Top Items</h3>
                     <p className="text-sm text-gray-500">Identify trends & bestsellers automatically.</p>
-                </div>
-                <div className="h-[300px] w-full">
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.5 }}
+                  className="h-[300px] w-full"
+                >
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={itemData} layout="vertical">
                             <XAxis type="number" hide />
@@ -90,27 +123,49 @@ export const Intelligence: React.FC = () => {
                             </Bar>
                         </BarChart>
                     </ResponsiveContainer>
-                </div>
+                </motion.div>
             </motion.div>
         </div>
 
         {/* The Trigger Logic Visual */}
         <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="mt-12 p-8 border border-dashed border-zinc-700 rounded-3xl bg-zinc-900/20 text-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="mt-12 p-8 border border-dashed border-zinc-700 rounded-3xl bg-zinc-900/20 text-center hover:border-amber-500/30 hover:bg-zinc-900/30 transition-all"
         >
              <span className="text-xs uppercase tracking-widest text-zinc-500 font-bold">The Trigger Loop</span>
              <div className="flex flex-wrap justify-center items-center gap-4 mt-6 text-sm md:text-base text-gray-300 font-medium">
-                <span className="px-4 py-2 bg-zinc-800 rounded-full">Guest Pays</span>
-                <span className="text-zinc-600">→</span>
-                <span className="px-4 py-2 bg-zinc-800 rounded-full">Save Order History</span>
-                <span className="text-zinc-600">→</span>
-                <span className="px-4 py-2 bg-zinc-800 rounded-full">Update Total Spent</span>
-                <span className="text-zinc-600">→</span>
-                <span className="px-4 py-2 bg-zinc-800 rounded-full text-amber-500">Recalculate Favorites</span>
-                <span className="text-zinc-600">→</span>
-                <span className="px-4 py-2 bg-green-900/30 text-green-400 border border-green-800 rounded-full">WhatsApp Receipt Sent</span>
+                {['Guest Pays', 'Save Order History', 'Update Total Spent', 'Recalculate Favorites', 'WhatsApp Receipt Sent'].map((step, index) => (
+                  <React.Fragment key={index}>
+                    <motion.span
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.5 + index * 0.1 }}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      className={`px-4 py-2 rounded-full ${
+                        index === 3 ? 'bg-zinc-800 text-amber-500' :
+                        index === 4 ? 'bg-green-900/30 text-green-400 border border-green-800' :
+                        'bg-zinc-800'
+                      }`}
+                    >
+                      {step}
+                    </motion.span>
+                    {index < 4 && (
+                      <motion.span
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.5 + index * 0.1 + 0.05 }}
+                        className="text-zinc-600"
+                      >
+                        →
+                      </motion.span>
+                    )}
+                  </React.Fragment>
+                ))}
              </div>
         </motion.div>
       </div>
