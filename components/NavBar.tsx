@@ -29,19 +29,17 @@ export const NavBar: React.FC = () => {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex items-center gap-2 cursor-pointer"
+          className="flex items-center gap-1.5 md:gap-2 cursor-pointer"
           onClick={() => window.scrollTo(0,0)}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <motion.div
-            className="w-6 h-6 bg-white rounded-full flex items-center justify-center"
-            whileHover={{ rotate: 180 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="w-3 h-3 bg-black rounded-full" />
-          </motion.div>
-          <span className="font-semibold text-xl tracking-tight text-white">SharpTable</span>
+          <img 
+            src="/assets/logos/sharptablelogonew(lowRES_WHITE).png" 
+            alt="SharpTable" 
+            className="h-6 md:h-8 w-auto"
+          />
+          <span className="font-semibold text-base md:text-xl tracking-tight text-white">SharpTable</span>
         </motion.div>
 
         <motion.div
