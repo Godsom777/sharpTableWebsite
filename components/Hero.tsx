@@ -75,7 +75,7 @@ export const Hero: React.FC = () => {
           transition={{ delay: 0.2 }}
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/20 bg-amber-500/5 text-amber-400 text-xs font-bold mb-8 backdrop-blur-sm uppercase tracking-widest"
         >
-          <Sparkles size={12} /> The Missing Ingredient Found
+          <Sparkles size={12} /> Turn receipts into repeat visits
         </motion.div>
         
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-white mb-8 leading-[1.05]">
@@ -85,7 +85,7 @@ export const Hero: React.FC = () => {
             transition={{ delay: 0.4, duration: 0.6 }}
             className="inline-block"
           >
-            See the Blind Spots
+            Know your guests.
           </motion.span>
           <br />
           <motion.span
@@ -94,7 +94,7 @@ export const Hero: React.FC = () => {
             transition={{ delay: 0.6, duration: 0.6 }}
             className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 inline-block"
           >
-            in Your Business.
+            Grow your restaurant.
           </motion.span>
         </h1>
         
@@ -104,7 +104,7 @@ export const Hero: React.FC = () => {
           transition={{ delay: 0.8, duration: 0.6 }}
           className="text-lg md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-12"
         >
-          Most owners only see <span className="text-white italic">what</span> was ordered. SharpTable reveals <span className="text-amber-500 font-semibold">who</span> is ordering and <span className="text-amber-500 font-semibold">why</span> they really keep coming back—so you can stay three steps ahead.
+          POS shows you <span className="text-white italic">what</span> sold. SharpTable shows you <span className="text-amber-500 font-semibold">who</span> bought it, what they love, and what brings them back—so you can personalize service and boost repeat visits.
         </motion.p>
 
         <motion.div
@@ -123,7 +123,7 @@ export const Hero: React.FC = () => {
             }}
             whileTap={{ scale: 0.95 }}
           >
-            Claim Your Edge <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
+            Book a Demo <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </motion.button>
           <motion.button 
             onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
@@ -135,7 +135,7 @@ export const Hero: React.FC = () => {
             }}
             whileTap={{ scale: 0.95 }}
           >
-            Explore the Unseen
+            See how it works
           </motion.button>
         </motion.div>
       </motion.div>

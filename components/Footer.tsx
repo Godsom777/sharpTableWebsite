@@ -27,8 +27,8 @@ export const Footer: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="text-gray-500 text-sm max-w-md mx-auto mb-6"
         >
-            The complete customer intelligence platform. <br/>
-            Understand, serve, and retain.
+            Customer intelligence for restaurants. <br/>
+            Know your guests. Bring them back.
         </motion.p>
         
         <motion.a
@@ -57,7 +57,7 @@ export const Footer: React.FC = () => {
               className="hover:text-white transition-colors flex items-center gap-1"
             >
               <Shield size={14} />
-              Privacy
+              Privacy Policy
             </motion.a>
             <motion.a
               whileHover={{ scale: 1.1, color: '#fff' }}
@@ -65,14 +65,14 @@ export const Footer: React.FC = () => {
               className="hover:text-white transition-colors flex items-center gap-1"
             >
               <FileText size={14} />
-              Terms
+              Terms of Service
             </motion.a>
             <motion.a
               whileHover={{ scale: 1.1, color: '#fff' }}
               href="mailto:sharptable.ng@gmail.com"
               className="hover:text-white transition-colors"
             >
-              Contact Sales
+              Contact
             </motion.a>
         </motion.div>
         <motion.div

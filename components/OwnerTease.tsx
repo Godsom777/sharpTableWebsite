@@ -26,8 +26,8 @@ export const OwnerTease: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-4xl md:text-6xl font-bold text-white tracking-tighter leading-tight"
             >
-              What are your <br/>
-              <span className="text-amber-500 italic font-serif">guests hiding?</span>
+              What don't you <br/>
+              <span className="text-amber-500 italic font-serif">know about your guests?</span>
             </motion.h2>
             
             <div className="space-y-6">
@@ -47,8 +47,8 @@ export const OwnerTease: React.FC = () => {
                   <EyeOff className="text-gray-500 w-5 h-5" />
                 </motion.div>
                 <div>
-                  <h4 className="text-white font-semibold">Standard View</h4>
-                  <p className="text-gray-500 text-sm">"Table 4 ordered 2 Pastas and a Coke. They paid and left."</p>
+                  <h4 className="text-white font-semibold">Typical POS View</h4>
+                  <p className="text-gray-500 text-sm">"Table 4 ordered 2 pastas and a coke. They paid and left."</p>
                 </div>
               </motion.div>
 
@@ -70,7 +70,7 @@ export const OwnerTease: React.FC = () => {
                 <div>
                   <h4 className="text-amber-500 font-semibold">SharpTable View</h4>
                   <p className="text-gray-300 text-sm italic leading-relaxed">
-                    "That's David. He's been here 4 times this month. He prefers gluten-free but hasn't told you yet. He's 80% likely to return if you offer him a complimentary dessert today."
+                    "That's David. He's been here 4 times this month. He prefers gluten-free (but hasnt said it). Hes likely to return if you surprise him with a small dessert today."
                   </p>
                 </div>
               </motion.div>
@@ -83,7 +83,7 @@ export const OwnerTease: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-xl text-gray-500 max-w-lg leading-relaxed border-l border-zinc-800 pl-6"
             >
-              We don't just process orders. We decode the DNA of your business so you can stay three steps ahead of the competition.
+              SharpTable turns everyday orders into guest insightso you can serve smarter, retain more, and stay ahead.
             </motion.p>
           </motion.div>
 
@@ -137,7 +137,7 @@ export const OwnerTease: React.FC = () => {
                   transition={{ delay: 0.4 }}
                   className="text-3xl font-bold text-white mb-4"
                 >
-                  The Unfair Advantage
+                  The edge your competitors miss
                 </motion.h3>
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
@@ -146,7 +146,7 @@ export const OwnerTease: React.FC = () => {
                   transition={{ delay: 0.5 }}
                   className="text-gray-400 mb-10 text-lg"
                 >
-                  Most of your revenue data is walking out the door every night. Ready to see the rest?
+                  Most restaurants never learn who their best guests are. Want the full picture?
                 </motion.p>
                 
                 <motion.button
@@ -159,7 +159,7 @@ export const OwnerTease: React.FC = () => {
                   whileTap={{ scale: 0.95 }}
                   className="group w-full py-5 bg-white text-black rounded-full font-bold text-xl hover:bg-zinc-200 transition-all flex items-center justify-center gap-3"
                 >
-                  Claim Your Market <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                  Talk to us <ArrowRight className="group-hover:translate-x-1 transition-transform" />
                 </motion.button>
                 
                 <motion.div

@@ -30,10 +30,9 @@ export const Intelligence: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Automatic Intelligence</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Insights that update themselves</h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-             When a session is paid, the trigger fires. 
-             Orders are saved, profiles are updated, and favorites are recalculated instantly.
+            Every time a table pays, SharpTable automatically saves the order, updates the guest profile, and refreshes what’s trending—so you always know what’s working.
           </p>
         </motion.div>
 

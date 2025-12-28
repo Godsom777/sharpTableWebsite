@@ -5,38 +5,38 @@ import { Feature } from '../types';
 
 const features: Feature[] = [
   {
-    title: "The Invisible Guest Profile",
-    description: "Capture 100% of guest data without invasive forms. Know their LTV (Lifetime Value) before they pay.",
+    title: "Guest profileswithout the forms",
+    description: "Capture guest history automatically. See spending, favorites, and visit frequency at a glanceno awkward sign-ups.",
     icon: <Database className="w-8 h-8 text-indigo-500" />,
     colSpan: "md:col-span-2 md:row-span-2",
   },
   {
-    title: "Profit Protection",
-    description: "Identify slow-moving inventory and peak demand trends in real-time to slash waste.",
+    title: "Protect your profit",
+    description: "Spot slow movers, shrinking margins, and peak-demand shifts earlyso you cut waste before it shows up in costs.",
     icon: <ShieldCheck className="w-8 h-8 text-green-500" />,
     colSpan: "md:col-span-1 md:row-span-1",
   },
   {
-    title: "Staff Empowerment",
-    description: "Reduce front-of-house stress with automated coordination. Happy staff = Lower turnover.",
+    title: "Make shifts smoother",
+    description: "Automate handoffs between floor and kitchen. Less chaos, fewer mistakes, happier staff.",
     icon: <Zap className="w-8 h-8 text-amber-500" />,
     colSpan: "md:col-span-1 md:row-span-1",
   },
   {
-    title: "Multi-Unit Mastery",
-    description: "Whether it's 2 or 20 locations, see which manager is winning and why, from one screen.",
+    title: "Run multiple locations like one",
+    description: "Whether its 2 or 20 stores, compare performance, spot outliers, and share what worksfrom one dashboard.",
     icon: <MapPin className="w-8 h-8 text-red-500" />,
     colSpan: "md:col-span-1 md:row-span-2",
   },
   {
-    title: "Automated Loyalty",
-    description: "SharpTable builds loyalty loops on WhatsApp while you sleep. No manual blasts required.",
+    title: "Loyalty that happens automatically",
+    description: "Build repeat-visit habits over WhatsApppersonal messages, timed nudges, and receiptswithout manual blasts.",
     icon: <TrendingUp className="w-8 h-8 text-blue-400" />,
     colSpan: "md:col-span-2 md:row-span-1",
   },
     {
-    title: "Frictionless Pay",
-    description: "The faster they pay, the faster your tables turn. Simple math, massive impact.",
+    title: "Fast checkout, faster table turns",
+    description: "Make payment frictionless. When guests pay quickly, tables free up soonerand revenue follows.",
     icon: <CreditCard className="w-8 h-8 text-purple-400" />,
     colSpan: "md:col-span-1 md:row-span-1",
   },
@@ -93,7 +93,7 @@ export const BentoGrid: React.FC = () => {
             >
               <UtensilsCrossed className="text-amber-500" size={20} />
             </motion.div>
-            <span className="text-amber-400 font-semibold text-sm tracking-wide">RESTAURANT INTELLIGENCE SUITE</span>
+            <span className="text-amber-400 font-semibold text-sm tracking-wide">RESTAURANT INTELLIGENCEALL IN ONE PLACE</span>
             <motion.div
               animate={{ rotate: [0, -10, 10, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
@@ -133,8 +133,8 @@ export const BentoGrid: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-8 leading-relaxed"
           >
-            From kitchen to cashier, from tables to tablets—
-            <span className="text-white font-medium"> complete operational harmony.</span>
+            From kitchen to cashier, from tables to tablets
+            <span className="text-white font-medium"> everything stays in sync.</span>
           </motion.p>
 
           {/* Stats Row */}
@@ -223,155 +223,67 @@ export const BentoGrid: React.FC = () => {
                   
                   {/* Text Content */}
                   <div className="flex-1">
-                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-amber-400 transition-colors duration-300">
+                    <h3 className="text-2xl font-bold text-white mb-3 leading-tight">
                       {feature.title}
                     </h3>
-                    <p className="text-gray-400 leading-relaxed text-sm group-hover:text-gray-300 transition-colors duration-300">
+                    <p className="text-gray-400 leading-relaxed">
                       {feature.description}
                     </p>
                   </div>
-                  
-                  {/* Bottom CTA */}
-                  <motion.div
-                    initial={{ opacity: 0, x: -10 }}
-                    className="mt-6 flex items-center gap-2 text-amber-500/0 group-hover:text-amber-500 transition-all duration-300"
-                  >
-                    <span className="text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">Explore feature</span>
-                    <motion.div
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    >
-                      <ArrowRight size={16} />
-                    </motion.div>
-                  </motion.div>
                 </div>
-
-                {/* Corner Decoration */}
-                <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Premium Bottom CTA Section */}
+        {/* CTA Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-20"
+          className="mt-20 text-center"
         >
-          <div className="relative bg-gradient-to-br from-zinc-900 via-zinc-800/80 to-zinc-900 border border-zinc-700/50 rounded-[2rem] p-10 md:p-16 overflow-hidden">
-            {/* Animated Background Orbs */}
-            <motion.div
-              animate={{ 
-                scale: [1, 1.3, 1],
-                opacity: [0.2, 0.4, 0.2],
-                x: [0, 30, 0],
-                y: [0, -20, 0]
-              }}
-              transition={{ 
-                duration: 6,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-amber-500/20 rounded-full blur-[100px]"
-            />
-            <motion.div
-              animate={{ 
-                scale: [1, 1.2, 1],
-                opacity: [0.15, 0.3, 0.15],
-                x: [0, -20, 0],
-                y: [0, 30, 0]
-              }}
-              transition={{ 
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 1
-              }}
-              className="absolute bottom-0 left-1/4 w-[300px] h-[300px] bg-orange-500/20 rounded-full blur-[80px]"
-            />
-            
-            {/* Grid Pattern Overlay */}
-            <div className="absolute inset-0 opacity-5" style={{
-              backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-              backgroundSize: '40px 40px'
-            }} />
-            
-            <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10">
-              {/* Left Content */}
-              <div className="text-center lg:text-left max-w-xl">
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.4 }}
-                  className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 rounded-full px-4 py-2 mb-6"
-                >
-                  <Star className="text-amber-500 fill-amber-500" size={14} />
-                  <span className="text-amber-400 text-sm font-medium">Limited Early Access</span>
-                </motion.div>
-                
-                <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
-                  Ready to transform your{' '}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">restaurant operations?</span>
-                </h3>
-                <p className="text-gray-400 text-lg">
-                  Join forward-thinking restaurant owners who've already discovered their competitive edge.
-                </p>
-                
-                {/* Trust Indicators */}
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.6 }}
-                  className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mt-6"
-                >
-                  {[
-                    { icon: <CheckCircle2 size={16} />, text: 'Free Setup' },
-                    { icon: <CheckCircle2 size={16} />, text: 'No Credit Card' },
-                    { icon: <CheckCircle2 size={16} />, text: '24/7 Support' },
-                  ].map((item, index) => (
-                    <div key={index} className="flex items-center gap-2 text-gray-400 text-sm">
-                      <span className="text-green-500">{item.icon}</span>
-                      {item.text}
-                    </div>
-                  ))}
-                </motion.div>
-              </div>
-              
-              {/* Right CTA */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5 }}
-                className="flex flex-col items-center gap-4"
-              >
-                <motion.button
-                  onClick={() => window.location.href = "mailto:sharptable.ng@gmail.com"}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="relative group bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 bg-[length:200%_100%] text-white px-10 py-5 rounded-2xl font-bold text-lg transition-all shadow-2xl shadow-amber-500/25 inline-flex items-center gap-3 hover:shadow-amber-500/40"
-                  style={{ backgroundPosition: '0% 50%' }}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundPosition = '100% 50%'}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundPosition = '0% 50%'}
-                >
-                  <span>Start Your Free Consultation</span>
-                  <motion.div
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    <ArrowRight size={20} />
-                  </motion.div>
-                </motion.button>
-                <p className="text-gray-500 text-sm">Usually responds within 2 hours</p>
-              </motion.div>
-            </div>
+          <div className="max-w-md mx-auto mb-8">
+            <motion.h3
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-3xl md:text-4xl font-bold text-white leading-tight mb-4"
+            >
+              Ready to see SharpTable on your floor?
+            </motion.h3>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-lg text-gray-400"
+            >
+              A short demo can show you where revenue leaks and repeat visits are hidingand how to fix it.
+            </motion.p>
           </div>
+
+          {/* CTA Button */}
+          <motion.button
+            onClick={() => window.location.href = "mailto:sharptable.ng@gmail.com"}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            className="relative group bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 bg-[length:200%_100%] text-white px-10 py-5 rounded-2xl font-bold text-lg transition-all shadow-2xl shadow-amber-500/25 inline-flex items-center gap-3 hover:shadow-amber-500/40"
+            style={{ backgroundPosition: '0% 50%' }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundPosition = '100% 50%'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundPosition = '0% 50%'}
+          >
+            <span>Start Your Free Consultation</span>
+            <motion.div
+              animate={{ x: [0, 5, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              <ArrowRight size={20} />
+            </motion.div>
+          </motion.button>
+          <p className="text-gray-500 text-sm">Usually responds within 2 hours</p>
         </motion.div>
       </div>
     </section>

@@ -21,12 +21,12 @@ const steps: Step[] = [
   {
     id: 1,
     title: 'Arrival',
-    description: 'System recognizes her Device ID instantly.',
+    description: 'SharpTable recognizes her phone and pulls up her profile.',
     icon: <Wifi size={20} />,
     color: 'blue',
     view: {
-      title: 'Customer Detected',
-      description: 'Aisha (Visit #13) has arrived. Preferences loaded: Butter Chicken, Mango Lassi, Medium spice level.',
+      title: 'Welcome back',
+      description: 'Aisha (Visit #13) just arrived. Favorites ready: Butter Chicken, Mango Lassi. Spice level: Medium.',
       bgColor: 'bg-blue-900/10',
       borderColor: 'border-blue-900/30',
       iconColor: 'text-blue-500'
@@ -35,7 +35,7 @@ const steps: Step[] = [
   {
     id: 2,
     title: 'Ordering',
-    description: 'SharpTable sees she loves Chicken Jollof Rice & Plantain.',
+    description: 'The team can greet her like a regular because she is.',
     icon: <Users size={20} />,
     color: 'purple',
     view: {
@@ -49,12 +49,12 @@ const steps: Step[] = [
   {
     id: 3,
     title: 'Kitchen',
-    description: 'KDS flags order as "VIP Regular" for priority.',
+    description: 'The kitchen sees a loyal guest and prioritizes the ticket.',
     icon: <ChefHat size={20} />,
     color: 'orange',
     view: {
       title: 'Kitchen Display',
-      description: '⭐ VIP Order - Table 7. Butter Chicken (Medium) + New: Samosa Appetizer. Priority prep for loyal customer.',
+      description: 'VIP Regular - Table 7. Butter Chicken (Medium) + New: Samosa Appetizer. Prioritize prep for a loyal guest.',
       bgColor: 'bg-orange-900/10',
       borderColor: 'border-orange-900/30',
       iconColor: 'text-orange-500'
@@ -63,12 +63,12 @@ const steps: Step[] = [
   {
     id: 4,
     title: 'Checkout',
-    description: 'Receipt sent via WhatsApp. Visit #13 recorded.',
+    description: 'Receipt sent on WhatsApp. Her visit history updates automatically.',
     icon: <Receipt size={20} />,
     color: 'green',
     view: {
       title: 'Automated Follow-up',
-      description: 'Thanks for visiting, Aisha! We hope you enjoyed the Butter Chicken. Here is your receipt. See you next time! 🙏',
+      description: 'Thanks for visiting, Aisha! We hope you enjoyed the Butter Chicken. Here is your receipt. See you next time.',
       bgColor: 'bg-green-900/10',
       borderColor: 'border-green-900/30',
       iconColor: 'text-green-500'
