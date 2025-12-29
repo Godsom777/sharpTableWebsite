@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, Heart, Star, Wifi, Users, ChefHat, Receipt } from 'lucide-react';
+import { MessageSquare, Heart, Star, Wifi, Users, ChefHat, Receipt, TrendingUp } from 'lucide-react';
 
 type Step = {
   id: number;
@@ -73,6 +73,20 @@ const steps: Step[] = [
       borderColor: 'border-green-900/30',
       iconColor: 'text-green-500'
     }
+  },
+  {
+    id: 5,
+    title: 'Next Visit',
+    description: 'Three days later, a personalized offer lands in her WhatsApp.',
+    icon: <TrendingUp size={20} />,
+    color: 'amber',
+    view: {
+      title: 'Smart Re-engagement',
+      description: 'Hi Aisha! We know you love our Butter Chicken. This Friday, get 15% off your favorite dish. Reserve your table now!',
+      bgColor: 'bg-amber-900/10',
+      borderColor: 'border-amber-900/30',
+      iconColor: 'text-amber-500'
+    }
   }
 ];
 
@@ -97,7 +111,7 @@ export const Story: React.FC = () => {
 
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Monday Evening at Restaurant #1</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Monday Evening at YOUR Restaurant</h2>
             <p className="text-gray-400">See how SharpTable changes the experience for Aisha.</p>
         </div>
 

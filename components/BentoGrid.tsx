@@ -81,25 +81,15 @@ export const BentoGrid: React.FC = () => {
         >
           {/* Animated Icon Badge */}
           <motion.div
-            initial={{ scale: 0, rotate: -180 }}
-            whileInView={{ scale: 1, rotate: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500/20 via-orange-500/10 to-amber-500/20 border border-amber-500/30 rounded-full px-6 py-3 mb-8"
           >
-            <motion.div
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <UtensilsCrossed className="text-amber-500" size={20} />
-            </motion.div>
-            <span className="text-amber-400 font-semibold text-sm tracking-wide">RESTAURANT INTELLIGENCEALL IN ONE PLACE</span>
-            <motion.div
-              animate={{ rotate: [0, -10, 10, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <ChefHat className="text-amber-500" size={20} />
-            </motion.div>
+            <UtensilsCrossed className="text-amber-500" size={20} />
+            <span className="text-amber-400 font-semibold text-sm tracking-wide">RESTAURANT INTELLIGENCEALL IN ONE PLACE</span>
+            <ChefHat className="text-amber-500" size={20} />
           </motion.div>
 
           {/* Main Title */}

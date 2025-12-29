@@ -18,6 +18,20 @@ export default defineConfig(({ mode }) => {
         alias: {
           '@': path.resolve(__dirname, '.'),
         }
+      },
+      build: {
+        rollupOptions: {
+          output: {
+            manualChunks: {
+              'lucide': ['lucide-react'],
+              'framer': ['framer-motion'],
+              'charts': ['recharts']
+            }
+          }
+        }
+      },
+      optimizeDeps: {
+        include: ['lucide-react', 'framer-motion', 'recharts']
       }
     };
 });
