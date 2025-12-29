@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { AreaChart, Area, XAxis, Tooltip, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
 
 const visitData = [
   { name: 'Mon', visits: 120 },
@@ -111,6 +111,7 @@ export const Intelligence: React.FC = () => {
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={itemData} layout="vertical">
                             <XAxis type="number" hide />
+                            <YAxis dataKey="name" type="category" stroke="#525252" fontSize={12} tickLine={false} axisLine={false} width={80} />
                             <Tooltip 
                                 cursor={{fill: 'transparent'}}
                                 contentStyle={{ backgroundColor: '#171717', border: '1px solid #333', borderRadius: '8px', color: '#fff' }}
