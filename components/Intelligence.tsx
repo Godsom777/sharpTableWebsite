@@ -13,10 +13,10 @@ const visitData = [
 ];
 
 const itemData = [
-  { name: 'Butter Ckn', count: 470 },
-  { name: 'Biryani', count: 380 },
-  { name: 'Naan', count: 520 },
-  { name: 'Lassi', count: 210 },
+  { name: 'Jollof Rice', count: 470 },
+  { name: 'Fried Rice', count: 380 },
+  { name: 'Chicken', count: 520 },
+  { name: 'Chapman', count: 210 },
 ];
 
 export const Intelligence: React.FC = () => {
