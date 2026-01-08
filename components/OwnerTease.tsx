@@ -83,7 +83,7 @@ export const OwnerTease: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-xl text-gray-500 max-w-lg leading-relaxed border-l border-zinc-800 pl-6"
             >
-              SharpTable turns everyday orders into guest insightso you can serve smarter, retain more, and stay ahead.
+              SharpTable turns everyday orders into guest insights—so you can serve smarter, retain more, and stay ahead.
             </motion.p>
           </motion.div>
 
