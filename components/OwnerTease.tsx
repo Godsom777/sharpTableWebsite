@@ -70,7 +70,7 @@ export const OwnerTease: React.FC = () => {
                 <div>
                   <h4 className="text-amber-500 font-semibold">SharpTable View</h4>
                   <p className="text-gray-300 text-sm italic leading-relaxed">
-                    "That's David. He's been here 4 times this month. He prefers gluten-free (but hasnt said it). Hes likely to return if you surprise him with a small dessert today."
+                    "That's David. He's been here 4 times this month. He prefers gluten-free (but hasn't said it). He's likely to return if you surprise him with a small dessert today."
                   </p>
                 </div>
               </motion.div>
