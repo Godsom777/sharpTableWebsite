@@ -123,7 +123,7 @@ export const BentoGrid: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-8 leading-relaxed"
           >
-            From kitchen to cashier, from tables to tablets—
+            From kitchen to cashier, from tables to tablets
             <span className="text-white font-medium"> everything stays in sync.</span>
           </motion.p>
 
@@ -251,7 +251,7 @@ export const BentoGrid: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg text-gray-400"
             >
-              A short demo can show you where revenue leaks and repeat visits are hiding—and how to fix it.
+              A short demo can show you where revenue leaks and repeat visits are hiding, and how to fix it.
             </motion.p>
           </div>
 
