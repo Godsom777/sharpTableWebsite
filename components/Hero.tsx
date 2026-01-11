@@ -105,7 +105,7 @@ export const Hero: React.FC = () => {
           transition={{ delay: 0.8, duration: 0.6 }}
           className="text-lg md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-12"
         >
-          POS shows you <span className="text-white italic">what</span> sold. SharpTable shows you <span className="text-amber-500 font-semibold">who</span> bought it, what they love, and what keeps them coming back. So you can personalize service and get more repeat visits.
+          POS shows you <span className="text-white italic">what</span> sold. SharpTable shows you <span className="text-amber-500 font-semibold">who</span> bought it, what they love, and what keeps them coming back. So you can personalize service and get more <span className="text-amber-500 font-semibold">repeat visits</span>.
         </motion.p>
 
         <motion.div
