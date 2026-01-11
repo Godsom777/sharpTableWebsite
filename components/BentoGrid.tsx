@@ -7,13 +7,13 @@ import { Feature } from '../types';
 const features: Feature[] = [
   {
     title: "Guest profiles without the forms",
-    description: "Capture guest history automatically. See spending, favorites, and visit frequency at a glance—no awkward sign-ups.",
+    description: "Capture guest history automatically. See spending, favorites, and visit frequency at a glance, with no awkward sign-ups.",
     icon: <FontAwesomeIcon icon={faDatabase} className="w-8 h-8 text-indigo-500" />,
     colSpan: "md:col-span-2 md:row-span-2",
   },
   {
     title: "Protect your profit",
-    description: "Spot slow movers, shrinking margins, and peak-demand shifts early—so you cut waste before it shows up in costs.",
+    description: "Spot slow movers, shrinking margins, and peak-demand shifts early, so you can cut waste before it hits your costs.",
     icon: <FontAwesomeIcon icon={faShieldHalved} className="w-8 h-8 text-green-500" />,
     colSpan: "md:col-span-1 md:row-span-1",
   },
@@ -25,19 +25,19 @@ const features: Feature[] = [
   },
   {
     title: "Run multiple locations like one",
-    description: "Whether it's 2 or 20 stores, compare performance, spot outliers, and share what works—from one dashboard.",
+    description: "Whether it's 2 or 20 stores, compare performance, spot outliers, and share what works, all from one dashboard.",
     icon: <FontAwesomeIcon icon={faLocationDot} className="w-8 h-8 text-red-500" />,
     colSpan: "md:col-span-1 md:row-span-2",
   },
   {
     title: "Loyalty that happens automatically",
-    description: "Build repeat-visit habits over WhatsApp—personal messages, timed nudges, and receipts—without manual blasts.",
+    description: "Build repeat visits with WhatsApp messages, timed nudges, and receipts. No manual blasting needed.",
     icon: <FontAwesomeIcon icon={faChartLine} className="w-8 h-8 text-blue-400" />,
     colSpan: "md:col-span-2 md:row-span-1",
   },
   {
     title: "Fast checkout, faster table turns",
-    description: "Make payment frictionless. When guests pay quickly, tables free up sooner—and revenue follows.",
+    description: "Make payment frictionless. When guests pay quickly, tables free up sooner, and revenue follows.",
     icon: <FontAwesomeIcon icon={faCreditCard} className="w-8 h-8 text-purple-400" />,
     colSpan: "md:col-span-1 md:row-span-1",
   },

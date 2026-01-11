@@ -34,7 +34,7 @@ const roles = [
 		id: 'marshall',
 		title: 'Floor Team',
 		icon: <FontAwesomeIcon icon={faUsers} />,
-		subtitle: 'Keep service flowing—from seating to payment.',
+		subtitle: 'Keep service flowing, from seating to payment.',
 		content: [
 			'Seat guests and assign tables',
 			'Track order progress without guesswork',
