@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LayoutDashboard, ChefHat, Users, CheckCircle2 } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGauge, faUtensils, faUsers, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 
 const roles = [
 	{
 		id: 'admin',
 		title: 'Owner & Manager',
-		icon: <LayoutDashboard />,
+		icon: <FontAwesomeIcon icon={faGauge} />,
 		subtitle: 'One view of performance, guests, and growth.',
 		content: [
 			'See every guest profile and visit history',
@@ -19,7 +20,7 @@ const roles = [
 	{
 		id: 'kds',
 		title: 'Kitchen Team',
-		icon: <ChefHat />,
+		icon: <FontAwesomeIcon icon={faUtensils} />,
 		subtitle: 'Clear tickets, fewer mistakes, faster service.',
 		content: [
 			'Live order queue with statuses',
@@ -32,7 +33,7 @@ const roles = [
 	{
 		id: 'marshall',
 		title: 'Floor Team',
-		icon: <Users />,
+		icon: <FontAwesomeIcon icon={faUsers} />,
 		subtitle: 'Keep service flowing—from seating to payment.',
 		content: [
 			'Seat guests and assign tables',
@@ -172,7 +173,7 @@ export const Roles: React.FC = () => {
 											transition={{ delay: 0.2 + i * 0.05 }}
 											className="flex items-start gap-3 text-gray-300"
 										>
-											<CheckCircle2 className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+											<FontAwesomeIcon icon={faCircleCheck} className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
 											<span>{item}</span>
 										</motion.li>
 									))}

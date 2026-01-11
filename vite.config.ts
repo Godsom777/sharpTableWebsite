@@ -23,15 +23,22 @@ export default defineConfig(({ mode }) => {
         rollupOptions: {
           output: {
             manualChunks: {
-              'lucide': ['lucide-react'],
+              'fontawesome': ['@fortawesome/react-fontawesome', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons'],
               'framer': ['framer-motion'],
               'charts': ['recharts']
             }
           }
+        },
+        minify: 'terser',
+        terserOptions: {
+          compress: {
+            drop_console: true,
+            drop_debugger: true
+          }
         }
       },
       optimizeDeps: {
-        include: ['lucide-react', 'framer-motion', 'recharts']
+        include: ['@fortawesome/react-fontawesome', 'framer-motion', 'recharts']
       }
     };
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Eye, EyeOff, Sparkles, Lock } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight, faEye, faEyeSlash, faStar, faLock } from '@fortawesome/free-solid-svg-icons';
 
 export const OwnerTease: React.FC = () => {
   const handleContact = () => {
@@ -44,7 +45,7 @@ export const OwnerTease: React.FC = () => {
                   transition={{ duration: 0.5 }}
                   className="shrink-0 w-12 h-12 rounded-full bg-zinc-900 flex items-center justify-center border border-white/5 transition-colors group-hover:border-white/20"
                 >
-                  <EyeOff className="text-gray-500 w-5 h-5" />
+                  <FontAwesomeIcon icon={faEyeSlash} className="text-gray-500 w-5 h-5" />
                 </motion.div>
                 <div>
                   <h4 className="text-white font-semibold">Typical POS View</h4>
@@ -65,7 +66,7 @@ export const OwnerTease: React.FC = () => {
                   transition={{ duration: 2, repeat: Infinity }}
                   className="shrink-0 w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/20 transition-all group-hover:bg-amber-500/20"
                 >
-                  <Eye className="text-amber-500 w-5 h-5 animate-pulse" />
+                  <FontAwesomeIcon icon={faEye} className="text-amber-500 w-5 h-5 animate-pulse" />
                 </motion.div>
                 <div>
                   <h4 className="text-amber-500 font-semibold">SharpTable View</h4>
@@ -128,7 +129,7 @@ export const OwnerTease: React.FC = () => {
                   whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
                   className="w-16 h-16 bg-amber-500/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-amber-500/20"
                 >
-                    <Lock className="text-amber-500 w-6 h-6" />
+                    <FontAwesomeIcon icon={faLock} className="text-amber-500 w-6 h-6" />
                 </motion.div>
                 <motion.h3
                   initial={{ opacity: 0, y: 20 }}
@@ -159,7 +160,7 @@ export const OwnerTease: React.FC = () => {
                   whileTap={{ scale: 0.95 }}
                   className="group w-full py-5 bg-white text-black rounded-full font-bold text-xl hover:bg-zinc-200 transition-all flex items-center justify-center gap-3"
                 >
-                  Talk to us <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                  Talk to us <FontAwesomeIcon icon={faArrowRight} className="group-hover:translate-x-1 transition-transform" />
                 </motion.button>
                 
                 <motion.div
@@ -173,7 +174,7 @@ export const OwnerTease: React.FC = () => {
                       animate={{ rotate: 360 }}
                       transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                     >
-                      <Sparkles className="text-amber-500 w-4 h-4" />
+                      <FontAwesomeIcon icon={faStar} className="text-amber-500 w-4 h-4" />
                     </motion.div>
                     <p className="text-xs text-zinc-500 uppercase tracking-[0.3em] font-bold">
                         Invite-Only Access

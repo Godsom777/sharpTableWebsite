@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 export const NavBar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -94,7 +95,7 @@ export const NavBar: React.FC = () => {
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           whileTap={{ scale: 0.9 }}
         >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          <FontAwesomeIcon icon={isMobileMenuOpen ? faXmark : faBars} className="w-6 h-6" />
         </motion.button>
       </div>
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, Heart, Star, Wifi, Users, ChefHat, Receipt, TrendingUp } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faComment, faHeart, faStar, faWifi, faUsers, faUtensils, faReceipt, faChartLine } from '@fortawesome/free-solid-svg-icons';
 
 type Step = {
   id: number;
@@ -22,7 +23,7 @@ const steps: Step[] = [
     id: 1,
     title: 'Arrival',
     description: 'SharpTable recognizes her phone and pulls up her profile.',
-    icon: <Wifi size={20} />,
+    icon: <FontAwesomeIcon icon={faWifi} className="w-5 h-5" />,
     color: 'blue',
     view: {
       title: 'Welcome back',
@@ -36,7 +37,7 @@ const steps: Step[] = [
     id: 2,
     title: 'Ordering',
     description: 'The team can greet her like a regular because she is.',
-    icon: <Users size={20} />,
+    icon: <FontAwesomeIcon icon={faUsers} className="w-5 h-5" />,
     color: 'purple',
     view: {
       title: 'Server Assist',
@@ -50,7 +51,7 @@ const steps: Step[] = [
     id: 3,
     title: 'Kitchen',
     description: 'The kitchen sees a loyal guest and prioritizes the ticket.',
-    icon: <ChefHat size={20} />,
+    icon: <FontAwesomeIcon icon={faUtensils} className="w-5 h-5" />,
     color: 'orange',
     view: {
       title: 'Kitchen Display',
@@ -64,7 +65,7 @@ const steps: Step[] = [
     id: 4,
     title: 'Checkout',
     description: 'Receipt sent on WhatsApp. Her visit history updates automatically.',
-    icon: <Receipt size={20} />,
+    icon: <FontAwesomeIcon icon={faReceipt} className="w-5 h-5" />,
     color: 'green',
     view: {
       title: 'Automated Follow-up',
@@ -78,7 +79,7 @@ const steps: Step[] = [
     id: 5,
     title: 'Next Visit',
     description: 'Three days later, a personalized offer lands in her WhatsApp.',
-    icon: <TrendingUp size={20} />,
+    icon: <FontAwesomeIcon icon={faChartLine} className="w-5 h-5" />,
     color: 'amber',
     view: {
       title: 'Smart Re-engagement',
@@ -132,7 +133,7 @@ export const Story: React.FC = () => {
                     <div>
                         <h3 className="text-xl font-bold text-white">Aisha</h3>
                         <div className="flex items-center gap-2 text-sm text-amber-500">
-                             <Star size={14} fill="currentColor" />
+                             <FontAwesomeIcon icon={faStar} className="w-3.5 h-3.5" />
                              <span>VIP Customer (12 Visits)</span>
                         </div>
                     </div>
@@ -258,7 +259,7 @@ export const Story: React.FC = () => {
                 className="hidden md:block absolute bottom-0 right-0 bg-amber-900/10 border border-amber-900/30 p-4 rounded-xl max-w-xs"
               >
                 <div className="flex items-start gap-3">
-                  <Heart className="text-amber-500 mt-0.5" size={16} />
+                  <FontAwesomeIcon icon={faHeart} className="text-amber-500 mt-0.5 w-4 h-4" />
                   <div>
                     <p className="text-white font-medium text-xs">Retention Impact</p>
                     <p className="text-gray-400 text-xs mt-1">
@@ -279,7 +280,7 @@ export const Story: React.FC = () => {
           className="md:hidden mt-6 bg-amber-900/10 border border-amber-900/30 p-4 rounded-xl"
         >
           <div className="flex items-start gap-3">
-            <Heart className="text-amber-500 mt-0.5 flex-shrink-0" size={16} />
+            <FontAwesomeIcon icon={faHeart} className="text-amber-500 mt-0.5 flex-shrink-0 w-4 h-4" />
             <div>
               <p className="text-white font-medium text-xs">Retention Impact</p>
               <p className="text-gray-400 text-xs mt-1">

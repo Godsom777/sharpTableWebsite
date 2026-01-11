@@ -1,43 +1,44 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Smartphone, Zap, MessageCircle, MapPin, Database, CreditCard, TrendingUp, ShieldCheck, UtensilsCrossed, ChefHat, Users, BarChart3, Clock, Sparkles, ArrowRight, CheckCircle2, Star, Utensils, PieChart, Wallet } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDatabase, faShieldHalved, faBolt, faLocationDot, faChartLine, faCreditCard, faUtensils, faUsers, faChartPie, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { Feature } from '../types';
 
 const features: Feature[] = [
   {
     title: "Guest profiles without the forms",
     description: "Capture guest history automatically. See spending, favorites, and visit frequency at a glance—no awkward sign-ups.",
-    icon: <Database className="w-8 h-8 text-indigo-500" />,
+    icon: <FontAwesomeIcon icon={faDatabase} className="w-8 h-8 text-indigo-500" />,
     colSpan: "md:col-span-2 md:row-span-2",
   },
   {
     title: "Protect your profit",
     description: "Spot slow movers, shrinking margins, and peak-demand shifts early—so you cut waste before it shows up in costs.",
-    icon: <ShieldCheck className="w-8 h-8 text-green-500" />,
+    icon: <FontAwesomeIcon icon={faShieldHalved} className="w-8 h-8 text-green-500" />,
     colSpan: "md:col-span-1 md:row-span-1",
   },
   {
     title: "Make shifts smoother",
     description: "Automate handoffs between floor and kitchen. Less chaos, fewer mistakes, happier staff.",
-    icon: <Zap className="w-8 h-8 text-amber-500" />,
+    icon: <FontAwesomeIcon icon={faBolt} className="w-8 h-8 text-amber-500" />,
     colSpan: "md:col-span-1 md:row-span-1",
   },
   {
     title: "Run multiple locations like one",
     description: "Whether it's 2 or 20 stores, compare performance, spot outliers, and share what works—from one dashboard.",
-    icon: <MapPin className="w-8 h-8 text-red-500" />,
+    icon: <FontAwesomeIcon icon={faLocationDot} className="w-8 h-8 text-red-500" />,
     colSpan: "md:col-span-1 md:row-span-2",
   },
   {
     title: "Loyalty that happens automatically",
     description: "Build repeat-visit habits over WhatsApp—personal messages, timed nudges, and receipts—without manual blasts.",
-    icon: <TrendingUp className="w-8 h-8 text-blue-400" />,
+    icon: <FontAwesomeIcon icon={faChartLine} className="w-8 h-8 text-blue-400" />,
     colSpan: "md:col-span-2 md:row-span-1",
   },
   {
     title: "Fast checkout, faster table turns",
     description: "Make payment frictionless. When guests pay quickly, tables free up sooner—and revenue follows.",
-    icon: <CreditCard className="w-8 h-8 text-purple-400" />,
+    icon: <FontAwesomeIcon icon={faCreditCard} className="w-8 h-8 text-purple-400" />,
     colSpan: "md:col-span-1 md:row-span-1",
   },
 ];
@@ -45,37 +46,17 @@ const features: Feature[] = [
 export const BentoGrid: React.FC = () => {
   return (
     <section id="features" className="py-32 bg-black relative overflow-hidden">
-      {/* Enhanced Background with Multiple Layers */}
+      {/* Optimized Background - Static for better performance */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(251,191,36,0.08)_0%,transparent_60%)]" />
-      <motion.div
-        animate={{ 
-          rotate: 360,
-          scale: [1, 1.1, 1]
-        }}
-        transition={{ 
-          rotate: { duration: 30, repeat: Infinity, ease: "linear" },
-          scale: { duration: 8, repeat: Infinity, ease: "easeInOut" }
-        }}
-        className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-transparent rounded-full blur-3xl"
-      />
-      <motion.div
-        animate={{ 
-          rotate: -360,
-          scale: [1, 1.2, 1]
-        }}
-        transition={{ 
-          rotate: { duration: 35, repeat: Infinity, ease: "linear" },
-          scale: { duration: 10, repeat: Infinity, ease: "easeInOut" }
-        }}
-        className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-blue-500/10 via-purple-500/5 to-transparent rounded-full blur-3xl"
-      />
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-transparent rounded-full blur-3xl opacity-60" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-blue-500/10 via-purple-500/5 to-transparent rounded-full blur-3xl opacity-60" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Premium Header Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
           className="mb-20 text-center"
         >
@@ -87,9 +68,9 @@ export const BentoGrid: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500/20 via-orange-500/10 to-amber-500/20 border border-amber-500/30 rounded-full px-6 py-3 mb-8"
           >
-            <UtensilsCrossed className="text-amber-500" size={20} />
-            <span className="text-amber-400 font-semibold text-sm tracking-wide">RESTAURANT INTELLIGENCEALL IN ONE PLACE</span>
-            <ChefHat className="text-amber-500" size={20} />
+            <FontAwesomeIcon icon={faUtensils} className="text-amber-500 w-5 h-5" />
+            <span className="text-amber-400 font-semibold text-sm tracking-wide">RESTAURANT INTELLIGENCE ALL IN ONE PLACE</span>
+            <FontAwesomeIcon icon={faUtensils} className="text-amber-500 w-5 h-5" />
           </motion.div>
 
           {/* Main Title */}
@@ -136,9 +117,9 @@ export const BentoGrid: React.FC = () => {
             className="flex flex-wrap justify-center gap-8 md:gap-12"
           >
             {[
-              { value: '100%', label: 'Guest Data Capture', icon: <Database size={18} /> },
-              { value: '40%', label: 'Less Food Waste', icon: <PieChart size={18} /> },
-              { value: '2x', label: 'Staff Efficiency', icon: <Users size={18} /> },
+              { value: '100%', label: 'Guest Data Capture', icon: <FontAwesomeIcon icon={faDatabase} className="w-4 h-4" /> },
+              { value: '40%', label: 'Less Food Waste', icon: <FontAwesomeIcon icon={faChartPie} className="w-4 h-4" /> },
+              { value: '2x', label: 'Staff Efficiency', icon: <FontAwesomeIcon icon={faUsers} className="w-4 h-4" /> },
             ].map((stat, index) => (
               <motion.div
                 key={index}
@@ -270,7 +251,7 @@ export const BentoGrid: React.FC = () => {
               animate={{ x: [0, 5, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
             >
-              <ArrowRight size={20} />
+              <FontAwesomeIcon icon={faArrowRight} className="w-5 h-5" />
             </motion.div>
           </motion.button>
           <p className="text-gray-500 text-sm">Usually responds within 2 hours</p>

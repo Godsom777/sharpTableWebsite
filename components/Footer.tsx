@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Shield, FileText } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faShield, faFileLines } from '@fortawesome/free-solid-svg-icons';
 
 export const Footer: React.FC = () => {
   return (
@@ -40,7 +41,7 @@ export const Footer: React.FC = () => {
           href="mailto:sharptable.ng@gmail.com" 
           className="text-amber-500 hover:text-amber-400 transition-colors text-lg font-medium mb-8 flex items-center gap-2"
         >
-            <Mail size={20} />
+            <FontAwesomeIcon icon={faEnvelope} className="w-5 h-5" />
             sharptable.ng@gmail.com
         </motion.a>
 
@@ -56,7 +57,7 @@ export const Footer: React.FC = () => {
               href="#"
               className="hover:text-white transition-colors flex items-center gap-1"
             >
-              <Shield size={14} />
+              <FontAwesomeIcon icon={faShield} className="w-3.5 h-3.5" />
               Privacy Policy
             </motion.a>
             <motion.a
@@ -64,7 +65,7 @@ export const Footer: React.FC = () => {
               href="#"
               className="hover:text-white transition-colors flex items-center gap-1"
             >
-              <FileText size={14} />
+              <FontAwesomeIcon icon={faFileLines} className="w-3.5 h-3.5" />
               Terms of Service
             </motion.a>
             <motion.a

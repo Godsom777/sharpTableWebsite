@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { ChevronRight, Database, Smartphone, TrendingUp, Sparkles } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight, faDatabase, faMobileScreen, faChartLine, faStar } from '@fortawesome/free-solid-svg-icons';
 
 export const Hero: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -75,7 +76,7 @@ export const Hero: React.FC = () => {
           transition={{ delay: 0.2 }}
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/20 bg-amber-500/5 text-amber-400 text-xs font-bold mb-8 backdrop-blur-sm uppercase tracking-widest"
         >
-          <Sparkles size={12} /> Turn receipts into repeat visits
+          <FontAwesomeIcon icon={faStar} className="w-3 h-3" /> Turn receipts into repeat visits
         </motion.div>
         
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-white mb-8 leading-[1.05]">
@@ -123,7 +124,7 @@ export const Hero: React.FC = () => {
             }}
             whileTap={{ scale: 0.95 }}
           >
-            Book a Demo <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
+            Book a Demo <FontAwesomeIcon icon={faChevronRight} className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </motion.button>
           <motion.button 
             onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
@@ -168,7 +169,7 @@ export const Hero: React.FC = () => {
           className="absolute left-0 top-20 w-44 md:w-56 h-64 bg-zinc-900/80 backdrop-blur-xl border border-white/10 rounded-[2rem] p-6 md:p-8 flex flex-col justify-between shadow-2xl origin-bottom-right z-10 cursor-pointer"
         >
             <div className="flex justify-between items-start">
-              <Smartphone className="text-white w-6 h-6" />
+              <FontAwesomeIcon icon={faMobileScreen} className="text-white w-6 h-6" />
               <motion.div 
                 className="px-2 py-1 rounded bg-zinc-800 text-[10px] text-zinc-400 font-bold uppercase tracking-tighter"
                 animate={{ opacity: [1, 0.5, 1] }}
@@ -214,7 +215,7 @@ export const Hero: React.FC = () => {
           }}
           className="absolute left-1/2 -translate-x-1/2 top-0 w-64 md:w-80 h-80 md:h-96 bg-gradient-to-br from-zinc-800 to-black backdrop-blur-2xl border border-amber-500/30 rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between z-30 shadow-[0_0_50px_-12px_rgba(245,158,11,0.3)] cursor-pointer"
         >
-             <TrendingUp className="text-amber-500 w-10 h-10 mb-4" />
+             <FontAwesomeIcon icon={faChartLine} className="text-amber-500 w-10 h-10 mb-4" />
             <div>
                 <motion.div 
                   className="h-2 w-full bg-zinc-600 rounded-full mb-3"
@@ -261,7 +262,7 @@ export const Hero: React.FC = () => {
           }}
           className="absolute right-0 top-24 w-44 md:w-56 h-64 bg-zinc-900/80 backdrop-blur-xl border border-white/10 rounded-[2rem] p-6 md:p-8 flex flex-col justify-between shadow-2xl origin-bottom-left z-10 cursor-pointer"
         >
-             <Database className="text-blue-500 w-6 h-6" />
+             <FontAwesomeIcon icon={faDatabase} className="text-blue-500 w-6 h-6" />
             <div className="flex flex-col items-end">
                 <motion.div 
                   className="h-2 w-20 bg-zinc-700 rounded-full mb-3"
@@ -292,7 +293,7 @@ export const Hero: React.FC = () => {
             className="flex-1 max-w-[110px] h-40 bg-zinc-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-3 flex flex-col justify-between"
             whileTap={{ scale: 0.95 }}
           >
-            <Smartphone className="text-white w-4 h-4" />
+            <FontAwesomeIcon icon={faMobileScreen} className="text-white w-4 h-4" />
             <div>
               <div className="h-1 w-12 bg-zinc-700 rounded-full mb-1.5" />
               <div className="h-1 w-8 bg-zinc-800 rounded-full" />
@@ -308,7 +309,7 @@ export const Hero: React.FC = () => {
             className="flex-1 max-w-[130px] h-44 bg-gradient-to-br from-zinc-800 to-black border border-amber-500/30 rounded-2xl p-3 flex flex-col justify-between shadow-lg"
             whileTap={{ scale: 0.95 }}
           >
-            <TrendingUp className="text-amber-500 w-5 h-5" />
+            <FontAwesomeIcon icon={faChartLine} className="text-amber-500 w-5 h-5" />
             <div>
               <div className="h-1 w-full bg-zinc-600 rounded-full mb-1.5" />
               <div className="h-1 w-2/3 bg-zinc-700 rounded-full" />
@@ -324,7 +325,7 @@ export const Hero: React.FC = () => {
             className="flex-1 max-w-[110px] h-40 bg-zinc-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-3 flex flex-col justify-between"
             whileTap={{ scale: 0.95 }}
           >
-            <Database className="text-blue-500 w-4 h-4" />
+            <FontAwesomeIcon icon={faDatabase} className="text-blue-500 w-4 h-4" />
             <div className="flex flex-col items-end">
               <div className="h-1 w-12 bg-zinc-700 rounded-full mb-1.5" />
               <div className="h-1 w-8 bg-zinc-800 rounded-full" />
