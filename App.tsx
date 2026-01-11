@@ -5,6 +5,7 @@ import { Roles } from './components/Roles';
 import { Intelligence } from './components/Intelligence';
 import { Story } from './components/Story';
 import { OwnerTease } from './components/OwnerTease';
+import { PricingTiers } from './components/PricingTiers';
 import { Footer } from './components/Footer';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <BentoGrid />
         <Intelligence />
         <Roles />
+        <PricingTiers />
         <OwnerTease />
         <Story />
       </main>
