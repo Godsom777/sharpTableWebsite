@@ -54,24 +54,26 @@ const sizeClasses = {
   lg: { wrap: 'w-20 h-20 md:w-24 md:h-24', icon: 'w-7 h-7 md:w-8 md:h-8', badge: 'px-3.5 py-1.5 text-[11px]' }
 } as const;
 
+// Simplified palette: white/black + gold accent only
 const tintClasses = {
   amber: {
-    ring: 'from-amber-400/25 via-orange-500/15 to-transparent',
-    glow: 'bg-amber-500/18',
-    icon: 'text-amber-200',
-    badge: 'text-amber-100 border-amber-500/20 bg-amber-500/10'
+    ring: 'from-amber-400/20 via-amber-500/10 to-transparent',
+    glow: 'bg-amber-500/12',
+    icon: 'text-amber-300',
+    badge: 'text-amber-200 border-amber-500/25 bg-amber-500/10'
   },
+  // "purple" and "blue" now map to neutral white/gray for minimal color noise
   purple: {
-    ring: 'from-fuchsia-400/20 via-purple-500/16 to-transparent',
-    glow: 'bg-purple-500/16',
-    icon: 'text-fuchsia-200',
-    badge: 'text-fuchsia-100 border-purple-500/20 bg-purple-500/10'
+    ring: 'from-white/10 via-white/5 to-transparent',
+    glow: 'bg-white/8',
+    icon: 'text-white/80',
+    badge: 'text-white/70 border-white/15 bg-white/5'
   },
   blue: {
-    ring: 'from-sky-400/20 via-blue-500/14 to-transparent',
-    glow: 'bg-blue-500/16',
-    icon: 'text-sky-200',
-    badge: 'text-sky-100 border-blue-500/20 bg-blue-500/10'
+    ring: 'from-white/10 via-white/5 to-transparent',
+    glow: 'bg-white/8',
+    icon: 'text-white/80',
+    badge: 'text-white/70 border-white/15 bg-white/5'
   }
 } as const;
 
@@ -117,24 +119,28 @@ export const Hero: React.FC = () => {
     >
       {/* 3D + cinematic background */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(245,158,11,0.12)_0%,transparent_55%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(139,92,246,0.12)_0%,transparent_55%)]" />
+        {/* Top glow - gold accent */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(245,158,11,0.10)_0%,transparent_55%)]" />
+        {/* Bottom glow - subtle white */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(255,255,255,0.04)_0%,transparent_55%)]" />
         <motion.div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={disableHeavy ? undefined : { x: beamX, y: beamY, skewX: beamSkew }}
         >
-          <div className="absolute -top-56 left-[-18%] h-[160%] w-[60%] rotate-12 bg-gradient-to-b from-amber-500/18 via-amber-500/7 to-transparent blur-2xl" />
-          <div className="absolute -top-56 right-[-22%] h-[160%] w-[65%] -rotate-12 bg-gradient-to-b from-purple-500/18 via-blue-500/7 to-transparent blur-2xl" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.08)_0%,transparent_60%)]" />
+          {/* Gold beam */}
+          <div className="absolute -top-56 left-[-18%] h-[160%] w-[60%] rotate-12 bg-gradient-to-b from-amber-500/12 via-amber-500/4 to-transparent blur-2xl" />
+          {/* White beam */}
+          <div className="absolute -top-56 right-[-22%] h-[160%] w-[65%] -rotate-12 bg-gradient-to-b from-white/8 via-white/3 to-transparent blur-2xl" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.06)_0%,transparent_60%)]" />
         </motion.div>
 
-        {/* Lightweight "3D-ish" glow layer (no WebGL) for better scroll performance */}
+        {/* Lightweight glow spots - gold + white */}
         {!disableHeavy && (
           <div aria-hidden className="absolute inset-0 opacity-90">
-            <div className="absolute left-[8%] top-[18%] h-56 w-56 md:h-72 md:w-72 rounded-full bg-amber-500/15 blur-3xl" />
-            <div className="absolute right-[10%] top-[38%] h-64 w-64 md:h-80 md:w-80 rounded-full bg-purple-500/12 blur-3xl" />
-            <div className="absolute left-[42%] top-[10%] h-40 w-40 md:h-52 md:w-52 rounded-full bg-blue-400/10 blur-3xl" />
+            <div className="absolute left-[8%] top-[18%] h-56 w-56 md:h-72 md:w-72 rounded-full bg-amber-500/10 blur-3xl" />
+            <div className="absolute right-[10%] top-[38%] h-64 w-64 md:h-80 md:w-80 rounded-full bg-white/5 blur-3xl" />
+            <div className="absolute left-[42%] top-[10%] h-40 w-40 md:h-52 md:w-52 rounded-full bg-amber-400/8 blur-3xl" />
           </div>
         )}
 
@@ -146,14 +152,14 @@ export const Hero: React.FC = () => {
       {!disableHeavy && (
         <motion.div
           aria-hidden
-          className="pointer-events-none absolute inset-0 z-[1] opacity-55"
-          style={{ filter: 'blur(1.5px)' }}
+          className="pointer-events-none absolute inset-0 z-[1]"
         >
           <div className="absolute inset-0">
-            {FOOD_FLOATERS.map((f) => {
+            {FOOD_FLOATERS.map((f, idx) => {
               const s = sizeClasses[f.size];
               const t = tintClasses[f.tint];
-              const isBack = f.size === 'sm';
+              // First two large/medium stay in focus; others are blurred background
+              const inFocus = idx < 2;
 
               return (
                 <motion.div
@@ -162,8 +168,8 @@ export const Hero: React.FC = () => {
                   style={{
                     left: f.left,
                     top: f.top,
-                    opacity: isBack ? 0.35 : 0.55,
-                    filter: isBack ? 'blur(3px)' : 'blur(1.2px)'
+                    opacity: inFocus ? 0.9 : 0.45,
+                    filter: inFocus ? 'none' : 'blur(2.5px)'
                   }}
                   animate={{
                     y: [0, -f.drift, 0],
@@ -247,7 +253,7 @@ export const Hero: React.FC = () => {
             >
               Know
               <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-500 to-fuchsia-500">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500">
                 Grow your restaurant.
               </span>
             </motion.h1>
@@ -359,7 +365,7 @@ export const Hero: React.FC = () => {
                       <div className="mt-1 text-3xl font-extrabold text-white">+32%</div>
                       <div className="mt-2 h-2 rounded-full bg-white/10 overflow-hidden">
                         <motion.div
-                          className="h-2 bg-gradient-to-r from-amber-400 via-orange-500 to-fuchsia-500"
+                          className="h-2 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-300"
                           animate={shouldReduceMotion ? undefined : { width: ['0%', '72%'] }}
                           transition={{ duration: 1.2, ease: 'easeOut' }}
                         />
@@ -410,7 +416,7 @@ export const Hero: React.FC = () => {
             </Tilt>
 
             {/* Glow behind card */}
-            <div className="absolute -inset-6 -z-10 rounded-[3rem] bg-gradient-to-r from-amber-500/20 via-orange-500/10 to-purple-500/20 blur-2xl opacity-80" />
+            <div className="absolute -inset-6 -z-10 rounded-[3rem] bg-gradient-to-r from-amber-500/15 via-amber-400/8 to-amber-500/15 blur-2xl opacity-80" />
           </motion.div>
         </div>
       </div>
