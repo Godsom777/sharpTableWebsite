@@ -31,37 +31,35 @@ interface Feature {
   key: string;
   label: string;
   icon: IconDefinition;
-  starter: boolean | string;
   pro: boolean | string;
   enterprise: boolean | string;
 }
 
 const features: Feature[] = [
-  { key: 'qr_menu', label: 'QR Menu', icon: faQrcode, starter: true, pro: true, enterprise: true },
-  { key: 'self_ordering', label: 'Self Ordering', icon: faCartShopping, starter: true, pro: true, enterprise: true },
-  { key: 'marshall_dashboard', label: 'Marshall Dashboard', icon: faGauge, starter: false, pro: true, enterprise: true },
-  { key: 'chef_dashboard', label: 'Chef Dashboard', icon: faUtensils, starter: false, pro: true, enterprise: true },
-  { key: 'ai_waiter', label: 'AI Waiter', icon: faRobot, starter: false, pro: false, enterprise: true },
-  { key: 'digital_tab', label: 'Digital Tab', icon: faCreditCard, starter: false, pro: true, enterprise: true },
-  { key: 'daily_summary', label: 'Daily Summary', icon: faFileLines, starter: false, pro: true, enterprise: true },
-  { key: 'custom_receipts', label: 'Custom Receipts', icon: faReceipt, starter: false, pro: true, enterprise: true },
-  { key: 'super_admin', label: 'Super Admin', icon: faShield, starter: false, pro: false, enterprise: true },
-  { key: 'api_access', label: 'API Access', icon: faCode, starter: false, pro: false, enterprise: true },
+  { key: 'qr_menu', label: 'QR Menu', icon: faQrcode, pro: true, enterprise: true },
+  { key: 'self_ordering', label: 'Self Ordering', icon: faCartShopping, pro: true, enterprise: true },
+  { key: 'marshall_dashboard', label: 'Marshall Dashboard', icon: faGauge, pro: true, enterprise: true },
+  { key: 'chef_dashboard', label: 'Chef Dashboard', icon: faUtensils, pro: true, enterprise: true },
+  { key: 'ai_waiter', label: 'AI Waiter', icon: faRobot, pro: false, enterprise: true },
+  { key: 'digital_tab', label: 'Digital Tab', icon: faCreditCard, pro: true, enterprise: true },
+  { key: 'daily_summary', label: 'Daily Summary', icon: faFileLines, pro: true, enterprise: true },
+  { key: 'custom_receipts', label: 'Custom Receipts', icon: faReceipt, pro: true, enterprise: true },
+  { key: 'super_admin', label: 'Super Admin', icon: faShield, pro: false, enterprise: true },
+  { key: 'api_access', label: 'API Access', icon: faCode, pro: false, enterprise: true },
 ];
 
 interface Limit {
   key: string;
   label: string;
   icon: IconDefinition;
-  starter: string;
   pro: string;
   enterprise: string;
 }
 
 const limits: Limit[] = [
-  { key: 'max_tables', label: 'Max Tables', icon: faTableCells, starter: '10', pro: '30', enterprise: '∞' },
-  { key: 'max_staff', label: 'Max Staff', icon: faUsers, starter: '2', pro: '10', enterprise: '∞' },
-  { key: 'order_history_days', label: 'Order History', icon: faClock, starter: '7 days', pro: '30 days', enterprise: '∞' },
+  { key: 'max_tables', label: 'Max Tables', icon: faTableCells, pro: '30', enterprise: '∞' },
+  { key: 'max_staff', label: 'Max Staff', icon: faUsers, pro: '10', enterprise: '∞' },
+  { key: 'order_history_days', label: 'Order History', icon: faClock, pro: '30 days', enterprise: '∞' },
 ];
 
 interface TierCardProps {
@@ -70,18 +68,18 @@ interface TierCardProps {
   description: string;
   price: string;
   period: string;
-  tierKey: 'starter' | 'pro' | 'enterprise';
+  tierKey: 'pro' | 'enterprise';
   popular?: boolean;
   accentColor: string;
   delay: number;
 }
 
 // Memoized Feature Row for performance
-const FeatureRow = memo<{ feature: Feature; tierKey: 'starter' | 'pro' | 'enterprise'; delay: number; idx: number }>(
+const FeatureRow = memo<{ feature: Feature; tierKey: 'pro' | 'enterprise'; delay: number; idx: number }>(
   ({ feature, tierKey, delay, idx }) => {
     const value = feature[tierKey];
     const isIncluded = value === true;
-    
+
     return (
       <motion.div
         initial={{ opacity: 0, x: -10 }}
@@ -103,11 +101,11 @@ const FeatureRow = memo<{ feature: Feature; tierKey: 'starter' | 'pro' | 'enterp
 );
 
 // Memoized Limit Row for performance
-const LimitRow = memo<{ limit: Limit; tierKey: 'starter' | 'pro' | 'enterprise'; delay: number; idx: number }>(
+const LimitRow = memo<{ limit: Limit; tierKey: 'pro' | 'enterprise'; delay: number; idx: number }>(
   ({ limit, tierKey, delay, idx }) => {
     const value = limit[tierKey];
     const isInfinite = value === '∞';
-    
+
     return (
       <motion.div
         initial={{ opacity: 0, x: -10 }}
@@ -234,16 +232,6 @@ export const PricingTiers: React.FC = () => {
   // Memoize tier configurations to prevent recreation
   const tierConfigs = useMemo(() => [
     {
-      name: "Starter",
-      icon: faRocket,
-      description: "Perfect for small cafes",
-      price: "Contact Us",
-      period: "",
-      tierKey: "starter" as const,
-      accentColor: "from-blue-500 to-cyan-500",
-      delay: 0
-    },
-    {
       name: "Pro",
       icon: faCrown,
       description: "For growing restaurants",
@@ -252,7 +240,7 @@ export const PricingTiers: React.FC = () => {
       tierKey: "pro" as const,
       popular: true,
       accentColor: "from-amber-500 to-orange-500",
-      delay: 0.1
+      delay: 0
     },
     {
       name: "Enterprise",
@@ -262,7 +250,7 @@ export const PricingTiers: React.FC = () => {
       period: "",
       tierKey: "enterprise" as const,
       accentColor: "from-purple-500 to-pink-500",
-      delay: 0.2
+      delay: 0.1
     }
   ], []);
 
@@ -310,7 +298,7 @@ export const PricingTiers: React.FC = () => {
         </motion.div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
           {tierConfigs.map((config) => (
             <TierCard key={config.tierKey} {...config} />
           ))}
