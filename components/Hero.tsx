@@ -1,14 +1,90 @@
 import React, { useState, useEffect } from 'react';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import Tilt from 'react-parallax-tilt';
+import { motion, useMotionValue, useTransform, useReducedMotion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight, faDatabase, faMobileScreen, faChartLine, faStar } from '@fortawesome/free-solid-svg-icons';
+import {
+  faChevronRight,
+  faDatabase,
+  faMobileScreen,
+  faChartLine,
+  faStar,
+  faUtensils,
+  faMugHot,
+  faBurger,
+  faFish,
+  faWineGlass,
+  faBowlRice,
+  faQrcode,
+  faKitchenSet,
+  faPizzaSlice,
+  faCoffee,
+  faIceCream,
+  faPlateWheat,
+  faSpoon,
+  faBolt,
+  faCircleCheck
+} from '@fortawesome/free-solid-svg-icons';
+
+// “Fake 3D” floating food chips (no WebGL): light DOM, GPU-friendly transforms only.
+const FOOD_FLOATERS: Array<{
+  icon: any;
+  label: string;
+  left: string;
+  top: string;
+  size: 'sm' | 'md' | 'lg';
+  tint: 'amber' | 'purple' | 'blue';
+  drift: number;
+  sway: number;
+  spin: number;
+  delay: number;
+}> = [
+  { icon: faBurger, label: 'Burger', left: '6%', top: '18%', size: 'lg', tint: 'amber', drift: 14, sway: 10, spin: 6, delay: 0 },
+  { icon: faFish, label: 'Fish', left: '14%', top: '62%', size: 'md', tint: 'blue', drift: 10, sway: 8, spin: -8, delay: 0.15 },
+  { icon: faMugHot, label: 'Coffee', left: '34%', top: '26%', size: 'sm', tint: 'purple', drift: 9, sway: 6, spin: 10, delay: 0.2 },
+  { icon: faPizzaSlice, label: 'Pizza', left: '44%', top: '70%', size: 'md', tint: 'amber', drift: 12, sway: 7, spin: -10, delay: 0.35 },
+  { icon: faBowlRice, label: 'Rice bowl', left: '72%', top: '22%', size: 'md', tint: 'blue', drift: 11, sway: 9, spin: 7, delay: 0.25 },
+  { icon: faWineGlass, label: 'Drink', left: '86%', top: '54%', size: 'lg', tint: 'purple', drift: 15, sway: 11, spin: -6, delay: 0.1 },
+  { icon: faIceCream, label: 'Dessert', left: '63%', top: '78%', size: 'sm', tint: 'amber', drift: 8, sway: 6, spin: 12, delay: 0.42 },
+  { icon: faQrcode, label: 'QR', left: '22%', top: '40%', size: 'sm', tint: 'purple', drift: 10, sway: 7, spin: -12, delay: 0.3 }
+];
+
+const sizeClasses = {
+  sm: { wrap: 'w-12 h-12 md:w-14 md:h-14', icon: 'w-5 h-5 md:w-6 md:h-6', badge: 'px-2.5 py-1 text-[10px]' },
+  md: { wrap: 'w-16 h-16 md:w-20 md:h-20', icon: 'w-6 h-6 md:w-7 md:h-7', badge: 'px-3 py-1 text-[10px]' },
+  lg: { wrap: 'w-20 h-20 md:w-24 md:h-24', icon: 'w-7 h-7 md:w-8 md:h-8', badge: 'px-3.5 py-1.5 text-[11px]' }
+} as const;
+
+const tintClasses = {
+  amber: {
+    ring: 'from-amber-400/25 via-orange-500/15 to-transparent',
+    glow: 'bg-amber-500/18',
+    icon: 'text-amber-200',
+    badge: 'text-amber-100 border-amber-500/20 bg-amber-500/10'
+  },
+  purple: {
+    ring: 'from-fuchsia-400/20 via-purple-500/16 to-transparent',
+    glow: 'bg-purple-500/16',
+    icon: 'text-fuchsia-200',
+    badge: 'text-fuchsia-100 border-purple-500/20 bg-purple-500/10'
+  },
+  blue: {
+    ring: 'from-sky-400/20 via-blue-500/14 to-transparent',
+    glow: 'bg-blue-500/16',
+    icon: 'text-sky-200',
+    badge: 'text-sky-100 border-blue-500/20 bg-blue-500/10'
+  }
+} as const;
 
 export const Hero: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
+
+  const disableHeavy = !!shouldReduceMotion;
 
   // Mouse tracking
   useEffect(() => {
+    if (disableHeavy) return;
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
         x: (e.clientX / window.innerWidth - 0.5) * 2,
@@ -18,325 +94,326 @@ export const Hero: React.FC = () => {
 
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [disableHeavy]);
+
+  const parallaxX = useMotionValue(0);
+  const parallaxY = useMotionValue(0);
+
+  useEffect(() => {
+    if (disableHeavy) return;
+    parallaxX.set(mousePosition.x);
+    parallaxY.set(mousePosition.y);
+  }, [disableHeavy, mousePosition.x, mousePosition.y, parallaxX, parallaxY]);
+
+  const beamSkew = useTransform(parallaxX, [-1, 1], [-10, 10]);
+  const beamX = useTransform(parallaxX, [-1, 1], [-70, 70]);
+  const beamY = useTransform(parallaxY, [-1, 1], [-40, 40]);
 
   return (
-    <section 
-      className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 pt-20 overflow-hidden"
+    <section
+      className="relative min-h-[92vh] md:min-h-screen overflow-hidden bg-black"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      {/* Interactive Background with Mouse Parallax */}
-      <motion.div 
-        className="absolute inset-0 z-0"
-        animate={{
-          x: mousePosition.x * 20,
-          y: mousePosition.y * 20
-        }}
-        transition={{ type: "spring", stiffness: 50, damping: 20 }}
-      >
-        <motion.div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-amber-900/10 rounded-full blur-[120px]"
-          animate={{ 
-            opacity: isHovering ? 0.3 : 0.2,
-            scale: isHovering ? 1.1 : 1
-          }}
-          transition={{ duration: 0.6 }}
-        />
-        {/* Additional interactive orbs */}
-        <motion.div 
-          className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-blue-900/10 rounded-full blur-[100px]"
-          animate={{ 
-            x: mousePosition.x * -30,
-            y: mousePosition.y * -30,
-            opacity: isHovering ? 0.25 : 0.15
-          }}
-          transition={{ type: "spring", stiffness: 40, damping: 20 }}
-        />
-        <motion.div 
-          className="absolute bottom-1/4 left-1/4 w-[300px] h-[300px] bg-purple-900/10 rounded-full blur-[80px]"
-          animate={{ 
-            x: mousePosition.x * 40,
-            y: mousePosition.y * 40,
-            opacity: isHovering ? 0.2 : 0.1
-          }}
-          transition={{ type: "spring", stiffness: 30, damping: 20 }}
-        />
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="z-10 max-w-5xl mx-auto"
-      >
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/20 bg-amber-500/5 text-amber-400 text-xs font-bold mb-8 backdrop-blur-sm uppercase tracking-widest"
-        >
-          <FontAwesomeIcon icon={faStar} className="w-3 h-3" /> Turn receipts into repeat visits
-        </motion.div>
-        
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-white mb-8 leading-[1.05]">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="inline-block"
-          >
-            Know your guests.
-          </motion.span>
-          <br />
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 inline-block"
-          >
-            Grow your restaurant.
-          </motion.span>
-        </h1>
-        
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-          className="text-lg md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-12"
-        >
-          POS shows you <span className="text-white italic">what</span> sold. SharpTable shows you <span className="text-amber-500 font-semibold">who</span> bought it, what they love, and what keeps them coming back. So you can personalize service and get more <span className="text-amber-500 font-semibold">repeat visits</span>.
-        </motion.p>
-
+      {/* 3D + cinematic background */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(245,158,11,0.12)_0%,transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(139,92,246,0.12)_0%,transparent_55%)]" />
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.6 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-5"
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={disableHeavy ? undefined : { x: beamX, y: beamY, skewX: beamSkew }}
         >
-          <motion.button 
-            onClick={() => window.location.href = "mailto:sharptable.ng@gmail.com"}
-            className="group px-10 py-5 bg-white text-black rounded-full font-bold text-xl hover:bg-zinc-200 transition-all flex items-center gap-2 shadow-xl shadow-white/5"
-            whileHover={{ 
-              scale: 1.05, 
-              boxShadow: "0 20px 60px rgba(255,255,255,0.15)",
-              y: -5
-            }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Book a Demo <FontAwesomeIcon icon={faChevronRight} className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </motion.button>
-          <motion.button 
-            onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-10 py-5 bg-white/5 text-white border border-white/10 rounded-full font-semibold text-xl hover:bg-white/10 transition-all backdrop-blur-md"
-            whileHover={{ 
-              scale: 1.05,
-              borderColor: "rgba(255,255,255,0.3)",
-              y: -5
-            }}
-            whileTap={{ scale: 0.95 }}
-          >
-            See how it works
-          </motion.button>
-        </motion.div>
-      </motion.div>
-
-      {/* Floating UI Elements as Abstract Representation with Mouse Interactivity */}
-      <motion.div 
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 1 }}
-        className="mt-16 relative w-full max-w-7xl h-[280px] md:h-[500px] perspective-1000 mx-auto hidden md:block"
-      >
-        {/* Abstract Card 1: Guest (Left) */}
-        <motion.div 
-          animate={{ 
-            y: [0, -15, 0], 
-            rotate: [-6, -4, -6],
-            x: mousePosition.x * -15
-          }}
-          transition={{ 
-            y: { repeat: Infinity, duration: 6, ease: "easeInOut" },
-            rotate: { repeat: Infinity, duration: 6, ease: "easeInOut" },
-            x: { type: "spring", stiffness: 50, damping: 20 }
-          }}
-          whileHover={{ 
-            scale: 1.05, 
-            rotate: 0,
-            boxShadow: "0 25px 50px rgba(0,0,0,0.5)",
-            zIndex: 50
-          }}
-          className="absolute left-0 top-20 w-44 md:w-56 h-64 bg-zinc-900/80 backdrop-blur-xl border border-white/10 rounded-[2rem] p-6 md:p-8 flex flex-col justify-between shadow-2xl origin-bottom-right z-10 cursor-pointer"
-        >
-            <div className="flex justify-between items-start">
-              <FontAwesomeIcon icon={faMobileScreen} className="text-white w-6 h-6" />
-              <motion.div 
-                className="px-2 py-1 rounded bg-zinc-800 text-[10px] text-zinc-400 font-bold uppercase tracking-tighter"
-                animate={{ opacity: [1, 0.5, 1] }}
-                transition={{ repeat: Infinity, duration: 2 }}
-              >
-                Live
-              </motion.div>
-            </div>
-            <div>
-                <motion.div 
-                  className="h-2 w-20 bg-zinc-700 rounded-full mb-3"
-                  whileHover={{ width: "100%", backgroundColor: "#10b981" }}
-                />
-                <motion.div 
-                  className="h-2 w-12 bg-zinc-800 rounded-full"
-                  whileHover={{ width: "80%", backgroundColor: "#3b82f6" }}
-                />
-            </div>
-            <div className="text-xs text-zinc-500 leading-tight">
-                Guest Identity<br/>
-                <span className="text-white font-medium text-sm">Decoded</span>
-            </div>
+          <div className="absolute -top-56 left-[-18%] h-[160%] w-[60%] rotate-12 bg-gradient-to-b from-amber-500/18 via-amber-500/7 to-transparent blur-2xl" />
+          <div className="absolute -top-56 right-[-22%] h-[160%] w-[65%] -rotate-12 bg-gradient-to-b from-purple-500/18 via-blue-500/7 to-transparent blur-2xl" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.08)_0%,transparent_60%)]" />
         </motion.div>
 
-        {/* Abstract Card 2: Centerpiece / Advantage (Center) - UPDATED TO +32% */}
-        <motion.div 
-          animate={{ 
-            y: [0, 20, 0], 
-            scale: [1, 1.02, 1],
-            rotateY: mousePosition.x * 5
-          }}
-          transition={{ 
-            y: { repeat: Infinity, duration: 7, ease: "easeInOut", delay: 1 },
-            scale: { repeat: Infinity, duration: 7, ease: "easeInOut", delay: 1 },
-            rotateY: { type: "spring", stiffness: 50, damping: 20 }
-          }}
-          whileHover={{ 
-            scale: 1.08, 
-            y: -10,
-            boxShadow: "0 40px 80px rgba(245,158,11,0.4)",
-            borderColor: "rgba(245,158,11,0.6)",
-            zIndex: 100
-          }}
-          className="absolute left-1/2 -translate-x-1/2 top-0 w-64 md:w-80 h-80 md:h-96 bg-gradient-to-br from-zinc-800 to-black backdrop-blur-2xl border border-amber-500/30 rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between z-30 shadow-[0_0_50px_-12px_rgba(245,158,11,0.3)] cursor-pointer"
+        {/* Lightweight "3D-ish" glow layer (no WebGL) for better scroll performance */}
+        {!disableHeavy && (
+          <div aria-hidden className="absolute inset-0 opacity-90">
+            <div className="absolute left-[8%] top-[18%] h-56 w-56 md:h-72 md:w-72 rounded-full bg-amber-500/15 blur-3xl" />
+            <div className="absolute right-[10%] top-[38%] h-64 w-64 md:h-80 md:w-80 rounded-full bg-purple-500/12 blur-3xl" />
+            <div className="absolute left-[42%] top-[10%] h-40 w-40 md:h-52 md:w-52 rounded-full bg-blue-400/10 blur-3xl" />
+          </div>
+        )}
+
+        {/* subtle grid/noise overlay */}
+        <div className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(to_right,rgba(255,255,255,0.35)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.35)_1px,transparent_1px)] bg-[size:60px_60px]" />
+      </div>
+
+      {/* Floating "3D" food field (no WebGL, no heavy blur icons) */}
+      {!disableHeavy && (
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-[1] opacity-70"
+          style={{ filter: 'blur(1.5px)' }}
         >
-             <FontAwesomeIcon icon={faChartLine} className="text-amber-500 w-10 h-10 mb-4" />
-            <div>
-                <motion.div 
-                  className="h-2 w-full bg-zinc-600 rounded-full mb-3"
-                  whileHover={{ backgroundColor: "#f59e0b", height: "12px" }}
-                  transition={{ duration: 0.3 }}
-                />
-                <motion.div 
-                  className="h-2 w-2/3 bg-zinc-700 rounded-full"
-                  whileHover={{ width: "90%", backgroundColor: "#f59e0b" }}
-                />
-                <motion.div 
-                  className="h-2 w-1/2 bg-zinc-800 rounded-full mt-3"
-                  whileHover={{ width: "75%", backgroundColor: "#f59e0b" }}
-                />
-            </div>
-            <div className="text-xs text-zinc-400">
-                Revenue Growth<br/>
-                <motion.span 
-                  className="text-amber-500 font-bold text-lg md:text-2xl"
-                  whileHover={{ scale: 1.1, color: "#fbbf24" }}
+          <div className="absolute inset-0">
+            {FOOD_FLOATERS.map((f) => {
+              const s = sizeClasses[f.size];
+              const t = tintClasses[f.tint];
+              const isBack = f.size === 'sm';
+
+              return (
+                <motion.div
+                  key={f.label}
+                  className="absolute"
+                  style={{
+                    left: f.left,
+                    top: f.top,
+                    opacity: isBack ? 0.45 : 0.7,
+                    filter: isBack ? 'blur(3px)' : 'blur(1.2px)'
+                  }}
+                  animate={{
+                    y: [0, -f.drift, 0],
+                    x: [0, f.sway, 0],
+                    rotate: [0, f.spin, 0]
+                  }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 12 + Math.abs(f.spin) * 0.35,
+                    ease: 'easeInOut',
+                    delay: f.delay
+                  }}
                 >
-                  +32% Optimization
-                </motion.span>
-            </div>
+                  <div
+                    className={
+                      'relative grid place-items-center rounded-3xl border border-white/10 bg-white/5 backdrop-blur ' +
+                      s.wrap +
+                      ' shadow-[0_24px_80px_rgba(0,0,0,0.45)]'
+                    }
+                  >
+                    {/* outer ring */}
+                    <div
+                      className={
+                        'absolute -inset-3 rounded-[2.25rem] bg-gradient-to-br ' +
+                        t.ring +
+                        ' blur-xl opacity-60'
+                      }
+                    />
+                    {/* inner glow */}
+                    <div className={'absolute inset-0 rounded-3xl ' + t.glow + ' blur-2xl opacity-60'} />
+
+                    {/* highlight */}
+                    <div className="absolute left-2 top-2 h-1/2 w-1/2 rounded-3xl bg-white/10 blur-xl opacity-60" />
+
+                    <div className="relative grid place-items-center">
+                      <FontAwesomeIcon icon={f.icon} className={s.icon + ' ' + t.icon} />
+                    </div>
+
+                    {/* label chip (keep, but dim) */}
+                    <div
+                      className={
+                        'absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border backdrop-blur opacity-70 ' +
+                        t.badge +
+                        ' ' +
+                        s.badge
+                      }
+                    >
+                      {f.label}
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
         </motion.div>
+      )}
 
-        {/* Abstract Card 3: Data (Right) */}
-        <motion.div 
-          animate={{ 
-            y: [0, -18, 0], 
-            rotate: [6, 4, 6],
-            x: mousePosition.x * 15
-          }}
-          transition={{ 
-            y: { repeat: Infinity, duration: 8, ease: "easeInOut", delay: 2 },
-            rotate: { repeat: Infinity, duration: 8, ease: "easeInOut", delay: 2 },
-            x: { type: "spring", stiffness: 50, damping: 20 }
-          }}
-          whileHover={{ 
-            scale: 1.05, 
-            rotate: 0,
-            boxShadow: "0 25px 50px rgba(59,130,246,0.3)",
-            zIndex: 50
-          }}
-          className="absolute right-0 top-24 w-44 md:w-56 h-64 bg-zinc-900/80 backdrop-blur-xl border border-white/10 rounded-[2rem] p-6 md:p-8 flex flex-col justify-between shadow-2xl origin-bottom-left z-10 cursor-pointer"
-        >
-             <FontAwesomeIcon icon={faDatabase} className="text-blue-500 w-6 h-6" />
-            <div className="flex flex-col items-end">
-                <motion.div 
-                  className="h-2 w-20 bg-zinc-700 rounded-full mb-3"
-                  whileHover={{ width: "100%", backgroundColor: "#3b82f6" }}
-                />
-                <motion.div 
-                  className="h-2 w-12 bg-zinc-800 rounded-full"
-                  whileHover={{ width: "80%", backgroundColor: "#60a5fa" }}
-                />
-            </div>
-            <div className="text-xs text-zinc-500 leading-tight text-right">
-                Lifetime Value<br/>
-                <span className="text-blue-400 font-medium text-sm">Auto-Tracked</span>
-            </div>
-        </motion.div>
-      </motion.div>
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-28 pb-16 md:pt-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left: headline */}
+          <div className="text-left">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2 rounded-full border border-amber-500/25 bg-amber-500/10 px-4 py-2 text-amber-300 text-xs font-bold uppercase tracking-widest backdrop-blur"
+            >
+              <FontAwesomeIcon icon={faStar} className="w-3.5 h-3.5" />
+              Turn receipts into repeat visits
+              <span className="ml-1 inline-flex items-center gap-1 rounded-full bg-black/30 border border-white/10 px-2 py-1 text-white/80">
+                <FontAwesomeIcon icon={faBolt} className="w-3 h-3 text-amber-300" /> Real-time
+              </span>
+            </motion.div>
 
-      {/* Mobile Cards - Simplified horizontal layout */}
-      <motion.div 
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 0.8 }}
-        className="mt-12 w-full px-4 md:hidden"
-      >
-        <div className="flex justify-center gap-2">
-          {/* Mobile Card 1 */}
-          <motion.div 
-            className="flex-1 max-w-[110px] h-40 bg-zinc-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-3 flex flex-col justify-between"
-            whileTap={{ scale: 0.95 }}
+            <motion.h1
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.05 }}
+              className="mt-6 text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter leading-[0.95] text-white"
+            >
+              Know
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-500 to-fuchsia-500">
+                Grow your restaurant.
+              </span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.12 }}
+              className="mt-6 text-lg md:text-2xl text-gray-300/80 max-w-xl leading-relaxed"
+            >
+              POS tells you what sold. SharpTable tells you who bought it, what they like, and who is ready to come back.
+              <span className="text-white font-semibold"> Personalize service.</span> Get more <span className="text-amber-300 font-semibold">repeat visits</span>.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.18 }}
+              className="mt-10 flex flex-col sm:flex-row gap-4"
+            >
+              <motion.button
+                onClick={() => (window.location.href = 'mailto:sharptable.ng@gmail.com')}
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="group inline-flex items-center justify-center gap-2 rounded-2xl bg-white text-black px-8 py-5 font-extrabold text-lg shadow-[0_25px_80px_rgba(255,255,255,0.12)] hover:bg-zinc-200 transition"
+              >
+                Book a Demo
+                <FontAwesomeIcon icon={faChevronRight} className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </motion.button>
+
+              <motion.button
+                onClick={() => {
+                  const el = document.getElementById('features');
+                  el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }}
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white/5 text-white border border-white/15 px-8 py-5 font-bold text-lg backdrop-blur hover:bg-white/10 transition"
+              >
+                See how it works
+                <FontAwesomeIcon icon={faQrcode} className="w-5 h-5 text-amber-300" />
+              </motion.button>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.24 }}
+              className="mt-8 grid grid-cols-2 gap-4 max-w-xl"
+            >
+              {
+                [
+                  { icon: faCircleCheck, title: 'QR ordering', desc: 'Faster tables, happier guests' },
+                  { icon: faCircleCheck, title: 'Guest profiles', desc: 'Know regulars instantly' },
+                  { icon: faCircleCheck, title: 'Digital tab', desc: 'Smooth payments' },
+                  { icon: faCircleCheck, title: 'Analytics', desc: 'See what drives sales' },
+                ].map((f) => (
+                  <div key={f.title} className="rounded-2xl border border-white/10 bg-black/30 backdrop-blur p-4">
+                    <div className="flex items-center gap-2 text-white font-bold">
+                      <FontAwesomeIcon icon={f.icon} className="w-4 h-4 text-amber-300" />
+                      {f.title}
+                    </div>
+                    <div className="mt-1 text-sm text-gray-400">{f.desc}</div>
+                  </div>
+                ))}
+            </motion.div>
+          </div>
+
+          {/* Right: product mock */}
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="relative"
           >
-            <FontAwesomeIcon icon={faMobileScreen} className="text-white w-4 h-4" />
-            <div>
-              <div className="h-1 w-12 bg-zinc-700 rounded-full mb-1.5" />
-              <div className="h-1 w-8 bg-zinc-800 rounded-full" />
-            </div>
-            <div className="text-[9px] text-zinc-500 leading-tight">
-              Guest Identity<br/>
-              <span className="text-white font-medium text-[10px]">Decoded</span>
-            </div>
-          </motion.div>
+            <Tilt
+              glareEnable
+              glareMaxOpacity={0.25}
+              glareColor="#ffffff"
+              glarePosition="all"
+              scale={1.03}
+              tiltMaxAngleX={10}
+              tiltMaxAngleY={10}
+              className="rounded-[2.5rem]"
+            >
+              <div className="relative overflow-hidden rounded-[2.5rem] border border-white/15 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl shadow-[0_50px_120px_rgba(0,0,0,0.55)]">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(245,158,11,0.25),transparent_55%)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_0%,rgba(139,92,246,0.22),transparent_50%)]" />
 
-          {/* Mobile Card 2 - Center */}
-          <motion.div 
-            className="flex-1 max-w-[130px] h-44 bg-gradient-to-br from-zinc-800 to-black border border-amber-500/30 rounded-2xl p-3 flex flex-col justify-between shadow-lg"
-            whileTap={{ scale: 0.95 }}
-          >
-            <FontAwesomeIcon icon={faChartLine} className="text-amber-500 w-5 h-5" />
-            <div>
-              <div className="h-1 w-full bg-zinc-600 rounded-full mb-1.5" />
-              <div className="h-1 w-2/3 bg-zinc-700 rounded-full" />
-            </div>
-            <div className="text-[9px] text-zinc-400">
-              Revenue Growth<br/>
-              <span className="text-amber-500 font-bold text-[11px]">+32% Optimization</span>
-            </div>
-          </motion.div>
+                <div className="p-6 md:p-8 relative">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="h-11 w-11 rounded-2xl bg-white/10 border border-white/15 flex items-center justify-center">
+                        <FontAwesomeIcon icon={faQrcode} className="w-5 h-5 text-amber-300" />
+                      </div>
+                      <div>
+                        <div className="text-white font-extrabold">Live table view</div>
+                        <div className="text-xs text-gray-400">QR orders + receipts</div>
+                      </div>
+                    </div>
+                    <div className="text-xs text-amber-200 font-bold bg-amber-500/15 border border-amber-500/25 px-3 py-1.5 rounded-full">
+                      LIVE
+                    </div>
+                  </div>
 
-          {/* Mobile Card 3 */}
-          <motion.div 
-            className="flex-1 max-w-[110px] h-40 bg-zinc-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-3 flex flex-col justify-between"
-            whileTap={{ scale: 0.95 }}
-          >
-            <FontAwesomeIcon icon={faDatabase} className="text-blue-500 w-4 h-4" />
-            <div className="flex flex-col items-end">
-              <div className="h-1 w-12 bg-zinc-700 rounded-full mb-1.5" />
-              <div className="h-1 w-8 bg-zinc-800 rounded-full" />
-            </div>
-            <div className="text-[9px] text-zinc-500 leading-tight text-right">
-              Lifetime Value<br/>
-              <span className="text-blue-400 font-medium text-[10px]">Auto-Tracked</span>
-            </div>
+                  <div className="mt-6 grid grid-cols-2 gap-4">
+                    <div className="rounded-2xl bg-black/30 border border-white/10 p-4">
+                      <div className="text-xs text-gray-400">Repeat guests</div>
+                      <div className="mt-1 text-3xl font-extrabold text-white">+32%</div>
+                      <div className="mt-2 h-2 rounded-full bg-white/10 overflow-hidden">
+                        <motion.div
+                          className="h-2 bg-gradient-to-r from-amber-400 via-orange-500 to-fuchsia-500"
+                          animate={shouldReduceMotion ? undefined : { width: ['0%', '72%'] }}
+                          transition={{ duration: 1.2, ease: 'easeOut' }}
+                        />
+                      </div>
+                    </div>
+                    <div className="rounded-2xl bg-black/30 border border-white/10 p-4">
+                      <div className="text-xs text-gray-400">Avg order</div>
+                      <div className="mt-1 text-3xl font-extrabold text-white">₦8.4k</div>
+                      <div className="mt-2 flex items-center gap-2 text-xs text-gray-400">
+                        <FontAwesomeIcon icon={faChartLine} className="w-4 h-4 text-blue-300" />
+                        trending up
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 rounded-2xl bg-black/30 border border-white/10 p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="text-white font-bold">Top items</div>
+                      <div className="text-xs text-gray-400">Today</div>
+                    </div>
+                    <div className="mt-3 space-y-3">
+                      {[
+                        { icon: faBurger, label: 'Burger', value: '142' },
+                        { icon: faFish, label: 'Fish', value: '118' },
+                        { icon: faMugHot, label: 'Coffee', value: '97' }
+                      ].map((row) => (
+                        <div key={row.label} className="flex items-center justify-between">
+                          <div className="flex items-center gap-2 text-gray-200">
+                            <FontAwesomeIcon icon={row.icon} className="w-4 h-4 text-amber-200" />
+                            <span className="text-sm">{row.label}</span>
+                          </div>
+                          <div className="text-sm font-bold text-white">{row.value}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-4 grid grid-cols-3 gap-3">
+                    {[{ icon: faMobileScreen, label: 'QR Menu' }, { icon: faDatabase, label: 'Profiles' }, { icon: faChartLine, label: 'Insights' }].map((x) => (
+                      <div key={x.label} className="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
+                        <FontAwesomeIcon icon={x.icon} className="w-4 h-4 text-white" />
+                        <div className="mt-2 text-[11px] text-gray-400">{x.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </Tilt>
+
+            {/* Glow behind card */}
+            <div className="absolute -inset-6 -z-10 rounded-[3rem] bg-gradient-to-r from-amber-500/20 via-orange-500/10 to-purple-500/20 blur-2xl opacity-80" />
           </motion.div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };

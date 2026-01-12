@@ -61,7 +61,7 @@ export const Intelligence: React.FC = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 }}
-                  className="h-[300px] w-full"
+                  className="h-[300px] w-full min-h-[300px]"
                 >
                     <ResponsiveContainer width="100%" height="100%">
                         <AreaChart data={visitData}>
@@ -106,7 +106,7 @@ export const Intelligence: React.FC = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.5 }}
-                  className="h-[300px] w-full"
+                  className="h-[300px] w-full min-h-[300px]"
                 >
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={itemData} layout="vertical">
