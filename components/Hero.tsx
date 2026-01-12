@@ -239,7 +239,7 @@ export const Hero: React.FC = () => {
               className="inline-flex items-center gap-2 rounded-full border border-amber-500/25 bg-amber-500/10 px-4 py-2 text-amber-300 text-xs font-bold uppercase tracking-widest backdrop-blur"
             >
               <FontAwesomeIcon icon={faStar} className="w-3.5 h-3.5" />
-              Turn receipts into repeat visits
+              Digital restaurant management
               <span className="ml-1 inline-flex items-center gap-1 rounded-full bg-black/30 border border-white/10 px-2 py-1 text-white/80">
                 <FontAwesomeIcon icon={faBolt} className="w-3 h-3 text-amber-300" /> Real-time
               </span>
@@ -251,10 +251,10 @@ export const Hero: React.FC = () => {
               transition={{ duration: 0.7, delay: 0.05 }}
               className="mt-6 text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter leading-[0.95] text-white"
             >
-              Know
+              Know. Grow.
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500">
-                Grow your restaurant.
+                Organize your restaurant.
               </span>
             </motion.h1>
 
@@ -264,8 +264,8 @@ export const Hero: React.FC = () => {
               transition={{ duration: 0.7, delay: 0.12 }}
               className="mt-6 text-lg md:text-2xl text-gray-300/80 max-w-xl leading-relaxed"
             >
-              POS tells you what sold. SharpTable tells you who bought it, what they like, and who is ready to come back.
-              <span className="text-white font-semibold"> Personalize service.</span> Get more <span className="text-amber-300 font-semibold">repeat visits</span>.
+              QR ordering, real-time kitchen tickets, and payment-first workflows so nothing slips through.
+              <span className="text-white font-semibold"> Guests order from their phones.</span> Staff stays in sync. <span className="text-amber-300 font-semibold">You stay in control.</span>
             </motion.p>
 
             <motion.div
@@ -306,10 +306,10 @@ export const Hero: React.FC = () => {
             >
               {
                 [
-                  { icon: faCircleCheck, title: 'QR ordering', desc: 'Faster tables, happier guests' },
-                  { icon: faCircleCheck, title: 'Guest profiles', desc: 'Know regulars instantly' },
-                  { icon: faCircleCheck, title: 'Digital tab', desc: 'Smooth payments' },
-                  { icon: faCircleCheck, title: 'Analytics', desc: 'See what drives sales' },
+                  { icon: faCircleCheck, title: 'QR ordering', desc: 'Guests scan and order from their phones' },
+                  { icon: faCircleCheck, title: 'Kitchen sync', desc: 'Tickets flow straight to chefs in real time' },
+                  { icon: faCircleCheck, title: 'Payment first', desc: 'No food prep until payment is verified' },
+                  { icon: faCircleCheck, title: 'Split bills', desc: 'Guests pay together or separately' },
                 ].map((f) => (
                   <div key={f.title} className="rounded-2xl border border-white/10 bg-black/30 backdrop-blur p-4">
                     <div className="flex items-center gap-2 text-white font-bold">
