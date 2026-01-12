@@ -81,6 +81,7 @@ interface TierCardProps {
   popular?: boolean;
   accentColor: string;
   delay: number;
+  priceNote?: React.ReactNode;
 }
 
 // Memoized Feature Row for performance
@@ -146,7 +147,8 @@ const TierCard = memo<TierCardProps>(({
   tierKey, 
   popular, 
   accentColor,
-  delay 
+  delay,
+  priceNote
 }) => {
   return (
     <motion.div
@@ -189,6 +191,11 @@ const TierCard = memo<TierCardProps>(({
               <span className="text-4xl font-bold text-white">{price}</span>
               <span className="text-gray-500">{period}</span>
             </div>
+            {priceNote && (
+              <div className="mt-3 rounded-2xl border border-white/10 bg-white/5 p-4">
+                {priceNote}
+              </div>
+            )}
           </div>
 
           {/* Features List */}
@@ -239,29 +246,46 @@ const TierCard = memo<TierCardProps>(({
 
 export const PricingTiers: React.FC = () => {
   // Memoize tier configurations to prevent recreation
-  const tierConfigs = useMemo(() => [
-    {
-      name: "Pro",
-      icon: faCrown,
-      description: "For growing restaurants",
-      price: "Contact Us",
-      period: "",
-      tierKey: "pro" as const,
-      popular: true,
-      accentColor: "from-amber-500 to-orange-500",
-      delay: 0
-    },
-    {
-      name: "Enterprise",
-      icon: faBuilding,
-      description: "For restaurant chains",
-      price: "Custom",
-      period: "",
-      tierKey: "enterprise" as const,
-      accentColor: "from-purple-500 to-pink-500",
-      delay: 0.1
-    }
-  ], []);
+  const tierConfigs = useMemo(
+    () => [
+      {
+        name: "Pro",
+        icon: faCrown,
+        description: "For growing restaurants",
+        price: "₦49,999",
+        period: "/month",
+        tierKey: "pro" as const,
+        popular: true,
+        accentColor: "from-amber-500 to-orange-500",
+        delay: 0,
+        priceNote: (
+          <div className="grid grid-cols-1 gap-3 text-sm">
+            <div className="flex items-center justify-between">
+              <span className="text-gray-400">Monthly</span>
+              <span className="text-white font-semibold">₦49,999 <span className="text-gray-500 font-normal">or</span> $35</span>
+            </div>
+            <div className="h-px bg-white/10" />
+            <div className="flex items-center justify-between">
+              <span className="text-gray-400">Yearly</span>
+              <span className="text-white font-semibold">₦550,000 <span className="text-gray-500 font-normal">or</span> $386.25</span>
+            </div>
+            <div className="text-xs text-gray-500">Billed monthly or yearly. Same Pro features.</div>
+          </div>
+        )
+      },
+      {
+        name: "Enterprise",
+        icon: faBuilding,
+        description: "For restaurant chains",
+        price: "Custom",
+        period: "",
+        tierKey: "enterprise" as const,
+        accentColor: "from-purple-500 to-pink-500",
+        delay: 0.1
+      }
+    ],
+    []
+  );
 
   return (
     <section id="pricing" className="py-32 bg-black relative overflow-hidden">
