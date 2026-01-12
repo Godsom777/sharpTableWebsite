@@ -146,7 +146,7 @@ export const Hero: React.FC = () => {
       {!disableHeavy && (
         <motion.div
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-[1] opacity-70"
+          className="pointer-events-none absolute inset-0 z-[1] opacity-55"
           style={{ filter: 'blur(1.5px)' }}
         >
           <div className="absolute inset-0">
@@ -162,7 +162,7 @@ export const Hero: React.FC = () => {
                   style={{
                     left: f.left,
                     top: f.top,
-                    opacity: isBack ? 0.45 : 0.7,
+                    opacity: isBack ? 0.35 : 0.55,
                     filter: isBack ? 'blur(3px)' : 'blur(1.2px)'
                   }}
                   animate={{
@@ -181,7 +181,7 @@ export const Hero: React.FC = () => {
                     className={
                       'relative grid place-items-center rounded-3xl border border-white/10 bg-white/5 backdrop-blur ' +
                       s.wrap +
-                      ' shadow-[0_24px_80px_rgba(0,0,0,0.45)]'
+                      ' shadow-[0_24px_80px_rgba(0,0,0,0.35)]'
                     }
                   >
                     {/* outer ring */}
@@ -189,23 +189,23 @@ export const Hero: React.FC = () => {
                       className={
                         'absolute -inset-3 rounded-[2.25rem] bg-gradient-to-br ' +
                         t.ring +
-                        ' blur-xl opacity-60'
+                        ' blur-xl opacity-55'
                       }
                     />
                     {/* inner glow */}
-                    <div className={'absolute inset-0 rounded-3xl ' + t.glow + ' blur-2xl opacity-60'} />
+                    <div className={'absolute inset-0 rounded-3xl ' + t.glow + ' blur-2xl opacity-55'} />
 
                     {/* highlight */}
-                    <div className="absolute left-2 top-2 h-1/2 w-1/2 rounded-3xl bg-white/10 blur-xl opacity-60" />
+                    <div className="absolute left-2 top-2 h-1/2 w-1/2 rounded-3xl bg-white/10 blur-xl opacity-50" />
 
                     <div className="relative grid place-items-center">
                       <FontAwesomeIcon icon={f.icon} className={s.icon + ' ' + t.icon} />
                     </div>
 
-                    {/* label chip (keep, but dim) */}
+                    {/* label chip (dim) */}
                     <div
                       className={
-                        'absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border backdrop-blur opacity-70 ' +
+                        'absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border backdrop-blur opacity-60 ' +
                         t.badge +
                         ' ' +
                         s.badge
