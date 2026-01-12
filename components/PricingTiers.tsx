@@ -23,7 +23,11 @@ import {
   faArrowRight,
   faInfinity,
   faBolt,
-  faUtensils
+  faUtensils,
+  faChartPie,
+  faClockRotateLeft,
+  faLocationDot,
+  faChartLine
 } from '@fortawesome/free-solid-svg-icons';
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
@@ -36,16 +40,20 @@ interface Feature {
 }
 
 const features: Feature[] = [
-  { key: 'qr_menu', label: 'QR Menu', icon: faQrcode, pro: true, enterprise: true },
-  { key: 'self_ordering', label: 'Self Ordering', icon: faCartShopping, pro: true, enterprise: true },
+  // Enabled on Pro
+  { key: 'super_admin', label: 'Super Admin', icon: faShield, pro: true, enterprise: true },
   { key: 'marshall_dashboard', label: 'Marshall Dashboard', icon: faGauge, pro: true, enterprise: true },
-  { key: 'chef_dashboard', label: 'Chef Dashboard', icon: faUtensils, pro: true, enterprise: true },
-  { key: 'ai_waiter', label: 'AI Waiter', icon: faRobot, pro: false, enterprise: true },
+  { key: 'chef_dashboard', label: 'Chef/KDS Dashboard', icon: faUtensils, pro: true, enterprise: true },
+  { key: 'staff_management', label: 'Staff Management', icon: faUsers, pro: true, enterprise: true },
+  { key: 'qr_menu', label: 'QR Menu & Self-Ordering', icon: faQrcode, pro: true, enterprise: true },
   { key: 'digital_tab', label: 'Digital Tab', icon: faCreditCard, pro: true, enterprise: true },
-  { key: 'daily_summary', label: 'Daily Summary', icon: faFileLines, pro: true, enterprise: true },
-  { key: 'custom_receipts', label: 'Custom Receipts', icon: faReceipt, pro: true, enterprise: true },
-  { key: 'super_admin', label: 'Super Admin', icon: faShield, pro: false, enterprise: true },
-  { key: 'api_access', label: 'API Access', icon: faCode, pro: false, enterprise: true },
+  { key: 'session_timeout', label: 'Session Timeout Controls', icon: faClockRotateLeft, pro: true, enterprise: true },
+
+  // Enterprise-only
+  { key: 'daily_summary', label: 'Daily Summary', icon: faFileLines, pro: false, enterprise: true },
+  { key: 'custom_receipts', label: 'Custom Receipts', icon: faReceipt, pro: false, enterprise: true },
+  { key: 'ai_waiter', label: 'AI Waiter', icon: faRobot, pro: false, enterprise: true },
+  { key: 'advanced_analytics', label: 'Advanced Analytics', icon: faChartLine, pro: false, enterprise: true },
 ];
 
 interface Limit {
@@ -58,6 +66,7 @@ interface Limit {
 
 const limits: Limit[] = [
   { key: 'max_tables', label: 'Max Tables', icon: faTableCells, pro: '30', enterprise: '∞' },
+  { key: 'max_locations', label: 'Max Locations', icon: faLocationDot, pro: '2', enterprise: '∞' },
   { key: 'max_staff', label: 'Max Staff', icon: faUsers, pro: '10', enterprise: '∞' },
   { key: 'order_history_days', label: 'Order History', icon: faClock, pro: '30 days', enterprise: '∞' },
 ];
