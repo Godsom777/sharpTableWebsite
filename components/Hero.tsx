@@ -66,7 +66,7 @@ export const Hero: React.FC = () => {
           <span className="text-white font-medium">{' '}Less guesswork. <span className="text-amber-300 font-semibold">Less leakage.</span></span>
         </motion.p>
 
-        {/* CTA buttons */}
+        {/* CTA buttons  */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}

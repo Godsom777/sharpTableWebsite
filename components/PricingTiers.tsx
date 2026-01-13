@@ -277,11 +277,25 @@ export const PricingTiers: React.FC = () => {
         name: "Enterprise",
         icon: faBuilding,
         description: "For restaurant chains",
-        price: "Custom",
-        period: "",
+        price: "₦79,999",
+        period: "/month",
         tierKey: "enterprise" as const,
         accentColor: "from-purple-500 to-pink-500",
-        delay: 0.1
+        delay: 0.1,
+        priceNote: (
+          <div className="grid grid-cols-1 gap-3 text-sm">
+            <div className="flex items-center justify-between">
+              <span className="text-gray-400">Monthly</span>
+              <span className="text-white font-semibold">₦79,999 <span className="text-gray-500 font-normal">or</span> $56</span>
+            </div>
+            <div className="h-px bg-white/10" />
+            <div className="flex items-center justify-between">
+              <span className="text-gray-400">Yearly</span>
+              <span className="text-white font-semibold">₦880,000 <span className="text-gray-500 font-normal">or</span> $616</span>
+            </div>
+            <div className="text-xs text-gray-500">Billed monthly or yearly. Enterprise features included.</div>
+          </div>
+        )
       }
     ],
     []
