@@ -51,7 +51,7 @@ export const Hero: React.FC = () => {
           ,
           <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500">
-            it doesn’t get COOKED.
+            it doesn’t get COOKED or SERVED.
           </span>
         </motion.h1>
 
