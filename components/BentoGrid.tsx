@@ -6,38 +6,38 @@ import { Feature } from '../types';
 
 const features: Feature[] = [
   {
-    title: "Guest profiles without the forms",
-    description: "Capture guest history automatically. See spending, favorites, and visit frequency at a glance, with no awkward sign-ups.",
-    icon: <FontAwesomeIcon icon={faDatabase} className="w-8 h-8 text-indigo-500" />,
+    title: "Kitchen locked until payment verified",
+    description: "No order reaches the kitchen without confirmed payment. Every ticket is tied to money, eliminating walkouts and internal theft.",
+    icon: <FontAwesomeIcon icon={faShieldHalved} className="w-8 h-8 text-amber-500" />,
     colSpan: "md:col-span-2 md:row-span-2",
   },
   {
-    title: "Protect your profit",
-    description: "Spot slow movers, shrinking margins, and peak-demand shifts early, so you can cut waste before it hits your costs.",
-    icon: <FontAwesomeIcon icon={faShieldHalved} className="w-8 h-8 text-green-500" />,
+    title: "Full audit trail on every naira",
+    description: "Every transaction is logged with who took payment, when, and for what. No hiding, no shortcuts, no shrinkage.",
+    icon: <FontAwesomeIcon icon={faDatabase} className="w-8 h-8 text-green-500" />,
     colSpan: "md:col-span-1 md:row-span-1",
   },
   {
-    title: "Make shifts smoother",
-    description: "Automate handoffs between floor and kitchen. Less chaos, fewer mistakes, happier staff.",
+    title: "Marshall role verifies payments",
+    description: "A dedicated staff role confirms every payment before the kitchen starts cooking. Your frontline defense against loss.",
     icon: <FontAwesomeIcon icon={faBolt} className="w-8 h-8 text-amber-500" />,
     colSpan: "md:col-span-1 md:row-span-1",
   },
   {
-    title: "Run multiple locations like one",
-    description: "Whether it's 2 or 20 stores, compare performance, spot outliers, and share what works, all from one dashboard.",
+    title: "Multi-location loss visibility",
+    description: "Compare revenue leakage across branches. Spot outliers, identify problem areas, and apply controls everywhere.",
     icon: <FontAwesomeIcon icon={faLocationDot} className="w-8 h-8 text-red-500" />,
     colSpan: "md:col-span-1 md:row-span-2",
   },
   {
-    title: "Loyalty that happens automatically",
-    description: "Build repeat visits with WhatsApp messages, timed nudges, and receipts. No manual blasting needed.",
+    title: "Guest profiles built automatically",
+    description: "Know your customers without forms. Track spending, favorites, and visit frequency to boost loyalty and retention.",
     icon: <FontAwesomeIcon icon={faChartLine} className="w-8 h-8 text-blue-400" />,
     colSpan: "md:col-span-2 md:row-span-1",
   },
   {
-    title: "Fast checkout, faster table turns",
-    description: "Make payment frictionless. When guests pay quickly, tables free up sooner, and revenue follows.",
+    title: "Faster service, cleaner handoffs",
+    description: "Streamlined floor-to-kitchen workflow means less chaos, fewer mistakes, and tables turning faster.",
     icon: <FontAwesomeIcon icon={faCreditCard} className="w-8 h-8 text-purple-400" />,
     colSpan: "md:col-span-1 md:row-span-1",
   },
@@ -69,7 +69,7 @@ export const BentoGrid: React.FC = () => {
             className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500/20 via-orange-500/10 to-amber-500/20 border border-amber-500/30 rounded-full px-6 py-3 mb-8"
           >
             <FontAwesomeIcon icon={faUtensils} className="text-amber-500 w-5 h-5" />
-            <span className="text-amber-400 font-semibold text-sm tracking-wide">RESTAURANT INTELLIGENCE ALL IN ONE PLACE</span>
+            <span className="text-amber-400 font-semibold text-sm tracking-wide">STOP REVENUE LEAKAGE AT THE SOURCE</span>
             <FontAwesomeIcon icon={faUtensils} className="text-amber-500 w-5 h-5" />
           </motion.div>
 
@@ -81,10 +81,10 @@ export const BentoGrid: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white tracking-tight"
           >
-            The Owner's{' '}
+            Built-in{' '}
             <span className="relative">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-500 to-red-500">
-                Ecosystem
+                Loss Prevention
               </span>
               <motion.span
                 className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 rounded-full"
@@ -104,8 +104,8 @@ export const BentoGrid: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-8 leading-relaxed"
           >
-            From kitchen to cashier, from tables to tablets
-            <span className="text-white font-medium"> everything stays in sync.</span>
+            Orders don’t hit the kitchen until money is confirmed —
+            <span className="text-white font-medium"> so your sales stop leaking.</span>
           </motion.p>
 
           {/* Stats Row */}
@@ -117,9 +117,9 @@ export const BentoGrid: React.FC = () => {
             className="flex flex-wrap justify-center gap-8 md:gap-12"
           >
             {[
-              { value: '100%', label: 'Guest Data Capture', icon: <FontAwesomeIcon icon={faDatabase} className="w-4 h-4" /> },
-              { value: '40%', label: 'Less Food Waste', icon: <FontAwesomeIcon icon={faChartPie} className="w-4 h-4" /> },
-              { value: '2x', label: 'Staff Efficiency', icon: <FontAwesomeIcon icon={faUsers} className="w-4 h-4" /> },
+              { value: '0%', label: 'Walkouts', icon: <FontAwesomeIcon icon={faShieldHalved} className="w-4 h-4" /> },
+              { value: '100%', label: 'Payment Verified', icon: <FontAwesomeIcon icon={faChartPie} className="w-4 h-4" /> },
+              { value: 'Full', label: 'Audit Trail', icon: <FontAwesomeIcon icon={faDatabase} className="w-4 h-4" /> },
             ].map((stat, index) => (
               <motion.div
                 key={index}

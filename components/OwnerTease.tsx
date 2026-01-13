@@ -27,8 +27,8 @@ export const OwnerTease: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-4xl md:text-6xl font-bold text-white tracking-tighter leading-tight"
             >
-              What don't you <br/>
-              <span className="text-amber-500 italic font-serif">know about your guests?</span>
+              How much money is <br/>
+              <span className="text-amber-500 italic font-serif">walking out your door?</span>
             </motion.h2>
             
             <div className="space-y-6">
@@ -48,8 +48,8 @@ export const OwnerTease: React.FC = () => {
                   <FontAwesomeIcon icon={faEyeSlash} className="text-gray-500 w-5 h-5" />
                 </motion.div>
                 <div>
-                  <h4 className="text-white font-semibold">Typical POS View</h4>
-                  <p className="text-gray-500 text-sm">"Table 4 ordered 2 pastas and a coke. They paid and left."</p>
+                  <h4 className="text-white font-semibold">What most POS systems allow</h4>
+                  <p className="text-gray-500 text-sm">“Food goes out before payment is confirmed. That’s where walkouts and ‘missing cash’ start.”</p>
                 </div>
               </motion.div>
 
@@ -69,9 +69,9 @@ export const OwnerTease: React.FC = () => {
                   <FontAwesomeIcon icon={faEye} className="text-amber-500 w-5 h-5 animate-pulse" />
                 </motion.div>
                 <div>
-                  <h4 className="text-amber-500 font-semibold">SharpTable View</h4>
+                  <h4 className="text-amber-500 font-semibold">What SharpTable changes</h4>
                   <p className="text-gray-300 text-sm italic leading-relaxed">
-                    "That's David. He's been here 4 times this month. He prefers gluten-free (but hasn't said it). He's likely to return if you surprise him with a small dessert today."
+                    “The kitchen stays locked until your Marshall confirms payment. Every payment is logged — who took it, when, and how much.”
                   </p>
                 </div>
               </motion.div>
@@ -84,7 +84,8 @@ export const OwnerTease: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-xl text-gray-500 max-w-lg leading-relaxed border-l border-zinc-800 pl-6"
             >
-              SharpTable turns everyday orders into guest insights, so you can serve smarter, retain more, and stay ahead.
+              SharpTable gives you a clean money trail from order to payment to kitchen —
+              <span className="text-white font-medium"> so you can spot problems fast and keep what you earn.</span>
             </motion.p>
           </motion.div>
 
@@ -138,7 +139,7 @@ export const OwnerTease: React.FC = () => {
                   transition={{ delay: 0.4 }}
                   className="text-3xl font-bold text-white mb-4"
                 >
-                  The edge your competitors miss
+                  Stop the leakage today
                 </motion.h3>
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
@@ -147,7 +148,7 @@ export const OwnerTease: React.FC = () => {
                   transition={{ delay: 0.5 }}
                   className="text-gray-400 mb-10 text-lg"
                 >
-                  Most restaurants never learn who their best guests are. Want the full picture?
+                  Most restaurants lose 5-15% to theft and walkouts. Want to keep what you earn?
                 </motion.p>
                 
                 <motion.button

@@ -21,13 +21,13 @@ type Step = {
 const steps: Step[] = [
   {
     id: 1,
-    title: 'Arrival',
-    description: 'SharpTable recognizes her phone and pulls up her profile.',
-    icon: <FontAwesomeIcon icon={faWifi} className="w-5 h-5" />,
+    title: 'Order Placed',
+    description: 'Guest orders Butter Chicken. The order is captured but does NOT go to the kitchen.',
+    icon: <FontAwesomeIcon icon={faUtensils} className="w-5 h-5" />,
     color: 'blue',
     view: {
-      title: 'Welcome back',
-      description: 'Aisha (Visit #13) just arrived. Favorites ready: Butter Chicken, Mango Lassi. Spice level: Medium.',
+      title: 'Order Captured',
+      description: 'Table 7 - Butter Chicken + Mango Lassi. Status: PENDING PAYMENT. Kitchen will not see this order until payment is verified.',
       bgColor: 'bg-blue-900/10',
       borderColor: 'border-blue-900/30',
       iconColor: 'text-blue-500'
@@ -35,13 +35,13 @@ const steps: Step[] = [
   },
   {
     id: 2,
-    title: 'Ordering',
-    description: 'The team can greet her like a regular because she is.',
-    icon: <FontAwesomeIcon icon={faUsers} className="w-5 h-5" />,
+    title: 'Payment Collected',
+    description: 'The Marshall collects ₦8,500. Payment method and amount are logged.',
+    icon: <FontAwesomeIcon icon={faReceipt} className="w-5 h-5" />,
     color: 'purple',
     view: {
-      title: 'Server Assist',
-      description: 'Marshall: "Welcome back, Aisha! Your usual Butter Chicken with Mango Lassi today? Or would you like to try our new Tikka Masala?"',
+      title: 'Payment Logged',
+      description: 'Marshall "Chidi" collected ₦8,500 via POS. Transaction ID: #TXN-4521. Timestamp: 7:32 PM. Awaiting verification.',
       bgColor: 'bg-purple-900/10',
       borderColor: 'border-purple-900/30',
       iconColor: 'text-purple-500'
@@ -49,41 +49,41 @@ const steps: Step[] = [
   },
   {
     id: 3,
-    title: 'Kitchen',
-    description: 'The kitchen sees a loyal guest and prioritizes the ticket.',
-    icon: <FontAwesomeIcon icon={faUtensils} className="w-5 h-5" />,
-    color: 'orange',
-    view: {
-      title: 'Kitchen Display',
-      description: 'VIP Regular - Table 7. Butter Chicken (Medium) + New: Samosa Appetizer. Prioritize prep for a loyal guest.',
-      bgColor: 'bg-orange-900/10',
-      borderColor: 'border-orange-900/30',
-      iconColor: 'text-orange-500'
-    }
-  },
-  {
-    id: 4,
-    title: 'Checkout',
-    description: 'Receipt sent on WhatsApp. Her visit history updates automatically.',
-    icon: <FontAwesomeIcon icon={faReceipt} className="w-5 h-5" />,
+    title: 'Payment Verified',
+    description: 'The Marshall confirms payment is complete. Only now does the order unlock.',
+    icon: <FontAwesomeIcon icon={faUsers} className="w-5 h-5" />,
     color: 'green',
     view: {
-      title: 'Automated Follow-up',
-      description: 'Thanks for visiting, Aisha! We hope you enjoyed the Butter Chicken. Here is your receipt. See you next time.',
+      title: 'Payment Verified ✓',
+      description: 'Marshall "Chidi" verified payment for Table 7. Order status changed to PAID. Kitchen queue unlocked.',
       bgColor: 'bg-green-900/10',
       borderColor: 'border-green-900/30',
       iconColor: 'text-green-500'
     }
   },
   {
+    id: 4,
+    title: 'Kitchen Activated',
+    description: 'The kitchen now sees the order. They cook knowing it is already paid for.',
+    icon: <FontAwesomeIcon icon={faWifi} className="w-5 h-5" />,
+    color: 'orange',
+    view: {
+      title: 'Kitchen Display',
+      description: 'PAID ORDER - Table 7. Butter Chicken + Mango Lassi. No risk of walkout. Start cooking!',
+      bgColor: 'bg-orange-900/10',
+      borderColor: 'border-orange-900/30',
+      iconColor: 'text-orange-500'
+    }
+  },
+  {
     id: 5,
-    title: 'Next Visit',
-    description: 'Three days later, a personalized offer lands in her WhatsApp.',
+    title: 'Full Audit Trail',
+    description: 'Every step is logged. Who took payment, when, and for what. No hiding, no shortcuts.',
     icon: <FontAwesomeIcon icon={faChartLine} className="w-5 h-5" />,
     color: 'amber',
     view: {
-      title: 'Smart Re-engagement',
-      description: 'Hi Aisha! We know you love our Butter Chicken. This Friday, get 15% off your favorite dish. Reserve your table now!',
+      title: 'Audit Complete',
+      description: 'Order #4521 - Created by "Adaeze" → Paid to "Chidi" → Verified at 7:32 PM → Cooked by Kitchen → Served. Full accountability.',
       bgColor: 'bg-amber-900/10',
       borderColor: 'border-amber-900/30',
       iconColor: 'text-amber-500'
@@ -112,8 +112,8 @@ export const Story: React.FC = () => {
 
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Monday Evening at YOUR Restaurant</h2>
-            <p className="text-gray-400">See how SharpTable changes the experience for Aisha.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">See the Payment-First Workflow in Action</h2>
+            <p className="text-gray-400">Every order is blocked until payment is verified. No exceptions. No shortcuts.</p>
         </div>
 
         <div className="flex flex-col md:flex-row gap-8">
@@ -127,14 +127,14 @@ export const Story: React.FC = () => {
                 onMouseLeave={() => setIsAnimating(true)}
             >
                 <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 rounded-full bg-gray-700 overflow-hidden relative">
-                         <img src="https://picsum.photos/200" alt="Aisha" className="object-cover w-full h-full opacity-80" />
+                    <div className="w-16 h-16 rounded-full bg-amber-500/20 overflow-hidden relative flex items-center justify-center border border-amber-500/30">
+                         <FontAwesomeIcon icon={faReceipt} className="text-amber-500 w-6 h-6" />
                     </div>
                     <div>
-                        <h3 className="text-xl font-bold text-white">Aisha</h3>
+                        <h3 className="text-xl font-bold text-white">Order #4521</h3>
                         <div className="flex items-center gap-2 text-sm text-amber-500">
                              <FontAwesomeIcon icon={faStar} className="w-3.5 h-3.5" />
-                             <span>VIP Customer (12 Visits)</span>
+                             <span>Payment-First Protected</span>
                         </div>
                     </div>
                 </div>
@@ -261,9 +261,9 @@ export const Story: React.FC = () => {
                 <div className="flex items-start gap-3">
                   <FontAwesomeIcon icon={faHeart} className="text-amber-500 mt-0.5 w-4 h-4" />
                   <div>
-                    <p className="text-white font-medium text-xs">Retention Impact</p>
+                    <p className="text-white font-medium text-xs">Loss Prevention</p>
                     <p className="text-gray-400 text-xs mt-1">
-                      Personalized service increases customer loyalty and repeat visits by 40%.
+                      Payment-first workflow eliminates walkouts and internal theft. Every naira accounted for.
                     </p>
                   </div>
                 </div>
@@ -282,9 +282,9 @@ export const Story: React.FC = () => {
           <div className="flex items-start gap-3">
             <FontAwesomeIcon icon={faHeart} className="text-amber-500 mt-0.5 flex-shrink-0 w-4 h-4" />
             <div>
-              <p className="text-white font-medium text-xs">Retention Impact</p>
+              <p className="text-white font-medium text-xs">Loss Prevention</p>
               <p className="text-gray-400 text-xs mt-1">
-                Personalized service increases customer loyalty and repeat visits by 40%.
+                Payment-first workflow eliminates walkouts and internal theft. Every naira accounted for.
               </p>
             </div>
           </div>

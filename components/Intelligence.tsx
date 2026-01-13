@@ -30,9 +30,9 @@ export const Intelligence: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Insights that update themselves</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Know where the money went</h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Every time a table pays, SharpTable saves the order, updates the guest profile, and refreshes what’s trending. That way you always know what’s working.
+            Every payment is tied to an order and a staff member. If anything looks off, you’ll see it.
           </p>
         </motion.div>
 
@@ -53,8 +53,8 @@ export const Intelligence: React.FC = () => {
                   transition={{ delay: 0.2 }}
                   className="mb-6"
                 >
-                    <h3 className="text-lg font-semibold text-white">Visit Patterns</h3>
-                    <p className="text-sm text-gray-500">Know when your regulars usually come.</p>
+                    <h3 className="text-lg font-semibold text-white">Revenue by Day</h3>
+                    <p className="text-sm text-gray-500">Track when your biggest sales happen.</p>
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -98,8 +98,8 @@ export const Intelligence: React.FC = () => {
                   transition={{ delay: 0.4 }}
                   className="mb-6"
                 >
-                    <h3 className="text-lg font-semibold text-white">Top Items</h3>
-                    <p className="text-sm text-gray-500">Identify trends & bestsellers automatically.</p>
+                    <h3 className="text-lg font-semibold text-white">Top Items Sold</h3>
+                    <p className="text-sm text-gray-500">Know exactly what moves and what stays.</p>
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -127,7 +127,7 @@ export const Intelligence: React.FC = () => {
             </motion.div>
         </div>
 
-        {/* The Trigger Logic Visual */}
+        {/* The Trigger Logic Visual - Updated to focus on payment tracking */}
         <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -135,9 +135,9 @@ export const Intelligence: React.FC = () => {
             transition={{ delay: 0.4, duration: 0.6 }}
             className="mt-12 p-8 border border-dashed border-zinc-700 rounded-3xl bg-zinc-900/20 text-center hover:border-amber-500/30 hover:bg-zinc-900/30 transition-all"
         >
-             <span className="text-xs uppercase tracking-widest text-zinc-500 font-bold">The Trigger Loop</span>
+             <span className="text-xs uppercase tracking-widest text-zinc-500 font-bold">Payment-First Audit Trail</span>
              <div className="flex flex-wrap justify-center items-center gap-4 mt-6 text-sm md:text-base text-gray-300 font-medium">
-                {['Guest Pays', 'Save Order History', 'Update Total Spent', 'Recalculate Favorites', 'WhatsApp Receipt Sent'].map((step, index) => (
+                {['Order Created', 'Marshall Collects', 'Payment Verified', 'Kitchen Unlocked', 'Full Audit Logged'].map((step, index) => (
                   <React.Fragment key={index}>
                     <motion.span
                       initial={{ opacity: 0, scale: 0.8 }}
@@ -146,7 +146,7 @@ export const Intelligence: React.FC = () => {
                       transition={{ delay: 0.5 + index * 0.1 }}
                       whileHover={{ scale: 1.05, y: -2 }}
                       className={`px-4 py-2 rounded-full ${
-                        index === 3 ? 'bg-zinc-800 text-amber-500' :
+                        index === 2 ? 'bg-amber-900/30 text-amber-400 border border-amber-800' :
                         index === 4 ? 'bg-green-900/30 text-green-400 border border-green-800' :
                         'bg-zinc-800'
                       }`}
