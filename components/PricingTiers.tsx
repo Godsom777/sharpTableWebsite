@@ -30,6 +30,7 @@ import {
   faChartLine
 } from '@fortawesome/free-solid-svg-icons';
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { usePayment, PlanType } from '../contexts/PaymentContext';
 
 interface Feature {
   key: string;
@@ -82,6 +83,7 @@ interface TierCardProps {
   accentColor: string;
   delay: number;
   priceNote?: React.ReactNode;
+  onGetStarted: (plan: PlanType) => void;
 }
 
 // Memoized Feature Row for performance
@@ -148,7 +150,8 @@ const TierCard = memo<TierCardProps>(({
   popular, 
   accentColor,
   delay,
-  priceNote
+  priceNote,
+  onGetStarted
 }) => {
   return (
     <motion.div
@@ -228,7 +231,7 @@ const TierCard = memo<TierCardProps>(({
 
           {/* CTA Button */}
           <button
-            onClick={() => window.location.href = "mailto:sharptable.ng@gmail.com"}
+            onClick={() => onGetStarted(tierKey)}
             className={`w-full py-4 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] ${
               popular 
                 ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40' 
@@ -245,6 +248,8 @@ const TierCard = memo<TierCardProps>(({
 });
 
 export const PricingTiers: React.FC = () => {
+  const { openPaymentModal } = usePayment();
+
   // Memoize tier configurations to prevent recreation
   const tierConfigs = useMemo(
     () => [
@@ -347,7 +352,7 @@ export const PricingTiers: React.FC = () => {
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
           {tierConfigs.map((config) => (
-            <TierCard key={config.tierKey} {...config} />
+            <TierCard key={config.tierKey} {...config} onGetStarted={openPaymentModal} />
           ))}
         </div>
 
