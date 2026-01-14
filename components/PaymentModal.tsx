@@ -12,6 +12,11 @@ import {
   faArrowRight,
   faCheck,
 } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCcVisa,
+  faCcMastercard,
+  faCcAmex,
+} from '@fortawesome/free-brands-svg-icons';
 import { usePayment, PLAN_CONFIG } from '../contexts/PaymentContext';
 
 // Paystack public key from environment variable
@@ -256,6 +261,14 @@ export const PaymentModal: React.FC = () => {
                 Enter your details to start your subscription. You'll be redirected to Paystack to complete payment securely.
               </p>
 
+              {/* Important Warning */}
+              <div className="flex items-start gap-2 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30">
+                <span className="text-amber-400 text-lg">⚠️</span>
+                <p className="text-xs text-amber-200">
+                  <span className="font-semibold">Important:</span> Use the same email you'll use to sign up in the SharpTable app. This links your subscription to your account.
+                </p>
+              </div>
+
               {/* Email field */}
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
@@ -357,7 +370,20 @@ export const PaymentModal: React.FC = () => {
             </form>
 
             {/* Footer */}
-            <div className="px-6 pb-6">
+            <div className="px-6 pb-6 space-y-4">
+              {/* Payment Methods */}
+              <div className="flex items-center justify-center gap-3">
+                <span className="text-xs text-gray-500">We accept:</span>
+                <div className="flex items-center gap-2">
+                  <FontAwesomeIcon icon={faCcVisa} className="w-8 h-8 text-[#1A1F71]" />
+                  <FontAwesomeIcon icon={faCcMastercard} className="w-8 h-8 text-[#EB001B]" />
+                  <FontAwesomeIcon icon={faCcAmex} className="w-8 h-8 text-[#006FCF]" />
+                  {/* Verve - custom since no FA icon */}
+                  <div className="px-2 py-1 bg-[#00425F] rounded text-[10px] font-bold text-white">VERVE</div>
+                </div>
+              </div>
+
+              {/* Security badges */}
               <div className="flex items-center justify-center gap-4 text-xs text-gray-500">
                 <div className="flex items-center gap-1.5">
                   <FontAwesomeIcon icon={faLock} className="w-3 h-3" />

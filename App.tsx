@@ -3,6 +3,7 @@ import { Hero } from './components/Hero';
 import { BentoGrid } from './components/BentoGrid';
 import { Roles } from './components/Roles';
 import { Intelligence } from './components/Intelligence';
+import { TrustStats } from './components/TrustStats';
 import { Story } from './components/Story';
 import { OwnerTease } from './components/OwnerTease';
 import { PricingTiers } from './components/PricingTiers';
@@ -32,6 +33,7 @@ function App() {
           <BentoGrid />
           <Intelligence />
           <Roles />
+          <TrustStats />
           <PricingTiers />
           <OwnerTease />
           <Story />

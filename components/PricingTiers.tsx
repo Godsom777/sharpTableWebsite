@@ -27,8 +27,14 @@ import {
   faChartPie,
   faClockRotateLeft,
   faLocationDot,
-  faChartLine
+  faChartLine,
+  faLock
 } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCcVisa,
+  faCcMastercard,
+  faCcAmex,
+} from '@fortawesome/free-brands-svg-icons';
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { usePayment, PlanType } from '../contexts/PaymentContext';
 
@@ -379,6 +385,20 @@ export const PricingTiers: React.FC = () => {
             <div className="flex items-center gap-2">
               <FontAwesomeIcon icon={faCheck} className="w-4 h-4 text-green-500" />
               Free migration
+            </div>
+          </div>
+
+          {/* Payment Methods */}
+          <div className="mt-8 flex flex-col items-center gap-3">
+            <div className="flex items-center gap-2 text-xs text-gray-500">
+              <FontAwesomeIcon icon={faLock} className="w-3 h-3" />
+              Secure payments powered by Paystack
+            </div>
+            <div className="flex items-center gap-3">
+              <FontAwesomeIcon icon={faCcVisa} className="w-10 h-10 text-gray-400 hover:text-[#1A1F71] transition-colors" />
+              <FontAwesomeIcon icon={faCcMastercard} className="w-10 h-10 text-gray-400 hover:text-[#EB001B] transition-colors" />
+              <FontAwesomeIcon icon={faCcAmex} className="w-10 h-10 text-gray-400 hover:text-[#006FCF] transition-colors" />
+              <div className="px-2 py-1 bg-gray-700 hover:bg-[#00425F] rounded text-[10px] font-bold text-gray-400 hover:text-white transition-colors">VERVE</div>
             </div>
           </div>
         </motion.div>
