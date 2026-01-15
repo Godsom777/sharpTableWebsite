@@ -5,18 +5,26 @@ This guide explains how to set up the Paystack subscription payment system for S
 
 ## Architecture
 ```
-User clicks "Get Started" → PaymentModal collects email + business name
+User clicks "Get Started" → PaymentModal opens
+        ↓
+User fills: Email, Business Name, Password
+        ↓
+Supabase Auth creates user account in App's database
         ↓
 Paystack Inline SDK opens payment popup
         ↓
 User completes payment → Paystack creates subscription
         ↓
-Paystack sends webhook → Supabase Edge Function
+Paystack sends webhook → Website's Supabase Edge Function
         ↓
-Edge Function stores subscription in PostgreSQL
+Edge Function stores subscription in App's PostgreSQL
         ↓
-Your PWA queries Supabase to check subscription status
+User can now login to PWA with same credentials
 ```
+
+## Important: Two Supabase Projects
+- **Website Supabase** (eplonlnwcuyqhgkrhqzg): Hosts the webhook edge function
+- **App Supabase** (wwlopezoazuugxcvjgus): Stores users and subscriptions
 
 ## Step 1: Set Up Supabase Database
 
@@ -74,13 +82,25 @@ https://your-project-ref.supabase.co/functions/v1/paystack-webhook
 
 ## Step 4: Configure Environment Variables
 
-Create a `.env` file in your project root (or `.env.local` for Vite):
+Create a `.env` file in your project root:
 
 ```env
+# Paystack
 VITE_PAYSTACK_PUBLIC_KEY=pk_live_e64a98438e270359d525099624bf0f096b64d17e
-VITE_SUPABASE_URL=https://your-project.supabase.co
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key_here
+
+# Website Supabase (for webhook hosting - not currently used in frontend)
+VITE_SUPABASE_URL=https://eplonlnwcuyqhgkrhqzg.supabase.co
+VITE_SUPABASE_ANON_KEY=your_website_supabase_anon_key
+
+# App Supabase (for user auth & subscription storage)
+VITE_APP_SUPABASE_URL=https://wwlopezoazuugxcvjgus.supabase.co
+VITE_APP_SUPABASE_ANON_KEY=your_app_supabase_anon_key
 ```
+
+**IMPORTANT:** Get the `VITE_APP_SUPABASE_ANON_KEY` from your SharpTable app's Supabase project:
+1. Go to your App Supabase Dashboard → Settings → API
+2. Copy the `anon` key (public)
+3. Paste it in the `.env` file
 
 ## Step 5: Using the Subscription Hook in Your App
 

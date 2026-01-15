@@ -11,6 +11,10 @@ import {
   faCrown,
   faArrowRight,
   faCheck,
+  faKey,
+  faEye,
+  faEyeSlash,
+  faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faCcVisa,
@@ -18,9 +22,15 @@ import {
   faCcAmex,
 } from '@fortawesome/free-brands-svg-icons';
 import { usePayment, PLAN_CONFIG } from '../contexts/PaymentContext';
+import { createClient } from '@supabase/supabase-js';
+
+// Supabase client for the APP's database (where users will login)
+const supabase = createClient(
+  import.meta.env.VITE_APP_SUPABASE_URL || 'https://wwlopezoazuugxcvjgus.supabase.co',
+  import.meta.env.VITE_APP_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind3bG9wZXpvYXp1dWd4Y3ZqZ3VzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ2MTU4OTQsImV4cCI6MjA4MDE5MTg5NH0.xyz'
+);
 
 // Paystack public key from environment variable
-// Note: pk_live keys are safe to expose in frontend - they can only initialize payments
 const PAYSTACK_PUBLIC_KEY = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY || 'pk_live_e64a98438e270359d525099624bf0f096b64d17e';
 
 // Declare PaystackPop on window for TypeScript
@@ -51,29 +61,40 @@ interface PaystackOptions {
 interface FormData {
   email: string;
   businessName: string;
+  password: string;
+  confirmPassword: string;
 }
 
 interface FormErrors {
   email?: string;
   businessName?: string;
+  password?: string;
+  confirmPassword?: string;
+  auth?: string;
 }
 
 export const PaymentModal: React.FC = () => {
   const { isModalOpen, selectedPlan, closePaymentModal } = usePayment();
-  const [formData, setFormData] = useState<FormData>({ email: '', businessName: '' });
+  const [formData, setFormData] = useState<FormData>({ email: '', businessName: '', password: '', confirmPassword: '' });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [registrationStep, setRegistrationStep] = useState<'form' | 'registering' | 'payment'>('form');
 
   const planDetails = selectedPlan ? PLAN_CONFIG[selectedPlan] : null;
 
   // Reset form when modal opens/closes
   useEffect(() => {
     if (!isModalOpen) {
-      setFormData({ email: '', businessName: '' });
+      setFormData({ email: '', businessName: '', password: '', confirmPassword: '' });
       setErrors({});
       setIsSubmitting(false);
       setAgreedToTerms(false);
+      setShowPassword(false);
+      setShowConfirmPassword(false);
+      setRegistrationStep('form');
     }
   }, [isModalOpen]);
 
@@ -106,6 +127,20 @@ export const PaymentModal: React.FC = () => {
       newErrors.businessName = 'Business name is required';
     } else if (formData.businessName.trim().length < 2) {
       newErrors.businessName = 'Business name must be at least 2 characters';
+    }
+
+    if (!formData.password) {
+      newErrors.password = 'Password is required';
+    } else if (formData.password.length < 8) {
+      newErrors.password = 'Password must be at least 8 characters';
+    } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(formData.password)) {
+      newErrors.password = 'Password must include uppercase, lowercase, and a number';
+    }
+
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = 'Please confirm your password';
+    } else if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
     }
 
     setErrors(newErrors);
@@ -192,11 +227,54 @@ export const PaymentModal: React.FC = () => {
     }
 
     setIsSubmitting(true);
+    setRegistrationStep('registering');
+    setErrors({});
 
-    // Small delay for UX feedback
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    try {
+      // Step 1: Register user with Supabase Auth
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: formData.email.toLowerCase().trim(),
+        password: formData.password,
+        options: {
+          data: {
+            business_name: formData.businessName.trim(),
+            plan_type: selectedPlan,
+          },
+        },
+      });
 
-    initiatePaystackPayment();
+      if (authError) {
+        // Handle specific auth errors
+        if (authError.message.includes('already registered')) {
+          setErrors({ auth: 'This email is already registered. Please use a different email or sign in to the app.' });
+        } else {
+          setErrors({ auth: authError.message });
+        }
+        setIsSubmitting(false);
+        setRegistrationStep('form');
+        return;
+      }
+
+      if (!authData.user) {
+        setErrors({ auth: 'Failed to create account. Please try again.' });
+        setIsSubmitting(false);
+        setRegistrationStep('form');
+        return;
+      }
+
+      // Step 2: Proceed to payment
+      setRegistrationStep('payment');
+      
+      // Small delay for UX feedback
+      await new Promise((resolve) => setTimeout(resolve, 300));
+
+      initiatePaystackPayment();
+    } catch (error) {
+      console.error('Registration error:', error);
+      setErrors({ auth: 'An unexpected error occurred. Please try again.' });
+      setIsSubmitting(false);
+      setRegistrationStep('form');
+    }
   };
 
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -256,16 +334,40 @@ export const PaymentModal: React.FC = () => {
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="p-6 space-y-5">
-              <p className="text-sm text-gray-400 mb-4">
-                Enter your details to start your subscription. You'll be redirected to Paystack to complete payment securely.
+            <form onSubmit={handleSubmit} className="p-6 space-y-4 max-h-[65vh] overflow-y-auto">
+              {/* Registration Step Indicator */}
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium ${
+                  registrationStep === 'form' ? 'bg-amber-500/20 text-amber-400' : 'bg-green-500/20 text-green-400'
+                }`}>
+                  <FontAwesomeIcon icon={registrationStep === 'form' ? faUserPlus : faCheck} className="w-3 h-3" />
+                  <span>1. Register</span>
+                </div>
+                <div className="w-4 h-0.5 bg-zinc-700" />
+                <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium ${
+                  registrationStep === 'payment' ? 'bg-amber-500/20 text-amber-400' : 'bg-zinc-700 text-gray-500'
+                }`}>
+                  <FontAwesomeIcon icon={faLock} className="w-3 h-3" />
+                  <span>2. Pay</span>
+                </div>
+              </div>
+
+              <p className="text-sm text-gray-400">
+                Create your SharpTable account, then complete payment to activate your subscription.
               </p>
 
-              {/* Important Warning */}
-              <div className="flex items-start gap-2 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30">
-                <span className="text-amber-400 text-lg">⚠️</span>
-                <p className="text-xs text-amber-200">
-                  <span className="font-semibold">Important:</span> Use the same email you'll use to sign up in the SharpTable app. This links your subscription to your account.
+              {/* Auth Error Display */}
+              {errors.auth && (
+                <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30">
+                  <p className="text-sm text-red-400">{errors.auth}</p>
+                </div>
+              )}
+
+              {/* Registration Info Box */}
+              <div className="flex items-start gap-2 p-3 rounded-xl bg-blue-500/10 border border-blue-500/30">
+                <FontAwesomeIcon icon={faUserPlus} className="w-4 h-4 text-blue-400 mt-0.5" />
+                <p className="text-xs text-blue-200">
+                  This creates your SharpTable account. Use these credentials to log in to the app after payment.
                 </p>
               </div>
 
@@ -317,6 +419,70 @@ export const PaymentModal: React.FC = () => {
                 {errors.businessName && <p className="mt-1.5 text-sm text-red-400">{errors.businessName}</p>}
               </div>
 
+              {/* Password field */}
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
+                  Create Password
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FontAwesomeIcon icon={faKey} className="w-4 h-4 text-gray-500" />
+                  </div>
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    id="password"
+                    value={formData.password}
+                    onChange={handleInputChange('password')}
+                    placeholder="Min 8 chars, uppercase, lowercase, number"
+                    className={`w-full pl-10 pr-12 py-3 bg-zinc-800 border ${
+                      errors.password ? 'border-red-500' : 'border-zinc-700 focus:border-amber-500'
+                    } rounded-xl text-white placeholder-gray-500 outline-none transition-colors`}
+                    disabled={isSubmitting}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-300"
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  >
+                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} className="w-4 h-4" />
+                  </button>
+                </div>
+                {errors.password && <p className="mt-1.5 text-sm text-red-400">{errors.password}</p>}
+              </div>
+
+              {/* Confirm Password field */}
+              <div>
+                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-2">
+                  Confirm Password
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FontAwesomeIcon icon={faLock} className="w-4 h-4 text-gray-500" />
+                  </div>
+                  <input
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    id="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleInputChange('confirmPassword')}
+                    placeholder="Re-enter your password"
+                    className={`w-full pl-10 pr-12 py-3 bg-zinc-800 border ${
+                      errors.confirmPassword ? 'border-red-500' : 'border-zinc-700 focus:border-amber-500'
+                    } rounded-xl text-white placeholder-gray-500 outline-none transition-colors`}
+                    disabled={isSubmitting}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-300"
+                    aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
+                  >
+                    <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} className="w-4 h-4" />
+                  </button>
+                </div>
+                {errors.confirmPassword && <p className="mt-1.5 text-sm text-red-400">{errors.confirmPassword}</p>}
+              </div>
+
               {/* Terms checkbox */}
               <div className="flex items-start gap-3">
                 <button
@@ -358,12 +524,12 @@ export const PaymentModal: React.FC = () => {
                 {isSubmitting ? (
                   <>
                     <FontAwesomeIcon icon={faSpinner} className="w-4 h-4 animate-spin" />
-                    Processing...
+                    {registrationStep === 'registering' ? 'Creating Account...' : 'Opening Payment...'}
                   </>
                 ) : (
                   <>
-                    Continue to Payment
-                    <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
+                    <FontAwesomeIcon icon={faUserPlus} className="w-4 h-4" />
+                    Register & Subscribe
                   </>
                 )}
               </button>
