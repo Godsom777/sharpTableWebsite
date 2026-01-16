@@ -30,9 +30,10 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.5 }}
           className="flex justify-center mb-6"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-amber-300 text-[11px] font-bold uppercase tracking-widest">
+          <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-amber-300 text-[10px] sm:text-[11px] font-bold uppercase tracking-widest flex-wrap justify-center text-center leading-tight whitespace-normal max-w-[92vw]">
             <FontAwesomeIcon icon={faShieldHalved} className="w-3 h-3" />
-            PAYMENT COMES FIRST
+            <span className="sm:hidden">Take back revenue</span>
+            <span className="hidden sm:inline">Take back lost revenue</span>
           </div>
         </motion.div>
 
@@ -43,16 +44,7 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.05 }}
           className="text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] text-white"
         >
-          If it’s not{' '}
-          <span className="relative inline-block">
-            <span className="text-white">PAID</span>
-            <span className="pointer-events-none absolute left-[-6%] right-[-6%] top-1/2 h-[2px] -translate-y-1/2 rotate-[-10deg] bg-amber-400/90 shadow-[0_0_12px_rgba(245,158,11,0.45)]" />
-          </span>
-          ,
-          <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500">
-            it doesn’t get COOKED or SERVED.
-          </span>
+          More revenue control, better service—one system.
         </motion.h1>
 
         {/* Subheadline */}
@@ -62,8 +54,8 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mt-4 text-center text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed"
         >
-          Your Marshall confirms payment before the kitchen starts.
-          <span className="text-white font-medium">{' '}Less guesswork. <span className="text-amber-300 font-semibold">Less leakage.</span></span>
+          Keep every plate paid, and every naira accounted for.
+          <span className="text-white font-medium">{' '}Your Marshall confirms payment before the kitchen starts.</span>
         </motion.p>
 
         {/* CTA buttons  */}
@@ -79,7 +71,7 @@ export const Hero: React.FC = () => {
             whileTap={{ scale: 0.98 }}
             className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-white text-black px-6 py-3.5 font-bold text-sm shadow-lg hover:bg-zinc-100 transition"
           >
-            Book a Demo
+            Book a demo
             <FontAwesomeIcon icon={faChevronRight} className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
           </motion.button>
 
@@ -102,10 +94,10 @@ export const Hero: React.FC = () => {
           className="mt-8 flex flex-wrap justify-center gap-2 text-xs"
         >
           {[
-            { icon: faLock, text: 'Kitchen blocked until paid' },
-            { icon: faShieldHalved, text: 'Stops walkouts & theft' },
-            { icon: faCircleCheck, text: 'Marshall verification' },
-            { icon: faBolt, text: 'Real-time audit trail' }
+            { icon: faLock, text: 'Kitchen locked until verified' },
+            { icon: faShieldHalved, text: 'Stops walkouts & leakage' },
+            { icon: faCircleCheck, text: 'Marshall verifies payment' },
+            { icon: faBolt, text: 'Real-time accountability' }
           ].map((item) => (
             <span
               key={item.text}
@@ -143,8 +135,8 @@ export const Hero: React.FC = () => {
                   <FontAwesomeIcon icon={faShieldHalved} className="w-5 h-5 text-amber-400" />
                 </div>
                 <div>
-                  <div className="text-white font-bold text-sm">Fewer losses. More profit.</div>
-                  <div className="text-gray-400 text-xs">Each order tied to a verified payment</div>
+                  <div className="text-white font-bold text-sm">Less leakage. More profit.</div>
+                  <div className="text-gray-400 text-xs">Every order tied to verified payment</div>
                 </div>
               </div>
             </div>
@@ -175,7 +167,7 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="mt-6 text-center text-xs text-gray-500"
         >
-          Built for Nigerian restaurants that want tighter control without slowing down service
+          Built for Nigerian restaurants that want tighter revenue control without slowing service
         </motion.p>
       </div>
     </section>
