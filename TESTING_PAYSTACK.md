@@ -52,7 +52,7 @@ When the Paystack payment popup opens, use these **test card details**:
 #### Successful Payment
 | Field | Value |
 |-------|-------|
-| Card Number | `4084 0840 8408 4081` |
+| Card Number | `4084084084084081` (or `4084 0840 8408 4081` with spaces) |
 | Expiry | Any future date (e.g., `12/25`) |
 | CVV | `408` |
 | Result | ✅ **Success** |
@@ -60,20 +60,22 @@ When the Paystack payment popup opens, use these **test card details**:
 #### Declined Payment
 | Field | Value |
 |-------|-------|
-| Card Number | `4084 0840 8408 4081` |
+| Card Number | `4084084084084081` (or `4084 0840 8408 4081` with spaces) |
 | Expiry | Any future date (e.g., `12/25`) |
 | CVV | `001` |
 | Result | ❌ **Declined** |
 
-> **Note**: The same card number produces different results based on the CVV value. Use `408` for success, `001` for declined transactions.
+> **Note**: The same card number produces different results based on the CVV value. Use `408` for success, `001` for declined transactions. Spaces in card numbers are optional when entering.
 
 #### Verve Card Success
 | Field | Value |
 |-------|-------|
-| Card Number | `5060 6666 6666 6666 666` |
+| Card Number | `5060666666666666666` (19 digits - Verve format) |
 | Expiry | Any future date (e.g., `12/25`) |
 | CVV | `123` |
 | Result | ✅ **Success** |
+
+> **Note**: Verve cards can have 16, 18, or 19 digits. This is the correct test card format provided by Paystack.
 
 ### 5. Verify Callback Route
 
