@@ -9,8 +9,9 @@ The application is already configured for testing:
 
 1. **Test API Key**: `.env` file contains the test public key
    ```
-   VITE_PAYSTACK_PUBLIC_KEY=pk_test_339f6d765b1af67896f21dac0ef427473c0728a7
+   VITE_PAYSTACK_PUBLIC_KEY=pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
    ```
+   > **Note**: The actual test key is already configured in your `.env` file
 
 2. **Test Plan Code**: `contexts/PaymentContext.tsx` uses test plan codes
    ```
@@ -64,6 +65,8 @@ When the Paystack payment popup opens, use these **test card details**:
 | CVV | `001` |
 | Result | ❌ **Declined** |
 
+> **Note**: The same card number produces different results based on the CVV value. Use `408` for success, `001` for declined transactions.
+
 #### Verve Card Success
 | Field | Value |
 |-------|-------|
@@ -101,11 +104,12 @@ http://localhost:3000/payment/callback
 1. **Revert to Live Keys**: Before deploying to production, update `.env`:
    ```bash
    # Comment out test key
-   # VITE_PAYSTACK_PUBLIC_KEY=pk_test_339f6d765b1af67896f21dac0ef427473c0728a7
+   # VITE_PAYSTACK_PUBLIC_KEY=pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
    
    # Uncomment live key
-   VITE_PAYSTACK_PUBLIC_KEY=pk_live_e64a98438e270359d525099624bf0f096b64d17e
+   VITE_PAYSTACK_PUBLIC_KEY=pk_live_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
    ```
+   > **Important**: Use your actual live Paystack public key from your Paystack dashboard
 
 2. **Update Plan Codes**: In `contexts/PaymentContext.tsx`, revert to live plan codes:
    ```typescript
