@@ -9,16 +9,20 @@ export interface PlanDetails {
   period: string;
 }
 
+// LIVE PLAN CODES (DO NOT DELETE - revert after testing)
+// pro: 'PLN_rknt3upbuue6dmh'
+// enterprise: 'PLN_b36ulzsdy6d418n'
+
 export const PLAN_CONFIG: Record<PlanType, PlanDetails> = {
   pro: {
     name: 'Pro',
-    planCode: 'PLN_rknt3upbuue6dmh',
+    planCode: 'PLN_ujbziu27a1qp3oj', // TEST
     price: '₦49,999',
     period: '/month',
   },
   enterprise: {
     name: 'Enterprise',
-    planCode: 'PLN_b36ulzsdy6d418n',
+    planCode: 'PLN_ujbziu27a1qp3oj', // TEST
     price: '₦79,999',
     period: '/month',
   },
