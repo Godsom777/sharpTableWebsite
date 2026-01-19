@@ -19,7 +19,7 @@ export const PLAN_CONFIG: Record<PlanType, PlanDetails> = {
   enterprise: {
     name: 'Enterprise',
     planCode: 'PLN_b36ulzsdy6d418n',
-    price: '₦79,999',
+    price: '₦150,000',
     period: '/month',
   },
 };

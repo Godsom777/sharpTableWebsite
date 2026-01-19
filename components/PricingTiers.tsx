@@ -73,7 +73,7 @@ interface Limit {
 
 const limits: Limit[] = [
   { key: 'max_tables', label: 'Max Tables', icon: faTableCells, pro: '30', enterprise: '∞' },
-  { key: 'max_locations', label: 'Max Locations', icon: faLocationDot, pro: '2', enterprise: '∞' },
+  { key: 'max_locations', label: 'Max Locations', icon: faLocationDot, pro: '2', enterprise: '4' },
   { key: 'max_staff', label: 'Max Staff', icon: faUsers, pro: '10', enterprise: '∞' },
   { key: 'order_history_days', label: 'Order History', icon: faClock, pro: '30 days', enterprise: '∞' },
 ];
@@ -288,7 +288,7 @@ export const PricingTiers: React.FC = () => {
         name: "Enterprise",
         icon: faBuilding,
         description: "For restaurant chains",
-        price: "₦79,999",
+        price: "₦150,000",
         period: "/month",
         tierKey: "enterprise" as const,
         accentColor: "from-purple-500 to-pink-500",
@@ -296,15 +296,16 @@ export const PricingTiers: React.FC = () => {
         priceNote: (
           <div className="grid grid-cols-1 gap-3 text-sm">
             <div className="flex items-center justify-between">
-              <span className="text-gray-400">Monthly</span>
-              <span className="text-white font-semibold">₦79,999 <span className="text-gray-500 font-normal">or</span> $56</span>
+              <span className="text-gray-400">Up to 4 branches</span>
+              <span className="text-white font-semibold">₦150,000<span className="text-gray-500 font-normal">/mo</span></span>
             </div>
             <div className="h-px bg-white/10" />
-            <div className="flex items-center justify-between">
-              <span className="text-gray-400">Yearly</span>
-              <span className="text-white font-semibold">₦880,000 <span className="text-gray-500 font-normal">or</span> $616</span>
+            <div className="text-xs text-gray-500">
+              Need more than 4 branches?{' '}
+              <a href="mailto:support@sharptable.com.ng" className="text-amber-400 hover:text-amber-300 underline">
+                Contact support@sharptable.com.ng
+              </a>
             </div>
-            <div className="text-xs text-gray-500">Billed monthly or yearly. Enterprise features included.</div>
           </div>
         )
       }
