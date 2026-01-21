@@ -7,8 +7,12 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import { createHmac } from 'https://deno.land/std@0.177.0/node/crypto.ts';
 
 // APP'S SUPABASE CREDENTIALS (where subscription data will be stored)
-const APP_SUPABASE_URL = 'https://wwlopezoazuugxcvjgus.supabase.co';
-const APP_SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind3bG9wZXpvYXp1dWd4Y3ZqZ3VzIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2NDYxNTg5NCwiZXhwIjoyMDgwMTkxODk0fQ.YZPN_uXgSCAjWoTnNWvVF5jv4e496qJhjsePqv05B28';
+const APP_SUPABASE_URL = Deno.env.get('APP_SUPABASE_URL') || 'https://wwlopezoazuugxcvjgus.supabase.co';
+const APP_SUPABASE_SERVICE_KEY = Deno.env.get('APP_SUPABASE_SERVICE_KEY');
+
+if (!APP_SUPABASE_SERVICE_KEY) {
+  console.error('APP_SUPABASE_SERVICE_KEY not configured');
+}
 
 // CORS headers for preflight requests
 const corsHeaders = {

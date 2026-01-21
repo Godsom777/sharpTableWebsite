@@ -26,12 +26,12 @@ import { createClient } from '@supabase/supabase-js';
 
 // Supabase client for the APP's database (where users will login)
 const supabase = createClient(
-  import.meta.env.VITE_APP_SUPABASE_URL || 'https://wwlopezoazuugxcvjgus.supabase.co',
-  import.meta.env.VITE_APP_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind3bG9wZXpvYXp1dWd4Y3ZqZ3VzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ2MTU4OTQsImV4cCI6MjA4MDE5MTg5NH0.xyz'
+  import.meta.env.VITE_APP_SUPABASE_URL,
+  import.meta.env.VITE_APP_SUPABASE_ANON_KEY
 );
 
 // Paystack public key from environment variable
-const PAYSTACK_PUBLIC_KEY = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY || 'pk_live_e64a98438e270359d525099624bf0f096b64d17e';
+const PAYSTACK_PUBLIC_KEY = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
 
 // Declare PaystackPop on window for TypeScript
 declare global {
