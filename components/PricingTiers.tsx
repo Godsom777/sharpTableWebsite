@@ -57,6 +57,7 @@ const features: Feature[] = [
   { key: 'session_timeout', label: 'Session Timeout Controls', icon: faClockRotateLeft, pro: true, enterprise: true },
 
   // Enterprise-only
+  { key: 'multi_admin_pos', label: 'Multi Admin POS', icon: faUsers, pro: false, enterprise: true },
   { key: 'daily_summary', label: 'Daily Summary', icon: faFileLines, pro: false, enterprise: true },
   { key: 'custom_receipts', label: 'Custom Receipts', icon: faReceipt, pro: false, enterprise: true },
   { key: 'ai_waiter', label: 'AI Waiter', icon: faRobot, pro: false, enterprise: true },
