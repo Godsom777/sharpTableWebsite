@@ -70,7 +70,7 @@ export const Footer: React.FC = () => {
             </motion.a>
             <motion.a
               whileHover={{ scale: 1.1, color: '#fff' }}
-              href="mailto:sharptable.ng@gmail.com"
+              href="mailto:info@sharptable.com.ng"
               className="hover:text-white transition-colors"
             >
               Contact
@@ -83,7 +83,7 @@ export const Footer: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="mt-12 text-zinc-700 text-xs"
         >
-            © {new Date().getFullYear()} SharpTable Inc. All rights reserved.
+            © {new Date().getFullYear()} SharpTable Tech. All rights reserved.
         </motion.div>
       </div>
     </footer>
