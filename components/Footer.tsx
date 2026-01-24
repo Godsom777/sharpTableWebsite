@@ -38,7 +38,7 @@ export const Footer: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
           whileHover={{ scale: 1.05, y: -2 }}
-          href="mailto:sharptable.ng@gmail.com" 
+          href="mailto:info@sharptable.com.ng" 
           className="text-amber-500 hover:text-amber-400 transition-colors text-lg font-medium mb-8 flex items-center gap-2"
         >
             <FontAwesomeIcon icon={faEnvelope} className="w-5 h-5" />

@@ -16,7 +16,7 @@ export const NavBar: React.FC = () => {
   }, []);
 
   const handleContact = () => {
-    window.location.href = "mailto:sharptable.ng@gmail.com";
+    window.location.href = "mailto:info@sharptable.com.ng";
   };
 
   return (

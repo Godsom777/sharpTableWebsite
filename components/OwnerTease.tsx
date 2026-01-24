@@ -5,7 +5,7 @@ import { faArrowRight, faEye, faEyeSlash, faStar, faLock } from '@fortawesome/fr
 
 export const OwnerTease: React.FC = () => {
   const handleContact = () => {
-    window.location.href = "mailto:sharptable.ng@gmail.com";
+    window.location.href = "mailto:info@sharptable.com.ng";
   };
 
   return (

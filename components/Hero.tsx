@@ -66,7 +66,7 @@ export const Hero: React.FC = () => {
           className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3"
         >
           <motion.button
-            onClick={() => (window.location.href = 'mailto:sharptable.ng@gmail.com')}
+            onClick={() => (window.location.href = 'mailto:info@sharptable.com.ng')}
             whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-white text-black px-6 py-3.5 font-bold text-sm shadow-lg hover:bg-zinc-100 transition"

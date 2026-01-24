@@ -71,7 +71,7 @@ export const PaymentCallback: React.FC = () => {
   };
 
   const handleContactSupport = () => {
-    window.location.href = 'mailto:sharptable.ng@gmail.com';
+    window.location.href = 'mailto:support@sharptable.com.ng';
   };
 
   return (

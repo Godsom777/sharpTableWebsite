@@ -238,7 +238,7 @@ export const BentoGrid: React.FC = () => {
 
           {/* CTA Button */}
           <motion.button
-            onClick={() => window.location.href = "mailto:sharptable.ng@gmail.com"}
+            onClick={() => window.location.href = "mailto:info@sharptable.com.ng"}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
             className="relative group bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 bg-[length:200%_100%] text-white px-10 py-5 rounded-2xl font-bold text-lg transition-all shadow-2xl shadow-amber-500/25 inline-flex items-center gap-3 hover:shadow-amber-500/40"
