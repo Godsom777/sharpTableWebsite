@@ -42,7 +42,7 @@ export const Footer: React.FC = () => {
           className="text-amber-500 hover:text-amber-400 transition-colors text-lg font-medium mb-8 flex items-center gap-2"
         >
             <FontAwesomeIcon icon={faEnvelope} className="w-5 h-5" />
-            sharptable.ng@gmail.com
+           info@sharptable.com.ng
         </motion.a>
 
         <motion.div
