@@ -47,17 +47,24 @@ interface Feature {
 }
 
 const features: Feature[] = [
-  // Pro (kept)
+  // Command-first (enterprise-only)
+  { key: 'multi_location_control', label: 'Multi-location Control', icon: faLocationDot, pro: false, enterprise: true },
+  { key: 'unified_view', label: 'Unified View Across Branches', icon: faChartPie, pro: false, enterprise: true },
+  { key: 'advanced_analytics', label: 'Advanced Analytics', icon: faChartLine, pro: false, enterprise: true },
+
+  // Most "Control"-aligned first
+  { key: 'audit_trail', label: 'Audit Trail', icon: faLock, pro: true, enterprise: true },
+
+  // Pro (Control)
   { key: 'super_admin', label: 'Admin', icon: faShield, pro: true, enterprise: true },
   { key: 'marshall_dashboard', label: 'Marshall Dashboard', icon: faGauge, pro: true, enterprise: true },
   { key: 'chef_dashboard', label: 'Chef/KDS Dashboard', icon: faUtensils, pro: true, enterprise: true },
   { key: 'staff_management', label: 'Staff Management', icon: faUsers, pro: true, enterprise: true },
   { key: 'daily_summary', label: 'Daily Summary', icon: faFileLines, pro: true, enterprise: true },
-  { key: 'audit_trail', label: 'Audit Trail', icon: faLock, pro: true, enterprise: true },
 
-  // Enterprise-only
-  { key: 'multi_admin_pos', label: 'Multi Admin POS', icon: faUsers, pro: false, enterprise: true },
+  // Enterprise-only (Command)
   { key: 'feature_overrides', label: 'Feature Overrides', icon: faCode, pro: false, enterprise: true },
+  { key: 'multi_admin_pos', label: 'Multi Admin POS', icon: faUsers, pro: false, enterprise: true },
 ];
 
 interface Limit {
@@ -70,7 +77,7 @@ interface Limit {
 
 const limits: Limit[] = [
   { key: 'max_tables', label: 'Max Tables', icon: faTableCells, pro: '50', enterprise: 'Unlimited' },
-  { key: 'max_locations', label: 'Max Locations', icon: faLocationDot, pro: '1', enterprise: 'Unlimited' },
+  { key: 'max_locations', label: 'Multi-location', icon: faLocationDot, pro: '1', enterprise: 'Unlimited' },
   { key: 'max_staff', label: 'Max Staff', icon: faUsers, pro: '15', enterprise: 'Unlimited' },
   { key: 'order_history_days', label: 'Order History', icon: faClock, pro: '90 days', enterprise: 'Unlimited' },
 ];
@@ -156,6 +163,11 @@ const TierCard = memo<TierCardProps>(({
   priceNote,
   onGetStarted
 }) => {
+  const visibleFeatures = useMemo(
+    () => features.filter((f) => f[tierKey] !== false),
+    [tierKey]
+  );
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -207,7 +219,7 @@ const TierCard = memo<TierCardProps>(({
           {/* Features List */}
           <div className="space-y-3 mb-6">
             <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Features</p>
-            {features.map((feature, idx) => (
+            {visibleFeatures.map((feature, idx) => (
               <FeatureRow 
                 key={feature.key} 
                 feature={feature} 
@@ -257,9 +269,9 @@ export const PricingTiers: React.FC = () => {
   const tierConfigs = useMemo(
     () => [
       {
-        name: "Pro",
+        name: "Control",
         icon: faCrown,
-        description: "For growing restaurants",
+        description: "Keep operations steady, clean, and predictable — with the oversight you need.",
         price: "₦99,999",
         period: "/month",
         tierKey: "pro" as const,
@@ -272,14 +284,14 @@ export const PricingTiers: React.FC = () => {
               <span className="text-gray-400">Monthly</span>
               <span className="text-white font-semibold">₦99,999</span>
             </div>
-            <div className="text-xs text-gray-500">Billed monthly. Pro features included.</div>
+            <div className="text-xs text-gray-500">Built for clarity, consistency, and day-to-day control.</div>
           </div>
         )
       },
       {
-        name: "Enterprise",
+        name: "Command",
         icon: faBuilding,
-        description: "For restaurant chains",
+        description: "Lead across locations with confidence — set the pace and keep every branch aligned.",
         price: "₦199,999",
         period: "/month",
         tierKey: "enterprise" as const,
@@ -291,7 +303,7 @@ export const PricingTiers: React.FC = () => {
               <span className="text-gray-400">Enterprise</span>
               <span className="text-white font-semibold">₦199,999<span className="text-gray-500 font-normal">/mo</span></span>
             </div>
-            <div className="text-xs text-gray-500">Unlimited locations, tables, staff, and order history.</div>
+            <div className="text-xs text-gray-500">Unlimited locations, tables, staff, and order history — plus feature overrides.</div>
           </div>
         )
       }

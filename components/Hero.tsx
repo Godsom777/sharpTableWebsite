@@ -44,7 +44,7 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.05 }}
           className="text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] text-white"
         >
-          More revenue control, better service—one system.
+          More revenue control, better service, one system.
         </motion.h1>
 
         {/* Subheadline */}
@@ -55,7 +55,7 @@ export const Hero: React.FC = () => {
           className="mt-4 text-center text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed"
         >
           Keep every plate paid, and every naira accounted for.
-          <span className="text-white font-medium">{' '}Your Marshall confirms payment before the kitchen starts.</span>
+          <span className="text-white font-medium">{' '}Your Marshall confirms payment before the any activity starts.</span>
         </motion.p>
 
         {/* CTA buttons  */}
