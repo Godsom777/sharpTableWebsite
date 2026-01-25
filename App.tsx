@@ -1,5 +1,6 @@
 import { NavBar } from './components/NavBar';
 import { Hero } from './components/Hero';
+import { GateSection } from './components/GateSection';
 import { BentoGrid } from './components/BentoGrid';
 import { Roles } from './components/Roles';
 import { Intelligence } from './components/Intelligence';
@@ -7,6 +8,7 @@ import { TrustStats } from './components/TrustStats';
 import { Story } from './components/Story';
 import { OwnerTease } from './components/OwnerTease';
 import { PricingTiers } from './components/PricingTiers';
+import { WhoIsThisFor } from './components/WhoIsThisFor';
 import { Footer } from './components/Footer';
 import { PaymentModal } from './components/PaymentModal';
 import { PaymentCallback } from './components/PaymentCallback';
@@ -30,6 +32,7 @@ function App() {
         <NavBar />
         <main>
           <Hero />
+          <GateSection />
           <BentoGrid />
           <Intelligence />
           <Roles />
@@ -37,6 +40,7 @@ function App() {
           <PricingTiers />
           <OwnerTease />
           <Story />
+          <WhoIsThisFor />
         </main>
         <Footer />
         <PaymentModal />

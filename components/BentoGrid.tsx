@@ -139,6 +139,85 @@ export const BentoGrid: React.FC = () => {
           </motion.div>
         </motion.div>
 
+        {/* How it works — in 30 seconds */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, delay: 0.05 }}
+          className="mt-16 mb-20"
+        >
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-10">
+              <p className="text-xs font-semibold tracking-[0.22em] text-amber-300/80 uppercase">How SharpTable Works (30 seconds)</p>
+              <h3 className="mt-3 text-3xl md:text-4xl font-extrabold text-white">How it works — in 30 seconds</h3>
+              <p className="mt-3 text-gray-400 max-w-2xl mx-auto">
+                No training manuals. No behavior change. Just enforced flow.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="h-10 w-10 rounded-xl bg-amber-500/15 border border-amber-500/20 flex items-center justify-center text-amber-300 font-extrabold">1</div>
+                  <h4 className="text-white font-bold">Guests place an order</h4>
+                </div>
+                <p className="text-sm text-gray-400 leading-relaxed">
+                  Guests scan the table QR, browse the menu, and place orders into a shared digital tab.
+                </p>
+                <p className="mt-3 text-sm text-gray-300 font-medium">Multiple guests. One table. One tab.</p>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="h-10 w-10 rounded-xl bg-amber-500/15 border border-amber-500/20 flex items-center justify-center text-amber-300 font-extrabold">2</div>
+                  <h4 className="text-white font-bold">Payment is collected</h4>
+                </div>
+                <p className="text-sm text-gray-400 leading-relaxed">
+                  Orders are submitted for payment — cash, POS, transfer, or card.
+                </p>
+                <p className="mt-3 text-sm text-gray-300 font-medium">Nothing is sent to the kitchen yet.</p>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="h-10 w-10 rounded-xl bg-amber-500/15 border border-amber-500/20 flex items-center justify-center text-amber-300 font-extrabold">3</div>
+                  <h4 className="text-white font-bold">Marshall verifies payment</h4>
+                </div>
+                <p className="text-sm text-gray-400 leading-relaxed">
+                  A dedicated Marshall confirms payment on their dashboard.
+                </p>
+                <p className="mt-3 text-sm text-gray-300 font-medium">This single action unlocks the kitchen.</p>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="h-10 w-10 rounded-xl bg-amber-500/15 border border-amber-500/20 flex items-center justify-center text-amber-300 font-extrabold">4</div>
+                  <h4 className="text-white font-bold">Kitchen starts cooking</h4>
+                </div>
+                <p className="text-sm text-gray-400 leading-relaxed">
+                  Only verified, paid orders appear on the kitchen screen.
+                </p>
+                <p className="mt-3 text-sm text-gray-300 font-medium">No payment = no cooking. No arguments. No exceptions.</p>
+              </div>
+            </div>
+
+            <div className="mt-10 rounded-2xl border border-amber-500/20 bg-gradient-to-r from-amber-500/10 via-orange-500/5 to-transparent p-6 text-center">
+              <div className="text-white font-extrabold text-2xl md:text-3xl leading-tight">
+                SharpTable doesn’t trust hope.
+                <span className="text-amber-300"> It enforces payment.</span>
+              </div>
+              <button
+                onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
+                className="mt-5 inline-flex items-center justify-center gap-2 rounded-xl bg-white/5 text-white border border-white/15 px-5 py-3 text-sm font-semibold hover:bg-white/10 transition"
+              >
+                See a real order flow 
+                <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </motion.div>
+
         {/* Feature Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
           {features.map((feature, index) => (
