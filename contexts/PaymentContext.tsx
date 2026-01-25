@@ -13,13 +13,13 @@ export const PLAN_CONFIG: Record<PlanType, PlanDetails> = {
   pro: {
     name: 'Pro',
     planCode: 'PLN_rknt3upbuue6dmh',
-    price: '₦49,999',
+    price: '₦99,999',
     period: '/month',
   },
   enterprise: {
     name: 'Enterprise',
     planCode: 'PLN_b36ulzsdy6d418n',
-    price: '₦149,999',
+    price: '₦199,999',
     period: '/month',
   },
 };

@@ -47,21 +47,17 @@ interface Feature {
 }
 
 const features: Feature[] = [
-  // Enabled on Pro
-  { key: 'super_admin', label: 'Super Admin', icon: faShield, pro: true, enterprise: true },
+  // Pro (kept)
+  { key: 'super_admin', label: 'Admin', icon: faShield, pro: true, enterprise: true },
   { key: 'marshall_dashboard', label: 'Marshall Dashboard', icon: faGauge, pro: true, enterprise: true },
   { key: 'chef_dashboard', label: 'Chef/KDS Dashboard', icon: faUtensils, pro: true, enterprise: true },
   { key: 'staff_management', label: 'Staff Management', icon: faUsers, pro: true, enterprise: true },
-  { key: 'qr_menu', label: 'QR Menu & Self-Ordering', icon: faQrcode, pro: true, enterprise: true },
-  { key: 'digital_tab', label: 'Digital Tab', icon: faCreditCard, pro: true, enterprise: true },
-  { key: 'session_timeout', label: 'Session Timeout Controls', icon: faClockRotateLeft, pro: true, enterprise: true },
+  { key: 'daily_summary', label: 'Daily Summary', icon: faFileLines, pro: true, enterprise: true },
+  { key: 'audit_trail', label: 'Audit Trail', icon: faLock, pro: true, enterprise: true },
 
   // Enterprise-only
   { key: 'multi_admin_pos', label: 'Multi Admin POS', icon: faUsers, pro: false, enterprise: true },
-  { key: 'daily_summary', label: 'Daily Summary', icon: faFileLines, pro: false, enterprise: true },
-  { key: 'custom_receipts', label: 'Custom Receipts', icon: faReceipt, pro: false, enterprise: true },
-  { key: 'ai_waiter', label: 'AI Waiter', icon: faRobot, pro: false, enterprise: true },
-  { key: 'advanced_analytics', label: 'Advanced Analytics', icon: faChartLine, pro: false, enterprise: true },
+  { key: 'feature_overrides', label: 'Feature Overrides', icon: faCode, pro: false, enterprise: true },
 ];
 
 interface Limit {
@@ -73,10 +69,10 @@ interface Limit {
 }
 
 const limits: Limit[] = [
-  { key: 'max_tables', label: 'Max Tables', icon: faTableCells, pro: '30', enterprise: '∞' },
-  { key: 'max_locations', label: 'Max Locations', icon: faLocationDot, pro: '2', enterprise: '5' },
-  { key: 'max_staff', label: 'Max Staff', icon: faUsers, pro: '10', enterprise: '∞' },
-  { key: 'order_history_days', label: 'Order History', icon: faClock, pro: '30 days', enterprise: '∞' },
+  { key: 'max_tables', label: 'Max Tables', icon: faTableCells, pro: '50', enterprise: 'Unlimited' },
+  { key: 'max_locations', label: 'Max Locations', icon: faLocationDot, pro: '1', enterprise: 'Unlimited' },
+  { key: 'max_staff', label: 'Max Staff', icon: faUsers, pro: '15', enterprise: 'Unlimited' },
+  { key: 'order_history_days', label: 'Order History', icon: faClock, pro: '90 days', enterprise: 'Unlimited' },
 ];
 
 interface TierCardProps {
@@ -264,7 +260,7 @@ export const PricingTiers: React.FC = () => {
         name: "Pro",
         icon: faCrown,
         description: "For growing restaurants",
-        price: "₦49,999",
+        price: "₦99,999",
         period: "/month",
         tierKey: "pro" as const,
         popular: true,
@@ -274,14 +270,9 @@ export const PricingTiers: React.FC = () => {
           <div className="grid grid-cols-1 gap-3 text-sm">
             <div className="flex items-center justify-between">
               <span className="text-gray-400">Monthly</span>
-              <span className="text-white font-semibold">₦49,999 <span className="text-gray-500 font-normal">or</span> $35</span>
+              <span className="text-white font-semibold">₦99,999</span>
             </div>
-            <div className="h-px bg-white/10" />
-            <div className="flex items-center justify-between">
-              <span className="text-gray-400">Yearly</span>
-              <span className="text-white font-semibold">₦550,000 <span className="text-gray-500 font-normal">or</span> $386.25</span>
-            </div>
-            <div className="text-xs text-gray-500">Billed monthly or yearly. Same Pro features.</div>
+            <div className="text-xs text-gray-500">Billed monthly. Pro features included.</div>
           </div>
         )
       },
@@ -289,7 +280,7 @@ export const PricingTiers: React.FC = () => {
         name: "Enterprise",
         icon: faBuilding,
         description: "For restaurant chains",
-        price: "₦149,999",
+        price: "₦199,999",
         period: "/month",
         tierKey: "enterprise" as const,
         accentColor: "from-purple-500 to-pink-500",
@@ -297,16 +288,10 @@ export const PricingTiers: React.FC = () => {
         priceNote: (
           <div className="grid grid-cols-1 gap-3 text-sm">
             <div className="flex items-center justify-between">
-              <span className="text-gray-400">Up to 5 branches</span>
-              <span className="text-white font-semibold">₦149,999<span className="text-gray-500 font-normal">/mo</span></span>
+              <span className="text-gray-400">Enterprise</span>
+              <span className="text-white font-semibold">₦199,999<span className="text-gray-500 font-normal">/mo</span></span>
             </div>
-            <div className="h-px bg-white/10" />
-            <div className="text-xs text-gray-500">
-              Need more than 5 branches?{' '}
-              <a href="mailto:support@sharptable.com.ng" className="text-amber-400 hover:text-amber-300 underline">
-                Contact support@sharptable.com.ng
-              </a>
-            </div>
+            <div className="text-xs text-gray-500">Unlimited locations, tables, staff, and order history.</div>
           </div>
         )
       }
