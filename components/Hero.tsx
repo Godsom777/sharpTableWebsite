@@ -55,7 +55,7 @@ export const Hero: React.FC = () => {
           className="mt-4 text-center text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed"
         >
           Keep every plate paid, and every naira accounted for.
-          <span className="text-white font-medium">{' '}Your Marshall confirms payment before the any activity starts.</span>
+          <span className="text-white font-medium">{' '}Your Marshall confirms payment before the kitchen can act.</span>
         </motion.p>
 
         {/* CTA buttons  */}
