@@ -19,7 +19,7 @@ export const WhoIsThisFor: React.FC = () => {
           <div className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8">
             <div className="flex items-center justify-center gap-2 mb-6">
               <div className="h-px w-10 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-              <h3 className="text-white font-bold tracking-wide text-sm uppercase">Who is this for?</h3>
+              <h3 className="text-white font-bold tracking-wide text-sm uppercase">Who is SharpTable for?</h3>
               <div className="h-px w-10 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
             </div>
 
@@ -27,31 +27,31 @@ export const WhoIsThisFor: React.FC = () => {
               <div className="rounded-xl border border-green-500/20 bg-green-500/5 p-5">
                 <div className="flex items-center gap-2 mb-3">
                   <FontAwesomeIcon icon={faCircleCheck} className="w-4 h-4 text-green-400" />
-                  <h4 className="text-white font-semibold">SharpTable is built for:</h4>
+                  <h4 className="text-white font-semibold">Built for you if:</h4>
                 </div>
                 <ul className="space-y-2 text-sm text-gray-300">
-                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-green-400/80" />Busy kitchens</li>
-                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-green-400/80" />Kitchen bars</li>
-                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-green-400/80" />Food courts</li>
-                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-green-400/80" />Restaurants losing money during rush hours</li>
+                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-green-400/80" />You run a busy kitchen with high order volume</li>
+                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-green-400/80" />You've had walkouts or "missing cash" before</li>
+                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-green-400/80" />You want staff accountability without micromanaging</li>
+                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-green-400/80" />You want to know exactly where every naira went</li>
                 </ul>
               </div>
 
               <div className="rounded-xl border border-red-500/20 bg-red-500/5 p-5">
                 <div className="flex items-center gap-2 mb-3">
                   <FontAwesomeIcon icon={faLock} className="w-4 h-4 text-red-400" />
-                  <h4 className="text-white font-semibold">Not built for:</h4>
+                  <h4 className="text-white font-semibold">Not the right fit if:</h4>
                 </div>
                 <ul className="space-y-2 text-sm text-gray-300">
-                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-red-400/80" />Quiet cafes</li>
-                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-red-400/80" />Low-volume lounges</li>
-                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-red-400/80" />Restaurants that don't mind serving unpaid orders</li>
+                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-red-400/80" />You run a quiet cafe with 10 orders a day</li>
+                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-red-400/80" />You're fine with "pay later" or running tabs</li>
+                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-red-400/80" />You don't mind chasing customers after they've eaten</li>
                 </ul>
               </div>
             </div>
 
             <p className="mt-6 text-center text-xs text-gray-500">
-              If you run fast service, high traffic, or multiple hand-offs between cashier and kitchen  the gate matters.
+              SharpTable works best for restaurants, kitchen bars, and food courts where speed, volume, and payment control matter.
             </p>
           </div>
         </motion.div>

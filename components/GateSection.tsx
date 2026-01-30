@@ -19,17 +19,17 @@ export const GateSection: React.FC = () => {
               This is not a POS.
             </span>
             <span className="text-amber-300 font-extrabold tracking-tight text-base sm:text-lg">
-              This is a gate.
+              This is a payment gate.
             </span>
           </div>
 
           <p className="mt-4 text-sm sm:text-base text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            SharpTable forces payment verification before the kitchen sees the order.
-            No begging. No chasing. No "Oga I will transfer".
+            Your kitchen doesn't see the order until money is confirmed.
+            No more "Oga I will transfer". No more chasing customers. No more staff pocketing cash.
           </p>
 
           <p className="mt-3 text-xs sm:text-sm text-gray-400 max-w-3xl mx-auto">
-            If an order is not paid, it doesnt move.
+            Unpaid order? It doesn't move. Simple.
           </p>
         </motion.div>
       </div>

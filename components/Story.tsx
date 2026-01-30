@@ -22,12 +22,12 @@ const steps: Step[] = [
   {
     id: 1,
     title: 'Order Placed',
-    description: 'Guest orders Butter Chicken. The order is captured but does NOT go to the kitchen.',
+    description: 'Customer orders jollof rice. The order is captured — but the kitchen can\'t see it yet.',
     icon: <FontAwesomeIcon icon={faUtensils} className="w-5 h-5" />,
     color: 'blue',
     view: {
       title: 'Order Captured',
-      description: 'Table 7 - Butter Chicken + Mango Lassi. Status: PENDING PAYMENT. Kitchen will not see this order until payment is verified.',
+      description: 'Table 7 — Jollof Rice + Chapman. Status: AWAITING PAYMENT. Kitchen is locked.',
       bgColor: 'bg-blue-900/10',
       borderColor: 'border-blue-900/30',
       iconColor: 'text-blue-500'
@@ -36,12 +36,12 @@ const steps: Step[] = [
   {
     id: 2,
     title: 'Payment Collected',
-    description: 'The Marshall collects ₦8,500. Payment method and amount are logged.',
+    description: 'Your Marshall collects ₦4,500. The amount, method, and who collected it are all logged.',
     icon: <FontAwesomeIcon icon={faReceipt} className="w-5 h-5" />,
     color: 'purple',
     view: {
       title: 'Payment Logged',
-      description: 'Marshall "Chidi" collected ₦8,500 via POS. Transaction ID: #TXN-4521. Timestamp: 7:32 PM. Awaiting verification.',
+      description: 'Marshall "Chidi" collected ₦4,500 via POS. Time: 7:32 PM. Awaiting verification.',
       bgColor: 'bg-purple-900/10',
       borderColor: 'border-purple-900/30',
       iconColor: 'text-purple-500'
@@ -50,12 +50,12 @@ const steps: Step[] = [
   {
     id: 3,
     title: 'Payment Verified',
-    description: 'The Marshall confirms payment is complete. Only now does the order unlock.',
+    description: 'Marshall confirms the money is in. The gate opens. Kitchen queue unlocks.',
     icon: <FontAwesomeIcon icon={faUsers} className="w-5 h-5" />,
     color: 'green',
     view: {
       title: 'Payment Verified ✓',
-      description: 'Marshall "Chidi" verified payment for Table 7. Order status changed to PAID. Kitchen queue unlocked.',
+      description: 'Marshall "Chidi" verified payment. Order status: PAID. Kitchen can now see it.',
       bgColor: 'bg-green-900/10',
       borderColor: 'border-green-900/30',
       iconColor: 'text-green-500'
@@ -63,13 +63,13 @@ const steps: Step[] = [
   },
   {
     id: 4,
-    title: 'Kitchen Activated',
-    description: 'The kitchen now sees the order. They cook knowing it is already paid for.',
+    title: 'Kitchen Cooks',
+    description: 'The kitchen sees the order and starts cooking — knowing the money is already secured.',
     icon: <FontAwesomeIcon icon={faWifi} className="w-5 h-5" />,
     color: 'orange',
     view: {
       title: 'Kitchen Display',
-      description: 'PAID ORDER - Table 7. Butter Chicken + Mango Lassi. No risk of walkout. Start cooking!',
+      description: 'PAID ✓ — Table 7. Jollof Rice + Chapman. Start cooking!',
       bgColor: 'bg-orange-900/10',
       borderColor: 'border-orange-900/30',
       iconColor: 'text-orange-500'
@@ -77,13 +77,13 @@ const steps: Step[] = [
   },
   {
     id: 5,
-    title: 'Full Audit Trail',
-    description: 'Every step is logged. Who took payment, when, and for what. No hiding, no shortcuts.',
+    title: 'Full Trail Logged',
+    description: 'Who took payment, when, how much, for what order. Everything is on record.',
     icon: <FontAwesomeIcon icon={faChartLine} className="w-5 h-5" />,
     color: 'amber',
     view: {
       title: 'Audit Complete',
-      description: 'Order #4521 - Created by "Adaeze" → Paid to "Chidi" → Verified at 7:32 PM → Cooked by Kitchen → Served. Full accountability.',
+      description: 'Order #4521 — Taken by "Adaeze" → Paid to "Chidi" → Cooked → Served. Full accountability.',
       bgColor: 'bg-amber-900/10',
       borderColor: 'border-amber-900/30',
       iconColor: 'text-amber-500'
@@ -112,8 +112,8 @@ export const Story: React.FC = () => {
 
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">See the Payment-First Workflow in Action</h2>
-            <p className="text-gray-400">Every order is blocked until payment is verified. No exceptions. No shortcuts.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">How the Gate Works</h2>
+            <p className="text-gray-400">Order comes in. Payment gets verified. Only then does the kitchen cook. No exceptions.</p>
         </div>
 
         <div className="flex flex-col md:flex-row gap-8">
@@ -261,9 +261,9 @@ export const Story: React.FC = () => {
                 <div className="flex items-start gap-3">
                   <FontAwesomeIcon icon={faHeart} className="text-amber-500 mt-0.5 w-4 h-4" />
                   <div>
-                    <p className="text-white font-medium text-xs">Loss Prevention</p>
+                    <p className="text-white font-medium text-xs">Zero Walkouts</p>
                     <p className="text-gray-400 text-xs mt-1">
-                      Payment-first workflow eliminates walkouts and internal theft. Every naira accounted for.
+                      No food leaves the kitchen unless it's paid for. No more chasing customers.
                     </p>
                   </div>
                 </div>
@@ -282,9 +282,9 @@ export const Story: React.FC = () => {
           <div className="flex items-start gap-3">
             <FontAwesomeIcon icon={faHeart} className="text-amber-500 mt-0.5 flex-shrink-0 w-4 h-4" />
             <div>
-              <p className="text-white font-medium text-xs">Loss Prevention</p>
+              <p className="text-white font-medium text-xs">Zero Walkouts</p>
               <p className="text-gray-400 text-xs mt-1">
-                Payment-first workflow eliminates walkouts and internal theft. Every naira accounted for.
+                No food leaves the kitchen unless it's paid for. No more chasing customers.
               </p>
             </div>
           </div>

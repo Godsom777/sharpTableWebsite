@@ -27,8 +27,8 @@ export const OwnerTease: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-4xl md:text-6xl font-bold text-white tracking-tighter leading-tight"
             >
-              How much money is <br/>
-              <span className="text-amber-500 italic font-serif">walking out your door?</span>
+              How much are you losing <br/>
+              <span className="text-amber-500 italic font-serif">before food even leaves the kitchen?</span>
             </motion.h2>
             
             <div className="space-y-6">
@@ -48,8 +48,8 @@ export const OwnerTease: React.FC = () => {
                   <FontAwesomeIcon icon={faEyeSlash} className="text-gray-500 w-5 h-5" />
                 </motion.div>
                 <div>
-                  <h4 className="text-white font-semibold">What most POS systems allow</h4>
-                  <p className="text-gray-500 text-sm">“Food goes out before payment is confirmed. That’s where walkouts and ‘missing cash’ start.”</p>
+                  <h4 className="text-white font-semibold">The problem with most systems</h4>
+                  <p className="text-gray-500 text-sm">"Kitchen cooks first, payment comes later. Walkouts happen. Cash goes missing. No one knows who took what."</p>
                 </div>
               </motion.div>
 
@@ -69,9 +69,9 @@ export const OwnerTease: React.FC = () => {
                   <FontAwesomeIcon icon={faEye} className="text-amber-500 w-5 h-5 animate-pulse" />
                 </motion.div>
                 <div>
-                  <h4 className="text-amber-500 font-semibold">What SharpTable changes</h4>
+                  <h4 className="text-amber-500 font-semibold">How SharpTable fixes it</h4>
                   <p className="text-gray-300 text-sm italic leading-relaxed">
-                    “The kitchen stays locked until your Marshall confirms payment. Every payment is logged — who took it, when, and how much.”
+                    "Kitchen is locked until payment is verified. Every transaction logged — who collected, when, how much. No gaps."
                   </p>
                 </div>
               </motion.div>
@@ -84,8 +84,8 @@ export const OwnerTease: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-xl text-gray-500 max-w-lg leading-relaxed border-l border-zinc-800 pl-6"
             >
-              SharpTable gives you a clean money trail from order to payment to kitchen —
-              <span className="text-white font-medium"> so you can spot problems fast and keep what you earn.</span>
+              No payment, no cooking. That's the rule.
+              <span className="text-white font-medium"> SharpTable enforces it automatically.</span>
             </motion.p>
           </motion.div>
 

@@ -8,40 +8,40 @@ const roles = [
 		id: 'admin',
 		title: 'Owner & Manager',
 		icon: <FontAwesomeIcon icon={faGauge} />,
-		subtitle: 'One view of performance, guests, and growth.',
+		subtitle: 'Full visibility on payments, staff, and revenue.',
 		content: [
-			'See every guest profile and visit history',
-			'Track sales and trends across days/locations',
-			'Send WhatsApp offers to the right guests',
-			'Manage menu and location settings',
+			'See who collected what, when, and for which order',
+			'Track revenue across days and locations',
+			'Spot discrepancies before they become problems',
+			'Manage menu, staff, and location settings',
 		],
-		highlight: 'Decisions backed by real guest behavior.',
+		highlight: 'Every naira accounted for. No blind spots.',
 	},
 	{
 		id: 'kds',
 		title: 'Kitchen Team',
 		icon: <FontAwesomeIcon icon={faUtensils} />,
-		subtitle: 'Clear tickets, fewer mistakes, faster service.',
+		subtitle: 'Only paid orders appear. No surprises.',
 		content: [
-			'Live order queue with statuses',
-			'Special requests shown upfront',
+			'Live queue of verified, paid orders only',
+			'No more cooking for unpaid tickets',
+			'Special requests shown clearly',
 			'Mark items cooking and ready',
-			'Sync updates with the floor in real time',
 		],
-		highlight: 'Smooth handoffs, even on busy nights.',
+		highlight: 'Cook with confidence — every order is paid.',
 	},
 	{
 		id: 'marshall',
-		title: 'Floor Team',
+		title: 'Marshall (Floor)',
 		icon: <FontAwesomeIcon icon={faUsers} />,
-		subtitle: 'Keep service flowing, from seating to payment.',
+		subtitle: 'Verify payment. Unlock the kitchen.',
 		content: [
-			'Seat guests and assign tables',
-			'Track order progress without guesswork',
-			'Get notified the moment food is ready',
-			'Manage wait times and table turns',
+			'Collect and confirm payment before kitchen sees order',
+			'Every transaction logged under your name',
+			'Get notified when food is ready',
+			'Manage table flow and handoffs',
 		],
-		highlight: 'More control, better guest experience.',
+		highlight: 'You are the gate. Nothing passes without you.',
 	},
 ];
 
@@ -61,8 +61,8 @@ export const Roles: React.FC = () => {
 							transition={{ duration: 0.6 }}
 							className="text-4xl md:text-5xl font-bold text-white mb-8 tracking-tight"
 						>
-							Built for every <br />
-							<span className="text-gray-500">role on your team.</span>
+							Everyone plays a part <br />
+							<span className="text-gray-500">in protecting your revenue.</span>
 						</motion.h2>
 						<div className="space-y-4">
 							{roles.map((role, index) => (

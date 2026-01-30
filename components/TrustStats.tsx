@@ -150,10 +150,10 @@ export const TrustStats: React.FC = () => {
             <span className="text-green-400 font-semibold text-sm">Live Impact</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
-            Protecting Nigerian Restaurants
+            Already stopping leaks across Nigeria
           </h2>
           <p className="text-gray-400 max-w-xl mx-auto">
-            Real numbers. Real savings. Updated in real-time.
+            Restaurants using SharpTable don't chase payments. They collect them upfront.
           </p>
         </motion.div>
 
@@ -162,16 +162,16 @@ export const TrustStats: React.FC = () => {
           <StatCard
             icon={faUtensils}
             value={`${restaurantsCounter.count}+`}
-            label="Restaurants Secured"
-            subLabel="Growing every week"
+            label="Kitchens Protected"
+            subLabel="No more unpaid orders"
             accentColor="from-amber-500 to-orange-500"
             delay={0}
           />
           <StatCard
             icon={faCoins}
             value={`₦${(revenueCounter.count / 10).toFixed(1)}M+`}
-            label="Revenue Protected"
-            subLabel="Prevented from leakage & theft"
+            label="Revenue Saved"
+            subLabel="That would have walked out the door"
             accentColor="from-green-500 to-emerald-500"
             delay={0.1}
           />
@@ -187,7 +187,7 @@ export const TrustStats: React.FC = () => {
         >
           <div className="inline-flex items-center gap-2 text-sm text-gray-500">
             <FontAwesomeIcon icon={faShieldHalved} className="w-4 h-4 text-amber-500" />
-            <span>Join restaurants that have eliminated payment leakage</span>
+            <span>No payment, no cooking. That's the rule.</span>
           </div>
         </motion.div>
       </div>

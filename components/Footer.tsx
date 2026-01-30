@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faShield, faFileLines } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faShield, faFileLines, faUserGroup } from '@fortawesome/free-solid-svg-icons';
+import { faTelegram } from '@fortawesome/free-brands-svg-icons';
 
 export const Footer: React.FC = () => {
   return (
@@ -71,17 +72,28 @@ export const Footer: React.FC = () => {
             <motion.a
               whileHover={{ scale: 1.1, color: '#fff' }}
               href="mailto:info@sharptable.com.ng"
-              className="hover:text-white transition-colors"
+              className="hover:text-white transition-colors flex items-center gap-1"
             >
+              <FontAwesomeIcon icon={faEnvelope} className="w-3.5 h-3.5" />
               Contact
+            </motion.a>
+            <motion.a
+              whileHover={{ scale: 1.1, color: '#fff' }}
+              href="https://t.me/+8W0SXa62SU41Mzlk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors flex items-center gap-1 opacity-40"
+            >
+              <FontAwesomeIcon icon={faTelegram} className="w-3.5 h-3.5" />
+              Installer Squad
             </motion.a>
         </motion.div>
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-12 text-zinc-700 text-xs"
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="mt-4 text-zinc-700 text-xs"
         >
             © {new Date().getFullYear()} SharpTable Tech. All rights reserved.
         </motion.div>

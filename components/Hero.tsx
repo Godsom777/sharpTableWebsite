@@ -44,7 +44,7 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.05 }}
           className="text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] text-white"
         >
-          More revenue control, better service, one system.
+          No payment, no cooking.
         </motion.h1>
 
         {/* Subheadline */}
@@ -54,8 +54,8 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mt-4 text-center text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed"
         >
-          Keep every plate paid, and every naira accounted for.
-          <span className="text-white font-medium">{' '}Your Marshall confirms payment before the kitchen can act.</span>
+          SharpTable locks your kitchen until payment is verified.
+          <span className="text-white font-medium">{' '}No more walkouts. No more missing cash. Every naira accounted for.</span>
         </motion.p>
 
         {/* CTA buttons  */}
@@ -94,10 +94,10 @@ export const Hero: React.FC = () => {
           className="mt-8 flex flex-wrap justify-center gap-2 text-xs"
         >
           {[
-            { icon: faLock, text: 'Kitchen locked until verified' },
-            { icon: faShieldHalved, text: 'Stops walkouts & leakage' },
-            { icon: faCircleCheck, text: 'Marshall verifies payment' },
-            { icon: faBolt, text: 'Real-time accountability' }
+            { icon: faLock, text: 'Kitchen stays locked until paid' },
+            { icon: faShieldHalved, text: 'Zero walkouts' },
+            { icon: faCircleCheck, text: 'Marshall verifies every payment' },
+            { icon: faBolt, text: 'Full audit trail' }
           ].map((item) => (
             <span
               key={item.text}
