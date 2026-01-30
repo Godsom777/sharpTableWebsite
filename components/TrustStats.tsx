@@ -157,37 +157,121 @@ export const TrustStats: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-          <StatCard
-            icon={faUtensils}
-            value={`${restaurantsCounter.count}+`}
-            label="Kitchens Protected"
-            subLabel="No more unpaid orders"
-            accentColor="from-amber-500 to-orange-500"
-            delay={0}
+        {/* Dramatic Stat Display */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
+          className="relative max-w-2xl mx-auto"
+        >
+          {/* Animated background glow */}
+          <motion.div
+            animate={{ 
+              scale: [1, 1.1, 1],
+              opacity: [0.15, 0.25, 0.15]
+            }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute inset-0 bg-gradient-to-br from-amber-500 via-orange-500 to-amber-600 blur-[100px] rounded-full"
           />
-          <StatCard
-            icon={faCoins}
-            value={`₦${(revenueCounter.count / 10).toFixed(1)}M+`}
-            label="Revenue Saved"
-            subLabel="That would have walked out the door"
-            accentColor="from-green-500 to-emerald-500"
-            delay={0.1}
-          />
-        </div>
 
-        {/* Trust message */}
+          {/* Main card */}
+          <div className="relative bg-gradient-to-br from-zinc-900/90 via-zinc-900/95 to-black border-2 border-amber-500/30 rounded-3xl p-12 md:p-16 overflow-hidden shadow-2xl">
+            {/* Animated background pattern */}
+            <div className="absolute inset-0 opacity-5">
+              <div className="absolute inset-0" style={{
+                backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)',
+                backgroundSize: '30px 30px'
+              }} />
+            </div>
+
+            {/* Content */}
+            <div className="relative z-10 text-center">
+              {/* Icon */}
+              <motion.div
+                initial={{ scale: 0, rotate: -180 }}
+                whileInView={{ scale: 1, rotate: 0 }}
+                viewport={{ once: true }}
+                transition={{ 
+                  type: "spring", 
+                  stiffness: 200, 
+                  damping: 15,
+                  delay: 0.2 
+                }}
+                whileHover={{ 
+                  scale: 1.1, 
+                  rotate: [0, -5, 5, -5, 0],
+                  transition: { duration: 0.5 }
+                }}
+                className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-8 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-2xl shadow-amber-500/50"
+              >
+                <FontAwesomeIcon icon={faUtensils} className="w-10 h-10 md:w-12 md:h-12 text-white" />
+              </motion.div>
+
+              {/* Counter */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="mb-4"
+              >
+                <div className="text-7xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-br from-amber-400 via-amber-500 to-orange-600 mb-2">
+                  {restaurantsCounter.count}+
+                </div>
+              </motion.div>
+
+              {/* Label */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+                className="mb-3"
+              >
+                <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
+                  Kitchens Protected
+                </h3>
+              </motion.div>
+
+              {/* Subtext */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 }}
+                className="text-gray-400 text-lg"
+              >
+                No more unpaid orders
+              </motion.div>
+
+              {/* Decorative line */}
+              <motion.div
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.6, duration: 0.8 }}
+                className="mt-8 h-px w-32 mx-auto bg-gradient-to-r from-transparent via-amber-500/50 to-transparent"
+              />
+            </div>
+
+            {/* Corner accents */}
+            <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-amber-500/30 rounded-tl-3xl" />
+            <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-amber-500/30 rounded-br-3xl" />
+          </div>
+        </motion.div>
+
+        {/* Privacy message */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-10 text-center"
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="mt-12 text-center"
         >
           <div className="inline-flex items-center gap-2 text-sm text-gray-500">
             <FontAwesomeIcon icon={faShieldHalved} className="w-4 h-4 text-amber-500" />
-            <span>No payment, no cooking. That's the rule.</span>
+            <span>We don't see your revenue. We don't touch your money. We just lock the gate.</span>
           </div>
         </motion.div>
       </div>
