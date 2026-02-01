@@ -55,7 +55,7 @@ export const Hero: React.FC = () => {
           className="mt-4 text-center text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed"
         >
           SharpTable gates every order until payment is verified. Restaurants using it recover 
-          <span className="text-white font-medium">{' '}5–15% of previously lost revenue.</span>
+          <span className="text-white font-medium">{' '}75–85% of previously lost revenue.</span>
         </motion.p>
 
         {/* CTA buttons  */}
