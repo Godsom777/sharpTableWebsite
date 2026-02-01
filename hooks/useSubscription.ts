@@ -1,12 +1,23 @@
 import { useState, useEffect, useCallback } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-// Initialize Supabase client
+// Initialize Supabase client lazily
 // Replace with your actual Supabase URL and anon key
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Only create client if credentials are available
+let supabase: SupabaseClient | null = null;
+function getSupabaseClient(): SupabaseClient | null {
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.warn('Supabase credentials not configured');
+    return null;
+  }
+  if (!supabase) {
+    supabase = createClient(supabaseUrl, supabaseAnonKey);
+  }
+  return supabase;
+}
 
 export interface SubscriptionStatus {
   hasActiveSubscription: boolean;
@@ -36,13 +47,19 @@ export function useSubscription(email?: string): UseSubscriptionResult {
       return null;
     }
 
+    const client = getSupabaseClient();
+    if (!client) {
+      setError('Supabase not configured');
+      return null;
+    }
+
     setIsLoading(true);
     setError(null);
     setCurrentEmail(userEmail);
 
     try {
       // Query the subscriptions table directly
-      const { data, error: queryError } = await supabase
+      const { data, error: queryError } = await client
         .from('subscriptions')
         .select('status, plan_type, next_payment_date, business_name')
         .eq('email', userEmail.toLowerCase())

@@ -22,13 +22,24 @@ import {
   faCcAmex,
 } from '@fortawesome/free-brands-svg-icons';
 import { usePayment, PLAN_CONFIG } from '../contexts/PaymentContext';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 // Supabase client for the APP's database (where users will login)
-const supabase = createClient(
-  import.meta.env.VITE_APP_SUPABASE_URL,
-  import.meta.env.VITE_APP_SUPABASE_ANON_KEY
-);
+// Initialize lazily to avoid errors when env vars are not set
+const appSupabaseUrl = import.meta.env.VITE_APP_SUPABASE_URL || '';
+const appSupabaseAnonKey = import.meta.env.VITE_APP_SUPABASE_ANON_KEY || '';
+
+let supabase: SupabaseClient | null = null;
+function getSupabaseClient(): SupabaseClient | null {
+  if (!appSupabaseUrl || !appSupabaseAnonKey) {
+    console.warn('Supabase credentials not configured for PaymentModal');
+    return null;
+  }
+  if (!supabase) {
+    supabase = createClient(appSupabaseUrl, appSupabaseAnonKey);
+  }
+  return supabase;
+}
 
 // Paystack public key from environment variable
 const PAYSTACK_PUBLIC_KEY = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
@@ -226,13 +237,19 @@ export const PaymentModal: React.FC = () => {
       return;
     }
 
+    const client = getSupabaseClient();
+    if (!client) {
+      setErrors({ auth: 'Payment system not configured. Please contact support.' });
+      return;
+    }
+
     setIsSubmitting(true);
     setRegistrationStep('registering');
     setErrors({});
 
     try {
       // Step 1: Register user with Supabase Auth
-      const { data: authData, error: authError } = await supabase.auth.signUp({
+      const { data: authData, error: authError } = await client.auth.signUp({
         email: formData.email.toLowerCase().trim(),
         password: formData.password,
         options: {
