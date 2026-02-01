@@ -19,7 +19,7 @@ const testimonials: Testimonial[] = [
     quote: "We used to lose at least 8-10 walkouts a week. After SharpTable, we haven't had a single one in 3 months. The gate system just works.",
     author: "David O.",
     role: "Owner",
-    restaurant: "Grill House Lagos",
+    restaurant: "Grill House",
     location: "Lagos, Nigeria",
     rating: 5,
     metric: "0",
@@ -29,7 +29,7 @@ const testimonials: Testimonial[] = [
     quote: "My staff know they're accountable now. Every payment is tracked, every order has a name attached. No more 'I don't know who collected it.'",
     author: "Amara K.",
     role: "General Manager",
-    restaurant: "The Food Court",
+    restaurant: "Big Joe's Diner",
     location: "Abuja, Nigeria",
     rating: 5,
     metric: "12%",
@@ -156,7 +156,7 @@ export const Testimonials: React.FC = () => {
           <p className="text-gray-500 text-sm mb-6">Trusted by leading restaurants and food businesses</p>
           <div className="flex flex-wrap justify-center items-center gap-8 opacity-50">
             {/* Placeholder logos - you can replace with actual partner logos */}
-            {['Restaurant A', 'Food Court B', 'Kitchen C', 'Grill D', 'Cafe E'].map((name, i) => (
+            {['Restaurants', 'Food Courts', 'Kitchens', 'Grills', 'Cafes'].map((name, i) => (
               <div key={i} className="px-4 py-2 border border-zinc-800 rounded-lg text-gray-600 text-sm font-medium">
                 {name}
               </div>
