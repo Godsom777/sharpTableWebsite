@@ -33,7 +33,7 @@ export const WhoIsThisFor: React.FC = () => {
                   <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-green-400/80" />You run a busy kitchen with high order volume</li>
                   <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-green-400/80" />You've had walkouts or "missing cash" before</li>
                   <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-green-400/80" />You want staff accountability without micromanaging</li>
-                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-green-400/80" />You want to know exactly where every naira went</li>
+                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-green-400/80" />You want to know exactly where every dollar went</li>
                 </ul>
               </div>
 

@@ -86,14 +86,14 @@ Create a `.env` file in your project root:
 
 ```env
 # Paystack
-VITE_PAYSTACK_PUBLIC_KEY=pk_live_e64a98438e270359d525099624bf0f096b64d17e
+VITE_PAYSTACK_PUBLIC_KEY=pk_live_your_public_key_here
 
 # Website Supabase (for webhook hosting - not currently used in frontend)
-VITE_SUPABASE_URL=https://eplonlnwcuyqhgkrhqzg.supabase.co
+VITE_SUPABASE_URL=https://your-website-project.supabase.co
 VITE_SUPABASE_ANON_KEY=your_website_supabase_anon_key
 
 # App Supabase (for user auth & subscription storage)
-VITE_APP_SUPABASE_URL=https://wwlopezoazuugxcvjgus.supabase.co
+VITE_APP_SUPABASE_URL=https://your-app-project.supabase.co
 VITE_APP_SUPABASE_ANON_KEY=your_app_supabase_anon_key
 ```
 
@@ -185,8 +185,8 @@ function ProtectedFeature() {
 
 | Plan | Code | Price |
 |------|------|-------|
-| Pro | `PLN_rknt3upbuue6dmh` | ₦49,999/month |
-| Enterprise | `PLN_b36ulzsdy6d418n` | ₦79,999/month |
+| Pro | `PLN_rknt3upbuue6dmh` | $65/month |
+| Enterprise | `PLN_b36ulzsdy6d418n` | $129/month |
 
 ## Security Notes
 

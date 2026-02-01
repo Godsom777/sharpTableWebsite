@@ -24,12 +24,12 @@ export const GateSection: React.FC = () => {
           </div>
 
           <p className="mt-4 text-sm sm:text-base text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Your kitchen doesn't see the order until money is confirmed.
-            No more "Oga I will transfer". No more chasing customers. No more staff pocketing cash.
+            Your team doesn't see the order until money is confirmed.
+            No more "I will transfer later". No more chasing customers. No more staff pocketing cash.
           </p>
 
           <p className="mt-3 text-xs sm:text-sm text-gray-400 max-w-3xl mx-auto">
-            Unpaid order? It doesn't move. Simple.
+            Unpaid order? It stays right where it is. Simple.
           </p>
         </motion.div>
       </div>

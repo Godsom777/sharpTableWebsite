@@ -44,7 +44,7 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.05 }}
           className="text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] text-white"
         >
-          No payment, no cooking.
+          Stop revenue leakage. <span className="text-amber-400">Get paid first.</span>
         </motion.h1>
 
         {/* Subheadline */}
@@ -54,8 +54,8 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mt-4 text-center text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed"
         >
-          SharpTable locks your kitchen until payment is verified.
-          <span className="text-white font-medium">{' '}No more walkouts. No more missing cash. Every naira accounted for.</span>
+          SharpTable gates every order until payment is verified. Restaurants using it recover 
+          <span className="text-white font-medium">{' '}5–15% of previously lost revenue.</span>
         </motion.p>
 
         {/* CTA buttons  */}
@@ -94,7 +94,7 @@ export const Hero: React.FC = () => {
           className="mt-8 flex flex-wrap justify-center gap-2 text-xs"
         >
           {[
-            { icon: faLock, text: 'Kitchen stays locked until paid' },
+            { icon: faLock, text: 'Orders held until paid' },
             { icon: faShieldHalved, text: 'Zero walkouts' },
             { icon: faCircleCheck, text: 'Marshall verifies every payment' },
             { icon: faBolt, text: 'Full audit trail' }
@@ -167,7 +167,7 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="mt-6 text-center text-xs text-gray-500"
         >
-          Built for Nigerian restaurants that want tighter revenue control without slowing service
+          Built for restaurants that want tighter revenue control without slowing service
         </motion.p>
       </div>
     </section>

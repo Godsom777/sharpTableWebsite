@@ -22,12 +22,12 @@ const steps: Step[] = [
   {
     id: 1,
     title: 'Order Placed',
-    description: 'Customer orders jollof rice. The order is captured — but the kitchen can\'t see it yet.',
+    description: 'Customer orders jollof rice and drinks. The order is captured — but your team can\'t fulfil it yet.',
     icon: <FontAwesomeIcon icon={faUtensils} className="w-5 h-5" />,
     color: 'blue',
     view: {
       title: 'Order Captured',
-      description: 'Table 7 — Jollof Rice + Chapman. Status: AWAITING PAYMENT. Kitchen is locked.',
+      description: 'Table 7 — Jollof Rice + Chapman. Status: AWAITING PAYMENT. Order is on hold.',
       bgColor: 'bg-blue-900/10',
       borderColor: 'border-blue-900/30',
       iconColor: 'text-blue-500'
@@ -36,12 +36,12 @@ const steps: Step[] = [
   {
     id: 2,
     title: 'Payment Collected',
-    description: 'Your Marshall collects ₦4,500. The amount, method, and who collected it are all logged.',
+    description: 'Your Marshall collects $45. The amount, method, and who collected it are all logged.',
     icon: <FontAwesomeIcon icon={faReceipt} className="w-5 h-5" />,
     color: 'purple',
     view: {
       title: 'Payment Logged',
-      description: 'Marshall "Chidi" collected ₦4,500 via POS. Time: 7:32 PM. Awaiting verification.',
+      description: 'Marshall "Alex" collected $45 via card. Time: 7:32 PM. Awaiting verification.',
       bgColor: 'bg-purple-900/10',
       borderColor: 'border-purple-900/30',
       iconColor: 'text-purple-500'
@@ -50,12 +50,12 @@ const steps: Step[] = [
   {
     id: 3,
     title: 'Payment Verified',
-    description: 'Marshall confirms the money is in. The gate opens. Kitchen queue unlocks.',
+    description: 'Marshall confirms the money is in. The gate opens. Order queue unlocks.',
     icon: <FontAwesomeIcon icon={faUsers} className="w-5 h-5" />,
     color: 'green',
     view: {
       title: 'Payment Verified ✓',
-      description: 'Marshall "Chidi" verified payment. Order status: PAID. Kitchen can now see it.',
+      description: 'Marshall "Alex" verified payment. Order status: PAID. Ready to fulfil.',
       bgColor: 'bg-green-900/10',
       borderColor: 'border-green-900/30',
       iconColor: 'text-green-500'
@@ -63,13 +63,13 @@ const steps: Step[] = [
   },
   {
     id: 4,
-    title: 'Kitchen Cooks',
-    description: 'The kitchen sees the order and starts cooking — knowing the money is already secured.',
+    title: 'Order Fulfilled',
+    description: 'Your team prepares and serves the order — knowing the money is already secured.',
     icon: <FontAwesomeIcon icon={faWifi} className="w-5 h-5" />,
     color: 'orange',
     view: {
-      title: 'Kitchen Display',
-      description: 'PAID ✓ — Table 7. Jollof Rice + Chapman. Start cooking!',
+      title: 'Order Display',
+      description: 'PAID ✓ — Table 7. Jollof Rice + Chapman. Ready to serve!',
       bgColor: 'bg-orange-900/10',
       borderColor: 'border-orange-900/30',
       iconColor: 'text-orange-500'
@@ -113,7 +113,7 @@ export const Story: React.FC = () => {
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         <div className="text-center mb-20">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">How the Gate Works</h2>
-            <p className="text-gray-400">Order comes in. Payment gets verified. Only then does the kitchen cook. No exceptions.</p>
+            <p className="text-gray-400">Order comes in. Payment gets verified. Only then does your team fulfil it. No exceptions.</p>
         </div>
 
         <div className="flex flex-col md:flex-row gap-8">
@@ -263,7 +263,7 @@ export const Story: React.FC = () => {
                   <div>
                     <p className="text-white font-medium text-xs">Zero Walkouts</p>
                     <p className="text-gray-400 text-xs mt-1">
-                      No food leaves the kitchen unless it's paid for. No more chasing customers.
+                      Nothing leaves your floor unless it's paid for. No more chasing customers.
                     </p>
                   </div>
                 </div>
@@ -284,7 +284,7 @@ export const Story: React.FC = () => {
             <div>
               <p className="text-white font-medium text-xs">Zero Walkouts</p>
               <p className="text-gray-400 text-xs mt-1">
-                No food leaves the kitchen unless it's paid for. No more chasing customers.
+                Nothing leaves your floor unless it's paid for. No more chasing customers.
               </p>
             </div>
           </div>

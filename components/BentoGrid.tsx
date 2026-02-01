@@ -6,14 +6,14 @@ import { Feature } from '../types';
 
 const features: Feature[] = [
   {
-    title: "Full trail on every naira",
+    title: "Full trail on every dollar",
     description: "Who took payment, when, how much, for what. Everything logged. No hiding, no shortcuts.",
     icon: <FontAwesomeIcon icon={faDatabase} className="w-8 h-8 text-green-500" />,
     colSpan: "md:col-span-2 md:row-span-2",
   },
   {
     title: "Marshall verifies every payment",
-    description: "A dedicated staff role confirms payment before the kitchen starts cooking. Your frontline defense.",
+    description: "A dedicated staff role confirms payment before any order is fulfilled. Your frontline defense.",
     icon: <FontAwesomeIcon icon={faBolt} className="w-8 h-8 text-amber-500" />,
     colSpan: "md:col-span-1 md:row-span-1",
   },
@@ -31,7 +31,7 @@ const features: Feature[] = [
   },
   {
     title: "Faster service, cleaner handoffs",
-    description: "Orders flow from floor to kitchen without confusion. Fewer mistakes, tables turn faster.",
+    description: "Orders flow from floor to fulfilment without confusion. Fewer mistakes, tables turn faster.",
     icon: <FontAwesomeIcon icon={faCreditCard} className="w-8 h-8 text-purple-400" />,
     colSpan: "md:col-span-1 md:row-span-1",
   },
@@ -83,7 +83,7 @@ export const BentoGrid: React.FC = () => {
                 <p className="text-sm text-gray-400 leading-relaxed">
                   Orders are submitted for payment — cash, POS, transfer, or card.
                 </p>
-                <p className="mt-3 text-sm text-gray-300 font-medium">Nothing is sent to the kitchen yet.</p>
+                <p className="mt-3 text-sm text-gray-300 font-medium">Nothing moves yet.</p>
               </div>
 
               <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
@@ -94,18 +94,18 @@ export const BentoGrid: React.FC = () => {
                 <p className="text-sm text-gray-400 leading-relaxed">
                   A dedicated Marshall confirms payment on their dashboard.
                 </p>
-                <p className="mt-3 text-sm text-gray-300 font-medium">This single action unlocks the kitchen.</p>
+                <p className="mt-3 text-sm text-gray-300 font-medium">This single action unlocks the order.</p>
               </div>
 
               <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="h-10 w-10 rounded-xl bg-amber-500/15 border border-amber-500/20 flex items-center justify-center text-amber-300 font-extrabold">4</div>
-                  <h4 className="text-white font-bold">Kitchen starts cooking</h4>
+                  <h4 className="text-white font-bold">Order gets fulfilled</h4>
                 </div>
                 <p className="text-sm text-gray-400 leading-relaxed">
-                  Only verified, paid orders appear on the kitchen screen.
+                  Only verified, paid orders appear on the order screen.
                 </p>
-                <p className="mt-3 text-sm text-gray-300 font-medium">No payment = no cooking. No arguments. No exceptions.</p>
+                <p className="mt-3 text-sm text-gray-300 font-medium">No payment = no service. No arguments. No exceptions.</p>
               </div>
             </div>
 

@@ -272,7 +272,7 @@ export const PricingTiers: React.FC = () => {
         name: "Control",
         icon: faCrown,
         description: "Keep operations steady, clean, and predictable — with the oversight you need.",
-        price: "₦99,999",
+        price: "$65",
         period: "/month",
         tierKey: "pro" as const,
         popular: true,
@@ -282,7 +282,7 @@ export const PricingTiers: React.FC = () => {
           <div className="grid grid-cols-1 gap-3 text-sm">
             <div className="flex items-center justify-between">
               <span className="text-gray-400">Monthly</span>
-              <span className="text-white font-semibold">₦99,999</span>
+              <span className="text-white font-semibold">$65</span>
             </div>
             <div className="text-xs text-gray-500">Built for clarity, consistency, and day-to-day control.</div>
           </div>
@@ -292,7 +292,7 @@ export const PricingTiers: React.FC = () => {
         name: "Command",
         icon: faBuilding,
         description: "Lead across locations with confidence — set the pace and keep every branch aligned.",
-        price: "₦199,999",
+        price: "$129",
         period: "/month",
         tierKey: "enterprise" as const,
         accentColor: "from-purple-500 to-pink-500",
@@ -301,7 +301,7 @@ export const PricingTiers: React.FC = () => {
           <div className="grid grid-cols-1 gap-3 text-sm">
             <div className="flex items-center justify-between">
               <span className="text-gray-400">Enterprise</span>
-              <span className="text-white font-semibold">₦199,999<span className="text-gray-500 font-normal">/mo</span></span>
+              <span className="text-white font-semibold">$129<span className="text-gray-500 font-normal">/mo</span></span>
             </div>
             <div className="text-xs text-gray-500">Unlimited locations, tables, staff, and order history — plus feature overrides.</div>
           </div>
@@ -360,6 +360,70 @@ export const PricingTiers: React.FC = () => {
             <TierCard key={config.tierKey} {...config} onGetStarted={openPaymentModal} />
           ))}
         </div>
+
+        {/* Quick Comparison Table */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-16 max-w-4xl mx-auto"
+        >
+          <h3 className="text-xl font-bold text-white text-center mb-8">Quick Comparison</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-zinc-800">
+                  <th className="text-left py-4 px-4 text-gray-400 font-medium text-sm">Feature</th>
+                  <th className="text-center py-4 px-4 text-amber-400 font-bold">Control<br/><span className="text-xs font-normal text-gray-500">$65/mo</span></th>
+                  <th className="text-center py-4 px-4 text-purple-400 font-bold">Command<br/><span className="text-xs font-normal text-gray-500">$129/mo</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { feature: 'Payment Gate System', control: true, command: true },
+                  { feature: 'Marshall Dashboard', control: true, command: true },
+                  { feature: 'Full Audit Trail', control: true, command: true },
+                  { feature: 'Staff Management', control: true, command: true },
+                  { feature: 'Daily Summary Reports', control: true, command: true },
+                  { feature: 'Max Tables', control: '50', command: 'Unlimited' },
+                  { feature: 'Max Staff', control: '15', command: 'Unlimited' },
+                  { feature: 'Locations', control: '1', command: 'Unlimited' },
+                  { feature: 'Order History', control: '90 days', command: 'Unlimited' },
+                  { feature: 'Multi-location Control', control: false, command: true },
+                  { feature: 'Advanced Analytics', control: false, command: true },
+                  { feature: 'Feature Overrides', control: false, command: true },
+                ].map((row, idx) => (
+                  <tr key={idx} className="border-b border-zinc-800/50 hover:bg-white/5 transition-colors">
+                    <td className="py-3 px-4 text-gray-300 text-sm">{row.feature}</td>
+                    <td className="py-3 px-4 text-center">
+                      {typeof row.control === 'boolean' ? (
+                        row.control ? (
+                          <FontAwesomeIcon icon={faCheck} className="w-4 h-4 text-green-500" />
+                        ) : (
+                          <FontAwesomeIcon icon={faXmark} className="w-4 h-4 text-gray-600" />
+                        )
+                      ) : (
+                        <span className="text-gray-300 text-sm">{row.control}</span>
+                      )}
+                    </td>
+                    <td className="py-3 px-4 text-center">
+                      {typeof row.command === 'boolean' ? (
+                        row.command ? (
+                          <FontAwesomeIcon icon={faCheck} className="w-4 h-4 text-green-500" />
+                        ) : (
+                          <FontAwesomeIcon icon={faXmark} className="w-4 h-4 text-gray-600" />
+                        )
+                      ) : (
+                        <span className={`text-sm ${row.command === 'Unlimited' ? 'text-amber-400 font-medium' : 'text-gray-300'}`}>{row.command}</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </motion.div>
 
         {/* Bottom Note */}
         <motion.div

@@ -150,7 +150,7 @@ export const TrustStats: React.FC = () => {
             <span className="text-green-400 font-semibold text-sm">Live Impact</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
-            Already stopping leaks across Nigeria
+            Already stopping leaks worldwide
           </h2>
           <p className="text-gray-400 max-w-xl mx-auto">
             Restaurants using SharpTable don't chase payments. They collect them upfront.
@@ -230,7 +230,7 @@ export const TrustStats: React.FC = () => {
                 className="mb-3"
               >
                 <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
-                  Kitchens Protected
+                  Restaurants Protected
                 </h3>
               </motion.div>
 

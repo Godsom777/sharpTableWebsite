@@ -30,7 +30,7 @@ export const Intelligence: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">See where every naira went</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">See where every dollar went</h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
             Every payment is tied to an order, a table, and a staff member. If something doesn't add up, you'll know.
           </p>
@@ -137,7 +137,7 @@ export const Intelligence: React.FC = () => {
         >
              <span className="text-xs uppercase tracking-widest text-zinc-500 font-bold">Payment-First Audit Trail</span>
              <div className="flex flex-wrap justify-center items-center gap-4 mt-6 text-sm md:text-base text-gray-300 font-medium">
-                {['Order Created', 'Marshall Collects', 'Payment Verified', 'Kitchen Unlocked', 'Full Audit Logged'].map((step, index) => (
+                {['Order Created', 'Marshall Collects', 'Payment Verified', 'Order Unlocked', 'Full Audit Logged'].map((step, index) => (
                   <React.Fragment key={index}>
                     <motion.span
                       initial={{ opacity: 0, scale: 0.8 }}

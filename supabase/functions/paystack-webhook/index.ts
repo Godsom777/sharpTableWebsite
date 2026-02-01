@@ -93,7 +93,7 @@ serve(async (req) => {
             plan_name: plan.name,
             subscription_code: data.subscription_code,
             status: data.status,
-            amount: plan.amount / 100, // Convert from kobo to naira
+            amount: plan.amount / 100, // Convert from smallest currency unit
             currency: plan.currency,
             next_payment_date: data.next_payment_date,
             created_at: data.createdAt || new Date().toISOString(),

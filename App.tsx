@@ -5,6 +5,8 @@ import { BentoGrid } from './components/BentoGrid';
 import { Roles } from './components/Roles';
 import { Intelligence } from './components/Intelligence';
 import { TrustStats } from './components/TrustStats';
+import { Testimonials } from './components/Testimonials';
+import { ROICalculator } from './components/ROICalculator';
 import { Story } from './components/Story';
 import { OwnerTease } from './components/OwnerTease';
 import { PricingTiers } from './components/PricingTiers';
@@ -37,6 +39,8 @@ function App() {
           <Intelligence />
           <Roles />
           <TrustStats />
+          <Testimonials />
+          <ROICalculator />
           <PricingTiers />
           <OwnerTease />
           <Story />

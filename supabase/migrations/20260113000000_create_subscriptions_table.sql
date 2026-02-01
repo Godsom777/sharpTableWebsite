@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS subscriptions (
   subscription_code TEXT,
   status TEXT NOT NULL DEFAULT 'pending', -- 'active', 'inactive', 'cancelled', 'payment_failed', 'pending'
   amount DECIMAL(10, 2),
-  currency TEXT DEFAULT 'NGN',
+  currency TEXT DEFAULT 'USD',
   next_payment_date TIMESTAMPTZ,
   last_payment_date TIMESTAMPTZ,
   last_payment_reference TEXT,
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS subscription_payments (
   email TEXT NOT NULL,
   reference TEXT UNIQUE NOT NULL,
   amount DECIMAL(10, 2),
-  currency TEXT DEFAULT 'NGN',
+  currency TEXT DEFAULT 'USD',
   status TEXT NOT NULL, -- 'success', 'failed'
   paid_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ DEFAULT NOW()

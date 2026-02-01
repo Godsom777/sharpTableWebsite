@@ -27,8 +27,8 @@ export const OwnerTease: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-4xl md:text-6xl font-bold text-white tracking-tighter leading-tight"
             >
-              How much are you losing <br/>
-              <span className="text-amber-500 italic font-serif">before food even leaves the kitchen?</span>
+              How much slips through <br/>
+              <span className="text-amber-500 italic font-serif">before you even notice?</span>
             </motion.h2>
             
             <div className="space-y-6">
@@ -49,7 +49,7 @@ export const OwnerTease: React.FC = () => {
                 </motion.div>
                 <div>
                   <h4 className="text-white font-semibold">The problem with most systems</h4>
-                  <p className="text-gray-500 text-sm">"Kitchen cooks first, payment comes later. Walkouts happen. Cash goes missing. No one knows who took what."</p>
+                  <p className="text-gray-500 text-sm">"Orders go out first, payment comes later. Walkouts happen. Cash goes missing. No one knows who took what."</p>
                 </div>
               </motion.div>
 
@@ -71,7 +71,7 @@ export const OwnerTease: React.FC = () => {
                 <div>
                   <h4 className="text-amber-500 font-semibold">How SharpTable fixes it</h4>
                   <p className="text-gray-300 text-sm italic leading-relaxed">
-                    "Kitchen is locked until payment is verified. Every transaction logged — who collected, when, how much. No gaps."
+                    "Nothing moves until payment is verified. Every transaction logged — who collected, when, how much. No gaps."
                   </p>
                 </div>
               </motion.div>
@@ -84,8 +84,8 @@ export const OwnerTease: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-xl text-gray-500 max-w-lg leading-relaxed border-l border-zinc-800 pl-6"
             >
-              No payment, no cooking. That's the rule.
-              <span className="text-white font-medium"> SharpTable enforces it automatically.</span>
+              Imagine if nothing left your floor without payment first.
+              <span className="text-white font-medium"> SharpTable makes it happen.</span>
             </motion.p>
           </motion.div>
 
