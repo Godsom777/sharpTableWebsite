@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
@@ -28,7 +28,8 @@ import {
   faClockRotateLeft,
   faLocationDot,
   faChartLine,
-  faLock
+  faLock,
+  faTag
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faCcVisa,
@@ -36,7 +37,7 @@ import {
   faCcAmex,
 } from '@fortawesome/free-brands-svg-icons';
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { usePayment, PlanType } from '../contexts/PaymentContext';
+import { usePayment, PlanType, BillingCycle } from '../contexts/PaymentContext';
 
 interface Feature {
   key: string;
@@ -94,6 +95,9 @@ interface TierCardProps {
   delay: number;
   priceNote?: React.ReactNode;
   onGetStarted: (plan: PlanType) => void;
+  billingCycle: BillingCycle;
+  yearlyPrice?: string;
+  yearlySavings?: string;
 }
 
 // Memoized Feature Row for performance
@@ -161,12 +165,19 @@ const TierCard = memo<TierCardProps>(({
   accentColor,
   delay,
   priceNote,
-  onGetStarted
+  onGetStarted,
+  billingCycle,
+  yearlyPrice,
+  yearlySavings
 }) => {
   const visibleFeatures = useMemo(
     () => features.filter((f) => f[tierKey] !== false),
     [tierKey]
   );
+
+  const displayPrice = billingCycle === 'yearly' && yearlyPrice ? yearlyPrice : price;
+  const displayPeriod = billingCycle === 'yearly' ? '/year' : period;
+  const planKey: PlanType = billingCycle === 'yearly' ? `${tierKey}-yearly` : tierKey;
 
   return (
     <motion.div
@@ -182,6 +193,16 @@ const TierCard = memo<TierCardProps>(({
           <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-4 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg shadow-amber-500/30">
             <FontAwesomeIcon icon={faStar} className="w-3 h-3" />
             MOST POPULAR
+          </div>
+        </div>
+      )}
+
+      {/* Yearly Savings Badge */}
+      {billingCycle === 'yearly' && yearlySavings && (
+        <div className="absolute -top-4 right-4 z-20">
+          <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg shadow-green-500/30">
+            <FontAwesomeIcon icon={faTag} className="w-3 h-3" />
+            {yearlySavings}
           </div>
         </div>
       )}
@@ -206,10 +227,13 @@ const TierCard = memo<TierCardProps>(({
           {/* Price */}
           <div className="mb-6 pb-6 border-b border-zinc-800">
             <div className="flex items-baseline gap-1">
-              <span className="text-4xl font-bold text-white">{price}</span>
-              <span className="text-gray-500">{period}</span>
+              <span className="text-4xl font-bold text-white">{displayPrice}</span>
+              <span className="text-gray-500">{displayPeriod}</span>
             </div>
-            {priceNote && (
+            {billingCycle === 'yearly' && (
+              <p className="text-sm text-green-400 mt-2">Billed annually</p>
+            )}
+            {priceNote && billingCycle === 'monthly' && (
               <div className="mt-3 rounded-2xl border border-white/10 bg-white/5 p-4">
                 {priceNote}
               </div>
@@ -246,7 +270,7 @@ const TierCard = memo<TierCardProps>(({
 
           {/* CTA Button */}
           <button
-            onClick={() => onGetStarted(tierKey)}
+            onClick={() => onGetStarted(planKey)}
             className={`w-full py-4 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] ${
               popular 
                 ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40' 
@@ -264,6 +288,7 @@ const TierCard = memo<TierCardProps>(({
 
 export const PricingTiers: React.FC = () => {
   const { openPaymentModal } = usePayment();
+  const [billingCycle, setBillingCycle] = useState<BillingCycle>('monthly');
 
   // Memoize tier configurations to prevent recreation
   const tierConfigs = useMemo(
@@ -278,6 +303,9 @@ export const PricingTiers: React.FC = () => {
         popular: true,
         accentColor: "from-amber-500 to-orange-500",
         delay: 0,
+        billingCycle,
+        yearlyPrice: "$690",
+        yearlySavings: "Save ~22%",
         priceNote: (
           <div className="grid grid-cols-1 gap-3 text-sm">
             <div className="flex items-center justify-between">
@@ -297,6 +325,9 @@ export const PricingTiers: React.FC = () => {
         tierKey: "enterprise" as const,
         accentColor: "from-purple-500 to-pink-500",
         delay: 0.1,
+        billingCycle,
+        yearlyPrice: "$1,380",
+        yearlySavings: "Save ~35%",
         priceNote: (
           <div className="grid grid-cols-1 gap-3 text-sm">
             <div className="flex items-center justify-between">
@@ -308,7 +339,7 @@ export const PricingTiers: React.FC = () => {
         )
       }
     ],
-    []
+    [billingCycle]
   );
 
   return (
@@ -348,16 +379,47 @@ export const PricingTiers: React.FC = () => {
           </h2>
 
           {/* Subtitle */}
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
             Scale your restaurant operations with the right tools. 
             <span className="text-white font-medium"> Upgrade anytime as you grow.</span>
           </p>
+
+          {/* Billing Toggle */}
+          <div className="flex items-center justify-center gap-4">
+            <button
+              onClick={() => setBillingCycle('monthly')}
+              className={`px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 ${
+                billingCycle === 'monthly'
+                  ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/25'
+                  : 'bg-zinc-800 text-gray-400 hover:bg-zinc-700 border border-zinc-700'
+              }`}
+            >
+              Monthly
+            </button>
+            <button
+              onClick={() => setBillingCycle('yearly')}
+              className={`px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center gap-2 ${
+                billingCycle === 'yearly'
+                  ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg shadow-green-500/25'
+                  : 'bg-zinc-800 text-gray-400 hover:bg-zinc-700 border border-zinc-700'
+              }`}
+            >
+              Yearly
+              <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
+                billingCycle === 'yearly' 
+                  ? 'bg-white/20 text-white' 
+                  : 'bg-green-500/20 text-green-400'
+              }`}>
+                Save up to 35%
+              </span>
+            </button>
+          </div>
         </motion.div>
 
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
           {tierConfigs.map((config) => (
-            <TierCard key={config.tierKey} {...config} onGetStarted={openPaymentModal} />
+            <TierCard key={`${config.tierKey}-${billingCycle}`} {...config} onGetStarted={openPaymentModal} />
           ))}
         </div>
 
