@@ -9,9 +9,17 @@ import {
   faCircleCheck,
   faLock
 } from '@fortawesome/free-solid-svg-icons';
+import { useGeoLocation } from '../hooks/useGeoLocation';
 
 export const Hero: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
+  const { isAfrica } = useGeoLocation();
+
+  // Select images based on user's geographic location
+  const heroImages = {
+    diners: isAfrica ? '/assets/photos/happy_diners.jpg' : '/assets/photos/global_diners.jpg',
+    manager: isAfrica ? '/assets/photos/manager_africa.jpg' : '/assets/photos/manager_global.jpg',
+  };
 
   return (
     <section className="relative overflow-hidden bg-black">
@@ -118,9 +126,9 @@ export const Hero: React.FC = () => {
         >
           {/* Main image container */}
           <div className="relative rounded-2xl md:rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-            {/* Replace with actual African happy diners photo */}
+            {/* Happy diners photo - geo-targeted */}
             <img
-              src="/assets/photos/happy-diners.png"
+              src={heroImages.diners}
               alt="Happy guests enjoying their meal"
               className="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover"
               loading="eager"
@@ -145,9 +153,9 @@ export const Hero: React.FC = () => {
           {/* Manager photo - positioned as accent */}
           <div className="hidden md:block absolute -right-4 lg:-right-8 top-1/2 -translate-y-1/2 w-32 lg:w-40">
             <div className="rounded-2xl overflow-hidden border-2 border-amber-500/30 shadow-xl">
-              {/* Replace with actual African restaurant manager photo */}
+              {/* Manager photo - geo-targeted */}
               <img
-                src="/assets/photos/happy-manager.png"
+                src={heroImages.manager}
                 alt="Restaurant manager reviewing dashboard"
                 className="w-full h-40 lg:h-48 object-cover"
                 loading="eager"
