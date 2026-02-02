@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faQuoteLeft, faUtensils, faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { useGeoLocation } from '../hooks/useGeoLocation';
 
 interface Testimonial {
   quote: string;
@@ -14,7 +15,8 @@ interface Testimonial {
   metricLabel?: string;
 }
 
-const testimonials: Testimonial[] = [
+// Testimonials for African audience
+const africanTestimonials: Testimonial[] = [
   {
     quote: "We used to lose at least 8-10 walkouts a week. After SharpTable, we haven't had a single one in 3 months. The gate system just works.",
     author: "David O.",
@@ -43,6 +45,40 @@ const testimonials: Testimonial[] = [
     location: "Port Harcourt, Nigeria",
     rating: 5,
     metric: "3",
+    metricLabel: "locations managed"
+  }
+];
+
+// Testimonials for global (non-African) audience
+const globalTestimonials: Testimonial[] = [
+  {
+    quote: "We were losing thousands each month to walkouts and payment disputes. SharpTable's gate system eliminated that completely. It's been a game-changer.",
+    author: "Marcus L.",
+    role: "Owner",
+    restaurant: "The Copper Pot",
+    location: "London, UK",
+    rating: 5,
+    metric: "0",
+    metricLabel: "walkouts in 90 days"
+  },
+  {
+    quote: "Full accountability across every shift. Every transaction is tracked, every order verified. Our shrinkage dropped overnight.",
+    author: "Sarah M.",
+    role: "Operations Director",
+    restaurant: "Harbour Kitchen",
+    location: "Sydney, Australia",
+    rating: 5,
+    metric: "15%",
+    metricLabel: "revenue recovered"
+  },
+  {
+    quote: "Managing 5 locations used to be chaos. Now I have real-time visibility into every outlet from one dashboard. Worth every penny.",
+    author: "James R.",
+    role: "CEO",
+    restaurant: "Bistro Group NYC",
+    location: "New York, USA",
+    rating: 5,
+    metric: "5",
     metricLabel: "locations managed"
   }
 ];
@@ -112,6 +148,11 @@ const TestimonialCard: React.FC<{ testimonial: Testimonial; delay: number }> = (
 };
 
 export const Testimonials: React.FC = () => {
+  const { isAfrica } = useGeoLocation();
+  
+  // Select testimonials based on user's geographic location
+  const testimonials = isAfrica ? africanTestimonials : globalTestimonials;
+
   return (
     <section className="py-20 bg-black relative overflow-hidden">
       {/* Background */}
