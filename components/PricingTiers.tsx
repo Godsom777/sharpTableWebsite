@@ -37,7 +37,8 @@ import {
   faCcAmex,
 } from '@fortawesome/free-brands-svg-icons';
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { usePayment, PlanType, BillingCycle } from '../contexts/PaymentContext';
+import { usePayment, PlanType, BillingCycle, PLAN_CONFIG } from '../contexts/PaymentContext';
+import { useCurrency } from '../hooks/useCurrency';
 
 interface Feature {
   key: string;
@@ -289,57 +290,66 @@ const TierCard = memo<TierCardProps>(({
 export const PricingTiers: React.FC = () => {
   const { openPaymentModal } = usePayment();
   const [billingCycle, setBillingCycle] = useState<BillingCycle>('monthly');
+  const { convertFromNaira, isLoading: isCurrencyLoading, currency, symbol } = useCurrency();
 
   // Memoize tier configurations to prevent recreation
   const tierConfigs = useMemo(
-    () => [
-      {
-        name: "Control",
-        icon: faCrown,
-        description: "Keep operations steady, clean, and predictable — with the oversight you need.",
-        price: "$65",
-        period: "/month",
-        tierKey: "pro" as const,
-        popular: true,
-        accentColor: "from-amber-500 to-orange-500",
-        delay: 0,
-        billingCycle,
-        yearlyPrice: "$690",
-        yearlySavings: "Save ~22%",
-        priceNote: (
-          <div className="grid grid-cols-1 gap-3 text-sm">
-            <div className="flex items-center justify-between">
-              <span className="text-gray-400">Monthly</span>
-              <span className="text-white font-semibold">$65</span>
+    () => {
+      // Get prices from config and convert
+      const proMonthly = parseInt(PLAN_CONFIG.pro.price);
+      const proYearly = parseInt(PLAN_CONFIG['pro-yearly'].price);
+      const enterpriseMonthly = parseInt(PLAN_CONFIG.enterprise.price);
+      const enterpriseYearly = parseInt(PLAN_CONFIG['enterprise-yearly'].price);
+
+      return [
+        {
+          name: "Control",
+          icon: faCrown,
+          description: "Keep operations steady, clean, and predictable — with the oversight you need.",
+          price: convertFromNaira(proMonthly),
+          period: "/month",
+          tierKey: "pro" as const,
+          popular: true,
+          accentColor: "from-amber-500 to-orange-500",
+          delay: 0,
+          billingCycle,
+          yearlyPrice: convertFromNaira(proYearly),
+          yearlySavings: "Save ~22%",
+          priceNote: (
+            <div className="grid grid-cols-1 gap-3 text-sm">
+              <div className="flex items-center justify-between">
+                <span className="text-gray-400">Monthly</span>
+                <span className="text-white font-semibold">{convertFromNaira(proMonthly)}</span>
+              </div>
+              <div className="text-xs text-gray-500">Built for clarity, consistency, and day-to-day control.</div>
             </div>
-            <div className="text-xs text-gray-500">Built for clarity, consistency, and day-to-day control.</div>
-          </div>
-        )
-      },
-      {
-        name: "Command",
-        icon: faBuilding,
-        description: "Lead across locations with confidence — set the pace and keep every branch aligned.",
-        price: "$129",
-        period: "/month",
-        tierKey: "enterprise" as const,
-        accentColor: "from-purple-500 to-pink-500",
-        delay: 0.1,
-        billingCycle,
-        yearlyPrice: "$1,380",
-        yearlySavings: "Save ~35%",
-        priceNote: (
-          <div className="grid grid-cols-1 gap-3 text-sm">
-            <div className="flex items-center justify-between">
-              <span className="text-gray-400">Enterprise</span>
-              <span className="text-white font-semibold">$129<span className="text-gray-500 font-normal">/mo</span></span>
+          )
+        },
+        {
+          name: "Command",
+          icon: faBuilding,
+          description: "Lead across locations with confidence — set the pace and keep every branch aligned.",
+          price: convertFromNaira(enterpriseMonthly),
+          period: "/month",
+          tierKey: "enterprise" as const,
+          accentColor: "from-purple-500 to-pink-500",
+          delay: 0.1,
+          billingCycle,
+          yearlyPrice: convertFromNaira(enterpriseYearly),
+          yearlySavings: "Save ~35%",
+          priceNote: (
+            <div className="grid grid-cols-1 gap-3 text-sm">
+              <div className="flex items-center justify-between">
+                <span className="text-gray-400">Enterprise</span>
+                <span className="text-white font-semibold">{convertFromNaira(enterpriseMonthly)}<span className="text-gray-500 font-normal">/mo</span></span>
+              </div>
+              <div className="text-xs text-gray-500">Unlimited locations, tables, staff, and order history — plus feature overrides.</div>
             </div>
-            <div className="text-xs text-gray-500">Unlimited locations, tables, staff, and order history — plus feature overrides.</div>
-          </div>
-        )
-      }
-    ],
-    [billingCycle]
+          )
+        }
+      ];
+    },
+    [billingCycle, convertFromNaira]
   );
 
   return (
@@ -379,13 +389,25 @@ export const PricingTiers: React.FC = () => {
           </h2>
 
           {/* Subtitle */}
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-4">
             Scale your restaurant operations with the right tools. 
             <span className="text-white font-medium"> Upgrade anytime as you grow.</span>
           </p>
 
+          {/* Currency Indicator */}
+          {!isCurrencyLoading && currency !== 'NGN' && (
+            <p className="text-sm text-gray-500 mb-8">
+              Prices shown in {currency} • Converted from NGN at current rates
+            </p>
+          )}
+          {!isCurrencyLoading && currency === 'NGN' && (
+            <p className="text-sm text-gray-500 mb-8">
+              Prices in Nigerian Naira (NGN)
+            </p>
+          )}
+
           {/* Billing Toggle */}
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center justify-center gap-4 mt-4">
             <button
               onClick={() => setBillingCycle('monthly')}
               className={`px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 ${
@@ -418,9 +440,16 @@ export const PricingTiers: React.FC = () => {
 
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
-          {tierConfigs.map((config) => (
-            <TierCard key={`${config.tierKey}-${billingCycle}`} {...config} onGetStarted={openPaymentModal} />
-          ))}
+          {isCurrencyLoading ? (
+            <>
+              <div className="h-[600px] bg-zinc-900 border border-zinc-800 rounded-3xl animate-pulse" />
+              <div className="h-[600px] bg-zinc-900 border border-zinc-800 rounded-3xl animate-pulse" />
+            </>
+          ) : (
+            tierConfigs.map((config) => (
+              <TierCard key={`${config.tierKey}-${billingCycle}`} {...config} onGetStarted={openPaymentModal} />
+            ))
+          )}
         </div>
 
         {/* Quick Comparison Table */}
@@ -437,8 +466,8 @@ export const PricingTiers: React.FC = () => {
               <thead>
                 <tr className="border-b border-zinc-800">
                   <th className="text-left py-4 px-4 text-gray-400 font-medium text-sm">Feature</th>
-                  <th className="text-center py-4 px-4 text-amber-400 font-bold">Control<br/><span className="text-xs font-normal text-gray-500">$65/mo</span></th>
-                  <th className="text-center py-4 px-4 text-purple-400 font-bold">Command<br/><span className="text-xs font-normal text-gray-500">$129/mo</span></th>
+                  <th className="text-center py-4 px-4 text-amber-400 font-bold">Control<br/><span className="text-xs font-normal text-gray-500">{convertFromNaira(99999)}/mo</span></th>
+                  <th className="text-center py-4 px-4 text-purple-400 font-bold">Command<br/><span className="text-xs font-normal text-gray-500">{convertFromNaira(199999)}/mo</span></th>
                 </tr>
               </thead>
               <tbody>
