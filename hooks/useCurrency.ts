@@ -1,18 +1,18 @@
-import { useState, useEffect } from 'react';
-import { dinero, toDecimal } from 'dinero.js';
-import { USD, NGN } from '@dinero.js/currencies';
+import { useState, useEffect, useCallback } from 'react';
 
 interface CurrencyState {
-  currency: string;
+  currencyCode: string;
   symbol: string;
   isLoading: boolean;
+  error: string | null;
 }
 
-interface ConversionRates {
+interface ExchangeRates {
   [key: string]: number;
 }
 
 // Base prices in Naira (NGN) - THE SOURCE OF TRUTH
+// All other currencies convert FROM these Naira amounts
 export const BASE_PRICES_NGN = {
   'pro-monthly': 99_999, // ₦99,999/month
   'pro-yearly': 1_000_000, // ₦1,000,000/year
@@ -20,55 +20,98 @@ export const BASE_PRICES_NGN = {
   'enterprise-yearly': 2_000_000, // ₦2,000,000/year
 };
 
-export const useCurrency = (): CurrencyState & {
-  convertFromNaira: (amountInNaira: number) => string;
-} => {
+// Currency symbols map
+const CURRENCY_SYMBOLS: Record<string, string> = {
+  NGN: '₦',
+  USD: '$',
+  EUR: '€',
+  GBP: '£',
+  CAD: 'C$',
+  AUD: 'A$',
+  ZAR: 'R',
+  GHS: '₵',
+  KES: 'KSh',
+  EGP: 'E£',
+  MAD: 'DH',
+  XOF: 'CFA',
+  XAF: 'FCFA',
+};
+
+// Country to currency mapping for common countries
+const COUNTRY_TO_CURRENCY: Record<string, string> = {
+  // Africa - NGN
+  NG: 'NGN',
+  // Africa - Other currencies
+  ZA: 'ZAR',
+  GH: 'GHS',
+  KE: 'KES',
+  EG: 'EGP',
+  MA: 'MAD',
+  // West Africa CFA
+  BJ: 'XOF', BF: 'XOF', CI: 'XOF', GW: 'XOF', ML: 'XOF', NE: 'XOF', SN: 'XOF', TG: 'XOF',
+  // Central Africa CFA
+  CM: 'XAF', CF: 'XAF', TD: 'XAF', CG: 'XAF', GQ: 'XAF', GA: 'XAF',
+  // Americas
+  US: 'USD',
+  CA: 'CAD',
+  // Europe
+  GB: 'GBP',
+  DE: 'EUR', FR: 'EUR', IT: 'EUR', ES: 'EUR', NL: 'EUR', BE: 'EUR', AT: 'EUR', PT: 'EUR', IE: 'EUR', FI: 'EUR',
+  // Oceania
+  AU: 'AUD',
+  NZ: 'NZD',
+};
+
+// Fallback exchange rates (NGN to other currencies) - Updated Feb 2026
+// These are used if the API fails
+const FALLBACK_RATES: ExchangeRates = {
+  NGN: 1,
+  USD: 1 / 1550, // 1 NGN = 0.000645 USD (approx ₦1,550 = $1)
+  EUR: 1 / 1680,
+  GBP: 1 / 1950,
+  CAD: 1 / 1100,
+  AUD: 1 / 980,
+  ZAR: 1 / 82,
+  GHS: 1 / 95,
+  KES: 1 / 9.5,
+  EGP: 1 / 31,
+  MAD: 1 / 150,
+  XOF: 1 / 2.55,
+  XAF: 1 / 2.55,
+};
+
+export const useCurrency = () => {
   const [state, setState] = useState<CurrencyState>({
-    currency: 'NGN',
+    currencyCode: 'NGN',
     symbol: '₦',
     isLoading: true,
+    error: null,
   });
 
-  const [exchangeRates, setExchangeRates] = useState<ConversionRates>({
-    NGN: 1,
-    USD: 0.00069, // 1 NGN = ~0.00069 USD (1450 NGN = 1 USD)
-  });
+  const [exchangeRates, setExchangeRates] = useState<ExchangeRates>(FALLBACK_RATES);
 
   useEffect(() => {
-    const detectCurrencyAndRates = async () => {
+    const initializeCurrency = async () => {
       try {
-        // Get user's location
+        // Step 1: Detect user's country and currency
         const geoResponse = await fetch('https://ipapi.co/json/', {
           signal: AbortSignal.timeout(5000),
         });
 
-        if (!geoResponse.ok) {
-          throw new Error('Failed to fetch location');
+        let countryCode = 'NG'; // Default to Nigeria
+        let detectedCurrency = 'NGN';
+
+        if (geoResponse.ok) {
+          const geoData = await geoResponse.json();
+          countryCode = geoData.country_code?.toUpperCase() || 'NG';
+          // Use country's currency or default to USD for unknown countries
+          detectedCurrency = COUNTRY_TO_CURRENCY[countryCode] || 'USD';
         }
 
-        const geoData = await geoResponse.json();
-        const countryCode = geoData.country_code?.toUpperCase();
-
-        // Determine currency based on country
-        let currency = 'NGN';
-        let symbol = '₦';
-
-        // Use USD for non-African countries
-        const africanCountries = [
-          'AO', 'BF', 'BI', 'BJ', 'BW', 'CD', 'CF', 'CG', 'CI', 'CM', 'CV', 'DJ', 'DZ',
-          'EG', 'EH', 'ER', 'ET', 'GA', 'GH', 'GM', 'GN', 'GQ', 'GW', 'KE', 'KM', 'LR',
-          'LS', 'LY', 'MA', 'MG', 'ML', 'MR', 'MU', 'MW', 'MZ', 'NA', 'NE', 'NG', 'RE',
-          'RW', 'SC', 'SD', 'SL', 'SN', 'SO', 'SS', 'ST', 'SZ', 'TD', 'TG', 'TN', 'TZ',
-          'UG', 'YT', 'ZA', 'ZM', 'ZW'
-        ];
-
-        if (!africanCountries.includes(countryCode)) {
-          currency = 'USD';
-          symbol = '$';
-        }
-
-        // Fetch live exchange rates from a free API
+        // Step 2: Fetch live exchange rates from NGN
+        let rates = FALLBACK_RATES;
         try {
+          // Using exchangerate-api.com (free tier: 1500 requests/month)
           const ratesResponse = await fetch(
             'https://api.exchangerate-api.com/v4/latest/NGN',
             { signal: AbortSignal.timeout(5000) }
@@ -76,73 +119,125 @@ export const useCurrency = (): CurrencyState & {
 
           if (ratesResponse.ok) {
             const ratesData = await ratesResponse.json();
-            setExchangeRates({
+            // The API returns rates as "how many of X currency = 1 NGN"
+            rates = {
               NGN: 1,
-              USD: ratesData.rates.USD || 0.00069,
-            });
+              ...ratesData.rates,
+            };
           }
         } catch (rateError) {
-          console.warn('Failed to fetch live rates, using fallback', rateError);
-          // Use fallback rates
+          console.warn('Using fallback exchange rates:', rateError);
         }
 
+        setExchangeRates(rates);
+
+        const symbol = CURRENCY_SYMBOLS[detectedCurrency] || detectedCurrency;
+
         setState({
-          currency,
+          currencyCode: detectedCurrency,
           symbol,
           isLoading: false,
+          error: null,
         });
 
-        // Cache in sessionStorage
-        sessionStorage.setItem('user_currency', currency);
+        // Cache for session
+        sessionStorage.setItem('user_currency_code', detectedCurrency);
         sessionStorage.setItem('user_currency_symbol', symbol);
+        sessionStorage.setItem('exchange_rates', JSON.stringify(rates));
+        sessionStorage.setItem('rates_timestamp', Date.now().toString());
+
       } catch (error) {
-        console.warn('Currency detection failed, using cache or default', error);
-
-        // Check cache
-        const cachedCurrency = sessionStorage.getItem('user_currency');
+        console.error('Currency initialization failed:', error);
+        
+        // Try to use cached values
+        const cachedCode = sessionStorage.getItem('user_currency_code');
         const cachedSymbol = sessionStorage.getItem('user_currency_symbol');
+        const cachedRates = sessionStorage.getItem('exchange_rates');
 
-        setState({
-          currency: cachedCurrency || 'NGN',
-          symbol: cachedSymbol || '₦',
-          isLoading: false,
-        });
+        if (cachedCode && cachedSymbol) {
+          setState({
+            currencyCode: cachedCode,
+            symbol: cachedSymbol,
+            isLoading: false,
+            error: null,
+          });
+          if (cachedRates) {
+            setExchangeRates(JSON.parse(cachedRates));
+          }
+        } else {
+          // Final fallback - show NGN
+          setState({
+            currencyCode: 'NGN',
+            symbol: '₦',
+            isLoading: false,
+            error: 'Could not detect currency',
+          });
+        }
       }
     };
 
-    // Check cache first
-    const cachedCurrency = sessionStorage.getItem('user_currency');
+    // Check for recent cached data first (< 1 hour old)
+    const cachedTimestamp = sessionStorage.getItem('rates_timestamp');
+    const cachedCode = sessionStorage.getItem('user_currency_code');
     const cachedSymbol = sessionStorage.getItem('user_currency_symbol');
+    const cachedRates = sessionStorage.getItem('exchange_rates');
 
-    if (cachedCurrency && cachedSymbol) {
+    if (
+      cachedTimestamp &&
+      cachedCode &&
+      cachedSymbol &&
+      cachedRates &&
+      Date.now() - parseInt(cachedTimestamp) < 3600000 // 1 hour
+    ) {
       setState({
-        currency: cachedCurrency,
+        currencyCode: cachedCode,
         symbol: cachedSymbol,
         isLoading: false,
+        error: null,
       });
+      setExchangeRates(JSON.parse(cachedRates));
     } else {
-      detectCurrencyAndRates();
+      initializeCurrency();
     }
   }, []);
 
-  const convertFromNaira = (amountInNaira: number): string => {
-    if (state.currency === 'NGN') {
-      // Format Naira with commas
-      return `${state.symbol}${amountInNaira.toLocaleString('en-NG')}`;
+  /**
+   * Convert an amount from NGN to the user's local currency
+   * @param amountInNaira - The amount in Nigerian Naira
+   * @returns Formatted price string with currency symbol
+   */
+  const convertFromNaira = useCallback((amountInNaira: number): string => {
+    const { currencyCode, symbol } = state;
+
+    // If showing in Naira, just format with commas
+    if (currencyCode === 'NGN') {
+      return `${symbol}${amountInNaira.toLocaleString('en-NG')}`;
     }
 
-    // Convert to target currency
-    const rate = exchangeRates[state.currency] || exchangeRates.USD;
+    // Get the exchange rate for target currency
+    const rate = exchangeRates[currencyCode];
+    
+    if (!rate) {
+      // If no rate available, show in NGN
+      return `₦${amountInNaira.toLocaleString('en-NG')}`;
+    }
+
+    // Convert: NGN amount × rate = target currency amount
     const convertedAmount = amountInNaira * rate;
 
-    // Round to nearest dollar for USD
-    const rounded = Math.round(convertedAmount);
-
-    return `${state.symbol}${rounded.toLocaleString('en-US')}`;
-  };
+    // Format based on currency
+    if (['USD', 'EUR', 'GBP', 'CAD', 'AUD'].includes(currencyCode)) {
+      // Round to nearest whole number for major currencies
+      return `${symbol}${Math.round(convertedAmount).toLocaleString('en-US')}`;
+    } else {
+      // Keep some precision for other currencies
+      return `${symbol}${convertedAmount.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+    }
+  }, [state, exchangeRates]);
 
   return {
     ...state,
     convertFromNaira,
+    exchangeRates,
   };
 };

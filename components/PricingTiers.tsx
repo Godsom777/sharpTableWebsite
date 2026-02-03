@@ -290,7 +290,7 @@ const TierCard = memo<TierCardProps>(({
 export const PricingTiers: React.FC = () => {
   const { openPaymentModal } = usePayment();
   const [billingCycle, setBillingCycle] = useState<BillingCycle>('monthly');
-  const { convertFromNaira, isLoading: isCurrencyLoading, currency, symbol } = useCurrency();
+  const { convertFromNaira, isLoading: isCurrencyLoading, currencyCode, symbol } = useCurrency();
 
   // Memoize tier configurations to prevent recreation
   const tierConfigs = useMemo(
@@ -395,12 +395,12 @@ export const PricingTiers: React.FC = () => {
           </p>
 
           {/* Currency Indicator */}
-          {!isCurrencyLoading && currency !== 'NGN' && (
+          {!isCurrencyLoading && currencyCode !== 'NGN' && (
             <p className="text-sm text-gray-500 mb-8">
-              Prices shown in {currency} • Converted from NGN at current rates
+              Prices shown in {currencyCode} • Converted from NGN at current rates
             </p>
           )}
-          {!isCurrencyLoading && currency === 'NGN' && (
+          {!isCurrencyLoading && currencyCode === 'NGN' && (
             <p className="text-sm text-gray-500 mb-8">
               Prices in Nigerian Naira (NGN)
             </p>
