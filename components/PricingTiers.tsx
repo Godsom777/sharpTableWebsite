@@ -397,7 +397,7 @@ export const PricingTiers: React.FC = () => {
           {/* Currency Indicator */}
           {!isCurrencyLoading && currencyCode !== 'NGN' && (
             <p className="text-sm text-gray-500 mb-8">
-              Prices shown in {currencyCode} • Converted from NGN at current rates
+              Prices shown in {currencyCode} • at current rates
             </p>
           )}
           {!isCurrencyLoading && currencyCode === 'NGN' && (
