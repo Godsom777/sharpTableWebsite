@@ -3,10 +3,14 @@ import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faShield, faFileLines, faUserGroup } from '@fortawesome/free-solid-svg-icons';
 import { faTelegram } from '@fortawesome/free-brands-svg-icons';
+import { LegalModal, useLegalModal } from './LegalModal';
 
 export const Footer: React.FC = () => {
+  const { isOpen, type, openPrivacyPolicy, openTermsOfService, closeModal } = useLegalModal();
+
   return (
-    <footer className="bg-black py-12 border-t border-white/10 text-center">
+    <>
+      <footer className="bg-black py-12 border-t border-white/10 text-center">
       <div className="max-w-7xl mx-auto px-6 flex flex-col items-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -53,22 +57,22 @@ export const Footer: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="flex gap-6 text-sm text-gray-400"
         >
-            <motion.a
+            <motion.button
               whileHover={{ scale: 1.1, color: '#fff' }}
-              href="#"
-              className="hover:text-white transition-colors flex items-center gap-1"
+              onClick={openPrivacyPolicy}
+              className="hover:text-white transition-colors flex items-center gap-1 cursor-pointer"
             >
               <FontAwesomeIcon icon={faShield} className="w-3.5 h-3.5" />
               Privacy Policy
-            </motion.a>
-            <motion.a
+            </motion.button>
+            <motion.button
               whileHover={{ scale: 1.1, color: '#fff' }}
-              href="#"
-              className="hover:text-white transition-colors flex items-center gap-1"
+              onClick={openTermsOfService}
+              className="hover:text-white transition-colors flex items-center gap-1 cursor-pointer"
             >
               <FontAwesomeIcon icon={faFileLines} className="w-3.5 h-3.5" />
               Terms of Service
-            </motion.a>
+            </motion.button>
             <motion.a
               whileHover={{ scale: 1.1, color: '#fff' }}
               href="mailto:info@sharptable.com.ng"
@@ -99,5 +103,9 @@ export const Footer: React.FC = () => {
         </motion.div>
       </div>
     </footer>
+    
+    {/* Legal Modal */}
+    <LegalModal isOpen={isOpen} onClose={closeModal} type={type} />
+    </>
   );
 };
