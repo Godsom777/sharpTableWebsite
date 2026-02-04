@@ -7,6 +7,7 @@ import {
   faSpinner,
   faHome,
   faEnvelope,
+  faArrowRightToBracket,
 } from '@fortawesome/free-solid-svg-icons';
 
 type PaymentStatus = 'loading' | 'success' | 'failed';
@@ -65,6 +66,10 @@ export const PaymentCallback: React.FC = () => {
       }
     }
   }, []);
+
+  const handleGoToApp = () => {
+    window.location.href = 'https://app.sharptable.com.ng';
+  };
 
   const handleGoHome = () => {
     window.location.href = '/';
@@ -136,11 +141,18 @@ export const PaymentCallback: React.FC = () => {
 
             <div className="space-y-3">
               <p className="text-sm text-gray-400">
-                Check your email for login instructions and next steps. Use the same email address to sign in to the SharpTable app.
+                Your account is ready! Sign in with the email and password you used during registration.
               </p>
               <button
-                onClick={handleGoHome}
+                onClick={handleGoToApp}
                 className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold text-sm hover:shadow-lg hover:shadow-amber-500/25 transition-all flex items-center justify-center gap-2"
+              >
+                <FontAwesomeIcon icon={faArrowRightToBracket} className="w-4 h-4" />
+                Go to App & Sign In
+              </button>
+              <button
+                onClick={handleGoHome}
+                className="w-full py-3 rounded-xl bg-zinc-800 text-gray-300 font-semibold text-sm hover:bg-zinc-700 transition-all flex items-center justify-center gap-2"
               >
                 <FontAwesomeIcon icon={faHome} className="w-4 h-4" />
                 Back to Home
