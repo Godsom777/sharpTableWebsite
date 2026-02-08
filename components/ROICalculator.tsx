@@ -60,10 +60,10 @@ export const ROICalculator: React.FC = () => {
             <span className="text-amber-400 font-semibold text-sm">ROI Calculator</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
-            See how much you could save
+            "We're not losing money." Are you sure?
           </h2>
           <p className="text-gray-400 max-w-xl mx-auto">
-            Most restaurants lose 5-15% of revenue to walkouts, cash handling errors, and untracked orders. Calculate your potential recovery.
+            Walkouts, cash that doesn't add up, orders with no record — most owners don't realize the total. Slide the numbers and see for yourself.
           </p>
         </motion.div>
 
@@ -78,13 +78,13 @@ export const ROICalculator: React.FC = () => {
           >
             <h3 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
               <FontAwesomeIcon icon={faUtensils} className="w-5 h-5 text-amber-400" />
-              Your Restaurant Details
+              Plug in your numbers
             </h3>
 
             {/* Monthly Revenue Slider */}
             <div className="mb-8">
               <div className="flex justify-between items-center mb-3">
-                <label className="text-gray-400 text-sm">Monthly Revenue</label>
+                <label className="text-gray-400 text-sm">What you make monthly</label>
                 <span className="text-white font-bold text-lg">{formatCurrency(monthlyRevenue)}</span>
               </div>
               <input
@@ -108,7 +108,7 @@ export const ROICalculator: React.FC = () => {
             <div className="mb-8">
               <div className="flex justify-between items-center mb-3">
                 <label className="text-gray-400 text-sm flex items-center gap-2">
-                  Estimated Revenue Leakage
+                  What's slipping through the cracks
                   <span className="text-amber-400 text-xs">(walkouts + errors + theft)</span>
                 </label>
                 <span className="text-red-400 font-bold text-lg">{estimatedLeakage}%</span>
@@ -135,7 +135,7 @@ export const ROICalculator: React.FC = () => {
               <div className="flex items-start gap-3">
                 <FontAwesomeIcon icon={faExclamationTriangle} className="w-5 h-5 text-red-400 mt-0.5" />
                 <div>
-                  <p className="text-red-400 font-semibold text-sm">You're currently losing</p>
+                  <p className="text-red-400 font-semibold text-sm">That's money walking out your door</p>
                   <p className="text-red-300 text-2xl font-bold">{formatCurrency(calculations.currentLeakage)}/year</p>
                 </div>
               </div>
@@ -152,30 +152,30 @@ export const ROICalculator: React.FC = () => {
           >
             <h3 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
               <FontAwesomeIcon icon={faChartLine} className="w-5 h-5 text-green-400" />
-              With SharpTable
+              What SharpTable recovers
             </h3>
 
             {/* Recovery Stats */}
             <div className="space-y-4 mb-8">
               <div className="flex justify-between items-center p-4 rounded-xl bg-white/5">
-                <span className="text-gray-400 text-sm">Revenue recovered annually</span>
+                <span className="text-gray-400 text-sm">Money recovered per year</span>
                 <span className="text-green-400 font-bold text-xl">{formatCurrency(calculations.recoveredWithSharpTable)}</span>
               </div>
               <div className="flex justify-between items-center p-4 rounded-xl bg-white/5">
-                <span className="text-gray-400 text-sm">SharpTable annual cost (Control)</span>
+                <span className="text-gray-400 text-sm">What SharpTable costs you (Control plan)</span>
                 <span className="text-gray-300 font-medium">-{formatCurrency(calculations.annualCost)}</span>
               </div>
               <div className="flex justify-between items-center p-4 rounded-xl bg-green-500/10 border border-green-500/20">
-                <span className="text-green-400 font-semibold">Net Annual Savings</span>
+                <span className="text-green-400 font-semibold">What stays in your pocket</span>
                 <span className="text-green-400 font-bold text-2xl">{formatCurrency(calculations.netSavings)}</span>
               </div>
             </div>
 
             {/* ROI Highlight */}
             <div className="text-center p-6 rounded-xl bg-amber-500/20 border border-amber-500/30 mb-6">
-              <p className="text-amber-300 text-sm mb-1">Return on Investment</p>
+              <p className="text-amber-300 text-sm mb-1">Your return on investment</p>
               <p className="text-5xl font-extrabold text-white">{calculations.roi}%</p>
-              <p className="text-amber-300/70 text-xs mt-2">Based on 85% leakage recovery rate</p>
+              <p className="text-amber-300/70 text-xs mt-2">Based on 85% leakage recovery — most owners see results in the first month</p>
             </div>
 
             {/* CTA */}
@@ -183,7 +183,7 @@ export const ROICalculator: React.FC = () => {
               onClick={() => window.location.href = 'mailto:info@sharptable.com.ng'}
               className="w-full py-4 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold text-sm shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 transition-all flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
             >
-              Start Saving Now
+              Stop the leakage — talk to us
               <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
             </button>
           </motion.div>
@@ -197,7 +197,7 @@ export const ROICalculator: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="text-center text-gray-500 text-xs mt-8"
         >
-          * Calculations based on industry averages. Actual results may vary based on your specific situation.
+          * These numbers are estimates based on industry averages. Your actual results depend on your restaurant — but the leakage is real.
         </motion.p>
       </div>
     </section>

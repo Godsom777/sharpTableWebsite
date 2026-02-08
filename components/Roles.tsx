@@ -8,40 +8,40 @@ const roles = [
 		id: 'admin',
 		title: 'Owner & Manager',
 		icon: <FontAwesomeIcon icon={faGauge} />,
-		subtitle: 'Full visibility on payments, staff, and revenue.',
+		subtitle: 'See everything. From anywhere. Even from home.',
 		content: [
-			'See who collected what, when, and for which order',
-			'Track revenue across days and locations',
-			'Spot discrepancies before they become problems',
-			'Manage menu, staff, and location settings',
+			'Know who collected what, when, and for which table — without asking',
+			'Compare today\'s numbers with last week in two taps',
+			'Catch discrepancies before they become a pattern',
+			'Update your menu, prices, and staff from your phone',
 		],
-		highlight: 'Every dollar accounted for. No blind spots.',
+		highlight: 'You don\'t need to be in the restaurant to know what\'s happening.',
 	},
 	{
 		id: 'kds',
 		title: 'Kitchen Team',
 		icon: <FontAwesomeIcon icon={faUtensils} />,
-		subtitle: 'Only paid orders appear. No surprises.',
+		subtitle: 'They only see what\'s been paid for. No more wasted food.',
 		content: [
-			'Live queue of verified, paid orders only',
-			'No more preparing unpaid tickets',
-			'Special requests shown clearly',
-			'Mark items ready for service',
+			'A clean queue of paid orders — nothing else',
+			'No more cooking food for customers who leave without paying',
+			'Special requests ("no pepper", "extra hot") come through clearly',
+			'One tap to mark food as ready — floor team gets notified',
 		],
-		highlight: 'Work with confidence — every order is paid.',
+		highlight: 'Your kitchen stops guessing and starts cooking what actually counts.',
 	},
 	{
 		id: 'marshall',
 		title: 'Marshall (Floor)',
 		icon: <FontAwesomeIcon icon={faUsers} />,
-		subtitle: 'Verify payment. Unlock the order.',
+		subtitle: 'Your trusted floor person. They confirm the money is in.',
 		content: [
-			'Collect and confirm payment before order is fulfilled',
-			'Every transaction logged under your name',
-			'Get notified when orders are ready',
-			'Manage table flow and handoffs',
+			'Collect payment and confirm it with one tap — order unlocks',
+			'Every transaction is logged with their name and timestamp',
+			'They get pinged the moment food is ready to serve',
+			'Handle table flow and handoffs without confusion',
 		],
-		highlight: 'You are the gate. Nothing passes without you.',
+		highlight: 'Accountability without micromanaging. Everyone knows their role.',
 	},
 ];
 
@@ -61,8 +61,8 @@ export const Roles: React.FC = () => {
 							transition={{ duration: 0.6 }}
 							className="text-4xl md:text-5xl font-bold text-white mb-8 tracking-tight"
 						>
-							Everyone plays a part <br />
-							<span className="text-gray-500">in protecting your revenue.</span>
+							Your team already knows <br />
+							<span className="text-gray-500">how to do this.</span>
 						</motion.h2>
 						<div className="space-y-4">
 							{roles.map((role, index) => (

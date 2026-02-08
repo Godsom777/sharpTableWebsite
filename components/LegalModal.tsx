@@ -202,7 +202,7 @@ const TermsOfServiceContent: React.FC = () => (
       <p className="mt-3"><strong className="text-white">Billing Terms:</strong></p>
       <ul className="list-disc list-inside ml-4 space-y-1 mt-2">
         <li>Subscriptions are billed monthly or annually in advance</li>
-        <li>Prices are displayed in your local currency (converted from NGN at current rates)</li>
+        <li>Prices are displayed in USD and processed securely via Paystack</li>
         <li>Payment processing is handled securely by Paystack</li>
         <li>Annual plans offer up to 35% savings</li>
         <li>All payments are non-refundable unless required by law</li>

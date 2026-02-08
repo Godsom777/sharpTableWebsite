@@ -64,18 +64,18 @@ export const NavBar: React.FC = () => {
             Roles
           </motion.a>
           <motion.a
+            href="#capabilities"
+            className="hover:text-white transition-colors"
+            whileHover={{ scale: 1.1, y: -2 }}
+          >
+            Platform
+          </motion.a>
+          <motion.a
             href="#analytics"
             className="hover:text-white transition-colors"
             whileHover={{ scale: 1.1, y: -2 }}
           >
             Intelligence
-          </motion.a>
-          <motion.a
-            href="#scenario"
-            className="hover:text-white transition-colors"
-            whileHover={{ scale: 1.1, y: -2 }}
-          >
-            Stories
           </motion.a>
           <motion.button
             onClick={handleContact}
@@ -133,6 +133,16 @@ export const NavBar: React.FC = () => {
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.2 }}
+              href="#capabilities"
+              className="text-gray-300 hover:text-white"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Platform
+            </motion.a>
+            <motion.a
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.25 }}
               href="#analytics"
               className="text-gray-300 hover:text-white"
               onClick={() => setIsMobileMenuOpen(false)}
@@ -142,7 +152,7 @@ export const NavBar: React.FC = () => {
             <motion.button
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.25 }}
+              transition={{ delay: 0.3 }}
               onClick={() => {
                   handleContact();
                   setIsMobileMenuOpen(false);

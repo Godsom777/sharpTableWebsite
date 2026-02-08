@@ -33,8 +33,8 @@ export const Footer: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="text-gray-500 text-sm max-w-md mx-auto mb-6"
         >
-            Customer intelligence for restaurants. <br/>
-            Know your guests. Bring them back.
+            Simpler restaurant payments. Tighter operations. <br/>
+            No complicated POS. Just what works.
         </motion.p>
         
         <motion.a

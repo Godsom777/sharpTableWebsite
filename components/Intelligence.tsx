@@ -30,9 +30,9 @@ export const Intelligence: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">See where every dollar went</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">You shouldn't have to guess where your money went</h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Every payment is tied to an order, a table, and a staff member. If something doesn't add up, you'll know.
+            End-of-day cash doesn't match? With SharpTable, every penny is tied to an order, a table, and a staff member. The numbers tell the truth.
           </p>
         </motion.div>
 
@@ -54,7 +54,7 @@ export const Intelligence: React.FC = () => {
                   className="mb-6"
                 >
                     <h3 className="text-lg font-semibold text-white">Revenue by Day</h3>
-                    <p className="text-sm text-gray-500">Track when your biggest sales happen.</p>
+                    <p className="text-sm text-gray-500">Know your busiest days. Staff and stock accordingly.</p>
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -99,7 +99,7 @@ export const Intelligence: React.FC = () => {
                   className="mb-6"
                 >
                     <h3 className="text-lg font-semibold text-white">Top Items Sold</h3>
-                    <p className="text-sm text-gray-500">Know exactly what moves and what stays.</p>
+                    <p className="text-sm text-gray-500">Stop guessing what sells. The data is right here.</p>
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -135,9 +135,9 @@ export const Intelligence: React.FC = () => {
             transition={{ delay: 0.4, duration: 0.6 }}
             className="mt-12 p-8 border border-dashed border-zinc-700 rounded-3xl bg-zinc-900/20 text-center hover:border-amber-500/30 hover:bg-zinc-900/30 transition-all"
         >
-             <span className="text-xs uppercase tracking-widest text-zinc-500 font-bold">Payment-First Audit Trail</span>
+             <span className="text-xs uppercase tracking-widest text-zinc-500 font-bold">Every order tells a story</span>
              <div className="flex flex-wrap justify-center items-center gap-4 mt-6 text-sm md:text-base text-gray-300 font-medium">
-                {['Order Created', 'Marshall Collects', 'Payment Verified', 'Order Unlocked', 'Full Audit Logged'].map((step, index) => (
+                {['Order Placed', 'Payment Collected', 'Money Confirmed', 'Kitchen Starts', 'Everything Logged'].map((step, index) => (
                   <React.Fragment key={index}>
                     <motion.span
                       initial={{ opacity: 0, scale: 0.8 }}

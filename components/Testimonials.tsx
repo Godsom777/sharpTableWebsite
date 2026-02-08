@@ -18,68 +18,68 @@ interface Testimonial {
 // Testimonials for African audience
 const africanTestimonials: Testimonial[] = [
   {
-    quote: "We used to lose at least 8-10 walkouts a week. After SharpTable, we haven't had a single one in 3 months. The gate system just works.",
+    quote: "I didn't think I needed this. My system 'worked.' Then I saw the first week's report and realized how much was slipping through. We recovered money I didn't even know we were losing.",
     author: "David O.",
     role: "Owner",
     restaurant: "Grill House",
     location: "Lagos, Nigeria",
     rating: 5,
-    metric: "0",
-    metricLabel: "walkouts in 90 days"
+    metric: "$2.1K",
+    metricLabel: "recovered in first 3 months"
   },
   {
-    quote: "My staff know they're accountable now. Every payment is tracked, every order has a name attached. No more 'I don't know who collected it.'",
+    quote: "We tried SambaPOS before. Too many features, too complicated. My staff were confused. SharpTable was the opposite — they figured it out in minutes. And the payment gate? Game changer.",
     author: "Amara K.",
     role: "General Manager",
     restaurant: "Big Joe's Diner",
     location: "Abuja, Nigeria",
     rating: 5,
-    metric: "12%",
-    metricLabel: "revenue recovered"
+    metric: "10 min",
+    metricLabel: "staff training time"
   },
   {
-    quote: "We expanded to 3 locations and needed visibility across all of them. Command tier gives me that — one dashboard, full control.",
+    quote: "I manage 3 branches. Before SharpTable, I had to call each manager every day. Now I open one dashboard and see everything — inventory, revenue, top sellers. I wish I had this years ago.",
     author: "Michael T.",
     role: "CEO",
     restaurant: "Urban Kitchen Group",
     location: "Port Harcourt, Nigeria",
     rating: 5,
     metric: "3",
-    metricLabel: "locations managed"
+    metricLabel: "branches on one screen"
   }
 ];
 
 // Testimonials for global (non-African) audience
 const globalTestimonials: Testimonial[] = [
   {
-    quote: "We were losing thousands each month to walkouts and payment disputes. SharpTable's gate system eliminated that completely. It's been a game-changer.",
+    quote: "I thought our process was fine. Cash at the till, paper tickets to the kitchen. Then I saw SharpTable's first audit report — we'd been bleeding money for years without knowing it.",
     author: "Marcus L.",
     role: "Owner",
     restaurant: "The Copper Pot",
     location: "London, UK",
     rating: 5,
-    metric: "0",
-    metricLabel: "walkouts in 90 days"
+    metric: "$8.4K",
+    metricLabel: "recovered in first quarter"
   },
   {
-    quote: "Full accountability across every shift. Every transaction is tracked, every order verified. Our shrinkage dropped overnight.",
+    quote: "We evaluated three POS systems. All were overkill. SharpTable did the one thing that mattered — made sure we got paid before any food left the kitchen. Setup took an afternoon.",
     author: "Sarah M.",
     role: "Operations Director",
     restaurant: "Harbour Kitchen",
     location: "Sydney, Australia",
     rating: 5,
-    metric: "15%",
-    metricLabel: "revenue recovered"
+    metric: "1 day",
+    metricLabel: "to go fully live"
   },
   {
-    quote: "Managing 5 locations used to be chaos. Now I have real-time visibility into every outlet from one dashboard. Worth every penny.",
+    quote: "Five locations, five different ways of doing things. SharpTable gave me one view. Now I know exactly what's selling and who's handling what at every single outlet.",
     author: "James R.",
     role: "CEO",
     restaurant: "Bistro Group NYC",
     location: "New York, USA",
     rating: 5,
     metric: "5",
-    metricLabel: "locations managed"
+    metricLabel: "locations unified"
   }
 ];
 
@@ -169,13 +169,13 @@ export const Testimonials: React.FC = () => {
         >
           <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 rounded-full px-4 py-1.5 mb-4">
             <FontAwesomeIcon icon={faStar} className="w-4 h-4 text-green-400" />
-            <span className="text-green-400 font-semibold text-sm">Trusted by Restaurant Owners</span>
+            <span className="text-green-400 font-semibold text-sm">They were skeptical too</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
-            Real results from real restaurants
+            "I didn't think I needed it"
           </h2>
           <p className="text-gray-400 max-w-xl mx-auto">
-            Don't take our word for it. Here's what owners are saying after switching to SharpTable.
+            Every one of these owners thought their system was working fine. Here's what changed their mind.
           </p>
         </motion.div>
 

@@ -12,33 +12,34 @@ export interface PlanDetails {
   savings?: string;
 }
 
-// Base prices in Naira - SOURCE OF TRUTH
+// Base prices in Naira — backend source of truth (Paystack charges in NGN)
+// Frontend displays converted USD prices via useCurrency hook
 export const BASE_PRICES_NGN = {
-  'pro': 99_999, // ₦99,999/month
-  'enterprise': 199_999, // ₦199,999/month
-  'pro-yearly': 1_000_000, // ₦1,000,000/year
-  'enterprise-yearly': 2_000_000, // ₦2,000,000/year
+  'pro': 99_999,
+  'enterprise': 199_999,
+  'pro-yearly': 1_000_000,
+  'enterprise-yearly': 2_000_000,
 };
 
 export const PLAN_CONFIG: Record<PlanType, PlanDetails> = {
   pro: {
     name: 'Control',
     planCode: 'PLN_rknt3upbuue6dmh',
-    price: '99999', // Will be formatted by useCurrency
+    price: '99999',
     period: '/month',
     billingCycle: 'monthly',
   },
   enterprise: {
     name: 'Command',
     planCode: 'PLN_b36ulzsdy6d418n',
-    price: '199999', // Will be formatted by useCurrency
+    price: '199999',
     period: '/month',
     billingCycle: 'monthly',
   },
   'pro-yearly': {
     name: 'Control',
     planCode: 'PLN_lu2vu0x7b0z4esc',
-    price: '1000000', // Will be formatted by useCurrency
+    price: '1000000',
     period: '/year',
     billingCycle: 'yearly',
     savings: 'Save ~22%',
@@ -46,7 +47,7 @@ export const PLAN_CONFIG: Record<PlanType, PlanDetails> = {
   'enterprise-yearly': {
     name: 'Command',
     planCode: 'PLN_geld4bet9hwqca0',
-    price: '2000000', // Will be formatted by useCurrency
+    price: '2000000',
     period: '/year',
     billingCycle: 'yearly',
     savings: 'Save ~35%',

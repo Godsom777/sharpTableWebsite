@@ -40,8 +40,8 @@ export const Hero: React.FC = () => {
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-amber-300 text-[10px] sm:text-[11px] font-bold uppercase tracking-widest flex-wrap justify-center text-center leading-tight whitespace-normal max-w-[92vw]">
             <FontAwesomeIcon icon={faShieldHalved} className="w-3 h-3" />
-            <span className="sm:hidden">Take back revenue</span>
-            <span className="hidden sm:inline">Take back lost revenue</span>
+            <span className="sm:hidden">Simpler than a POS</span>
+            <span className="hidden sm:inline">Simpler than any POS you've tried</span>
           </div>
         </motion.div>
 
@@ -52,7 +52,7 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.05 }}
           className="text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] text-white"
         >
-          Stop revenue leakage. <span className="text-amber-400">Get paid first.</span>
+          Your restaurant runs fine. <span className="text-amber-400">Until you see what you're missing.</span>
         </motion.h1>
 
         {/* Subheadline */}
@@ -62,8 +62,9 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mt-4 text-center text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed"
         >
-          SharpTable gates every order until payment is verified. Restaurants using it recover 
-          <span className="text-white font-medium">{' '}75–85% of previously lost revenue.</span>
+          Most restaurant owners don't know how much slips through the cracks — missing orders, 
+          untracked cash, staff confusion. SharpTable makes it visible
+          <span className="text-white font-medium"> and fixes it without changing how you work.</span>
         </motion.p>
 
         {/* CTA buttons  */}
@@ -79,7 +80,7 @@ export const Hero: React.FC = () => {
             whileTap={{ scale: 0.98 }}
             className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-white text-black px-6 py-3.5 font-bold text-sm shadow-lg hover:bg-zinc-100 transition"
           >
-            Book a demo
+            See it in action
             <FontAwesomeIcon icon={faChevronRight} className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
           </motion.button>
 
@@ -89,7 +90,7 @@ export const Hero: React.FC = () => {
             whileTap={{ scale: 0.98 }}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-white/5 text-white border border-white/15 px-6 py-3.5 font-semibold text-sm hover:bg-white/10 transition"
           >
-            See how it works
+            How it works
             <FontAwesomeIcon icon={faQrcode} className="w-4 h-4 text-amber-300" />
           </motion.button>
         </motion.div>
@@ -102,10 +103,10 @@ export const Hero: React.FC = () => {
           className="mt-8 flex flex-wrap justify-center gap-2 text-xs"
         >
           {[
-            { icon: faLock, text: 'Orders held until paid' },
-            { icon: faShieldHalved, text: 'Zero walkouts' },
-            { icon: faCircleCheck, text: 'Marshall verifies every payment' },
-            { icon: faBolt, text: 'Full audit trail' }
+            { icon: faQrcode, text: 'No app downloads' },
+            { icon: faBolt, text: 'Works in minutes, not weeks' },
+            { icon: faCircleCheck, text: 'Simpler than any POS' },
+            { icon: faLock, text: 'Nothing leaves unpaid' }
           ].map((item) => (
             <span
               key={item.text}
@@ -143,8 +144,8 @@ export const Hero: React.FC = () => {
                   <FontAwesomeIcon icon={faShieldHalved} className="w-5 h-5 text-amber-400" />
                 </div>
                 <div>
-                  <div className="text-white font-bold text-sm">Less leakage. More profit.</div>
-                  <div className="text-gray-400 text-xs">Every order tied to verified payment</div>
+                  <div className="text-white font-bold text-sm">Simpler. Faster. Tighter.</div>
+                  <div className="text-gray-400 text-xs">No bloated POS. Just what you actually need.</div>
                 </div>
               </div>
             </div>
@@ -175,7 +176,7 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="mt-6 text-center text-xs text-gray-500"
         >
-          Built for restaurants that want tighter revenue control without slowing service
+          Built for busy restaurant owners who don't have time to learn complicated software
         </motion.p>
       </div>
     </section>

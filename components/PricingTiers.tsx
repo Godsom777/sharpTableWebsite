@@ -290,7 +290,7 @@ const TierCard = memo<TierCardProps>(({
 export const PricingTiers: React.FC = () => {
   const { openPaymentModal } = usePayment();
   const [billingCycle, setBillingCycle] = useState<BillingCycle>('monthly');
-  const { convertFromNaira, isLoading: isCurrencyLoading, currencyCode, symbol } = useCurrency();
+  const { convertFromNaira, isLoading: isCurrencyLoading } = useCurrency();
 
   // Memoize tier configurations to prevent recreation
   const tierConfigs = useMemo(
@@ -305,7 +305,7 @@ export const PricingTiers: React.FC = () => {
         {
           name: "Control",
           icon: faCrown,
-          description: "Keep operations steady, clean, and predictable — with the oversight you need.",
+          description: "Everything you need to run a tight, leak-free restaurant — nothing extra.",
           price: convertFromNaira(proMonthly),
           period: "/month",
           tierKey: "pro" as const,
@@ -321,14 +321,14 @@ export const PricingTiers: React.FC = () => {
                 <span className="text-gray-400">Monthly</span>
                 <span className="text-white font-semibold">{convertFromNaira(proMonthly)}</span>
               </div>
-              <div className="text-xs text-gray-500">Built for clarity, consistency, and day-to-day control.</div>
+              <div className="text-xs text-gray-500">For single-location restaurants that want clarity and control.</div>
             </div>
           )
         },
         {
           name: "Command",
           icon: faBuilding,
-          description: "Lead across locations with confidence — set the pace and keep every branch aligned.",
+          description: "Multiple branches? See everything, control everything — from one place.",
           price: convertFromNaira(enterpriseMonthly),
           period: "/month",
           tierKey: "enterprise" as const,
@@ -343,7 +343,7 @@ export const PricingTiers: React.FC = () => {
                 <span className="text-gray-400">Enterprise</span>
                 <span className="text-white font-semibold">{convertFromNaira(enterpriseMonthly)}<span className="text-gray-500 font-normal">/mo</span></span>
               </div>
-              <div className="text-xs text-gray-500">Unlimited locations, tables, staff, and order history — plus feature overrides.</div>
+              <div className="text-xs text-gray-500">Unlimited locations, tables, staff, and history — for owners who are expanding.</div>
             </div>
           )
         }
@@ -379,10 +379,10 @@ export const PricingTiers: React.FC = () => {
 
           {/* Title */}
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white tracking-tight">
-            Choose Your{' '}
+            Simple pricing.{' '}
             <span className="relative inline-block">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-500 to-red-500">
-                Growth Plan
+                No surprises.
               </span>
               <span className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 rounded-full" />
             </span>
@@ -390,21 +390,14 @@ export const PricingTiers: React.FC = () => {
 
           {/* Subtitle */}
           <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-4">
-            Scale your restaurant operations with the right tools. 
-            <span className="text-white font-medium"> Upgrade anytime as you grow.</span>
+            Pick the plan that fits your restaurant today. 
+            <span className="text-white font-medium"> You can always upgrade later — no pressure.</span>
           </p>
 
-          {/* Currency Indicator */}
-          {!isCurrencyLoading && currencyCode !== 'NGN' && (
-            <p className="text-sm text-gray-500 mb-8">
-              Prices shown in {currencyCode} • at current rates
-            </p>
-          )}
-          {!isCurrencyLoading && currencyCode === 'NGN' && (
-            <p className="text-sm text-gray-500 mb-8">
-              Prices in Nigerian Naira (NGN)
-            </p>
-          )}
+          {/* Prices always shown in USD */}
+          <p className="text-sm text-gray-500 mb-8">
+            Prices in USD • billed via Paystack at current rates
+          </p>
 
           {/* Billing Toggle */}
           <div className="flex items-center justify-center gap-4 mt-4">
@@ -525,7 +518,7 @@ export const PricingTiers: React.FC = () => {
           className="mt-16 text-center"
         >
           <p className="text-gray-500 text-sm mb-4">
-            All plans include 24/7 support, secure cloud hosting, and automatic updates.
+            Every plan includes 24/7 support, secure cloud hosting, and automatic updates. No hidden fees.
           </p>
           <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
             <div className="flex items-center gap-2">
@@ -534,11 +527,11 @@ export const PricingTiers: React.FC = () => {
             </div>
             <div className="flex items-center gap-2">
               <FontAwesomeIcon icon={faCheck} className="w-4 h-4 text-green-500" />
-              Cancel anytime
+              Cancel anytime — no lock-in
             </div>
             <div className="flex items-center gap-2">
               <FontAwesomeIcon icon={faCheck} className="w-4 h-4 text-green-500" />
-              Free migration
+              Free migration from any system
             </div>
           </div>
 
