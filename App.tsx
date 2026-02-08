@@ -7,6 +7,7 @@ import { Intelligence } from './components/Intelligence';
 import { Testimonials } from './components/Testimonials';
 import { ROICalculator } from './components/ROICalculator';
 import { PricingTiers } from './components/PricingTiers';
+import { FAQ } from './components/FAQ';
 import { Footer } from './components/Footer';
 import { PaymentModal } from './components/PaymentModal';
 import { PaymentCallback } from './components/PaymentCallback';
@@ -37,6 +38,7 @@ function App() {
           <Testimonials />
           <ROICalculator />
           <PricingTiers />
+          <FAQ />
         </main>
         <Footer />
         <PaymentModal />
