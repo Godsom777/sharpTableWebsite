@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faShield, faFileLines, faUserGroup } from '@fortawesome/free-solid-svg-icons';
 import { faTelegram } from '@fortawesome/free-brands-svg-icons';
 import { LegalModal, useLegalModal } from './LegalModal';
+import { Link } from 'react-router-dom';
 
 export const Footer: React.FC = () => {
   const { isOpen, type, openPrivacyPolicy, openTermsOfService, closeModal } = useLegalModal();
@@ -49,6 +50,20 @@ export const Footer: React.FC = () => {
             <FontAwesomeIcon icon={faEnvelope} className="w-5 h-5" />
            info@sharptable.com.ng
         </motion.a>
+
+        {/* Navigation Links */}
+        <motion.nav
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.25 }}
+          className="flex flex-wrap justify-center gap-6 text-sm text-gray-400 mb-8"
+        >
+          <Link to="/" className="hover:text-white transition-colors">Home</Link>
+          <Link to="/features" className="hover:text-white transition-colors">Features</Link>
+          <Link to="/pricing" className="hover:text-white transition-colors">Pricing</Link>
+          <Link to="/faq" className="hover:text-white transition-colors">FAQ</Link>
+        </motion.nav>
 
         <motion.div
           initial={{ opacity: 0 }}

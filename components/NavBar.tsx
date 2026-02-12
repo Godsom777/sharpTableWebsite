@@ -2,10 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { Link, useLocation } from 'react-router-dom';
 
 export const NavBar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const isActive = (path: string) => location.pathname === path;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,8 +19,8 @@ export const NavBar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleContact = () => {
-    window.location.href = "mailto:info@sharptable.com.ng";
+  const handleGetStarted = () => {
+    window.location.href = '/pricing';
   };
 
   return (
@@ -31,7 +35,7 @@ export const NavBar: React.FC = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
           className="flex items-center gap-1.5 md:gap-2 cursor-pointer"
-          onClick={() => window.scrollTo(0,0)}
+          onClick={() => { window.location.href = '/'; }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -49,36 +53,40 @@ export const NavBar: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300"
         >
-          <motion.a
-            href="#features"
-            className="hover:text-white transition-colors"
-            whileHover={{ scale: 1.1, y: -2 }}
-          >
-            Features
-          </motion.a>
-          <motion.a
-            href="#roles"
-            className="hover:text-white transition-colors"
-            whileHover={{ scale: 1.1, y: -2 }}
-          >
-            Roles
-          </motion.a>
-          <motion.a
-            href="#capabilities"
-            className="hover:text-white transition-colors"
-            whileHover={{ scale: 1.1, y: -2 }}
-          >
-            Platform
-          </motion.a>
-          <motion.a
-            href="#analytics"
-            className="hover:text-white transition-colors"
-            whileHover={{ scale: 1.1, y: -2 }}
-          >
-            Intelligence
-          </motion.a>
+          <Link to="/">
+            <motion.span
+              className={`hover:text-white transition-colors ${isActive('/') ? 'text-white' : ''}`}
+              whileHover={{ scale: 1.1, y: -2 }}
+            >
+              Home
+            </motion.span>
+          </Link>
+          <Link to="/features">
+            <motion.span
+              className={`hover:text-white transition-colors ${isActive('/features') ? 'text-white' : ''}`}
+              whileHover={{ scale: 1.1, y: -2 }}
+            >
+              Features
+            </motion.span>
+          </Link>
+          <Link to="/pricing">
+            <motion.span
+              className={`hover:text-white transition-colors ${isActive('/pricing') ? 'text-white' : ''}`}
+              whileHover={{ scale: 1.1, y: -2 }}
+            >
+              Pricing
+            </motion.span>
+          </Link>
+          <Link to="/faq">
+            <motion.span
+              className={`hover:text-white transition-colors ${isActive('/faq') ? 'text-white' : ''}`}
+              whileHover={{ scale: 1.1, y: -2 }}
+            >
+              FAQ
+            </motion.span>
+          </Link>
           <motion.button
-            onClick={handleContact}
+            onClick={handleGetStarted}
             className="bg-white text-black px-4 py-2 rounded-full text-xs font-semibold hover:bg-gray-200 transition-colors"
             whileHover={{ scale: 1.05, boxShadow: "0 4px 20px rgba(255,255,255,0.2)" }}
             whileTap={{ scale: 0.95 }}
@@ -109,52 +117,64 @@ export const NavBar: React.FC = () => {
             transition={{ duration: 0.3 }}
             className="absolute top-16 left-0 right-0 bg-black border-b border-white/10 p-6 md:hidden flex flex-col gap-4 overflow-hidden"
           >
-            <motion.a
+            <motion.div
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.1 }}
-              href="#features"
-              className="text-gray-300 hover:text-white"
-              onClick={() => setIsMobileMenuOpen(false)}
             >
-              Features
-            </motion.a>
-            <motion.a
+              <Link
+                to="/"
+                className={`text-gray-300 hover:text-white block ${isActive('/') ? 'text-white' : ''}`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Home
+              </Link>
+            </motion.div>
+            <motion.div
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.15 }}
-              href="#roles"
-              className="text-gray-300 hover:text-white"
-              onClick={() => setIsMobileMenuOpen(false)}
             >
-              Roles
-            </motion.a>
-            <motion.a
+              <Link
+                to="/features"
+                className={`text-gray-300 hover:text-white block ${isActive('/features') ? 'text-white' : ''}`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Features
+              </Link>
+            </motion.div>
+            <motion.div
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.2 }}
-              href="#capabilities"
-              className="text-gray-300 hover:text-white"
-              onClick={() => setIsMobileMenuOpen(false)}
             >
-              Platform
-            </motion.a>
-            <motion.a
+              <Link
+                to="/pricing"
+                className={`text-gray-300 hover:text-white block ${isActive('/pricing') ? 'text-white' : ''}`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Pricing
+              </Link>
+            </motion.div>
+            <motion.div
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.25 }}
-              href="#analytics"
-              className="text-gray-300 hover:text-white"
-              onClick={() => setIsMobileMenuOpen(false)}
             >
-              Intelligence
-            </motion.a>
+              <Link
+                to="/faq"
+                className={`text-gray-300 hover:text-white block ${isActive('/faq') ? 'text-white' : ''}`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                FAQ
+              </Link>
+            </motion.div>
             <motion.button
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.3 }}
               onClick={() => {
-                  handleContact();
+                  handleGetStarted();
                   setIsMobileMenuOpen(false);
               }}
               className="bg-white text-black px-4 py-3 rounded-full text-sm font-semibold w-full"

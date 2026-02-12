@@ -1,49 +1,39 @@
-import { NavBar } from './components/NavBar';
-import { Hero } from './components/Hero';
-import { BentoGrid } from './components/BentoGrid';
-import { FeatureStack } from './components/FeatureStack';
-import { Roles } from './components/Roles';
-import { Intelligence } from './components/Intelligence';
-import { Testimonials } from './components/Testimonials';
-import { ROICalculator } from './components/ROICalculator';
-import { PricingTiers } from './components/PricingTiers';
-import { FAQ } from './components/FAQ';
-import { Footer } from './components/Footer';
-import { PaymentModal } from './components/PaymentModal';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { PaymentCallback } from './components/PaymentCallback';
 import { PaymentProvider } from './contexts/PaymentContext';
+import { Layout } from './components/Layout';
+import { ScrollToTop } from './components/ScrollToTop';
+import { HomePage } from './pages/HomePage';
+import { FeaturesPage } from './pages/FeaturesPage';
+import { PricingPage } from './pages/PricingPage';
+import { FAQPage } from './pages/FAQPage';
 
 function App() {
-  // Simple routing for payment callback
-  const isPaymentCallback = window.location.pathname === '/payment/callback';
-
-  if (isPaymentCallback) {
-    return (
-      <div className="bg-black min-h-screen text-white selection:bg-amber-500/30">
-        <PaymentCallback />
-      </div>
-    );
-  }
-
   return (
-    <PaymentProvider>
-      <div className="bg-black min-h-screen text-white selection:bg-amber-500/30">
-        <NavBar />
-        <main>
-          <Hero />
-          <BentoGrid />
-          <FeatureStack />
-          <Intelligence />
-          <Roles />
-          <Testimonials />
-          <ROICalculator />
-          <PricingTiers />
-          <FAQ />
-        </main>
-        <Footer />
-        <PaymentModal />
-      </div>
-    </PaymentProvider>
+    <BrowserRouter>
+      <PaymentProvider>
+        <ScrollToTop />
+        <Routes>
+          {/* Payment callback — standalone page, no nav/footer */}
+          <Route
+            path="/payment/callback"
+            element={
+              <div className="bg-black min-h-screen text-white selection:bg-amber-500/30">
+                <PaymentCallback />
+              </div>
+            }
+          />
+
+          {/* All pages that share NavBar + Footer */}
+          <Route element={<Layout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/features" element={<FeaturesPage />} />
+            <Route path="/pricing" element={<PricingPage />} />
+            <Route path="/faq" element={<FAQPage />} />
+          </Route>
+        </Routes>
+      </PaymentProvider>
+    </BrowserRouter>
   );
 }
 
