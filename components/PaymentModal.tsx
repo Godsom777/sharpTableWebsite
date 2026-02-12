@@ -169,6 +169,10 @@ export const PaymentModal: React.FC = () => {
   const initiatePaystackPayment = useCallback(() => {
     if (!planDetails || !selectedPlan) return;
 
+    // Check for partner referral code in the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const referralCode = urlParams.get('ref') || '';
+
     // Generate a unique reference
     const reference = `ST_${selectedPlan.toUpperCase()}_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
 
@@ -180,12 +184,35 @@ export const PaymentModal: React.FC = () => {
       plan: selectedPlan,
       planCode: planDetails.planCode,
       reference,
+      referralCode,
       initiatedAt: new Date().toISOString(),
       status: 'pending',
     };
     
     // Store in localStorage - your app can check this
     localStorage.setItem('sharptable_pending_subscription', JSON.stringify(subscriptionData));
+
+    // Build custom fields with optional referral code
+    const customFields: Array<{ display_name: string; variable_name: string; value: string }> = [
+      {
+        display_name: 'Business Name',
+        variable_name: 'business_name',
+        value: formData.businessName.trim(),
+      },
+      {
+        display_name: 'Plan',
+        variable_name: 'plan_type',
+        value: selectedPlan,
+      },
+    ];
+
+    if (referralCode) {
+      customFields.push({
+        display_name: 'Partner Referral',
+        variable_name: 'referral_code',
+        value: referralCode,
+      });
+    }
 
     // Use Paystack inline JS SDK for subscription
     const handler = window.PaystackPop.setup({
@@ -194,18 +221,7 @@ export const PaymentModal: React.FC = () => {
       plan: planDetails.planCode,
       ref: reference,
       metadata: {
-        custom_fields: [
-          {
-            display_name: 'Business Name',
-            variable_name: 'business_name',
-            value: formData.businessName.trim(),
-          },
-          {
-            display_name: 'Plan',
-            variable_name: 'plan_type',
-            value: selectedPlan,
-          },
-        ],
+        custom_fields: customFields,
       },
       callback: (response) => {
         // Payment successful

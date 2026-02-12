@@ -85,6 +85,14 @@ export const NavBar: React.FC = () => {
               FAQ
             </motion.span>
           </Link>
+          <Link to="/partnership">
+            <motion.span
+              className={`hover:text-white transition-colors ${isActive('/partnership') || isActive('/partnership/apply') ? 'text-amber-400' : ''}`}
+              whileHover={{ scale: 1.1, y: -2 }}
+            >
+              Partnership
+            </motion.span>
+          </Link>
           <motion.button
             onClick={handleGetStarted}
             className="bg-white text-black px-4 py-2 rounded-full text-xs font-semibold hover:bg-gray-200 transition-colors"
@@ -167,6 +175,19 @@ export const NavBar: React.FC = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 FAQ
+              </Link>
+            </motion.div>
+            <motion.div
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.28 }}
+            >
+              <Link
+                to="/partnership"
+                className={`text-gray-300 hover:text-white block ${isActive('/partnership') || isActive('/partnership/apply') ? 'text-amber-400' : ''}`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Partnership
               </Link>
             </motion.div>
             <motion.button

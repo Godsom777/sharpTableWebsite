@@ -7,6 +7,8 @@ import { HomePage } from './pages/HomePage';
 import { FeaturesPage } from './pages/FeaturesPage';
 import { PricingPage } from './pages/PricingPage';
 import { FAQPage } from './pages/FAQPage';
+import { PartnershipPage } from './pages/PartnershipPage';
+import { PartnershipApplyPage } from './pages/PartnershipApplyPage';
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
             <Route path="/features" element={<FeaturesPage />} />
             <Route path="/pricing" element={<PricingPage />} />
             <Route path="/faq" element={<FAQPage />} />
+            <Route path="/partnership" element={<PartnershipPage />} />
+            <Route path="/partnership/apply" element={<PartnershipApplyPage />} />
           </Route>
         </Routes>
       </PaymentProvider>

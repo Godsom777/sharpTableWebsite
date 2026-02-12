@@ -80,6 +80,7 @@ serve(async (req) => {
         const customFields = metadata.custom_fields || [];
         const businessName = customFields.find((f: any) => f.variable_name === 'business_name')?.value || '';
         const planType = customFields.find((f: any) => f.variable_name === 'plan_type')?.value || '';
+        const referralCode = customFields.find((f: any) => f.variable_name === 'referral_code')?.value || null;
 
         // Upsert subscription record
         const { error } = await supabase
@@ -95,6 +96,7 @@ serve(async (req) => {
             status: data.status,
             amount: plan.amount / 100, // Convert from smallest currency unit
             currency: plan.currency,
+            referral_code: referralCode,
             next_payment_date: data.next_payment_date,
             created_at: data.createdAt || new Date().toISOString(),
             updated_at: new Date().toISOString(),
@@ -105,6 +107,57 @@ serve(async (req) => {
         if (error) {
           console.error('Error upserting subscription:', error);
           throw error;
+        }
+
+        // ── Partner upfront commission (50%) ──
+        if (referralCode) {
+          try {
+            // Look up partner by referral code
+            const { data: partner } = await supabase
+              .from('partners')
+              .select('id, status')
+              .eq('referral_code', referralCode)
+              .eq('status', 'active')
+              .single();
+
+            if (partner) {
+              const subscriptionAmount = plan.amount / 100;
+              const upfrontCommission = subscriptionAmount * 0.50; // 50%
+
+              // Get the subscription record we just upserted
+              const { data: subRecord } = await supabase
+                .from('subscriptions')
+                .select('id')
+                .eq('email', customer.email.toLowerCase())
+                .single();
+
+              // Record upfront commission
+              await supabase.from('partner_referrals').insert({
+                partner_id: partner.id,
+                subscription_email: customer.email.toLowerCase(),
+                subscription_id: subRecord?.id || null,
+                plan_type: planType,
+                plan_amount: subscriptionAmount,
+                commission_type: 'upfront',
+                commission_rate: 0.50,
+                commission_amount: upfrontCommission,
+                currency: plan.currency,
+                status: 'pending',
+                recurring_month: null,
+              });
+
+              // Update partner total earned
+              await supabase.rpc('increment_partner_earnings', {
+                p_partner_id: partner.id,
+                p_amount: upfrontCommission,
+              });
+
+              console.log(`Partner ${referralCode}: upfront commission ₦${upfrontCommission} recorded`);
+            }
+          } catch (partnerErr) {
+            console.error('Error processing partner commission:', partnerErr);
+            // Don't fail the webhook — subscription was already created
+          }
         }
 
         console.log(`Subscription created for ${customer.email}`);
@@ -142,6 +195,68 @@ serve(async (req) => {
             status: 'success',
             paid_at: data.paid_at || new Date().toISOString(),
           });
+
+          // ── Partner recurring commission (20% for 6 months) ──
+          try {
+            // Check if subscription has a referral code
+            const { data: subscription } = await supabase
+              .from('subscriptions')
+              .select('id, referral_code')
+              .eq('email', customer.email.toLowerCase())
+              .single();
+
+            if (subscription?.referral_code) {
+              // Look up active partner
+              const { data: partner } = await supabase
+                .from('partners')
+                .select('id, status')
+                .eq('referral_code', subscription.referral_code)
+                .eq('status', 'active')
+                .single();
+
+              if (partner) {
+                // Count how many recurring commissions already exist for this referral
+                const { count } = await supabase
+                  .from('partner_referrals')
+                  .select('id', { count: 'exact', head: true })
+                  .eq('partner_id', partner.id)
+                  .eq('subscription_email', customer.email.toLowerCase())
+                  .eq('commission_type', 'recurring');
+
+                const recurringMonth = (count || 0) + 1;
+
+                // Only pay recurring for months 1-6
+                if (recurringMonth <= 6) {
+                  const chargeAmount = data.amount / 100;
+                  const recurringCommission = chargeAmount * 0.20; // 20%
+
+                  await supabase.from('partner_referrals').insert({
+                    partner_id: partner.id,
+                    subscription_email: customer.email.toLowerCase(),
+                    subscription_id: subscription.id,
+                    plan_type: data.plan.plan_code,
+                    plan_amount: chargeAmount,
+                    commission_type: 'recurring',
+                    commission_rate: 0.20,
+                    commission_amount: recurringCommission,
+                    currency: data.currency,
+                    status: 'pending',
+                    recurring_month: recurringMonth,
+                  });
+
+                  // Update partner total earned
+                  await supabase.rpc('increment_partner_earnings', {
+                    p_partner_id: partner.id,
+                    p_amount: recurringCommission,
+                  });
+
+                  console.log(`Partner recurring commission month ${recurringMonth}: ₦${recurringCommission}`);
+                }
+              }
+            }
+          } catch (partnerErr) {
+            console.error('Error processing recurring partner commission:', partnerErr);
+          }
 
           console.log(`Payment successful for ${customer.email}`);
         }

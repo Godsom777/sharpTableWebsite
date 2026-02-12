@@ -314,7 +314,7 @@ export const PricingTiers: React.FC = () => {
           delay: 0,
           billingCycle,
           yearlyPrice: convertFromNaira(proYearly),
-          yearlySavings: "Save ~22%",
+          yearlySavings: "",
           priceNote: (
             <div className="grid grid-cols-1 gap-3 text-sm">
               <div className="flex items-center justify-between">
@@ -336,7 +336,7 @@ export const PricingTiers: React.FC = () => {
           delay: 0.1,
           billingCycle,
           yearlyPrice: convertFromNaira(enterpriseYearly),
-          yearlySavings: "Save ~35%",
+          yearlySavings: "",
           priceNote: (
             <div className="grid grid-cols-1 gap-3 text-sm">
               <div className="flex items-center justify-between">
