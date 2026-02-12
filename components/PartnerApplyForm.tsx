@@ -239,11 +239,11 @@ export const PartnerApplyForm: React.FC = () => {
                   {isSubmitting ? (
                     <>
                       <FontAwesomeIcon icon={faSpinner} className="w-4 h-4 animate-spin" />
-                      Submitting…
+                      Generating Partnership Code...
                     </>
                   ) : (
                     <>
-                      Submit Application
+                      Get Your Referral Link
                       <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
                     </>
                   )}
