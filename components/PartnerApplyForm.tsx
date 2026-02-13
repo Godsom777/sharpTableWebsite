@@ -55,6 +55,34 @@ interface FormErrors {
   general?: string;
 }
 
+/* ── Reusable input (defined outside to prevent remount on every keystroke) ── */
+const Input: React.FC<{
+  icon: any; label: string; field: keyof FormData;
+  type?: string; placeholder: string; maxLength?: number;
+  value: string; error?: string;
+  onChange: (field: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement>) => void;
+}> = ({ icon, label, field, type = 'text', placeholder, maxLength, value, error, onChange }) => (
+  <div>
+    <label className="block text-sm font-medium text-gray-300 mb-1.5">{label}</label>
+    <div className="relative">
+      <FontAwesomeIcon icon={icon} className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+      <input
+        type={type}
+        value={value}
+        onChange={onChange(field)}
+        placeholder={placeholder}
+        maxLength={maxLength}
+        className={`w-full pl-10 pr-4 py-3 rounded-xl bg-white/5 border text-white placeholder-gray-600 text-sm focus:outline-none focus:ring-2 transition-all ${
+          error
+            ? 'border-red-500/50 focus:ring-red-500/30'
+            : 'border-white/10 focus:ring-amber-500/30 focus:border-amber-500/50'
+        }`}
+      />
+    </div>
+    {error && <p className="text-red-400 text-xs mt-1">{error}</p>}
+  </div>
+);
+
 /* ================================================================
    PartnerApplyForm
    ================================================================ */
@@ -147,32 +175,6 @@ export const PartnerApplyForm: React.FC = () => {
     setTimeout(() => setCopied(false), 2500);
   };
 
-  /* ── Reusable input ─────────────────────────────────────── */
-  const Input: React.FC<{
-    icon: any; label: string; field: keyof FormData;
-    type?: string; placeholder: string; maxLength?: number;
-  }> = ({ icon, label, field, type = 'text', placeholder, maxLength }) => (
-    <div>
-      <label className="block text-sm font-medium text-gray-300 mb-1.5">{label}</label>
-      <div className="relative">
-        <FontAwesomeIcon icon={icon} className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-        <input
-          type={type}
-          value={formData[field]}
-          onChange={handleChange(field)}
-          placeholder={placeholder}
-          maxLength={maxLength}
-          className={`w-full pl-10 pr-4 py-3 rounded-xl bg-white/5 border text-white placeholder-gray-600 text-sm focus:outline-none focus:ring-2 transition-all ${
-            errors[field]
-              ? 'border-red-500/50 focus:ring-red-500/30'
-              : 'border-white/10 focus:ring-amber-500/30 focus:border-amber-500/50'
-          }`}
-        />
-      </div>
-      {errors[field] && <p className="text-red-400 text-xs mt-1">{errors[field]}</p>}
-    </div>
-  );
-
   /* ── Render ─────────────────────────────────────────────── */
   return (
     <section className="relative bg-black py-16 md:py-24">
@@ -213,9 +215,9 @@ export const PartnerApplyForm: React.FC = () => {
               )}
 
               <form onSubmit={handleSubmit} className="space-y-4">
-                <Input icon={faUser} label="Full Name" field="fullName" placeholder="John Doe" />
-                <Input icon={faEnvelope} label="Email Address" field="email" type="email" placeholder="john@example.com" />
-                <Input icon={faPhone} label="Phone Number" field="phone" type="tel" placeholder="+234 800 000 0000" />
+                <Input icon={faUser} label="Full Name" field="fullName" placeholder="John Doe" value={formData.fullName} error={errors.fullName} onChange={handleChange} />
+                <Input icon={faEnvelope} label="Email Address" field="email" type="email" placeholder="john@example.com" value={formData.email} error={errors.email} onChange={handleChange} />
+                <Input icon={faPhone} label="Phone Number" field="phone" type="tel" placeholder="+234 800 000 0000" value={formData.phone} error={errors.phone} onChange={handleChange} />
 
                 {/* Bank section divider */}
                 <div className="pt-3 pb-1">
@@ -225,9 +227,9 @@ export const PartnerApplyForm: React.FC = () => {
                   </div>
                 </div>
 
-                <Input icon={faBuildingColumns} label="Bank Name" field="bankName" placeholder="e.g. GTBank, Access Bank" />
-                <Input icon={faCreditCard} label="Account Number" field="accountNumber" placeholder="0123456789" maxLength={10} />
-                <Input icon={faIdCard} label="Account Name" field="accountName" placeholder="John Doe" />
+                <Input icon={faBuildingColumns} label="Bank Name" field="bankName" placeholder="e.g. GTBank, Access Bank" value={formData.bankName} error={errors.bankName} onChange={handleChange} />
+                <Input icon={faCreditCard} label="Account Number" field="accountNumber" placeholder="0123456789" maxLength={10} value={formData.accountNumber} error={errors.accountNumber} onChange={handleChange} />
+                <Input icon={faIdCard} label="Account Name" field="accountName" placeholder="John Doe" value={formData.accountName} error={errors.accountName} onChange={handleChange} />
 
                 <motion.button
                   type="submit"
