@@ -41,7 +41,7 @@ const steps = [
   {
     icon: faMoneyBillTrendUp,
     title: 'You Get Paid',
-    desc: 'Earn 50% upfront, plus 20% monthly for 6 months, paid to your bank account.',
+    desc: 'Earn commissions on every referral — 50% + 20% recurring for monthly, or 30% one-time for yearly plans.',
   },
 ];
 
@@ -50,22 +50,22 @@ const commissions = [
   {
     rate: '50%',
     label: 'Upfront',
-    desc: "50% of one month's subscription price, paid once after the first successful charge.",
+    desc: "Monthly plans: 50% of one month's subscription price, paid once after the first successful charge.",
     icon: faGift,
     accent: 'amber' as const,
   },
   {
     rate: '20%',
     label: 'Recurring',
-    desc: "20% of one month's subscription price, paid monthly for 6 consecutive months.",
+    desc: "Monthly plans: 20% of one month's subscription price, paid monthly for 6 consecutive months. Yearly plans earn 30% one-time instead.",
     icon: faRepeat,
     accent: 'emerald' as const,
   },
 ];
 
 /* ── Earnings examples ───────────────────────────────────── 
-   Yearly plans now cost the same as monthly, so commissions
-   are identical for both billing cycles.                      */
+   Monthly: 50% upfront + 20% recurring × 6 months
+   Yearly:  30% one-time, no recurring                        */
 const earnings = [
   {
     plan: 'Control · Monthly',
@@ -83,17 +83,17 @@ const earnings = [
   },
   {
     plan: 'Control · Yearly',
-    price: '₦99,999/yr',
-    upfront: '₦49,999',
-    recurring: '₦20,000 × 6',
-    total: '₦169,999',
+    price: '₦1,000,000/yr',
+    upfront: '₦300,000',
+    recurring: '—',
+    total: '₦300,000',
   },
   {
     plan: 'Command · Yearly',
-    price: '₦199,999/yr',
-    upfront: '₦99,999',
-    recurring: '₦40,000 × 6',
-    total: '₦339,999',
+    price: '₦2,000,000/yr',
+    upfront: '₦600,000',
+    recurring: '—',
+    total: '₦600,000',
   },
 ];
 
@@ -101,12 +101,12 @@ const earnings = [
 const faqs: { q: string; a: string; icon: any }[] = [
   {
     q: 'How much can I earn?',
-    a: 'There is no cap. For example, 10 referrals on the Command monthly plan can generate about ₦3.3 million in commissions over 7 months. Earnings scale with the number of referrals you make.',
+    a: 'There is no cap. For example, 10 referrals on the Command monthly plan can generate about ₦3.4 million over 7 months. 10 referrals on the Command yearly plan earn ₦6 million in one-time payouts. Earnings scale with the number of referrals you make.',
     icon: faWallet,
   },
   {
     q: 'What if the restaurant subscribes for a yearly plan?',
-    a: 'Your earnings are the same. Monthly and yearly plans are priced identically, ₦99,999 for Control, ₦199,999 for Command, so commission is unchanged across billing cycles.',
+    a: 'Yearly referrals earn a one-time 30% commission with no recurring payments. For example, a Command yearly referral earns you ₦600,000 in a single payout. Monthly referrals follow the standard 50% upfront plus 20% recurring for 6 months.',
     icon: faCalendarCheck,
   },
   {
@@ -279,7 +279,7 @@ export const PartnershipInfo: React.FC = () => {
           >
             <FontAwesomeIcon icon={faStar} className="w-4 h-4 text-amber-400 mt-0.5 shrink-0" />
             <p className="text-sm text-gray-300 leading-relaxed">
-              <span className="text-white font-semibold">Monthly or yearly, same earnings.</span> Both billing cycles are priced identically, so commission remains the same.
+              <span className="text-white font-semibold">Yearly plans pay differently.</span> Annual referrals earn a flat 30% one-time commission — ₦300,000 for Control and ₦600,000 for Command — with no recurring payments. Monthly referrals follow the 50% upfront + 20% recurring structure.
             </p>
           </motion.div>
 
@@ -302,8 +302,8 @@ export const PartnershipInfo: React.FC = () => {
                   <tr className="text-gray-500 border-b border-white/5 text-xs uppercase tracking-wider">
                     <th className="text-left px-6 py-3 font-medium">Plan</th>
                     <th className="text-right px-6 py-3 font-medium">Price</th>
-                    <th className="text-right px-6 py-3 font-medium">Upfront (50%)</th>
-                    <th className="text-right px-6 py-3 font-medium">Recurring (20%)</th>
+                    <th className="text-right px-6 py-3 font-medium">Upfront</th>
+                    <th className="text-right px-6 py-3 font-medium">Recurring</th>
                     <th className="text-right px-6 py-3 font-medium text-amber-400">You Earn</th>
                   </tr>
                 </thead>

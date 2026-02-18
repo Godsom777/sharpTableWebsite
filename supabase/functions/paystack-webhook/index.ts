@@ -109,7 +109,9 @@ serve(async (req) => {
           throw error;
         }
 
-        // ── Partner upfront commission (50%) ──
+        // ── Partner commission ──
+        // Monthly plans: 50% upfront + 20% recurring × 6 months
+        // Yearly plans:  30% one-time, no recurring
         if (referralCode) {
           try {
             // Look up partner by referral code
@@ -122,7 +124,16 @@ serve(async (req) => {
 
             if (partner) {
               const subscriptionAmount = plan.amount / 100;
-              const upfrontCommission = subscriptionAmount * 0.50; // 50%
+
+              // Detect yearly vs monthly plan
+              const isYearly = planType.includes('yearly') ||
+                plan.interval === 'annually' ||
+                plan.plan_code === 'PLN_lu2vu0x7b0z4esc' || // pro-yearly
+                plan.plan_code === 'PLN_geld4bet9hwqca0';   // enterprise-yearly
+
+              const commissionRate = isYearly ? 0.30 : 0.50;
+              const commissionType = isYearly ? 'one-time' : 'upfront';
+              const commission = subscriptionAmount * commissionRate;
 
               // Get the subscription record we just upserted
               const { data: subRecord } = await supabase
@@ -131,16 +142,16 @@ serve(async (req) => {
                 .eq('email', customer.email.toLowerCase())
                 .single();
 
-              // Record upfront commission
+              // Record commission
               await supabase.from('partner_referrals').insert({
                 partner_id: partner.id,
                 subscription_email: customer.email.toLowerCase(),
                 subscription_id: subRecord?.id || null,
                 plan_type: planType,
                 plan_amount: subscriptionAmount,
-                commission_type: 'upfront',
-                commission_rate: 0.50,
-                commission_amount: upfrontCommission,
+                commission_type: commissionType,
+                commission_rate: commissionRate,
+                commission_amount: commission,
                 currency: plan.currency,
                 status: 'pending',
                 recurring_month: null,
@@ -149,10 +160,10 @@ serve(async (req) => {
               // Update partner total earned
               await supabase.rpc('increment_partner_earnings', {
                 p_partner_id: partner.id,
-                p_amount: upfrontCommission,
+                p_amount: commission,
               });
 
-              console.log(`Partner ${referralCode}: upfront commission ₦${upfrontCommission} recorded`);
+              console.log(`Partner ${referralCode}: ${commissionType} commission (${commissionRate * 100}%) ₦${commission} recorded [${isYearly ? 'yearly' : 'monthly'}]`);
             }
           } catch (partnerErr) {
             console.error('Error processing partner commission:', partnerErr);
@@ -196,61 +207,70 @@ serve(async (req) => {
             paid_at: data.paid_at || new Date().toISOString(),
           });
 
-          // ── Partner recurring commission (20% for 6 months) ──
+          // ── Partner recurring commission (20% for 6 months — monthly plans only) ──
           try {
             // Check if subscription has a referral code
             const { data: subscription } = await supabase
               .from('subscriptions')
-              .select('id, referral_code')
+              .select('id, referral_code, plan_type')
               .eq('email', customer.email.toLowerCase())
               .single();
 
             if (subscription?.referral_code) {
-              // Look up active partner
-              const { data: partner } = await supabase
-                .from('partners')
-                .select('id, status')
-                .eq('referral_code', subscription.referral_code)
-                .eq('status', 'active')
-                .single();
+              // Detect yearly plan — yearly plans get 30% one-time only, no recurring
+              const isYearly = (subscription.plan_type || '').includes('yearly') ||
+                (data.plan.plan_code === 'PLN_lu2vu0x7b0z4esc') || // pro-yearly
+                (data.plan.plan_code === 'PLN_geld4bet9hwqca0');    // enterprise-yearly
 
-              if (partner) {
-                // Count how many recurring commissions already exist for this referral
-                const { count } = await supabase
-                  .from('partner_referrals')
-                  .select('id', { count: 'exact', head: true })
-                  .eq('partner_id', partner.id)
-                  .eq('subscription_email', customer.email.toLowerCase())
-                  .eq('commission_type', 'recurring');
+              if (isYearly) {
+                console.log(`Yearly plan — no recurring commission for ${customer.email}`);
+              } else {
+                // Look up active partner
+                const { data: partner } = await supabase
+                  .from('partners')
+                  .select('id, status')
+                  .eq('referral_code', subscription.referral_code)
+                  .eq('status', 'active')
+                  .single();
 
-                const recurringMonth = (count || 0) + 1;
+                if (partner) {
+                  // Count how many recurring commissions already exist for this referral
+                  const { count } = await supabase
+                    .from('partner_referrals')
+                    .select('id', { count: 'exact', head: true })
+                    .eq('partner_id', partner.id)
+                    .eq('subscription_email', customer.email.toLowerCase())
+                    .eq('commission_type', 'recurring');
 
-                // Only pay recurring for months 1-6
-                if (recurringMonth <= 6) {
-                  const chargeAmount = data.amount / 100;
-                  const recurringCommission = chargeAmount * 0.20; // 20%
+                  const recurringMonth = (count || 0) + 1;
 
-                  await supabase.from('partner_referrals').insert({
-                    partner_id: partner.id,
-                    subscription_email: customer.email.toLowerCase(),
-                    subscription_id: subscription.id,
-                    plan_type: data.plan.plan_code,
-                    plan_amount: chargeAmount,
-                    commission_type: 'recurring',
-                    commission_rate: 0.20,
-                    commission_amount: recurringCommission,
-                    currency: data.currency,
-                    status: 'pending',
-                    recurring_month: recurringMonth,
-                  });
+                  // Only pay recurring for months 1-6
+                  if (recurringMonth <= 6) {
+                    const chargeAmount = data.amount / 100;
+                    const recurringCommission = chargeAmount * 0.20; // 20%
 
-                  // Update partner total earned
-                  await supabase.rpc('increment_partner_earnings', {
-                    p_partner_id: partner.id,
-                    p_amount: recurringCommission,
-                  });
+                    await supabase.from('partner_referrals').insert({
+                      partner_id: partner.id,
+                      subscription_email: customer.email.toLowerCase(),
+                      subscription_id: subscription.id,
+                      plan_type: data.plan.plan_code,
+                      plan_amount: chargeAmount,
+                      commission_type: 'recurring',
+                      commission_rate: 0.20,
+                      commission_amount: recurringCommission,
+                      currency: data.currency,
+                      status: 'pending',
+                      recurring_month: recurringMonth,
+                    });
 
-                  console.log(`Partner recurring commission month ${recurringMonth}: ₦${recurringCommission}`);
+                    // Update partner total earned
+                    await supabase.rpc('increment_partner_earnings', {
+                      p_partner_id: partner.id,
+                      p_amount: recurringCommission,
+                    });
+
+                    console.log(`Partner recurring commission month ${recurringMonth}: ₦${recurringCommission}`);
+                  }
                 }
               }
             }

@@ -17,8 +17,8 @@ export interface PlanDetails {
 export const BASE_PRICES_NGN = {
   'pro': 99_999,
   'enterprise': 199_999,
-  'pro-yearly': 99_999,
-  'enterprise-yearly': 199_999,
+  'pro-yearly': 1_000_000,
+  'enterprise-yearly': 2_000_000,
 };
 
 export const PLAN_CONFIG: Record<PlanType, PlanDetails> = {
@@ -39,14 +39,14 @@ export const PLAN_CONFIG: Record<PlanType, PlanDetails> = {
   'pro-yearly': {
     name: 'Control',
     planCode: 'PLN_lu2vu0x7b0z4esc',
-    price: '99999',
+    price: '1000000',
     period: '/year',
     billingCycle: 'yearly',
   },
   'enterprise-yearly': {
     name: 'Command',
     planCode: 'PLN_geld4bet9hwqca0',
-    price: '199999',
+    price: '2000000',
     period: '/year',
     billingCycle: 'yearly',
   },
