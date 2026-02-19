@@ -23,6 +23,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { usePayment, PLAN_CONFIG } from '../contexts/PaymentContext';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { LegalModal, useLegalModal } from './LegalModal';
 
 // Supabase client for the APP's database (where users will login)
 // Initialize lazily to avoid errors when env vars are not set
@@ -95,6 +96,7 @@ export const PaymentModal: React.FC = () => {
   const [registrationStep, setRegistrationStep] = useState<'form' | 'registering' | 'payment'>('form');
 
   const planDetails = selectedPlan ? PLAN_CONFIG[selectedPlan] : null;
+  const { isOpen: isLegalOpen, type: legalType, openPrivacyPolicy, openTermsOfService, closeModal: closeLegalModal } = useLegalModal();
 
   // Reset form when modal opens/closes
   useEffect(() => {
@@ -315,6 +317,7 @@ export const PaymentModal: React.FC = () => {
   };
 
   return (
+    <>
     <AnimatePresence>
       {isModalOpen && planDetails && (
         <motion.div
@@ -530,13 +533,21 @@ export const PaymentModal: React.FC = () => {
                 </button>
                 <label className="text-sm text-gray-400 cursor-pointer" onClick={() => setAgreedToTerms(!agreedToTerms)}>
                   I agree to the{' '}
-                  <a href="/terms" className="text-amber-400 hover:text-amber-300 underline">
+                  <button
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); openTermsOfService(); }}
+                    className="text-amber-400 hover:text-amber-300 underline"
+                  >
                     Terms of Service
-                  </a>{' '}
+                  </button>{' '}
                   and{' '}
-                  <a href="/privacy" className="text-amber-400 hover:text-amber-300 underline">
+                  <button
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); openPrivacyPolicy(); }}
+                    className="text-amber-400 hover:text-amber-300 underline"
+                  >
                     Privacy Policy
-                  </a>
+                  </button>
                 </label>
               </div>
 
@@ -597,5 +608,7 @@ export const PaymentModal: React.FC = () => {
         </motion.div>
       )}
     </AnimatePresence>
+    <LegalModal isOpen={isLegalOpen} onClose={closeLegalModal} type={legalType} />
+    </>
   );
 };
