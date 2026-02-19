@@ -17,10 +17,10 @@ interface SubscriptionData {
   businessName: string;
   plan: string;
   planCode: string;
-  reference: string;
   initiatedAt: string;
   status: string;
   completedAt?: string;
+  paystackReference?: string;
 }
 
 export const PaymentCallback: React.FC = () => {
@@ -39,20 +39,16 @@ export const PaymentCallback: React.FC = () => {
       const data: SubscriptionData = JSON.parse(storedData);
       setSubscriptionData(data);
       
-      // Check if reference matches
-      if (reference && data.reference === reference) {
-        // Update status to success (in production, verify with your backend)
+      if (reference) {
+        // Paystack returned a reference — payment was completed
         data.status = 'completed';
         data.completedAt = new Date().toISOString();
+        data.paystackReference = reference;
         
         // Store completed subscription
         localStorage.setItem('sharptable_subscription', JSON.stringify(data));
         localStorage.removeItem('sharptable_pending_subscription');
         
-        setStatus('success');
-      } else if (reference) {
-        // Reference exists but doesn't match - still might be successful
-        // In production, verify with backend
         setStatus('success');
       } else {
         setStatus('failed');
@@ -133,7 +129,7 @@ export const PaymentCallback: React.FC = () => {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-500">Reference</span>
-                    <span className="text-gray-300 font-mono text-xs">{subscriptionData.reference}</span>
+                    <span className="text-gray-300 font-mono text-xs">{subscriptionData.paystackReference || '—'}</span>
                   </div>
                 </div>
               </div>

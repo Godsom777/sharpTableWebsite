@@ -57,7 +57,7 @@ interface PaystackOptions {
   key: string;
   email: string;
   plan: string;
-  ref: string;
+  channels?: string[];
   metadata: {
     custom_fields: Array<{
       display_name: string;
@@ -173,23 +173,17 @@ export const PaymentModal: React.FC = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const referralCode = urlParams.get('ref') || '';
 
-    // Generate a unique reference
-    const reference = `ST_${selectedPlan.toUpperCase()}_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
-
     // Store subscription attempt in localStorage for tracking
-    // Your app can read this to verify subscription status
     const subscriptionData = {
       email: formData.email.toLowerCase().trim(),
       businessName: formData.businessName.trim(),
       plan: selectedPlan,
       planCode: planDetails.planCode,
-      reference,
       referralCode,
       initiatedAt: new Date().toISOString(),
       status: 'pending',
     };
     
-    // Store in localStorage - your app can check this
     localStorage.setItem('sharptable_pending_subscription', JSON.stringify(subscriptionData));
 
     // Build custom fields with optional referral code
@@ -214,16 +208,19 @@ export const PaymentModal: React.FC = () => {
       });
     }
 
-    // Use Paystack inline JS SDK for subscription
-    const handler = window.PaystackPop.setup({
+    // IMPORTANT: When using Paystack subscriptions (plan codes), do NOT pass
+    // a custom `ref` — Paystack generates its own reference for subscription
+    // transactions. Passing `ref` conflicts with the subscription flow and
+    // causes fraud flags / ZAP (zero-amount-payment) redirects.
+    const paystackConfig: Record<string, unknown> = {
       key: PAYSTACK_PUBLIC_KEY,
       email: formData.email.toLowerCase().trim(),
       plan: planDetails.planCode,
-      ref: reference,
+      channels: ['card'],
       metadata: {
         custom_fields: customFields,
       },
-      callback: (response) => {
+      callback: (response: { reference: string; status: string }) => {
         // Payment successful
         const completedData = {
           ...subscriptionData,
@@ -241,8 +238,9 @@ export const PaymentModal: React.FC = () => {
         // User closed the payment modal
         setIsSubmitting(false);
       },
-    });
+    };
 
+    const handler = window.PaystackPop.setup(paystackConfig as any);
     handler.openIframe();
   }, [formData, planDetails, selectedPlan]);
 
