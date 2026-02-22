@@ -80,6 +80,7 @@ serve(async (req) => {
         const customFields = metadata.custom_fields || [];
         const businessName = customFields.find((f: any) => f.variable_name === 'business_name')?.value || '';
         const planType = customFields.find((f: any) => f.variable_name === 'plan_type')?.value || '';
+        const country = customFields.find((f: any) => f.variable_name === 'country')?.value || null;
         const referralCode = customFields.find((f: any) => f.variable_name === 'referral_code')?.value || null;
 
         // Upsert subscription record
@@ -89,6 +90,7 @@ serve(async (req) => {
             email: customer.email.toLowerCase(),
             customer_code: customer.customer_code,
             business_name: businessName,
+            country: country,
             plan_type: planType,
             plan_code: plan.plan_code,
             plan_name: plan.name,

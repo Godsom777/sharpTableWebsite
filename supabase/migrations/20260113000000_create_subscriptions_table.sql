@@ -64,6 +64,7 @@ RETURNS TABLE (
   has_active_subscription BOOLEAN,
   plan_type TEXT,
   status TEXT,
+  country TEXT,
   next_payment_date TIMESTAMPTZ
 ) AS $$
 BEGIN
@@ -72,6 +73,7 @@ BEGIN
     s.status = 'active' AS has_active_subscription,
     s.plan_type,
     s.status,
+    s.country,
     s.next_payment_date
   FROM subscriptions s
   WHERE s.email = LOWER(user_email)

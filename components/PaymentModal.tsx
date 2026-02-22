@@ -21,9 +21,42 @@ import {
   faCcMastercard,
   faCcAmex,
 } from '@fortawesome/free-brands-svg-icons';
+import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { usePayment, PLAN_CONFIG } from '../contexts/PaymentContext';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { LegalModal, useLegalModal } from './LegalModal';
+import { useGeoLocation } from '../hooks/useGeoLocation';
+
+// Supported countries list — expand as you grow
+const SUPPORTED_COUNTRIES = [
+  { code: 'NG', name: 'Nigeria', flag: '🇳🇬' },
+  { code: 'GH', name: 'Ghana', flag: '🇬🇭' },
+  { code: 'KE', name: 'Kenya', flag: '🇰🇪' },
+  { code: 'ZA', name: 'South Africa', flag: '🇿🇦' },
+  { code: 'TZ', name: 'Tanzania', flag: '🇹🇿' },
+  { code: 'UG', name: 'Uganda', flag: '🇺🇬' },
+  { code: 'RW', name: 'Rwanda', flag: '🇷🇼' },
+  { code: 'ET', name: 'Ethiopia', flag: '🇪🇹' },
+  { code: 'SN', name: 'Senegal', flag: '🇸🇳' },
+  { code: 'CI', name: "Côte d'Ivoire", flag: '🇨🇮' },
+  { code: 'CM', name: 'Cameroon', flag: '🇨🇲' },
+  { code: 'EG', name: 'Egypt', flag: '🇪🇬' },
+  { code: 'MA', name: 'Morocco', flag: '🇲🇦' },
+  { code: 'TN', name: 'Tunisia', flag: '🇹🇳' },
+  { code: 'BW', name: 'Botswana', flag: '🇧🇼' },
+  { code: 'NA', name: 'Namibia', flag: '🇳🇦' },
+  { code: 'MU', name: 'Mauritius', flag: '🇲🇺' },
+  { code: 'GB', name: 'United Kingdom', flag: '🇬🇧' },
+  { code: 'US', name: 'United States', flag: '🇺🇸' },
+  { code: 'CA', name: 'Canada', flag: '🇨🇦' },
+  { code: 'AE', name: 'United Arab Emirates', flag: '🇦🇪' },
+  { code: 'SA', name: 'Saudi Arabia', flag: '🇸🇦' },
+  { code: 'IN', name: 'India', flag: '🇮🇳' },
+  { code: 'AU', name: 'Australia', flag: '🇦🇺' },
+  { code: 'DE', name: 'Germany', flag: '🇩🇪' },
+  { code: 'FR', name: 'France', flag: '🇫🇷' },
+  { code: 'OTHER', name: 'Other', flag: '🌍' },
+] as const;
 
 // Supabase client for the APP's database (where users will login)
 // Initialize lazily to avoid errors when env vars are not set
@@ -73,6 +106,7 @@ interface PaystackOptions {
 interface FormData {
   email: string;
   businessName: string;
+  country: string;
   password: string;
   confirmPassword: string;
 }
@@ -80,6 +114,7 @@ interface FormData {
 interface FormErrors {
   email?: string;
   businessName?: string;
+  country?: string;
   password?: string;
   confirmPassword?: string;
   auth?: string;
@@ -87,7 +122,8 @@ interface FormErrors {
 
 export const PaymentModal: React.FC = () => {
   const { isModalOpen, selectedPlan, closePaymentModal } = usePayment();
-  const [formData, setFormData] = useState<FormData>({ email: '', businessName: '', password: '', confirmPassword: '' });
+  const { countryCode: detectedCountry } = useGeoLocation();
+  const [formData, setFormData] = useState<FormData>({ email: '', businessName: '', country: '', password: '', confirmPassword: '' });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
@@ -101,7 +137,7 @@ export const PaymentModal: React.FC = () => {
   // Reset form when modal opens/closes
   useEffect(() => {
     if (!isModalOpen) {
-      setFormData({ email: '', businessName: '', password: '', confirmPassword: '' });
+      setFormData({ email: '', businessName: '', country: '', password: '', confirmPassword: '' });
       setErrors({});
       setIsSubmitting(false);
       setAgreedToTerms(false);
@@ -110,6 +146,16 @@ export const PaymentModal: React.FC = () => {
       setRegistrationStep('form');
     }
   }, [isModalOpen]);
+
+  // Pre-select country based on geo-detection
+  useEffect(() => {
+    if (isModalOpen && detectedCountry && !formData.country) {
+      const match = SUPPORTED_COUNTRIES.find(c => c.code === detectedCountry);
+      if (match) {
+        setFormData(prev => ({ ...prev, country: match.code }));
+      }
+    }
+  }, [isModalOpen, detectedCountry]);
 
   // Handle escape key
   useEffect(() => {
@@ -140,6 +186,10 @@ export const PaymentModal: React.FC = () => {
       newErrors.businessName = 'Business name is required';
     } else if (formData.businessName.trim().length < 2) {
       newErrors.businessName = 'Business name must be at least 2 characters';
+    }
+
+    if (!formData.country) {
+      newErrors.country = 'Please select your country';
     }
 
     if (!formData.password) {
@@ -179,6 +229,7 @@ export const PaymentModal: React.FC = () => {
     const subscriptionData = {
       email: formData.email.toLowerCase().trim(),
       businessName: formData.businessName.trim(),
+      country: formData.country,
       plan: selectedPlan,
       planCode: planDetails.planCode,
       referralCode,
@@ -199,6 +250,11 @@ export const PaymentModal: React.FC = () => {
         display_name: 'Plan',
         variable_name: 'plan_type',
         value: selectedPlan,
+      },
+      {
+        display_name: 'Country',
+        variable_name: 'country',
+        value: formData.country,
       },
     ];
 
@@ -271,6 +327,7 @@ export const PaymentModal: React.FC = () => {
         options: {
           data: {
             business_name: formData.businessName.trim(),
+            country: formData.country,
             plan_type: selectedPlan,
           },
         },
@@ -451,6 +508,46 @@ export const PaymentModal: React.FC = () => {
                   />
                 </div>
                 {errors.businessName && <p className="mt-1.5 text-sm text-red-400">{errors.businessName}</p>}
+              </div>
+
+              {/* Country selector */}
+              <div>
+                <label htmlFor="country" className="block text-sm font-medium text-gray-300 mb-2">
+                  Country
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FontAwesomeIcon icon={faGlobe} className="w-4 h-4 text-gray-500" />
+                  </div>
+                  <select
+                    id="country"
+                    value={formData.country}
+                    onChange={(e) => {
+                      setFormData(prev => ({ ...prev, country: e.target.value }));
+                      if (errors.country) {
+                        setErrors(prev => ({ ...prev, country: undefined }));
+                      }
+                    }}
+                    className={`w-full pl-10 pr-4 py-3 bg-zinc-800 border ${
+                      errors.country ? 'border-red-500' : 'border-zinc-700 focus:border-amber-500'
+                    } rounded-xl text-white outline-none transition-colors appearance-none cursor-pointer`}
+                    disabled={isSubmitting}
+                  >
+                    <option value="" disabled className="text-gray-500">Select your country</option>
+                    {SUPPORTED_COUNTRIES.map(c => (
+                      <option key={c.code} value={c.code} className="bg-zinc-800">
+                        {c.flag} {c.name}
+                      </option>
+                    ))}
+                  </select>
+                  {/* Custom dropdown arrow */}
+                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                    <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+                {errors.country && <p className="mt-1.5 text-sm text-red-400">{errors.country}</p>}
               </div>
 
               {/* Password field */}
