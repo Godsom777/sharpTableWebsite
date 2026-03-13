@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faQuoteLeft, faUtensils, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { useGeoLocation } from '../hooks/useGeoLocation';
+import { Box, Container, Typography } from '@mui/material';
 
 interface Testimonial {
   quote: string;
@@ -85,65 +86,67 @@ const globalTestimonials: Testimonial[] = [
 
 const TestimonialCard: React.FC<{ testimonial: Testimonial; delay: number }> = ({ testimonial, delay }) => {
   return (
-    <motion.div
+    <Box
+      component={motion.div}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay }}
-      className="relative group"
+      sx={{ position: 'relative', height: '100%', '.group:hover & .card-inner': { borderColor: 'rgba(245,158,11,0.3)' } }}
+      className="group"
     >
-      <div className="relative h-full bg-zinc-900/80 border border-zinc-800 hover:border-amber-500/30 rounded-2xl p-6 md:p-8 transition-all duration-300">
+      <Box className="card-inner" sx={{ position: 'relative', height: '100%', bgcolor: 'rgba(24,24,27,0.8)', border: '1px solid', borderColor: 'grey.800', borderRadius: '1rem', p: { xs: 3, md: 4 }, transition: 'all 0.3s' }}>
         {/* Quote Icon */}
-        <div className="absolute -top-4 left-6">
-          <div className="w-8 h-8 rounded-full bg-amber-500 flex items-center justify-center">
-            <FontAwesomeIcon icon={faQuoteLeft} className="w-4 h-4 text-black" />
-          </div>
-        </div>
+        <Box sx={{ position: 'absolute', top: -16, left: 24 }}>
+          <Box sx={{ width: 32, height: 32, borderRadius: '50%', bgcolor: '#f59e0b', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <FontAwesomeIcon icon={faQuoteLeft} style={{ width: 16, height: 16, color: 'black' }} />
+          </Box>
+        </Box>
 
         {/* Stars */}
-        <div className="flex gap-1 mb-4 pt-2">
+        <Box sx={{ display: 'flex', gap: 0.5, mb: 3, pt: 1 }}>
           {[...Array(testimonial.rating)].map((_, i) => (
-            <FontAwesomeIcon key={i} icon={faStar} className="w-4 h-4 text-amber-400" />
+            <FontAwesomeIcon key={i} icon={faStar} style={{ width: 16, height: 16, color: '#fbbf24' }} />
           ))}
-        </div>
+        </Box>
 
         {/* Quote */}
-        <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-6">
+        <Typography sx={{ color: 'grey.300', fontSize: { xs: '0.875rem', md: '1rem' }, lineHeight: 1.625, mb: 4 }}>
           "{testimonial.quote}"
-        </p>
+        </Typography>
 
         {/* Metric Highlight */}
         {testimonial.metric && (
-          <div className="mb-6 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
-            <div className="text-3xl font-bold text-amber-400">{testimonial.metric}</div>
-            <div className="text-xs text-gray-400">{testimonial.metricLabel}</div>
-          </div>
+          <Box sx={{ mb: 4, p: 2, borderRadius: '0.75rem', bgcolor: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.2)' }}>
+            <Typography sx={{ fontSize: '1.875rem', fontWeight: 700, color: '#fbbf24' }}>{testimonial.metric}</Typography>
+            <Typography sx={{ fontSize: '0.75rem', color: 'grey.400' }}>{testimonial.metricLabel}</Typography>
+          </Box>
         )}
 
         {/* Author */}
-        <div className="flex items-center gap-3 pt-4 border-t border-zinc-800">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white font-bold">
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, pt: 3, borderTop: '1px solid', borderColor: 'grey.800' }}>
+          <Box sx={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(to bottom right, #f59e0b, #f97316)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 700 }}>
             {testimonial.author.charAt(0)}
-          </div>
-          <div className="flex-1">
-            <div className="text-white font-semibold text-sm">{testimonial.author}</div>
-            <div className="text-gray-500 text-xs">{testimonial.role}</div>
-          </div>
-        </div>
+          </Box>
+          <Box sx={{ flex: 1 }}>
+            <Typography sx={{ color: 'white', fontWeight: 600, fontSize: '0.875rem' }}>{testimonial.author}</Typography>
+            <Typography sx={{ color: 'grey.500', fontSize: '0.75rem' }}>{testimonial.role}</Typography>
+          </Box>
+        </Box>
 
         {/* Restaurant Info */}
-        <div className="mt-3 flex flex-wrap gap-3 text-xs text-gray-500">
-          <span className="flex items-center gap-1">
-            <FontAwesomeIcon icon={faUtensils} className="w-3 h-3" />
+        <Box sx={{ mt: 2, display: 'flex', flexWrap: 'wrap', gap: 1.5, fontSize: '0.75rem', color: 'grey.500' }}>
+          <Box component="span" sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+            <FontAwesomeIcon icon={faUtensils} style={{ width: 12, height: 12 }} />
             {testimonial.restaurant}
-          </span>
-          <span className="flex items-center gap-1">
-            <FontAwesomeIcon icon={faLocationDot} className="w-3 h-3" />
+          </Box>
+          <Box component="span" sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+            <FontAwesomeIcon icon={faLocationDot} style={{ width: 12, height: 12 }} />
             {testimonial.location}
-          </span>
-        </div>
-      </div>
-    </motion.div>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
@@ -154,57 +157,58 @@ export const Testimonials: React.FC = () => {
   const testimonials = isAfrica ? africanTestimonials : globalTestimonials;
 
   return (
-    <section className="py-20 bg-black relative overflow-hidden">
+    <Box component="section" sx={{ py: { xs: 10, md: 14 }, bgcolor: 'black', position: 'relative', overflow: 'hidden' }}>
       {/* Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(251,191,36,0.03)_0%,transparent_50%)]" />
+      <Box sx={{ position: 'absolute', inset: 0, zIndex: 0, background: 'radial-gradient(ellipse at center, rgba(251,191,36,0.03) 0%, transparent 50%)' }} />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 10, px: 3 }}>
         {/* Header */}
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          sx={{ textAlign: 'center', mb: { xs: 8, md: 10 } }}
         >
-          <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 rounded-full px-4 py-1.5 mb-4">
-            <FontAwesomeIcon icon={faStar} className="w-4 h-4 text-green-400" />
-            <span className="text-green-400 font-semibold text-sm">They were skeptical too</span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+          <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, bgcolor: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.3)', borderRadius: '9999px', px: 2, py: 0.75, mb: 2 }}>
+            <FontAwesomeIcon icon={faStar} style={{ width: 16, height: 16, color: '#4ade80' }} />
+            <Box component="span" sx={{ color: '#4ade80', fontWeight: 600, fontSize: '0.875rem' }}>They were skeptical too</Box>
+          </Box>
+          <Typography variant="h2" sx={{ fontSize: { xs: '1.875rem', md: '2.25rem' }, fontWeight: 700, color: 'white', mb: 1.5 }}>
             "I didn't think I needed it"
-          </h2>
-          <p className="text-gray-400 max-w-xl mx-auto">
+          </Typography>
+          <Typography sx={{ color: 'grey.400', maxWidth: 'md', mx: 'auto' }}>
             Every one of these owners thought their system was working fine. Here's what changed their mind.
-          </p>
-        </motion.div>
+          </Typography>
+        </Box>
 
         {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr 1fr' }, gap: { xs: 3, lg: 4 } }}>
           {testimonials.map((testimonial, index) => (
             <TestimonialCard key={index} testimonial={testimonial} delay={index * 0.1} />
           ))}
-        </div>
+        </Box>
 
         {/* Trust Badges */}
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-16 text-center"
+          sx={{ mt: { xs: 10, md: 12 }, textAlign: 'center' }}
         >
-          <p className="text-gray-500 text-sm mb-6">Trusted by leading restaurants and food businesses</p>
-          <div className="flex flex-wrap justify-center items-center gap-8 opacity-50">
-            {/* Placeholder logos - you can replace with actual partner logos */}
+          <Typography sx={{ color: 'grey.500', fontSize: '0.875rem', mb: 3 }}>Trusted by leading restaurants and food businesses</Typography>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: { xs: 2, md: 4 }, opacity: 0.5 }}>
             {['Restaurants', 'Food Courts', 'Kitchens', 'Grills', 'Cafes'].map((name, i) => (
-              <div key={i} className="px-4 py-2 border border-zinc-800 rounded-lg text-gray-600 text-sm font-medium">
+              <Box key={i} sx={{ px: 2, py: 1, border: '1px solid', borderColor: 'grey.800', borderRadius: '0.5rem', color: 'grey.600', fontSize: '0.875rem', fontWeight: 500 }}>
                 {name}
-              </div>
+              </Box>
             ))}
-          </div>
-        </motion.div>
-      </div>
-    </section>
+          </Box>
+        </Box>
+      </Container>
+    </Box>
   );
 };

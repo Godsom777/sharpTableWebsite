@@ -19,6 +19,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
+import { Box, Typography, Container } from '@mui/material';
 
 /* ── Supabase ────────────────────────────────────────────── */
 const supabaseUrl = import.meta.env.VITE_APP_SUPABASE_URL || '';
@@ -62,25 +63,26 @@ const Input: React.FC<{
   value: string; error?: string;
   onChange: (field: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement>) => void;
 }> = ({ icon, label, field, type = 'text', placeholder, maxLength, value, error, onChange }) => (
-  <div>
-    <label className="block text-sm font-medium text-gray-300 mb-1.5">{label}</label>
-    <div className="relative">
-      <FontAwesomeIcon icon={icon} className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-      <input
+  <Box sx={{ mb: 2 }}>
+    <Typography component="label" sx={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, color: 'grey.300', mb: 1 }}>{label}</Typography>
+    <Box sx={{ position: 'relative' }}>
+      <FontAwesomeIcon icon={icon} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', width: 16, height: 16, color: '#6b7280' }} />
+      <Box
+        component="input"
         type={type}
         value={value}
         onChange={onChange(field)}
         placeholder={placeholder}
         maxLength={maxLength}
-        className={`w-full pl-10 pr-4 py-3 rounded-xl bg-white/5 border text-white placeholder-gray-600 text-sm focus:outline-none focus:ring-2 transition-all ${
-          error
-            ? 'border-red-500/50 focus:ring-red-500/30'
-            : 'border-white/10 focus:ring-amber-500/30 focus:border-amber-500/50'
-        }`}
+        sx={{
+          width: '100%', pl: 5, pr: 2, py: 1.5, borderRadius: '0.75rem', bgcolor: 'rgba(255,255,255,0.05)', border: '1px solid', boxSizing: 'border-box',
+          color: 'white', fontSize: '0.875rem', fontFamily: 'inherit', '&::placeholder': { color: 'grey.600' }, '&:focus': { outline: 'none', ring: '2px solid', ...error ? { borderColor: 'rgba(239,68,68,0.5)', boxShadow: '0 0 0 2px rgba(239,68,68,0.3)' } : { borderColor: 'rgba(245,158,11,0.5)', boxShadow: '0 0 0 2px rgba(245,158,11,0.3)' } },
+          transition: 'all 0.2s', ...(error ? { borderColor: 'rgba(239,68,68,0.5)' } : { borderColor: 'rgba(255,255,255,0.1)' })
+        }}
       />
-    </div>
-    {error && <p className="text-red-400 text-xs mt-1">{error}</p>}
-  </div>
+    </Box>
+    {error && <Typography sx={{ color: '#f87171', fontSize: '0.75rem', mt: 0.5 }}>{error}</Typography>}
+  </Box>
 );
 
 /* ================================================================
@@ -88,14 +90,7 @@ const Input: React.FC<{
    ================================================================ */
 
 export const PartnerApplyForm: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
-    fullName: '',
-    email: '',
-    phone: '',
-    bankName: '',
-    accountNumber: '',
-    accountName: '',
-  });
+  const [formData, setFormData] = useState<FormData>({ fullName: '', email: '', phone: '', bankName: '', accountNumber: '', accountName: '' });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -124,10 +119,8 @@ export const PartnerApplyForm: React.FC = () => {
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
-
     setIsSubmitting(true);
     setErrors({});
-
     try {
       const supabase = getSupabase();
       if (!supabase) {
@@ -135,20 +128,12 @@ export const PartnerApplyForm: React.FC = () => {
         setIsSubmitting(false);
         return;
       }
-
       const code = generateReferralCode(formData.fullName);
-
       const { error } = await supabase.from('partners').insert({
-        full_name: formData.fullName.trim(),
-        email: formData.email.toLowerCase().trim(),
-        phone: formData.phone.trim(),
-        bank_name: formData.bankName.trim(),
-        account_number: formData.accountNumber.trim(),
-        account_name: formData.accountName.trim(),
-        referral_code: code,
-        status: 'active',
+        full_name: formData.fullName.trim(), email: formData.email.toLowerCase().trim(), phone: formData.phone.trim(),
+        bank_name: formData.bankName.trim(), account_number: formData.accountNumber.trim(), account_name: formData.accountName.trim(),
+        referral_code: code, status: 'active',
       });
-
       if (error) {
         if (error.message.includes('duplicate') || error.message.includes('unique')) {
           setErrors({ general: 'This email is already registered as a partner.' });
@@ -158,7 +143,6 @@ export const PartnerApplyForm: React.FC = () => {
         setIsSubmitting(false);
         return;
       }
-
       setReferralCode(code);
       setSubmitted(true);
     } catch {
@@ -175,155 +159,164 @@ export const PartnerApplyForm: React.FC = () => {
     setTimeout(() => setCopied(false), 2500);
   };
 
-  /* ── Render ─────────────────────────────────────────────── */
   return (
-    <section className="relative bg-black py-16 md:py-24">
-      <div className="max-w-xl mx-auto px-6">
+    <Box component="section" sx={{ position: 'relative', bgcolor: 'black', py: { xs: 8, md: 12 } }}>
+      <Container maxWidth="sm" sx={{ px: 3 }}>
         {/* Back link */}
-        <Link
+        <Box
+          component={Link}
           to="/partnership"
-          className="inline-flex items-center gap-1.5 text-gray-500 hover:text-white text-sm mb-8 transition-colors"
+          sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, color: 'grey.500', fontSize: '0.875rem', mb: 4, textDecoration: 'none', transition: 'color 0.2s', '&:hover': { color: 'white' } }}
         >
-          <FontAwesomeIcon icon={faArrowLeft} className="w-3 h-3" />
+          <FontAwesomeIcon icon={faArrowLeft} style={{ width: 12, height: 12 }} />
           Back to Partnership
-        </Link>
+        </Box>
 
         <AnimatePresence mode="wait">
           {!submitted ? (
-            <motion.div
+            <Box
+              component={motion.div}
               key="form"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 md:p-10"
+              sx={{ borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)', bgcolor: 'rgba(255,255,255,0.02)', p: { xs: 4, md: 5 } }}
             >
               {/* Header */}
-              <div className="text-center mb-8">
-                <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-amber-500/15 flex items-center justify-center">
-                  <FontAwesomeIcon icon={faHandshake} className="w-6 h-6 text-amber-400" />
-                </div>
-                <h1 className="text-2xl font-bold text-white mb-2">Join the Partnership</h1>
-                <p className="text-gray-400 text-sm leading-relaxed max-w-sm mx-auto">
+              <Box sx={{ textAlign: 'center', mb: 4 }}>
+                <Box sx={{ width: 56, height: 56, mx: 'auto', mb: 2, borderRadius: '0.75rem', bgcolor: 'rgba(245,158,11,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <FontAwesomeIcon icon={faHandshake} style={{ width: 24, height: 24, color: '#fbb117' }} />
+                </Box>
+                <Typography variant="h1" sx={{ fontSize: '1.5rem', fontWeight: 700, color: 'white', mb: 1 }}>Join the Partnership</Typography>
+                <Typography sx={{ color: 'grey.400', fontSize: '0.875rem', lineHeight: 1.625, maxWidth: 300, mx: 'auto' }}>
                   Fill out the form below and get your referral link instantly. Start earning commissions right away.
-                </p>
-              </div>
+                </Typography>
+              </Box>
 
               {errors.general && (
-                <div className="mb-5 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center">
+                <Box sx={{ mb: 3, p: 1.5, borderRadius: '0.75rem', bgcolor: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', color: '#f87171', fontSize: '0.875rem', textAlign: 'center' }}>
                   {errors.general}
-                </div>
+                </Box>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                 <Input icon={faUser} label="Full Name" field="fullName" placeholder="John Doe" value={formData.fullName} error={errors.fullName} onChange={handleChange} />
                 <Input icon={faEnvelope} label="Email Address" field="email" type="email" placeholder="john@example.com" value={formData.email} error={errors.email} onChange={handleChange} />
                 <Input icon={faPhone} label="Phone Number" field="phone" type="tel" placeholder="+234 800 000 0000" value={formData.phone} error={errors.phone} onChange={handleChange} />
 
                 {/* Bank section divider */}
-                <div className="pt-3 pb-1">
-                  <div className="flex items-center gap-2 text-xs text-gray-500">
-                    <FontAwesomeIcon icon={faBuildingColumns} className="w-3 h-3" />
-                    <span>Bank details — for commission payouts</span>
-                  </div>
-                </div>
+                <Box sx={{ pt: 1.5, mb: 1.5 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'grey.500', fontSize: '0.75rem' }}>
+                    <FontAwesomeIcon icon={faBuildingColumns} style={{ width: 12, height: 12 }} />
+                    <Box component="span">Bank details — for commission payouts</Box>
+                  </Box>
+                </Box>
 
                 <Input icon={faBuildingColumns} label="Bank Name" field="bankName" placeholder="e.g. GTBank, Access Bank" value={formData.bankName} error={errors.bankName} onChange={handleChange} />
                 <Input icon={faCreditCard} label="Account Number" field="accountNumber" placeholder="0123456789" maxLength={10} value={formData.accountNumber} error={errors.accountNumber} onChange={handleChange} />
                 <Input icon={faIdCard} label="Account Name" field="accountName" placeholder="John Doe" value={formData.accountName} error={errors.accountName} onChange={handleChange} />
 
-                <motion.button
+                <Box
+                  component={motion.button}
                   type="submit"
                   disabled={isSubmitting}
                   whileHover={!isSubmitting ? { scale: 1.02 } : undefined}
                   whileTap={!isSubmitting ? { scale: 0.98 } : undefined}
-                  className="w-full mt-6 bg-white text-black py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  sx={{
+                    width: '100%', mt: 3, bgcolor: 'white', color: 'black', py: 1.5, borderRadius: '0.75rem', fontWeight: 700, fontSize: '0.875rem', border: 'none', cursor: 'pointer', fontFamily: 'inherit',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, transition: 'background-color 0.2s', '&:hover': { bgcolor: 'grey.100' }, '&:disabled': { opacity: 0.5, cursor: 'not-allowed' }
+                  }}
                 >
                   {isSubmitting ? (
                     <>
-                      <FontAwesomeIcon icon={faSpinner} className="w-4 h-4 animate-spin" />
+                      <FontAwesomeIcon icon={faSpinner} className="animate-spin" style={{ width: 16, height: 16 }} />
                       Generating Partnership Code...
                     </>
                   ) : (
                     <>
                       Get Your Referral Link
-                      <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
+                      <FontAwesomeIcon icon={faArrowRight} style={{ width: 16, height: 16 }} />
                     </>
                   )}
-                </motion.button>
-              </form>
+                </Box>
+              </Box>
 
-              <div className="mt-5 flex items-start gap-2 text-gray-600 text-xs">
-                <FontAwesomeIcon icon={faShieldHalved} className="w-3 h-3 mt-0.5 shrink-0" />
-                <p>
+              <Box sx={{ mt: 3, display: 'flex', alignItems: 'flex-start', gap: 1, color: 'grey.600', fontSize: '0.75rem' }}>
+                <FontAwesomeIcon icon={faShieldHalved} style={{ width: 12, height: 12, marginTop: 2, flexShrink: 0 }} />
+                <Typography sx={{ fontSize: 'inherit', lineHeight: 1.5 }}>
                   Your data is securely stored. Commission payouts are processed within 7 business days. By submitting, you agree to our partnership terms.
-                </p>
-              </div>
-            </motion.div>
+                </Typography>
+              </Box>
+            </Box>
           ) : (
             /* ── Success ── */
-            <motion.div
+            <Box
+              component={motion.div}
               key="success"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.03] p-8 md:p-10 text-center"
+              sx={{ borderRadius: '1rem', border: '1px solid rgba(16,185,129,0.2)', bgcolor: 'rgba(16,185,129,0.03)', p: { xs: 4, md: 5 }, textAlign: 'center' }}
             >
-              <div className="w-16 h-16 mx-auto mb-5 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                <FontAwesomeIcon icon={faCheckCircle} className="w-8 h-8 text-emerald-400" />
-              </div>
-              <h2 className="text-2xl font-bold text-white mb-2">You're All Set!</h2>
-              <p className="text-gray-400 text-sm mb-8 max-w-sm mx-auto leading-relaxed">
+              <Box sx={{ width: 64, height: 64, mx: 'auto', mb: 2.5, borderRadius: '50%', bgcolor: 'rgba(16,185,129,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <FontAwesomeIcon icon={faCheckCircle} style={{ width: 32, height: 32, color: '#34d399' }} />
+              </Box>
+              <Typography variant="h2" sx={{ fontSize: '1.5rem', fontWeight: 700, color: 'white', mb: 1 }}>You're All Set!</Typography>
+              <Typography sx={{ color: 'grey.400', fontSize: '0.875rem', mb: 4, maxWidth: 300, mx: 'auto', lineHeight: 1.625 }}>
                 Your partner account is active. Start sharing your referral link and earning commissions immediately.
-              </p>
+              </Typography>
 
               {/* Referral code */}
-              <div className="mb-6">
-                <p className="text-gray-500 text-[11px] uppercase tracking-widest mb-2.5">Your Referral Code</p>
-                <div className="inline-flex items-center gap-3 bg-black/50 border border-white/10 rounded-xl px-6 py-3.5">
-                  <span className="text-amber-400 font-mono font-bold text-lg tracking-wider">{referralCode}</span>
-                  <button
+              <Box sx={{ mb: 3 }}>
+                <Typography sx={{ color: 'grey.500', fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.1em', mb: 1.25 }}>Your Referral Code</Typography>
+                <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1.5, bgcolor: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '0.75rem', px: 3, py: 1.5 }}>
+                  <Typography sx={{ color: '#fbb117', fontFamily: 'monospace', fontWeight: 700, fontSize: '1.125rem', letterSpacing: '0.05em' }}>{referralCode}</Typography>
+                  <Box
+                    component="button"
                     onClick={copyReferralLink}
-                    className="text-gray-400 hover:text-white transition-colors"
+                    sx={{ color: 'grey.400', bgcolor: 'transparent', border: 'none', cursor: 'pointer', transition: 'color 0.2s', '&:hover': { color: 'white' } }}
                     title="Copy referral link"
                   >
-                    <FontAwesomeIcon icon={copied ? faCircleCheck : faCopy} className={`w-4 h-4 ${copied ? 'text-emerald-400' : ''}`} />
-                  </button>
-                </div>
+                    <FontAwesomeIcon icon={copied ? faCircleCheck : faCopy} style={{ width: 16, height: 16, ...(copied ? { color: '#34d399' } : {}) }} />
+                  </Box>
+                </Box>
                 <AnimatePresence>
                   {copied && (
-                    <motion.p
+                    <Box
+                      component={motion.p}
                       initial={{ opacity: 0, y: -4 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0 }}
-                      className="text-emerald-400 text-xs mt-2"
+                      sx={{ color: '#34d399', fontSize: '0.75rem', mt: 1, m: 0 }}
                     >
                       Referral link copied!
-                    </motion.p>
+                    </Box>
                   )}
                 </AnimatePresence>
-              </div>
+              </Box>
 
-              <div className="text-left bg-black/40 rounded-xl border border-white/5 p-5 mb-8">
-                <p className="text-gray-400 text-xs mb-2 font-medium">Your referral link:</p>
-                <code className="text-amber-300/90 text-xs break-all leading-relaxed">
+              <Box sx={{ textAlign: 'left', bgcolor: 'rgba(0,0,0,0.4)', borderRadius: '0.75rem', border: '1px solid rgba(255,255,255,0.05)', p: 2.5, mb: 4 }}>
+                <Typography sx={{ color: 'grey.400', fontSize: '0.75rem', mb: 1, fontWeight: 500 }}>Your referral link:</Typography>
+                <Box component="code" sx={{ color: 'rgba(252,211,77,0.9)', fontSize: '0.75rem', wordBreak: 'break-all', lineHeight: 1.625, fontFamily: 'monospace' }}>
                   {window.location.origin}/pricing?ref={referralCode}
-                </code>
-              </div>
+                </Box>
+              </Box>
 
-              <p className="text-gray-500 text-xs leading-relaxed max-w-sm mx-auto mb-6">
+              <Typography sx={{ color: 'grey.500', fontSize: '0.75rem', lineHeight: 1.625, maxWidth: 300, mx: 'auto', mb: 3 }}>
                 Share this link with restaurant owners. When they subscribe through it, you automatically earn commission.
-              </p>
+              </Typography>
 
-              <Link
+              <Box
+                component={Link}
                 to="/partnership"
-                className="inline-flex items-center gap-1.5 text-gray-400 hover:text-white text-sm transition-colors"
+                sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, color: 'grey.400', fontSize: '0.875rem', transition: 'color 0.2s', textDecoration: 'none', '&:hover': { color: 'white' } }}
               >
-                <FontAwesomeIcon icon={faArrowLeft} className="w-3 h-3" />
+                <FontAwesomeIcon icon={faArrowLeft} style={{ width: 12, height: 12 }} />
                 Back to Partnership
-              </Link>
-            </motion.div>
+              </Box>
+            </Box>
           )}
         </AnimatePresence>
-      </div>
-    </section>
+      </Container>
+    </Box>
   );
 };

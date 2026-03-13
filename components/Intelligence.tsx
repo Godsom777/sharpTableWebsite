@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
+import { Box, Container, Typography } from '@mui/material';
 
 const visitData = [
   { name: 'Mon', visits: 120 },
@@ -21,47 +22,53 @@ const itemData = [
 
 export const Intelligence: React.FC = () => {
   return (
-    <section id="analytics" className="py-24 bg-zinc-950 border-y border-white/5">
-      <div className="max-w-7xl mx-auto px-6">
-        <motion.div
+    <Box component="section" id="analytics" sx={{ py: { xs: 12, md: 16 }, bgcolor: '#09090b', borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+      <Container maxWidth="lg" sx={{ px: 3 }}>
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          sx={{ textAlign: 'center', mb: { xs: 10, md: 12 } }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">You shouldn't have to guess where your money went</h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <Typography variant="h2" sx={{ fontSize: { xs: '2.25rem', md: '3rem' }, fontWeight: 700, color: 'white', mb: 3 }}>
+            You shouldn't have to guess where your money went
+          </Typography>
+          <Typography sx={{ fontSize: { xs: '1.125rem', md: '1.25rem' }, color: 'grey.400', maxWidth: 'md', mx: 'auto' }}>
             End-of-day cash doesn't match? With SharpTable, every penny is tied to an order, a table, and a staff member. The numbers tell the truth.
-          </p>
-        </motion.div>
+          </Typography>
+        </Box>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', lg: '1fr 1fr' }, gap: 4 }}>
             {/* Chart 1: Customer Visits */}
-            <motion.div 
+            <Box
+                component={motion.div}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.02, boxShadow: "0 20px 60px rgba(139, 92, 246, 0.15)" }}
                 transition={{ duration: 0.3 }}
-                className="bg-zinc-900/40 border border-white/10 rounded-3xl p-6 md:p-8 hover:border-purple-500/30 transition-colors cursor-pointer"
+                sx={{ bgcolor: 'rgba(24,24,27,0.4)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1.5rem', p: { xs: 3, md: 4 }, cursor: 'pointer', transition: 'border-color 0.2s', '&:hover': { borderColor: 'rgba(168,85,247,0.3)' } }}
             >
-                <motion.div
+                <Box
+                  component={motion.div}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 }}
-                  className="mb-6"
+                  sx={{ mb: 4 }}
                 >
-                    <h3 className="text-lg font-semibold text-white">Revenue by Day</h3>
-                    <p className="text-sm text-gray-500">Know your busiest days. Staff and stock accordingly.</p>
-                </motion.div>
-                <motion.div
+                    <Typography variant="h3" sx={{ fontSize: '1.125rem', fontWeight: 600, color: 'white' }}>Revenue by Day</Typography>
+                    <Typography sx={{ fontSize: '0.875rem', color: 'grey.500' }}>Know your busiest days. Staff and stock accordingly.</Typography>
+                </Box>
+                <Box
+                  component={motion.div}
                   initial={{ opacity: 0, scale: 0.95 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 }}
-                  className="h-[300px] w-full min-h-[300px]"
+                  sx={{ height: 300, width: '100%', minHeight: 300 }}
                 >
                     <ResponsiveContainer width="100%" height="100%">
                         <AreaChart data={visitData}>
@@ -79,34 +86,37 @@ export const Intelligence: React.FC = () => {
                             <Area type="monotone" dataKey="visits" stroke="#8b5cf6" strokeWidth={2} fillOpacity={1} fill="url(#colorVisits)" />
                         </AreaChart>
                     </ResponsiveContainer>
-                </motion.div>
-            </motion.div>
+                </Box>
+            </Box>
 
              {/* Chart 2: Item Popularity */}
-             <motion.div 
+             <Box
+                component={motion.div} 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
                 whileHover={{ scale: 1.02, boxShadow: "0 20px 60px rgba(59, 130, 246, 0.15)" }}
-                className="bg-zinc-900/40 border border-white/10 rounded-3xl p-6 md:p-8 hover:border-blue-500/30 transition-colors cursor-pointer"
+                sx={{ bgcolor: 'rgba(24,24,27,0.4)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1.5rem', p: { xs: 3, md: 4 }, cursor: 'pointer', transition: 'border-color 0.2s', '&:hover': { borderColor: 'rgba(59,130,246,0.3)' } }}
             >
-                <motion.div
+                <Box
+                  component={motion.div}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 }}
-                  className="mb-6"
+                  sx={{ mb: 4 }}
                 >
-                    <h3 className="text-lg font-semibold text-white">Top Items Sold</h3>
-                    <p className="text-sm text-gray-500">Stop guessing what sells. The data is right here.</p>
-                </motion.div>
-                <motion.div
+                    <Typography variant="h3" sx={{ fontSize: '1.125rem', fontWeight: 600, color: 'white' }}>Top Items Sold</Typography>
+                    <Typography sx={{ fontSize: '0.875rem', color: 'grey.500' }}>Stop guessing what sells. The data is right here.</Typography>
+                </Box>
+                <Box
+                  component={motion.div}
                   initial={{ opacity: 0, scale: 0.95 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.5 }}
-                  className="h-[300px] w-full min-h-[300px]"
+                  sx={{ height: 300, width: '100%', minHeight: 300 }}
                 >
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={itemData} layout="vertical">
@@ -123,52 +133,56 @@ export const Intelligence: React.FC = () => {
                             </Bar>
                         </BarChart>
                     </ResponsiveContainer>
-                </motion.div>
-            </motion.div>
-        </div>
+                </Box>
+            </Box>
+        </Box>
 
         {/* The Trigger Logic Visual - Updated to focus on payment tracking */}
-        <motion.div 
+        <Box
+            component={motion.div} 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="mt-12 p-8 border border-dashed border-zinc-700 rounded-3xl bg-zinc-900/20 text-center hover:border-amber-500/30 hover:bg-zinc-900/30 transition-all"
+            sx={{ mt: 8, p: { xs: 4, md: 6 }, border: '1px dashed', borderColor: 'grey.700', borderRadius: '1.5rem', bgcolor: 'rgba(24,24,27,0.2)', textAlign: 'center', transition: 'all 0.3s', '&:hover': { borderColor: 'rgba(245,158,11,0.3)', bgcolor: 'rgba(24,24,27,0.3)' } }}
         >
-             <span className="text-xs uppercase tracking-widest text-zinc-500 font-bold">Every order tells a story</span>
-             <div className="flex flex-wrap justify-center items-center gap-4 mt-6 text-sm md:text-base text-gray-300 font-medium">
+             <Box component="span" sx={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'grey.500', fontWeight: 700 }}>Every order tells a story</Box>
+             <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: 2, mt: 3, fontSize: { xs: '0.875rem', md: '1rem' }, color: 'grey.300', fontWeight: 500 }}>
                 {['Order Placed', 'Payment Collected', 'Money Confirmed', 'Kitchen Starts', 'Everything Logged'].map((step, index) => (
                   <React.Fragment key={index}>
-                    <motion.span
+                    <Box
+                      component={motion.span}
                       initial={{ opacity: 0, scale: 0.8 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.5 + index * 0.1 }}
                       whileHover={{ scale: 1.05, y: -2 }}
-                      className={`px-4 py-2 rounded-full ${
-                        index === 2 ? 'bg-amber-900/30 text-amber-400 border border-amber-800' :
-                        index === 4 ? 'bg-green-900/30 text-green-400 border border-green-800' :
-                        'bg-zinc-800'
-                      }`}
+                      sx={{
+                        px: 2, py: 1, borderRadius: '9999px',
+                        ...(index === 2 ? { bgcolor: 'rgba(120,53,15,0.3)', color: '#fbbf24', border: '1px solid rgba(146,64,14,1)' } :
+                            index === 4 ? { bgcolor: 'rgba(20,83,45,0.3)', color: '#4ade80', border: '1px solid rgba(22,101,52,1)' } :
+                            { bgcolor: 'grey.800' })
+                      }}
                     >
                       {step}
-                    </motion.span>
+                    </Box>
                     {index < 4 && (
-                      <motion.span
+                      <Box
+                        component={motion.span}
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.5 + index * 0.1 + 0.05 }}
-                        className="text-zinc-600"
+                        sx={{ color: 'grey.600' }}
                       >
                         →
-                      </motion.span>
+                      </Box>
                     )}
                   </React.Fragment>
                 ))}
-             </div>
-        </motion.div>
-      </div>
-    </section>
+             </Box>
+        </Box>
+      </Container>
+    </Box>
   );
 };

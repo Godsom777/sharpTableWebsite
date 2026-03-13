@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faEye, faEyeSlash, faStar, faLock } from '@fortawesome/free-solid-svg-icons';
+import { Box, Container, Typography } from '@mui/material';
 
 export const OwnerTease: React.FC = () => {
   const handleContact = () => {
@@ -9,149 +10,170 @@ export const OwnerTease: React.FC = () => {
   };
 
   return (
-    <section className="py-32 bg-black overflow-hidden border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+    <Box component="section" sx={{ py: { xs: 16, md: 32 }, bgcolor: 'black', overflow: 'hidden', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+      <Container maxWidth="lg" sx={{ px: 3 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', lg: '1fr 1fr' }, gap: { xs: 10, lg: 20 }, alignItems: 'center' }}>
           
-          <motion.div
+          <Box
+            component={motion.div}
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-8"
+            sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}
           >
-            <motion.h2
+            <Typography
+              component={motion.h2}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl md:text-6xl font-bold text-white tracking-tighter leading-tight"
+              sx={{ fontSize: { xs: '2.25rem', md: '3.75rem' }, fontWeight: 700, color: 'white', letterSpacing: '-0.05em', lineHeight: 1.1 }}
             >
               How much slips through <br/>
-              <span className="text-amber-500 italic font-serif">before you even notice?</span>
-            </motion.h2>
+              <Box component="span" sx={{ color: '#f59e0b', fontStyle: 'italic', fontFamily: 'serif' }}>before you even notice?</Box>
+            </Typography>
             
-            <div className="space-y-6">
-              <motion.div
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+              {/* Problem Block */}
+              <Box
+                component={motion.div}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
                 whileHover={{ x: 10, scale: 1.02 }}
-                className="flex gap-4 group cursor-pointer"
+                sx={{ display: 'flex', gap: 2, cursor: 'pointer', transition: 'transform 0.2s', '&:hover .icon-box': { borderColor: 'rgba(255,255,255,0.2)' } }}
               >
-                <motion.div
+                <Box
+                  component={motion.div}
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.5 }}
-                  className="shrink-0 w-12 h-12 rounded-full bg-zinc-900 flex items-center justify-center border border-white/5 transition-colors group-hover:border-white/20"
+                  className="icon-box"
+                  sx={{ flexShrink: 0, width: 48, height: 48, borderRadius: '50%', bgcolor: 'grey.900', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.05)', transition: 'border-color 0.2s' }}
                 >
-                  <FontAwesomeIcon icon={faEyeSlash} className="text-gray-500 w-5 h-5" />
-                </motion.div>
-                <div>
-                  <h4 className="text-white font-semibold">The problem with most systems</h4>
-                  <p className="text-gray-500 text-sm">"Orders go out first, payment comes later. Walkouts happen. Cash goes missing. No one knows who took what."</p>
-                </div>
-              </motion.div>
+                  <FontAwesomeIcon icon={faEyeSlash} style={{ color: '#6b7280', width: 20, height: 20 }} />
+                </Box>
+                <Box>
+                  <Typography variant="h4" sx={{ color: 'white', fontWeight: 600, fontSize: '1rem', mb: 0.5 }}>The problem with most systems</Typography>
+                  <Typography sx={{ color: 'grey.500', fontSize: '0.875rem' }}>"Orders go out first, payment comes later. Walkouts happen. Cash goes missing. No one knows who took what."</Typography>
+                </Box>
+              </Box>
 
-              <motion.div
+              {/* Solution Block */}
+              <Box
+                component={motion.div}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.3 }}
                 whileHover={{ x: 10, scale: 1.02 }}
-                className="flex gap-4 group cursor-pointer"
+                sx={{ display: 'flex', gap: 2, cursor: 'pointer', transition: 'transform 0.2s', '&:hover .icon-box': { bgcolor: 'rgba(245,158,11,0.2)' } }}
               >
-                <motion.div
+                <Box
+                  component={motion.div}
                   animate={{ scale: [1, 1.1, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
-                  className="shrink-0 w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/20 transition-all group-hover:bg-amber-500/20"
+                  className="icon-box"
+                  sx={{ flexShrink: 0, width: 48, height: 48, borderRadius: '50%', bgcolor: 'rgba(245,158,11,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(245,158,11,0.2)', transition: 'all 0.2s' }}
                 >
-                  <FontAwesomeIcon icon={faEye} className="text-amber-500 w-5 h-5 animate-pulse" />
-                </motion.div>
-                <div>
-                  <h4 className="text-amber-500 font-semibold">How SharpTable fixes it</h4>
-                  <p className="text-gray-300 text-sm italic leading-relaxed">
+                  <FontAwesomeIcon icon={faEye} className="animate-pulse" style={{ color: '#f59e0b', width: 20, height: 20 }} />
+                </Box>
+                <Box>
+                  <Typography variant="h4" sx={{ color: '#f59e0b', fontWeight: 600, fontSize: '1rem', mb: 0.5 }}>How SharpTable fixes it</Typography>
+                  <Typography sx={{ color: 'grey.300', fontSize: '0.875rem', fontStyle: 'italic', lineHeight: 1.625 }}>
                     "Nothing moves until payment is verified. Every transaction logged — who collected, when, how much. No gaps."
-                  </p>
-                </div>
-              </motion.div>
-            </div>
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>
 
-            <motion.p
+            <Typography
+              component={motion.p}
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-xl text-gray-500 max-w-lg leading-relaxed border-l border-zinc-800 pl-6"
+              sx={{ fontSize: '1.25rem', color: 'grey.500', maxWidth: 500, lineHeight: 1.625, borderLeft: '1px solid', borderColor: 'grey.800', pl: 3 }}
             >
               Imagine if nothing left your floor without payment first.
-              <span className="text-white font-medium"> SharpTable makes it happen.</span>
-            </motion.p>
-          </motion.div>
+              <Box component="span" sx={{ color: 'white', fontWeight: 500 }}> SharpTable makes it happen.</Box>
+            </Typography>
+          </Box>
 
-          <motion.div
+          <Box
+            component={motion.div}
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative"
+            sx={{ position: 'relative' }}
           >
-            {/* The "Tease" Card */}
-            <motion.div
+            {/* The "Tease" Card Background Glow */}
+            <Box
+              component={motion.div}
               animate={{ scale: [1, 1.05, 1], opacity: [0.05, 0.08, 0.05] }}
               transition={{ duration: 4, repeat: Infinity }}
-              className="absolute inset-0 bg-amber-500/5 blur-[120px] rounded-full"
+              sx={{ position: 'absolute', inset: 0, bgcolor: 'rgba(245,158,11,0.05)', filter: 'blur(120px)', borderRadius: '50%', zIndex: 0 }}
             />
-            <motion.div
+            {/* The Card */}
+            <Box
+              component={motion.div}
               whileHover={{ scale: 1.02, rotateY: 2 }}
               transition={{ duration: 0.3 }}
-              className="relative bg-zinc-900/50 backdrop-blur-3xl border border-white/10 rounded-[3rem] p-12 overflow-hidden shadow-2xl"
+              sx={{ position: 'relative', bgcolor: 'rgba(24,24,27,0.5)', backdropFilter: 'blur(64px)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '3rem', p: { xs: 4, md: 6 }, overflow: 'hidden', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', zIndex: 1 }}
             >
               
               {/* Blurred Background Mockup Data */}
-              <motion.div
+              <Box
+                component={motion.div}
                 animate={{ opacity: [0.1, 0.15, 0.1] }}
                 transition={{ duration: 3, repeat: Infinity }}
-                className="absolute top-0 right-0 left-0 bottom-0 pointer-events-none select-none filter blur-md p-12"
+                sx={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, pointerEvents: 'none', userSelect: 'none', filter: 'blur(4px)', p: { xs: 4, md: 6 }, zIndex: 0 }}
               >
-                <div className="h-4 w-full bg-white rounded mb-4" />
-                <div className="h-4 w-3/4 bg-white rounded mb-4" />
-                <div className="h-32 w-full border border-white rounded mb-4" />
-                <div className="h-4 w-1/2 bg-white rounded mb-4" />
-                <div className="h-4 w-full bg-white rounded" />
-              </motion.div>
+                <Box sx={{ height: 16, width: '100%', bgcolor: 'white', borderRadius: 1, mb: 2 }} />
+                <Box sx={{ height: 16, width: '75%', bgcolor: 'white', borderRadius: 1, mb: 2 }} />
+                <Box sx={{ height: 128, width: '100%', border: '1px solid white', borderRadius: 1, mb: 2 }} />
+                <Box sx={{ height: 16, width: '50%', bgcolor: 'white', borderRadius: 1, mb: 2 }} />
+                <Box sx={{ height: 16, width: '100%', bgcolor: 'white', borderRadius: 1 }} />
+              </Box>
 
-              <div className="relative z-10 text-center">
-                <motion.div
+              <Box sx={{ position: 'relative', zIndex: 10, textAlign: 'center' }}>
+                <Box
+                  component={motion.div}
                   initial={{ scale: 0, rotate: -180 }}
                   whileInView={{ scale: 1, rotate: 0 }}
                   viewport={{ once: true }}
                   transition={{ type: "spring", stiffness: 200, delay: 0.3 }}
                   whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
-                  className="w-16 h-16 bg-amber-500/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-amber-500/20"
+                  sx={{ width: 64, height: 64, bgcolor: 'rgba(245,158,11,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 'auto', mb: 4, border: '1px solid rgba(245,158,11,0.2)' }}
                 >
-                    <FontAwesomeIcon icon={faLock} className="text-amber-500 w-6 h-6" />
-                </motion.div>
-                <motion.h3
+                    <FontAwesomeIcon icon={faLock} style={{ color: '#f59e0b', width: 24, height: 24 }} />
+                </Box>
+                <Typography
+                  component={motion.h3}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 }}
-                  className="text-3xl font-bold text-white mb-4"
+                  variant="h3"
+                  sx={{ fontSize: '1.875rem', fontWeight: 700, color: 'white', mb: 2 }}
                 >
                   Stop the leakage today
-                </motion.h3>
-                <motion.p
+                </Typography>
+                <Typography
+                  component={motion.p}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.5 }}
-                  className="text-gray-400 mb-10 text-lg"
+                  sx={{ color: 'grey.400', mb: 5, fontSize: '1.125rem' }}
                 >
                   Most restaurants lose 5-15% to theft and walkouts. Want to keep what you earn?
-                </motion.p>
+                </Typography>
                 
-                <motion.button
+                <Box
+                  component={motion.button}
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
@@ -159,34 +181,42 @@ export const OwnerTease: React.FC = () => {
                   onClick={handleContact}
                   whileHover={{ scale: 1.05, boxShadow: "0 10px 40px rgba(255,255,255,0.2)" }}
                   whileTap={{ scale: 0.95 }}
-                  className="group w-full py-5 bg-white text-black rounded-full font-bold text-xl hover:bg-zinc-200 transition-all flex items-center justify-center gap-3"
+                  sx={{ width: '100%', py: 2.5, bgcolor: 'white', color: 'black', borderRadius: '9999px', fontWeight: 700, fontSize: '1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, transition: 'background-color 0.2s', '&:hover': { bgcolor: 'grey.200' }, cursor: 'pointer', border: 'none', fontFamily: 'inherit' }}
+                  className="group"
                 >
-                  Talk to us <FontAwesomeIcon icon={faArrowRight} className="group-hover:translate-x-1 transition-transform" />
-                </motion.button>
+                  Talk to us
+                  <Box component="span" sx={{ display: 'inline-flex', transition: 'transform 0.2s', '.group:hover &': { transform: 'translateX(4px)' } }}>
+                    <FontAwesomeIcon icon={faArrowRight} />
+                  </Box>
+                </Box>
                 
-                <motion.div
+                <Box
+                  component={motion.div}
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.7 }}
-                  className="mt-8 flex items-center justify-center gap-2"
+                  sx={{ mt: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}
                 >
-                    <motion.div
+                    <Box
+                      component={motion.div}
                       animate={{ rotate: 360 }}
                       transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                      sx={{ display: 'inline-flex' }}
                     >
-                      <FontAwesomeIcon icon={faStar} className="text-amber-500 w-4 h-4" />
-                    </motion.div>
-                    <p className="text-xs text-zinc-500 uppercase tracking-[0.3em] font-bold">
+                      <FontAwesomeIcon icon={faStar} style={{ color: '#f59e0b', width: 16, height: 16 }} />
+                    </Box>
+                    <Typography sx={{ fontSize: '0.75rem', color: 'grey.500', textTransform: 'uppercase', letterSpacing: '0.3em', fontWeight: 700 }}>
                         Invite-Only Access
-                    </p>
-                </motion.div>
-              </div>
-            </motion.div>
-          </motion.div>
+                    </Typography>
+                </Box>
+              </Box>
 
-        </div>
-      </div>
-    </section>
+            </Box>
+          </Box>
+
+        </Box>
+      </Container>
+    </Box>
   );
 };

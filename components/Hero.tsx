@@ -10,6 +10,7 @@ import {
   faLock
 } from '@fortawesome/free-solid-svg-icons';
 import { useGeoLocation } from '../hooks/useGeoLocation';
+import { Box, Typography, Button } from '@mui/material';
 
 export const Hero: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -22,85 +23,94 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative overflow-hidden bg-black">
+    <Box component="section" sx={{ position: 'relative', overflow: 'hidden', bgcolor: 'black' }}>
       {/* Subtle background glows */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(245,158,11,0.08)_0%,transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(255,255,255,0.03)_0%,transparent_50%)]" />
-      </div>
+      <Box sx={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+        <Box sx={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at top, rgba(245,158,11,0.08) 0%, transparent 50%)' }} />
+        <Box sx={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at bottom right, rgba(255,255,255,0.03) 0%, transparent 50%)' }} />
+      </Box>
 
       {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-4 pt-20 pb-12 md:pt-28 md:pb-20">
+      <Box sx={{ position: 'relative', zIndex: 10, maxWidth: 'lg', mx: 'auto', px: 2, pt: { xs: 10, md: 14 }, pb: { xs: 6, md: 10 } }}>
         {/* Badge */}
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex justify-center mb-6"
+          sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-amber-300 text-[10px] sm:text-[11px] font-bold uppercase tracking-widest flex-wrap justify-center text-center leading-tight whitespace-normal max-w-[92vw]">
-            <FontAwesomeIcon icon={faShieldHalved} className="w-3 h-3" />
-            <span className="sm:hidden">Simpler than a POS</span>
-            <span className="hidden sm:inline">Simpler than any POS you've tried</span>
-          </div>
-        </motion.div>
+          <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, borderRadius: '9999px', border: '1px solid rgba(245,158,11,0.3)', bgcolor: 'rgba(245,158,11,0.1)', px: 1.5, py: 0.75, color: '#fcd34d', fontSize: { xs: '0.625rem', sm: '0.6875rem' }, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', flexWrap: 'wrap', justifyContent: 'center', textAlign: 'center', lineHeight: 1.25, maxWidth: '92vw' }}>
+            <FontAwesomeIcon icon={faShieldHalved} style={{ width: 12, height: 12 }} />
+            <Box component="span" sx={{ display: { xs: 'inline', sm: 'none' } }}>Simpler than a POS</Box>
+            <Box component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}>Simpler than any POS you've tried</Box>
+          </Box>
+        </Box>
 
         {/* Headline */}
-        <motion.h1
+        <Typography
+          component={motion.h1}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.05 }}
-          className="text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] text-white"
+          sx={{ textAlign: 'center', fontSize: { xs: '1.875rem', sm: '2.25rem', md: '3rem', lg: '3.75rem' }, fontWeight: 800, letterSpacing: '-0.025em', lineHeight: 1.1, color: 'white' }}
         >
-          Your restaurant runs fine. <span className="text-amber-400">Until you see what you're missing.</span>
-        </motion.h1>
+          Your restaurant runs fine. <Box component="span" sx={{ color: '#fbbf24' }}>Until you see what you're missing.</Box>
+        </Typography>
 
         {/* Subheadline */}
-        <motion.p
+        <Typography
+          component={motion.p}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="mt-4 text-center text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed"
+          sx={{ mt: 2, textAlign: 'center', fontSize: { xs: '0.875rem', sm: '1rem', md: '1.125rem' }, color: 'grey.400', maxWidth: 'md', mx: 'auto', lineHeight: 1.625 }}
         >
           Most restaurant owners don't know how much slips through the cracks — missing orders, 
           untracked cash, staff confusion. SharpTable makes it visible
-          <span className="text-white font-medium"> and fixes it without changing how you work.</span>
-        </motion.p>
+          <Box component="span" sx={{ color: 'white', fontWeight: 500 }}> and fixes it without changing how you work.</Box>
+        </Typography>
 
         {/* CTA buttons  */}
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3"
+          sx={{ mt: 4, display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: 'center', justifyContent: 'center', gap: 1.5 }}
         >
-          <motion.button
+          <Button
+            component={motion.button}
             onClick={() => (window.location.href = 'mailto:info@sharptable.com.ng')}
             whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-white text-black px-6 py-3.5 font-bold text-sm shadow-lg hover:bg-zinc-100 transition"
+            sx={{ width: { xs: '100%', sm: 'auto' }, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 1, borderRadius: '0.75rem', bgcolor: 'white', color: 'black', px: 3, py: 1.75, fontWeight: 700, fontSize: '0.875rem', boxShadow: 3, '&:hover': { bgcolor: 'grey.100' }, textTransform: 'none' }}
           >
             See it in action
-            <FontAwesomeIcon icon={faChevronRight} className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-          </motion.button>
+            <Box component="span" sx={{ transition: 'transform 0.2s', '.group:hover &': { transform: 'translateX(2px)' } }}>
+               <FontAwesomeIcon icon={faChevronRight} style={{ width: 16, height: 16 }} />
+            </Box>
+          </Button>
 
-          <motion.button
+          <Button
+            component={motion.button}
             onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
             whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-white/5 text-white border border-white/15 px-6 py-3.5 font-semibold text-sm hover:bg-white/10 transition"
+            sx={{ width: { xs: '100%', sm: 'auto' }, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 1, borderRadius: '0.75rem', bgcolor: 'rgba(255,255,255,0.05)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', px: 3, py: 1.75, fontWeight: 600, fontSize: '0.875rem', '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' }, textTransform: 'none' }}
           >
             How it works
-            <FontAwesomeIcon icon={faQrcode} className="w-4 h-4 text-amber-300" />
-          </motion.button>
-        </motion.div>
+            <FontAwesomeIcon icon={faQrcode} style={{ width: 16, height: 16, color: '#fcd34d' }} />
+          </Button>
+        </Box>
 
         {/* Feature pills */}
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-8 flex flex-wrap justify-center gap-2 text-xs"
+          sx={{ mt: 4, display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 1, fontSize: '0.75rem' }}
         >
           {[
             { icon: faQrcode, text: 'No app downloads' },
@@ -108,77 +118,80 @@ export const Hero: React.FC = () => {
             { icon: faCircleCheck, text: 'Simpler than any POS' },
             { icon: faLock, text: 'Nothing leaves unpaid' }
           ].map((item) => (
-            <span
+            <Box
               key={item.text}
-              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-gray-300"
+              component="span"
+              sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.75, borderRadius: '9999px', border: '1px solid rgba(255,255,255,0.1)', bgcolor: 'rgba(255,255,255,0.05)', px: 1.5, py: 0.75, color: 'grey.300' }}
             >
-              <FontAwesomeIcon icon={item.icon} className="w-3 h-3 text-amber-400" />
+              <FontAwesomeIcon icon={item.icon} style={{ width: 12, height: 12, color: '#fbbf24' }} />
               {item.text}
-            </span>
+            </Box>
           ))}
-        </motion.div>
+        </Box>
 
         {/* Hero image: happy diners + manager (African photos) */}
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.25 }}
-          className="mt-10 md:mt-14 relative"
+          sx={{ mt: { xs: 5, md: 7 }, position: 'relative' }}
         >
           {/* Main image container */}
-          <div className="relative rounded-2xl md:rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-            {/* Happy diners photo - geo-targeted */}
-            <img
+          <Box sx={{ position: 'relative', borderRadius: { xs: '1rem', md: '1.5rem' }, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)', boxShadow: 10 }}>
+            <Box
+              component="img"
               src={heroImages.diners}
               alt="Happy guests enjoying their meal"
-              className="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover"
               loading="eager"
+              sx={{ width: '100%', height: { xs: 192, sm: 256, md: 320, lg: 384 }, objectFit: 'cover' }}
             />
             {/* Overlay gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            <Box sx={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.6), transparent, transparent)' }} />
 
             {/* Floating stat card */}
-            <div className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:bottom-4 sm:w-auto">
-              <div className="flex items-center gap-3 rounded-xl bg-black/80 backdrop-blur border border-white/10 px-4 py-3">
-                <div className="h-10 w-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
-                  <FontAwesomeIcon icon={faShieldHalved} className="w-5 h-5 text-amber-400" />
-                </div>
-                <div>
-                  <div className="text-white font-bold text-sm">Simpler. Faster. Tighter.</div>
-                  <div className="text-gray-400 text-xs">No bloated POS. Just what you actually need.</div>
-                </div>
-              </div>
-            </div>
-          </div>
+            <Box sx={{ position: 'absolute', bottom: 16, left: 16, right: 16, '@media (min-width: 600px)': { left: 'auto', right: 16, bottom: 16, width: 'auto' } }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, borderRadius: '0.75rem', bgcolor: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(4px)', border: '1px solid rgba(255,255,255,0.1)', px: 2, py: 1.5 }}>
+                <Box sx={{ height: 40, width: 40, borderRadius: '0.5rem', bgcolor: 'rgba(245,158,11,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <FontAwesomeIcon icon={faShieldHalved} style={{ width: 20, height: 20, color: '#fbbf24' }} />
+                </Box>
+                <Box>
+                  <Box sx={{ color: 'white', fontWeight: 700, fontSize: '0.875rem' }}>Simpler. Faster. Tighter.</Box>
+                  <Box sx={{ color: 'grey.400', fontSize: '0.75rem' }}>No bloated POS. Just what you actually need.</Box>
+                </Box>
+              </Box>
+            </Box>
+          </Box>
 
           {/* Manager photo - positioned as accent */}
-          <div className="hidden md:block absolute -right-4 lg:-right-8 top-1/2 -translate-y-1/2 w-32 lg:w-40">
-            <div className="rounded-2xl overflow-hidden border-2 border-amber-500/30 shadow-xl">
-              {/* Manager photo - geo-targeted */}
-              <img
+          <Box sx={{ display: { xs: 'none', md: 'block' }, position: 'absolute', right: { md: -16, lg: -32 }, top: '50%', transform: 'translateY(-50%)', width: { md: 128, lg: 160 } }}>
+            <Box sx={{ borderRadius: '1rem', overflow: 'hidden', border: '2px solid rgba(245,158,11,0.3)', boxShadow: 5 }}>
+              <Box
+                component="img"
                 src={heroImages.manager}
                 alt="Restaurant manager reviewing dashboard"
-                className="w-full h-40 lg:h-48 object-cover"
                 loading="eager"
+                sx={{ width: '100%', height: { md: 160, lg: 192 }, objectFit: 'cover' }}
               />
-            </div>
-            <div className="mt-2 text-center">
-              <div className="text-xs text-amber-300 font-semibold">Full control</div>
-              <div className="text-[10px] text-gray-500">Real-time dashboard</div>
-            </div>
-          </div>
-        </motion.div>
+            </Box>
+            <Box sx={{ mt: 1, textAlign: 'center' }}>
+              <Box sx={{ fontSize: '0.75rem', color: '#fcd34d', fontWeight: 600 }}>Full control</Box>
+              <Box sx={{ fontSize: '0.625rem', color: 'grey.500' }}>Real-time dashboard</Box>
+            </Box>
+          </Box>
+        </Box>
 
         {/* Trust line */}
-        <motion.p
+        <Typography
+          component={motion.p}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-6 text-center text-xs text-gray-500"
+          sx={{ mt: 3, textAlign: 'center', fontSize: '0.75rem', color: 'grey.500' }}
         >
           Built for busy restaurant owners who don't have time to learn complicated software
-        </motion.p>
-      </div>
-    </section>
+        </Typography>
+      </Box>
+    </Box>
   );
 };

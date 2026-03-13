@@ -11,6 +11,7 @@ import {
   faWifi,
   faUtensils
 } from '@fortawesome/free-solid-svg-icons';
+import { Box, Container, Typography } from '@mui/material';
 
 interface FAQItem {
   question: string;
@@ -140,48 +141,52 @@ const FAQAccordionItem: React.FC<{ faq: FAQItem; index: number }> = ({ faq, inde
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <motion.div
+    <Box
+      component={motion.div}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
-      className="border border-zinc-800 rounded-xl overflow-hidden bg-zinc-900/50 hover:border-amber-500/30 transition-all duration-300"
+      sx={{ border: '1px solid', borderColor: 'grey.800', borderRadius: '0.75rem', overflow: 'hidden', bgcolor: 'rgba(24,24,27,0.5)', transition: 'border-color 0.3s', '&:hover': { borderColor: 'rgba(245,158,11,0.3)' } }}
     >
-      <button
+      <Box
+        component="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-6 py-5 flex items-start gap-4 text-left hover:bg-white/5 transition-colors"
+        sx={{ width: '100%', px: { xs: 3, md: 4 }, py: 3, display: 'flex', alignItems: 'flex-start', gap: 2, textAlign: 'left', transition: 'background-color 0.2s', bgcolor: 'transparent', border: 'none', cursor: 'pointer', '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' }, fontFamily: 'inherit' }}
       >
-        <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center mt-0.5">
-          <FontAwesomeIcon icon={faq.icon} className="w-5 h-5 text-amber-400" />
-        </div>
-        <div className="flex-1 min-w-0">
-          <h3 className="text-white font-semibold text-base md:text-lg pr-8">{faq.question}</h3>
-        </div>
-        <motion.div
+        <Box sx={{ flexShrink: 0, width: 40, height: 40, borderRadius: '0.5rem', bgcolor: 'rgba(245,158,11,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 0.5 }}>
+          <FontAwesomeIcon icon={faq.icon} style={{ width: 20, height: 20, color: '#fbbf24' }} />
+        </Box>
+        <Box sx={{ flex: 1, minWidth: 0 }}>
+          <Typography sx={{ color: 'white', fontWeight: 600, fontSize: { xs: '1rem', md: '1.125rem' }, pr: 4 }}>{faq.question}</Typography>
+        </Box>
+        <Box
+          component={motion.div}
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3 }}
-          className="flex-shrink-0"
+          sx={{ flexShrink: 0 }}
         >
-          <FontAwesomeIcon icon={faChevronDown} className="w-5 h-5 text-gray-400" />
-        </motion.div>
-      </button>
+          <FontAwesomeIcon icon={faChevronDown} style={{ width: 20, height: 20, color: 'grey.400' }} />
+        </Box>
+      </Box>
 
       <AnimatePresence initial={false}>
         {isOpen && (
-          <motion.div
+          <Box
+            component={motion.div}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="overflow-hidden"
+            sx={{ overflow: 'hidden' }}
           >
-            <div className="px-6 pb-6 pl-20">
-              <p className="text-gray-400 leading-relaxed whitespace-pre-line">{faq.answer}</p>
-            </div>
-          </motion.div>
+            <Box sx={{ px: { xs: 3, md: 4 }, pb: 4, pl: { xs: 8, md: 9 } }}>
+              <Typography sx={{ color: 'grey.400', lineHeight: 1.625, whiteSpace: 'pre-line' }}>{faq.answer}</Typography>
+            </Box>
+          </Box>
         )}
       </AnimatePresence>
-    </motion.div>
+    </Box>
   );
 };
 
@@ -201,98 +206,107 @@ export const FAQ: React.FC = () => {
     : faqs.filter(faq => faq.category === activeCategory);
 
   return (
-    <section className="py-24 bg-black relative overflow-hidden">
+    <Box component="section" sx={{ py: { xs: 16, md: 24 }, bgcolor: 'black', position: 'relative', overflow: 'hidden' }}>
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(251,191,36,0.03)_0%,transparent_50%)]" />
+      <Box sx={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, rgba(251,191,36,0.03) 0%, transparent 50%)', zIndex: 0 }} />
       
-      <div className="max-w-5xl mx-auto px-6 relative z-10">
+      <Container maxWidth="md" sx={{ position: 'relative', zIndex: 10, px: 3 }}>
         {/* Header */}
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          sx={{ textAlign: 'center', mb: { xs: 8, md: 10 } }}
         >
-          <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 rounded-full px-4 py-1.5 mb-4">
-            <FontAwesomeIcon icon={faQuestionCircle} className="w-4 h-4 text-amber-400" />
-            <span className="text-amber-400 font-semibold text-sm">FAQ</span>
-          </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+          <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, bgcolor: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.3)', borderRadius: '9999px', px: 2, py: 0.75, mb: 2 }}>
+            <FontAwesomeIcon icon={faQuestionCircle} style={{ width: 16, height: 16, color: '#fbbf24' }} />
+            <Box component="span" sx={{ color: '#fbbf24', fontWeight: 600, fontSize: '0.875rem' }}>FAQ</Box>
+          </Box>
+          <Typography variant="h2" sx={{ fontSize: { xs: '1.875rem', md: '2.25rem', lg: '3rem' }, fontWeight: 700, color: 'white', mb: 2 }}>
             Questions? We've got answers.
-          </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          </Typography>
+          <Typography sx={{ color: 'grey.400', fontSize: '1.125rem', maxWidth: 'md', mx: 'auto' }}>
             Everything you need to know about SharpTable — from setup to daily operations. Still have questions? Email us at{' '}
-            <a href="mailto:info@sharptable.com.ng" className="text-amber-400 hover:text-amber-300 transition-colors">
+            <Box component="a" href="mailto:info@sharptable.com.ng" sx={{ color: '#fbbf24', textDecoration: 'none', '&:hover': { color: '#fcd34d' }, transition: 'color 0.2s' }}>
               info@sharptable.com.ng
-            </a>
-          </p>
-        </motion.div>
+            </Box>
+          </Typography>
+        </Box>
 
         {/* Category Filter */}
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="flex flex-wrap justify-center gap-3 mb-12"
+          sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 1.5, mb: { xs: 8, md: 10 } }}
         >
           {categories.map((category) => (
-            <button
+            <Box
+              component="button"
               key={category.id}
               onClick={() => setActiveCategory(category.id)}
-              className={`px-5 py-2.5 rounded-lg font-medium text-sm transition-all duration-300 ${
-                activeCategory === category.id
-                  ? 'bg-amber-500 text-black shadow-lg shadow-amber-500/25'
-                  : 'bg-zinc-900 text-gray-400 hover:bg-zinc-800 hover:text-white border border-zinc-800'
-              }`}
+              sx={{
+                px: 2.5, py: 1.25, borderRadius: '0.5rem', fontWeight: 500, fontSize: '0.875rem', transition: 'all 0.3s', cursor: 'pointer', fontFamily: 'inherit',
+                ...(activeCategory === category.id
+                  ? { bgcolor: '#f59e0b', color: 'black', boxShadow: '0 10px 15px -3px rgba(245,158,11,0.25)', border: '1px solid #f59e0b' }
+                  : { bgcolor: 'grey.900', color: 'grey.400', border: '1px solid', borderColor: 'grey.800', '&:hover': { bgcolor: 'grey.800', color: 'white' } })
+              }}
             >
               {category.label}
-            </button>
+            </Box>
           ))}
-        </motion.div>
+        </Box>
 
         {/* FAQ List */}
-        <div className="space-y-4">
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <AnimatePresence mode="wait">
-            <motion.div
+            <Box
+              component={motion.div}
               key={activeCategory}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="space-y-4"
+              sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
             >
               {filteredFaqs.map((faq, index) => (
                 <FAQAccordionItem key={index} faq={faq} index={index} />
               ))}
-            </motion.div>
+            </Box>
           </AnimatePresence>
-        </div>
+        </Box>
 
         {/* Bottom CTA */}
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-16 text-center p-8 rounded-2xl bg-gradient-to-br from-amber-500/10 via-zinc-900/50 to-zinc-900/50 border border-amber-500/20"
+          sx={{ mt: 10, textAlign: 'center', p: { xs: 4, md: 6 }, borderRadius: '1rem', background: 'linear-gradient(to bottom right, rgba(245,158,11,0.1), rgba(24,24,27,0.5), rgba(24,24,27,0.5))', border: '1px solid rgba(245,158,11,0.2)' }}
         >
-          <h3 className="text-xl md:text-2xl font-bold text-white mb-3">
+          <Typography variant="h3" sx={{ fontSize: { xs: '1.25rem', md: '1.5rem' }, fontWeight: 700, color: 'white', mb: 1.5 }}>
             Still not sure? Let's talk.
-          </h3>
-          <p className="text-gray-400 mb-6 max-w-xl mx-auto">
+          </Typography>
+          <Typography sx={{ color: 'grey.400', mb: 4, maxWidth: 'sm', mx: 'auto' }}>
             We're real people who actually use this software. We know restaurants because we built this for ourselves first.
-          </p>
-          <a
+          </Typography>
+          <Box
+            component="a"
             href="mailto:info@sharptable.com.ng"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-amber-500 hover:bg-amber-600 text-black font-semibold rounded-lg transition-all hover:scale-105 active:scale-95"
+            sx={{
+              display: 'inline-flex', alignItems: 'center', gap: 1, px: 3, py: 1.5, bgcolor: '#f59e0b', color: 'black', fontWeight: 600, borderRadius: '0.5rem', textDecoration: 'none', transition: 'all 0.2s', '&:hover': { bgcolor: '#ea580c', transform: 'scale(1.05)' }, '&:active': { transform: 'scale(0.95)' }
+            }}
           >
             Get in Touch
-            <FontAwesomeIcon icon={faQuestionCircle} className="w-4 h-4" />
-          </a>
-        </motion.div>
-      </div>
-    </section>
+            <FontAwesomeIcon icon={faQuestionCircle} style={{ width: 16, height: 16 }} />
+          </Box>
+        </Box>
+      </Container>
+    </Box>
   );
 };

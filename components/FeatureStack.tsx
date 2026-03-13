@@ -11,7 +11,6 @@ import {
   faBoxesStacked,
   faUsers,
   faAddressBook,
-  faLocationDot,
   faChartPie,
   faRankingStar,
   faUserShield,
@@ -19,6 +18,7 @@ import {
   faLayerGroup,
 } from '@fortawesome/free-solid-svg-icons';
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { Box, Container, Typography } from '@mui/material';
 
 interface FeatureItem {
   icon: IconDefinition;
@@ -30,10 +30,11 @@ interface Tier {
   id: string;
   label: string;
   tagline: string;
-  accent: string;      // tailwind color token e.g. "amber"
+  accent: string;
   bgGradient: string;
   borderColor: string;
-  iconBg: string;
+  iconBgColor: string;
+  iconTextColor: string;
   features: FeatureItem[];
 }
 
@@ -42,10 +43,11 @@ const tiers: Tier[] = [
     id: 'floor',
     label: 'The Floor',
     tagline: 'Your customers order and pay without hassle — your staff move faster',
-    accent: 'amber',
-    bgGradient: 'from-amber-500/10 via-amber-500/5 to-transparent',
-    borderColor: 'border-amber-500/25',
-    iconBg: 'bg-amber-500/15 text-amber-400',
+    accent: '#f59e0b',
+    bgGradient: 'linear-gradient(to bottom, rgba(245,158,11,0.1), rgba(245,158,11,0.05), transparent)',
+    borderColor: 'rgba(245,158,11,0.25)',
+    iconBgColor: 'rgba(245,158,11,0.15)',
+    iconTextColor: '#fbbf24',
     features: [
       {
         icon: faQrcode,
@@ -78,10 +80,11 @@ const tiers: Tier[] = [
     id: 'control',
     label: 'The Control Room',
     tagline: 'Stop guessing, start knowing — manage your restaurant without the chaos',
-    accent: 'blue',
-    bgGradient: 'from-blue-500/10 via-blue-500/5 to-transparent',
-    borderColor: 'border-blue-500/25',
-    iconBg: 'bg-blue-500/15 text-blue-400',
+    accent: '#3b82f6',
+    bgGradient: 'linear-gradient(to bottom, rgba(59,130,246,0.1), rgba(59,130,246,0.05), transparent)',
+    borderColor: 'rgba(59,130,246,0.25)',
+    iconBgColor: 'rgba(59,130,246,0.15)',
+    iconTextColor: '#60a5fa',
     features: [
       {
         icon: faSliders,
@@ -109,10 +112,11 @@ const tiers: Tier[] = [
     id: 'command',
     label: 'Command Center',
     tagline: 'Own 2 locations or 20 — see everything from one screen without visiting each one',
-    accent: 'purple',
-    bgGradient: 'from-purple-500/10 via-purple-500/5 to-transparent',
-    borderColor: 'border-purple-500/25',
-    iconBg: 'bg-purple-500/15 text-purple-400',
+    accent: '#a855f7',
+    bgGradient: 'linear-gradient(to bottom, rgba(168,85,247,0.1), rgba(168,85,247,0.05), transparent)',
+    borderColor: 'rgba(168,85,247,0.25)',
+    iconBgColor: 'rgba(168,85,247,0.15)',
+    iconTextColor: '#c084fc',
     features: [
       {
         icon: faBoxesStacked,
@@ -138,140 +142,155 @@ const tiers: Tier[] = [
   },
 ];
 
-const FeatureCard: React.FC<{ feature: FeatureItem; iconBg: string; index: number }> = ({
+const FeatureCard: React.FC<{ feature: FeatureItem; tier: Tier; index: number }> = ({
   feature,
-  iconBg,
+  tier,
   index,
 }) => (
-  <motion.div
+  <Box
+    component={motion.div}
     initial={{ opacity: 0, y: 16 }}
     animate={{ opacity: 1, y: 0 }}
     exit={{ opacity: 0, y: -8 }}
     transition={{ duration: 0.35, delay: index * 0.06 }}
-    className="group flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors"
+    sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, p: 2, borderRadius: '0.75rem', transition: 'background-color 0.2s', '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' }, '.group': { '&:hover .icon-box': { transform: 'scale(1.1)' } } }}
+    className="group"
   >
-    <div
-      className={`shrink-0 w-10 h-10 rounded-lg ${iconBg} flex items-center justify-center group-hover:scale-110 transition-transform`}
+    <Box
+      className="icon-box"
+      sx={{ flexShrink: 0, width: 40, height: 40, borderRadius: '0.5rem', bgcolor: tier.iconBgColor, color: tier.iconTextColor, display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform 0.2s' }}
     >
-      <FontAwesomeIcon icon={feature.icon} className="w-4 h-4" />
-    </div>
-    <div className="min-w-0">
-      <h4 className="text-white font-semibold text-sm leading-snug">{feature.title}</h4>
-      <p className="text-gray-400 text-xs leading-relaxed mt-1">{feature.description}</p>
-    </div>
-  </motion.div>
+      <FontAwesomeIcon icon={feature.icon} style={{ width: 16, height: 16 }} />
+    </Box>
+    <Box sx={{ minWidth: 0 }}>
+      <Typography variant="h4" sx={{ color: 'white', fontWeight: 600, fontSize: '0.875rem', lineHeight: 1.375 }}>{feature.title}</Typography>
+      <Typography sx={{ color: 'grey.400', fontSize: '0.75rem', lineHeight: 1.625, mt: 0.5 }}>{feature.description}</Typography>
+    </Box>
+  </Box>
 );
 
 export const FeatureStack: React.FC = () => {
   const [activeTier, setActiveTier] = useState(0);
 
   return (
-    <section id="capabilities" className="py-24 md:py-32 bg-black relative overflow-hidden">
+    <Box component="section" id="capabilities" sx={{ py: { xs: 12, md: 16 }, bgcolor: 'black', position: 'relative', overflow: 'hidden' }}>
       {/* Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(139,92,246,0.06)_0%,transparent_50%)]" />
+      <Box sx={{ position: 'absolute', inset: 0, zIndex: 0, background: 'radial-gradient(ellipse at top right, rgba(139,92,246,0.06) 0%, transparent 50%)' }} />
 
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 10, px: 3 }}>
         {/* Header */}
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-14"
+          sx={{ textAlign: 'center', mb: 7 }}
         >
-          <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-5">
-            <FontAwesomeIcon icon={faLayerGroup} className="w-3.5 h-3.5 text-amber-400" />
-            <span className="text-gray-300 font-semibold text-xs uppercase tracking-widest">
+          <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, bgcolor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '9999px', px: 2, py: 0.75, mb: 2.5 }}>
+            <FontAwesomeIcon icon={faLayerGroup} style={{ width: 14, height: 14, color: '#fbbf24' }} />
+            <Box component="span" sx={{ color: 'grey.300', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
               Full Platform
-            </span>
-          </div>
-          <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
-            Everything you need.<br className="sm:hidden" /> Nothing you don't.
-          </h2>
-          <p className="mt-4 text-gray-400 max-w-2xl mx-auto text-sm md:text-base">
+            </Box>
+          </Box>
+          <Typography variant="h2" sx={{ fontSize: { xs: '1.875rem', md: '3rem' }, fontWeight: 800, color: 'white', letterSpacing: '-0.025em', lineHeight: 1.1 }}>
+            Everything you need.<Box component="br" sx={{ display: { sm: 'none' } }} /> Nothing you don't.
+          </Typography>
+          <Typography sx={{ mt: 2, color: 'grey.400', maxWidth: 'md', mx: 'auto', fontSize: { xs: '0.875rem', md: '1rem' } }}>
             Most POS systems give you 100 features you'll never touch and charge you for all of them. SharpTable gives you what actually matters — from the table to the back office.
-          </p>
-        </motion.div>
+          </Typography>
+        </Box>
 
         {/* Tier Selector */}
-        <div className="flex justify-center mb-10">
-          <div className="inline-flex bg-zinc-900/80 border border-white/10 rounded-2xl p-1.5 gap-1">
+        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 5 }}>
+          <Box sx={{ display: 'inline-flex', bgcolor: 'rgba(24,24,27,0.8)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1rem', p: 0.75, gap: 0.5 }}>
             {tiers.map((tier, index) => (
-              <button
+              <Box
+                component="button"
                 key={tier.id}
                 onClick={() => setActiveTier(index)}
-                className={`relative px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${
-                  activeTier === index
-                    ? 'text-white'
-                    : 'text-gray-500 hover:text-gray-300'
-                }`}
+                sx={{
+                  position: 'relative', px: 2.5, py: 1.25, borderRadius: '0.75rem', fontSize: '0.875rem', fontWeight: 600, transition: 'all 0.3s', bgcolor: 'transparent', border: 'none', cursor: 'pointer', fontFamily: 'inherit',
+                  color: activeTier === index ? 'white' : 'grey.500',
+                  '&:hover': { color: activeTier === index ? 'white' : 'grey.300' }
+                }}
               >
                 {activeTier === index && (
-                  <motion.div
+                  <Box
+                    component={motion.div}
                     layoutId="tierHighlight"
-                    className={`absolute inset-0 rounded-xl bg-gradient-to-r ${tiers[index].bgGradient} border ${tiers[index].borderColor}`}
+                    sx={{ position: 'absolute', inset: 0, borderRadius: '0.75rem', background: tiers[index].bgGradient, border: '1px solid', borderColor: tiers[index].borderColor }}
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
-                <span className="relative z-10">{tier.label}</span>
-              </button>
+                <Box component="span" sx={{ position: 'relative', zIndex: 10 }}>{tier.label}</Box>
+              </Box>
             ))}
-          </div>
-        </div>
+          </Box>
+        </Box>
 
         {/* Active Tier Content */}
         <AnimatePresence mode="wait">
-          <motion.div
+          <Box
+            component={motion.div}
             key={activeTier}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.4 }}
           >
-            <div
-              className={`rounded-3xl border ${tiers[activeTier].borderColor} bg-gradient-to-b ${tiers[activeTier].bgGradient} p-6 md:p-10`}
+            <Box
+              sx={{
+                borderRadius: '1.5rem',
+                border: '1px solid',
+                borderColor: tiers[activeTier].borderColor,
+                background: tiers[activeTier].bgGradient,
+                p: { xs: 3, md: 5 }
+              }}
             >
               {/* Tier Tagline */}
-              <div className="mb-8 text-center">
-                <p className="text-gray-400 text-sm">{tiers[activeTier].tagline}</p>
-              </div>
+              <Box sx={{ mb: 4, textAlign: 'center' }}>
+                <Typography sx={{ color: 'grey.400', fontSize: '0.875rem' }}>{tiers[activeTier].tagline}</Typography>
+              </Box>
 
               {/* Features Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 1 }}>
                 <AnimatePresence mode="wait">
                   {tiers[activeTier].features.map((feature, index) => (
                     <FeatureCard
                       key={`${tiers[activeTier].id}-${index}`}
                       feature={feature}
-                      iconBg={tiers[activeTier].iconBg}
+                      tier={tiers[activeTier]}
                       index={index}
                     />
                   ))}
                 </AnimatePresence>
-              </div>
+              </Box>
 
               {/* Tier Footer — visual connector */}
               {activeTier < tiers.length - 1 && (
-                <motion.div
+                <Box
+                  component={motion.div}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.4 }}
-                  className="mt-8 pt-6 border-t border-white/5 text-center"
+                  sx={{ mt: 4, pt: 3, borderTop: '1px solid rgba(255,255,255,0.05)', textAlign: 'center' }}
                 >
-                  <button
+                  <Box
+                    component="button"
                     onClick={() => setActiveTier((prev) => prev + 1)}
-                    className="inline-flex items-center gap-2 text-xs text-gray-500 hover:text-gray-300 transition-colors font-medium"
+                    sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, fontSize: '0.75rem', color: 'grey.500', fontWeight: 500, bgcolor: 'transparent', border: 'none', cursor: 'pointer', '&:hover': { color: 'grey.300' }, transition: 'color 0.2s' }}
                   >
                     Unlock more with{' '}
-                    <span className="font-bold text-white">{tiers[activeTier + 1].label}</span>
-                    <FontAwesomeIcon icon={faArrowRight} className="w-3 h-3" />
-                  </button>
-                </motion.div>
+                    <Box component="span" sx={{ fontWeight: 700, color: 'white' }}>{tiers[activeTier + 1].label}</Box>
+                    <FontAwesomeIcon icon={faArrowRight} style={{ width: 12, height: 12 }} />
+                  </Box>
+                </Box>
               )}
-            </div>
-          </motion.div>
+            </Box>
+          </Box>
         </AnimatePresence>
-      </div>
-    </section>
+      </Container>
+    </Box>
   );
 };

@@ -2,43 +2,13 @@ import React, { memo, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faCheck, 
-  faXmark, 
-  faStar, 
-  faCrown, 
-  faRocket, 
-  faBuilding, 
-  faQrcode, 
-  faCartShopping, 
-  faGauge, 
-  faRobot, 
-  faCreditCard, 
-  faFileLines, 
-  faReceipt, 
-  faShield, 
-  faCode, 
-  faUsers, 
-  faClock, 
-  faTableCells,
-  faArrowRight,
-  faInfinity,
-  faBolt,
-  faUtensils,
-  faChartPie,
-  faClockRotateLeft,
-  faLocationDot,
-  faChartLine,
-  faLock,
-  faTag
+  faCheck, faXmark, faStar, faCrown, faRocket, faBuilding, faQrcode, faCartShopping, faGauge, faRobot, faCreditCard, faFileLines, faReceipt, faShield, faCode, faUsers, faClock, faTableCells, faArrowRight, faInfinity, faBolt, faUtensils, faChartPie, faClockRotateLeft, faLocationDot, faChartLine, faLock, faTag
 } from '@fortawesome/free-solid-svg-icons';
-import {
-  faCcVisa,
-  faCcMastercard,
-  faCcAmex,
-} from '@fortawesome/free-brands-svg-icons';
+import { faCcVisa, faCcMastercard, faCcAmex } from '@fortawesome/free-brands-svg-icons';
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { usePayment, PlanType, BillingCycle, PLAN_CONFIG } from '../contexts/PaymentContext';
 import { useCurrency } from '../hooks/useCurrency';
+import { Box, Container, Typography } from '@mui/material';
 
 interface Feature {
   key: string;
@@ -49,22 +19,15 @@ interface Feature {
 }
 
 const features: Feature[] = [
-  // Command-first (enterprise-only)
   { key: 'multi_location_control', label: 'Multi-location Control', icon: faLocationDot, pro: false, enterprise: true },
   { key: 'unified_view', label: 'Unified View Across Branches', icon: faChartPie, pro: false, enterprise: true },
   { key: 'advanced_analytics', label: 'Advanced Analytics', icon: faChartLine, pro: false, enterprise: true },
-
-  // Most "Control"-aligned first
   { key: 'audit_trail', label: 'Audit Trail', icon: faLock, pro: true, enterprise: true },
-
-  // Pro (Control)
   { key: 'super_admin', label: 'Admin', icon: faShield, pro: true, enterprise: true },
   { key: 'marshall_dashboard', label: 'Marshall Dashboard', icon: faGauge, pro: true, enterprise: true },
   { key: 'chef_dashboard', label: 'Chef/KDS Dashboard', icon: faUtensils, pro: true, enterprise: true },
   { key: 'staff_management', label: 'Staff Management', icon: faUsers, pro: true, enterprise: true },
   { key: 'daily_summary', label: 'Daily Summary', icon: faFileLines, pro: true, enterprise: true },
-
-  // Enterprise-only (Command)
   { key: 'feature_overrides', label: 'Feature Overrides', icon: faCode, pro: false, enterprise: true },
   { key: 'multi_admin_pos', label: 'Multi Admin POS', icon: faUsers, pro: false, enterprise: true },
 ];
@@ -101,189 +64,164 @@ interface TierCardProps {
   yearlySavings?: string;
 }
 
-// Memoized Feature Row for performance
 const FeatureRow = memo<{ feature: Feature; tierKey: 'pro' | 'enterprise'; delay: number; idx: number }>(
   ({ feature, tierKey, delay, idx }) => {
     const value = feature[tierKey];
     const isIncluded = value === true;
 
     return (
-      <motion.div
+      <Box
+        component={motion.div}
         initial={{ opacity: 0, x: -10 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ delay: delay + 0.1 + idx * 0.03 }}
-        className={`flex items-center gap-3 ${isIncluded ? 'text-gray-300' : 'text-gray-600'}`}
+        sx={{ display: 'flex', alignItems: 'center', gap: 1.5, color: isIncluded ? 'grey.300' : 'grey.600' }}
       >
-        <div className={`w-6 h-6 rounded-full flex items-center justify-center ${isIncluded ? 'bg-green-500/20 text-green-400' : 'bg-zinc-800 text-gray-600'}`}>
-          <FontAwesomeIcon icon={isIncluded ? faCheck : faXmark} className="w-3 h-3" />
-        </div>
-        <span className="flex items-center gap-2 text-sm">
-          <FontAwesomeIcon icon={feature.icon} className="w-4 h-4" />
+        <Box sx={{ width: 24, height: 24, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', ...(isIncluded ? { bgcolor: 'rgba(34,197,94,0.2)', color: '#4ade80' } : { bgcolor: 'grey.800', color: 'grey.600' }) }}>
+          <FontAwesomeIcon icon={isIncluded ? faCheck : faXmark} style={{ width: 12, height: 12 }} />
+        </Box>
+        <Box component="span" sx={{ display: 'flex', alignItems: 'center', gap: 1, fontSize: '0.875rem' }}>
+          <FontAwesomeIcon icon={feature.icon} style={{ width: 16, height: 16 }} />
           {feature.label}
-        </span>
-      </motion.div>
+        </Box>
+      </Box>
     );
   }
 );
 
-// Memoized Limit Row for performance
 const LimitRow = memo<{ limit: Limit; tierKey: 'pro' | 'enterprise'; delay: number; idx: number }>(
   ({ limit, tierKey, delay, idx }) => {
     const value = limit[tierKey];
-    const isInfinite = value === '∞';
+    const isInfinite = value === '∞' || value === 'Unlimited';
 
     return (
-      <motion.div
+      <Box
+        component={motion.div}
         initial={{ opacity: 0, x: -10 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ delay: delay + 0.4 + idx * 0.05 }}
-        className="flex items-center justify-between text-sm"
+        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.875rem' }}
       >
-        <span className="flex items-center gap-2 text-gray-400">
-          <FontAwesomeIcon icon={limit.icon} className="w-4 h-4" />
+        <Box component="span" sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'grey.400' }}>
+          <FontAwesomeIcon icon={limit.icon} style={{ width: 16, height: 16 }} />
           {limit.label}
-        </span>
-        <span className={`font-semibold ${isInfinite ? 'text-amber-400' : 'text-white'}`}>
-          {isInfinite ? (
-            <FontAwesomeIcon icon={faInfinity} className="w-4 h-4" />
-          ) : value}
-        </span>
-      </motion.div>
+        </Box>
+        <Box component="span" sx={{ fontWeight: 600, color: isInfinite ? '#fbbf24' : 'white' }}>
+          {isInfinite ? <FontAwesomeIcon icon={faInfinity} style={{ width: 16, height: 16 }} /> : value}
+        </Box>
+      </Box>
     );
   }
 );
 
 const TierCard = memo<TierCardProps>(({ 
-  name, 
-  icon, 
-  description, 
-  price, 
-  period, 
-  tierKey, 
-  popular, 
-  accentColor,
-  delay,
-  priceNote,
-  onGetStarted,
-  billingCycle,
-  yearlyPrice,
-  yearlySavings
+  name, icon, description, price, period, tierKey, popular, accentColor, delay, priceNote, onGetStarted, billingCycle, yearlyPrice, yearlySavings
 }) => {
-  const visibleFeatures = useMemo(
-    () => features.filter((f) => f[tierKey] !== false),
-    [tierKey]
-  );
-
+  const visibleFeatures = useMemo(() => features.filter((f) => f[tierKey] !== false), [tierKey]);
   const displayPrice = billingCycle === 'yearly' && yearlyPrice ? yearlyPrice : price;
   const displayPeriod = billingCycle === 'yearly' ? '/year' : period;
   const planKey: PlanType = billingCycle === 'yearly' ? `${tierKey}-yearly` : tierKey;
 
   return (
-    <motion.div
+    <Box
+      component={motion.div}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay }}
-      className={`relative group ${popular ? 'md:-mt-4 md:mb-4' : ''}`}
+      sx={{ position: 'relative', ...(popular ? { '@media (min-width:900px)': { mt: -2, mb: 2 } } : {}) }}
+      className="group"
     >
       {/* Popular Badge */}
       {popular && (
-        <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
-          <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-4 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg shadow-amber-500/30">
-            <FontAwesomeIcon icon={faStar} className="w-3 h-3" />
+        <Box sx={{ position: 'absolute', top: -16, left: '50%', transform: 'translateX(-50%)', zIndex: 20 }}>
+          <Box sx={{ background: 'linear-gradient(to right, #f59e0b, #f97316)', color: 'white', fontSize: '0.75rem', fontWeight: 700, px: 2, py: 0.75, borderRadius: '9999px', display: 'flex', alignItems: 'center', gap: 0.75, boxShadow: '0 10px 15px -3px rgba(245,158,11,0.3)' }}>
+            <FontAwesomeIcon icon={faStar} style={{ width: 12, height: 12 }} />
             MOST POPULAR
-          </div>
-        </div>
+          </Box>
+        </Box>
       )}
 
       {/* Yearly Savings Badge */}
       {billingCycle === 'yearly' && yearlySavings && (
-        <div className="absolute -top-4 right-4 z-20">
-          <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg shadow-green-500/30">
-            <FontAwesomeIcon icon={faTag} className="w-3 h-3" />
+        <Box sx={{ position: 'absolute', top: -16, right: 16, zIndex: 20 }}>
+          <Box sx={{ background: 'linear-gradient(to right, #22c55e, #10b981)', color: 'white', fontSize: '0.75rem', fontWeight: 700, px: 1.5, py: 0.75, borderRadius: '9999px', display: 'flex', alignItems: 'center', gap: 0.75, boxShadow: '0 10px 15px -3px rgba(34,197,94,0.3)' }}>
+            <FontAwesomeIcon icon={faTag} style={{ width: 12, height: 12 }} />
             {yearlySavings}
-          </div>
-        </div>
+          </Box>
+        </Box>
       )}
 
       {/* Card */}
-      <div className={`relative h-full bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-900/80 border ${popular ? 'border-amber-500/50' : 'border-zinc-800'} hover:border-amber-500/40 rounded-3xl p-8 transition-all duration-500 overflow-hidden`}>
+      <Box sx={{ position: 'relative', height: '100%', background: 'linear-gradient(to bottom right, rgba(24,24,27,1), rgba(24,24,27,1), rgba(24,24,27,0.8))', border: '1px solid', borderColor: popular ? 'rgba(245,158,11,0.5)' : 'grey.800', transition: 'border-color 0.5s', borderRadius: '1.5rem', p: 4, overflow: 'hidden', '&:hover': { borderColor: 'rgba(245,158,11,0.4)' } }}>
         {/* Shine Effect */}
-        <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:via-amber-500/50 transition-all duration-500" />
+        <Box sx={{ position: 'absolute', top: 0, left: 32, right: 32, height: '1px', background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent)', transition: 'background 0.5s', '.group:hover &': { background: 'linear-gradient(to right, transparent, rgba(245,158,11,0.5), transparent)' } }} />
 
-        <div className="relative z-10">
+        <Box sx={{ position: 'relative', zIndex: 10 }}>
           {/* Header */}
-          <div className="flex items-center gap-3 mb-4">
-            <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${accentColor} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
-              <FontAwesomeIcon icon={icon} className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold text-white">{name}</h3>
-              <p className="text-sm text-gray-500">{description}</p>
-            </div>
-          </div>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
+            <Box sx={{ width: 48, height: 48, borderRadius: '0.75rem', background: accentColor, display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform 0.3s', '.group:hover &': { transform: 'scale(1.1)' } }}>
+              <FontAwesomeIcon icon={icon} style={{ width: 20, height: 20, color: 'white' }} />
+            </Box>
+            <Box>
+              <Typography variant="h3" sx={{ fontSize: '1.5rem', fontWeight: 700, color: 'white' }}>{name}</Typography>
+              <Typography sx={{ fontSize: '0.875rem', color: 'grey.500' }}>{description}</Typography>
+            </Box>
+          </Box>
 
           {/* Price */}
-          <div className="mb-6 pb-6 border-b border-zinc-800">
-            <div className="flex items-baseline gap-1">
-              <span className="text-4xl font-bold text-white">{displayPrice}</span>
-              <span className="text-gray-500">{displayPeriod}</span>
-            </div>
+          <Box sx={{ mb: 3, pb: 3, borderBottom: '1px solid', borderColor: 'grey.800' }}>
+            <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 0.5 }}>
+              <Typography sx={{ fontSize: '2.25rem', fontWeight: 700, color: 'white' }}>{displayPrice}</Typography>
+              <Typography sx={{ color: 'grey.500' }}>{displayPeriod}</Typography>
+            </Box>
             {billingCycle === 'yearly' && (
-              <p className="text-sm text-green-400 mt-2">Billed annually</p>
+              <Typography sx={{ fontSize: '0.875rem', color: '#4ade80', mt: 1 }}>Billed annually</Typography>
             )}
             {priceNote && billingCycle === 'monthly' && (
-              <div className="mt-3 rounded-2xl border border-white/10 bg-white/5 p-4">
+              <Box sx={{ mt: 1.5, borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)', bgcolor: 'rgba(255,255,255,0.05)', p: 2 }}>
                 {priceNote}
-              </div>
+              </Box>
             )}
-          </div>
+          </Box>
 
           {/* Features List */}
-          <div className="space-y-3 mb-6">
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Features</p>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, mb: 3 }}>
+            <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: 'grey.500', textTransform: 'uppercase', letterSpacing: '0.05em', mb: 1 }}>Features</Typography>
             {visibleFeatures.map((feature, idx) => (
-              <FeatureRow 
-                key={feature.key} 
-                feature={feature} 
-                tierKey={tierKey} 
-                delay={delay} 
-                idx={idx} 
-              />
+              <FeatureRow key={feature.key} feature={feature} tierKey={tierKey} delay={delay} idx={idx} />
             ))}
-          </div>
+          </Box>
 
           {/* Limits */}
-          <div className="space-y-3 mb-8">
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Limits</p>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, mb: 4 }}>
+            <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: 'grey.500', textTransform: 'uppercase', letterSpacing: '0.05em', mb: 1 }}>Limits</Typography>
             {limits.map((limit, idx) => (
-              <LimitRow 
-                key={limit.key} 
-                limit={limit} 
-                tierKey={tierKey} 
-                delay={delay} 
-                idx={idx} 
-              />
+              <LimitRow key={limit.key} limit={limit} tierKey={tierKey} delay={delay} idx={idx} />
             ))}
-          </div>
+          </Box>
 
           {/* CTA Button */}
-          <button
+          <Box
+            component="button"
             onClick={() => onGetStarted(planKey)}
-            className={`w-full py-4 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] ${
-              popular 
-                ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40' 
-                : 'bg-zinc-800 text-white hover:bg-zinc-700 border border-zinc-700 hover:border-zinc-600'
-            }`}
+            sx={{
+              width: '100%', py: 2, borderRadius: '0.75rem', fontWeight: 600, fontSize: '0.875rem', transition: 'all 0.3s', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, border: 'none', cursor: 'pointer', fontFamily: 'inherit',
+              ...(popular ? {
+                background: 'linear-gradient(to right, #f59e0b, #f97316)', color: 'white', boxShadow: '0 10px 15px -3px rgba(245,158,11,0.25)', '&:hover': { boxShadow: '0 10px 15px -3px rgba(245,158,11,0.4)', transform: 'scale(1.02)' }, '&:active': { transform: 'scale(0.98)' }
+              } : {
+                bgcolor: 'grey.800', color: 'white', border: '1px solid', borderColor: 'grey.700', '&:hover': { bgcolor: 'grey.700', borderColor: 'grey.600', transform: 'scale(1.02)' }, '&:active': { transform: 'scale(0.98)' }
+              })
+            }}
           >
             Get Started
-            <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
-          </button>
-        </div>
-      </div>
-    </motion.div>
+            <FontAwesomeIcon icon={faArrowRight} style={{ width: 16, height: 16 }} />
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 });
 
@@ -310,19 +248,19 @@ export const PricingTiers: React.FC = () => {
           period: "/month",
           tierKey: "pro" as const,
           popular: true,
-          accentColor: "from-amber-500 to-orange-500",
+          accentColor: "linear-gradient(to bottom right, #f59e0b, #f97316)",
           delay: 0,
           billingCycle,
           yearlyPrice: convertFromNaira(proYearly),
           yearlySavings: "Save ~17%",
           priceNote: (
-            <div className="grid grid-cols-1 gap-3 text-sm">
-              <div className="flex items-center justify-between">
-                <span className="text-gray-400">Monthly</span>
-                <span className="text-white font-semibold">{convertFromNaira(proMonthly)}</span>
-              </div>
-              <div className="text-xs text-gray-500">For single-location restaurants that want clarity and control.</div>
-            </div>
+            <Box sx={{ display: 'grid', gridTemplateColumns: '1fr', gap: 1.5, fontSize: '0.875rem' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Box component="span" sx={{ color: 'grey.400' }}>Monthly</Box>
+                <Box component="span" sx={{ color: 'white', fontWeight: 600 }}>{convertFromNaira(proMonthly)}</Box>
+              </Box>
+              <Box sx={{ fontSize: '0.75rem', color: 'grey.500' }}>For single-location restaurants that want clarity and control.</Box>
+            </Box>
           )
         },
         {
@@ -332,19 +270,19 @@ export const PricingTiers: React.FC = () => {
           price: convertFromNaira(enterpriseMonthly),
           period: "/month",
           tierKey: "enterprise" as const,
-          accentColor: "from-purple-500 to-pink-500",
+          accentColor: "linear-gradient(to bottom right, #a855f7, #ec4899)",
           delay: 0.1,
           billingCycle,
           yearlyPrice: convertFromNaira(enterpriseYearly),
           yearlySavings: "Save ~17%",
           priceNote: (
-            <div className="grid grid-cols-1 gap-3 text-sm">
-              <div className="flex items-center justify-between">
-                <span className="text-gray-400">Enterprise</span>
-                <span className="text-white font-semibold">{convertFromNaira(enterpriseMonthly)}<span className="text-gray-500 font-normal">/mo</span></span>
-              </div>
-              <div className="text-xs text-gray-500">Unlimited locations, tables, staff, and history — for owners who are expanding.</div>
-            </div>
+            <Box sx={{ display: 'grid', gridTemplateColumns: '1fr', gap: 1.5, fontSize: '0.875rem' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Box component="span" sx={{ color: 'grey.400' }}>Enterprise</Box>
+                <Box component="span" sx={{ color: 'white', fontWeight: 600 }}>{convertFromNaira(enterpriseMonthly)}<Box component="span" sx={{ color: 'grey.500', fontWeight: 400 }}>/mo</Box></Box>
+              </Box>
+              <Box sx={{ fontSize: '0.75rem', color: 'grey.500' }}>Unlimited locations, tables, staff, and history — for owners who are expanding.</Box>
+            </Box>
           )
         }
       ];
@@ -353,117 +291,122 @@ export const PricingTiers: React.FC = () => {
   );
 
   return (
-    <section id="pricing" className="py-32 bg-black relative overflow-hidden">
+    <Box component="section" id="pricing" sx={{ py: { xs: 16, md: 24 }, bgcolor: 'black', position: 'relative', overflow: 'hidden' }}>
       {/* Background Effects - Simplified for performance */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(251,191,36,0.05)_0%,transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(139,92,246,0.05)_0%,transparent_50%)]" />
+      <Box sx={{ position: 'absolute', inset: 0, zIndex: 0, background: 'radial-gradient(ellipse at top, rgba(251,191,36,0.05) 0%, transparent 50%)' }} />
+      <Box sx={{ position: 'absolute', inset: 0, zIndex: 0, background: 'radial-gradient(ellipse at bottom, rgba(139,92,246,0.05) 0%, transparent 50%)' }} />
       
       {/* Static Orbs - No animation for better performance */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl opacity-40" />
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl opacity-40" />
+      <Box sx={{ position: 'absolute', top: 80, left: 40, width: 288, height: 288, bgcolor: 'rgba(245,158,11,0.1)', borderRadius: '50%', filter: 'blur(80px)', opacity: 0.4 }} />
+      <Box sx={{ position: 'absolute', bottom: 80, right: 40, width: 384, height: 384, bgcolor: 'rgba(168,85,247,0.1)', borderRadius: '50%', filter: 'blur(80px)', opacity: 0.4 }} />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 10, px: 3 }}>
         {/* Header */}
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          sx={{ textAlign: 'center', mb: { xs: 8, md: 10 } }}
         >
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/20 via-orange-500/10 to-amber-500/20 border border-amber-500/30 rounded-full px-5 py-2 mb-6">
-            <FontAwesomeIcon icon={faBolt} className="w-4 h-4 text-amber-500" />
-            <span className="text-amber-400 font-semibold text-sm tracking-wide">TRANSPARENT PRICING</span>
-          </div>
+          <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, background: 'linear-gradient(to right, rgba(245,158,11,0.2), rgba(249,115,22,0.1), rgba(245,158,11,0.2))', border: '1px solid rgba(245,158,11,0.3)', borderRadius: '9999px', px: 2.5, py: 1, mb: 3 }}>
+            <FontAwesomeIcon icon={faBolt} style={{ width: 16, height: 16, color: '#f59e0b' }} />
+            <Box component="span" sx={{ color: '#fbbf24', fontWeight: 600, fontSize: '0.875rem', letterSpacing: '0.025em' }}>TRANSPARENT PRICING</Box>
+          </Box>
 
           {/* Title */}
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white tracking-tight">
+          <Typography variant="h2" sx={{ fontSize: { xs: '2.25rem', md: '3rem', lg: '3.75rem' }, fontWeight: 700, mb: 3, color: 'white', letterSpacing: '-0.025em', lineHeight: 1.1 }}>
             Simple pricing.{' '}
-            <span className="relative inline-block">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-500 to-red-500">
+            <Box component="span" sx={{ position: 'relative', display: 'inline-block' }}>
+              <Box component="span" sx={{ color: 'transparent', backgroundClip: 'text', WebkitBackgroundClip: 'text', backgroundImage: 'linear-gradient(to right, #fbbf24, #f97316, #ef4444)' }}>
                 No surprises.
-              </span>
-              <span className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 rounded-full" />
-            </span>
-          </h2>
+              </Box>
+              <Box sx={{ position: 'absolute', bottom: -8, left: 0, right: 0, height: 4, background: 'linear-gradient(to right, #fbbf24, #f97316, #ef4444)', borderRadius: '9999px' }} />
+            </Box>
+          </Typography>
 
           {/* Subtitle */}
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-4">
+          <Typography sx={{ fontSize: { xs: '1.125rem', md: '1.25rem' }, color: 'grey.400', maxWidth: 'md', mx: 'auto', mb: 2 }}>
             Pick the plan that fits your restaurant today. 
-            <span className="text-white font-medium"> You can always upgrade later — no pressure.</span>
-          </p>
+            <Box component="span" sx={{ color: 'white', fontWeight: 500 }}>{" "}You can always upgrade later — no pressure.</Box>
+          </Typography>
 
           {/* Prices always shown in USD */}
-          <p className="text-sm text-gray-500 mb-8">
+          <Typography sx={{ fontSize: '0.875rem', color: 'grey.500', mb: 4 }}>
             Prices in USD • billed via Paystack at current rates
-          </p>
+          </Typography>
 
           {/* Billing Toggle */}
-          <div className="flex items-center justify-center gap-4 mt-4">
-            <button
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2, mt: 2 }}>
+            <Box
+              component="button"
               onClick={() => setBillingCycle('monthly')}
-              className={`px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 ${
-                billingCycle === 'monthly'
-                  ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/25'
-                  : 'bg-zinc-800 text-gray-400 hover:bg-zinc-700 border border-zinc-700'
-              }`}
+              sx={{
+                px: 3, py: 1.5, borderRadius: '0.75rem', fontWeight: 600, fontSize: '0.875rem', transition: 'all 0.3s', cursor: 'pointer', border: 'none', fontFamily: 'inherit',
+                ...(billingCycle === 'monthly'
+                  ? { background: 'linear-gradient(to right, #f59e0b, #f97316)', color: 'white', boxShadow: '0 10px 15px -3px rgba(245,158,11,0.25)' }
+                  : { bgcolor: 'grey.800', color: 'grey.400', '&:hover': { bgcolor: 'grey.700' }, border: '1px solid', borderColor: 'grey.700' })
+              }}
             >
               Monthly
-            </button>
-            <button
+            </Box>
+            <Box
+              component="button"
               onClick={() => setBillingCycle('yearly')}
-              className={`px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center gap-2 ${
-                billingCycle === 'yearly'
-                  ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg shadow-green-500/25'
-                  : 'bg-zinc-800 text-gray-400 hover:bg-zinc-700 border border-zinc-700'
-              }`}
+              sx={{
+                px: 3, py: 1.5, borderRadius: '0.75rem', fontWeight: 600, fontSize: '0.875rem', transition: 'all 0.3s', display: 'flex', alignItems: 'center', gap: 1, cursor: 'pointer', border: 'none', fontFamily: 'inherit',
+                ...(billingCycle === 'yearly'
+                  ? { background: 'linear-gradient(to right, #22c55e, #10b981)', color: 'white', boxShadow: '0 10px 15px -3px rgba(34,197,94,0.25)' }
+                  : { bgcolor: 'grey.800', color: 'grey.400', '&:hover': { bgcolor: 'grey.700' }, border: '1px solid', borderColor: 'grey.700' })
+              }}
             >
               Yearly
-              <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
-                billingCycle === 'yearly' 
-                  ? 'bg-white/20 text-white' 
-                  : 'bg-green-500/20 text-green-400'
-              }`}>
+              <Box component="span" sx={{
+                px: 1, py: 0.25, borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 700,
+                ...(billingCycle === 'yearly' ? { bgcolor: 'rgba(255,255,255,0.2)', color: 'white' } : { bgcolor: 'rgba(34,197,94,0.2)', color: '#4ade80' })
+              }}>
                 Save up to 35%
-              </span>
-            </button>
-          </div>
-        </motion.div>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: { xs: 3, lg: 4 }, maxWidth: 'lg', mx: 'auto' }}>
           {isCurrencyLoading ? (
             <>
-              <div className="h-[600px] bg-zinc-900 border border-zinc-800 rounded-3xl animate-pulse" />
-              <div className="h-[600px] bg-zinc-900 border border-zinc-800 rounded-3xl animate-pulse" />
+              <Box sx={{ height: 600, bgcolor: 'grey.900', border: '1px solid', borderColor: 'grey.800', borderRadius: '1.5rem', animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' }} />
+              <Box sx={{ height: 600, bgcolor: 'grey.900', border: '1px solid', borderColor: 'grey.800', borderRadius: '1.5rem', animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' }} />
             </>
           ) : (
             tierConfigs.map((config) => (
               <TierCard key={`${config.tierKey}-${billingCycle}`} {...config} onGetStarted={openPaymentModal} />
             ))
           )}
-        </div>
+        </Box>
 
         {/* Quick Comparison Table */}
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-16 max-w-4xl mx-auto"
+          sx={{ mt: { xs: 10, md: 12 }, maxWidth: 'md', mx: 'auto' }}
         >
-          <h3 className="text-xl font-bold text-white text-center mb-8">Quick Comparison</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-zinc-800">
-                  <th className="text-left py-4 px-4 text-gray-400 font-medium text-sm">Feature</th>
-                  <th className="text-center py-4 px-4 text-amber-400 font-bold">Control<br/><span className="text-xs font-normal text-gray-500">{convertFromNaira(99999)}/mo</span></th>
-                  <th className="text-center py-4 px-4 text-purple-400 font-bold">Command<br/><span className="text-xs font-normal text-gray-500">{convertFromNaira(199999)}/mo</span></th>
-                </tr>
-              </thead>
-              <tbody>
+          <Typography variant="h3" sx={{ fontSize: '1.25rem', fontWeight: 700, color: 'white', textAlign: 'center', mb: 4 }}>Quick Comparison</Typography>
+          <Box sx={{ overflowX: 'auto' }}>
+            <Box component="table" sx={{ width: '100%', borderCollapse: 'collapse' }}>
+              <Box component="thead">
+                <Box component="tr" sx={{ borderBottom: '1px solid', borderColor: 'grey.800' }}>
+                  <Box component="th" sx={{ textAlign: 'left', py: 2, px: 2, color: 'grey.400', fontWeight: 500, fontSize: '0.875rem' }}>Feature</Box>
+                  <Box component="th" sx={{ textAlign: 'center', py: 2, px: 2, color: '#fbbf24', fontWeight: 700 }}>Control<Box component="br" /><Box component="span" sx={{ fontSize: '0.75rem', fontWeight: 400, color: 'grey.500' }}>{convertFromNaira(99999)}/mo</Box></Box>
+                  <Box component="th" sx={{ textAlign: 'center', py: 2, px: 2, color: '#c084fc', fontWeight: 700 }}>Command<Box component="br" /><Box component="span" sx={{ fontSize: '0.75rem', fontWeight: 400, color: 'grey.500' }}>{convertFromNaira(199999)}/mo</Box></Box>
+                </Box>
+              </Box>
+              <Box component="tbody">
                 {[
                   { feature: 'Payment Gate System', control: true, command: true },
                   { feature: 'Marshall Dashboard', control: true, command: true },
@@ -478,78 +421,85 @@ export const PricingTiers: React.FC = () => {
                   { feature: 'Advanced Analytics', control: false, command: true },
                   { feature: 'Feature Overrides', control: false, command: true },
                 ].map((row, idx) => (
-                  <tr key={idx} className="border-b border-zinc-800/50 hover:bg-white/5 transition-colors">
-                    <td className="py-3 px-4 text-gray-300 text-sm">{row.feature}</td>
-                    <td className="py-3 px-4 text-center">
+                  <Box component="tr" key={idx} sx={{ borderBottom: '1px solid rgba(255,255,255,0.05)', transition: 'background-color 0.2s', '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' } }}>
+                    <Box component="td" sx={{ py: 1.5, px: 2, color: 'grey.300', fontSize: '0.875rem' }}>{row.feature}</Box>
+                    <Box component="td" sx={{ py: 1.5, px: 2, textAlign: 'center' }}>
                       {typeof row.control === 'boolean' ? (
                         row.control ? (
-                          <FontAwesomeIcon icon={faCheck} className="w-4 h-4 text-green-500" />
+                          <FontAwesomeIcon icon={faCheck} style={{ width: 16, height: 16, color: '#22c55e' }} />
                         ) : (
-                          <FontAwesomeIcon icon={faXmark} className="w-4 h-4 text-gray-600" />
+                          <FontAwesomeIcon icon={faXmark} style={{ width: 16, height: 16, color: '#4b5563' }} />
                         )
                       ) : (
-                        <span className="text-gray-300 text-sm">{row.control}</span>
+                        <Box component="span" sx={{ color: 'grey.300', fontSize: '0.875rem' }}>{row.control}</Box>
                       )}
-                    </td>
-                    <td className="py-3 px-4 text-center">
+                    </Box>
+                    <Box component="td" sx={{ py: 1.5, px: 2, textAlign: 'center' }}>
                       {typeof row.command === 'boolean' ? (
                         row.command ? (
-                          <FontAwesomeIcon icon={faCheck} className="w-4 h-4 text-green-500" />
+                          <FontAwesomeIcon icon={faCheck} style={{ width: 16, height: 16, color: '#22c55e' }} />
                         ) : (
-                          <FontAwesomeIcon icon={faXmark} className="w-4 h-4 text-gray-600" />
+                          <FontAwesomeIcon icon={faXmark} style={{ width: 16, height: 16, color: '#4b5563' }} />
                         )
                       ) : (
-                        <span className={`text-sm ${row.command === 'Unlimited' ? 'text-amber-400 font-medium' : 'text-gray-300'}`}>{row.command}</span>
+                        <Box component="span" sx={{ fontSize: '0.875rem', ...(row.command === 'Unlimited' ? { color: '#fbbf24', fontWeight: 500 } : { color: 'grey.300' }) }}>{row.command}</Box>
                       )}
-                    </td>
-                  </tr>
+                    </Box>
+                  </Box>
                 ))}
-              </tbody>
-            </table>
-          </div>
-        </motion.div>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
 
         {/* Bottom Note */}
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-16 text-center"
+          sx={{ mt: { xs: 10, md: 12 }, textAlign: 'center' }}
         >
-          <p className="text-gray-500 text-sm mb-4">
+          <Typography sx={{ color: 'grey.500', fontSize: '0.875rem', mb: 2 }}>
             Every plan includes 24/7 support, secure cloud hosting, and automatic updates. No hidden fees.
-          </p>
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
-            <div className="flex items-center gap-2">
-              <FontAwesomeIcon icon={faCheck} className="w-4 h-4 text-green-500" />
+          </Typography>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 3, fontSize: '0.875rem', color: 'grey.400' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <FontAwesomeIcon icon={faCheck} style={{ width: 16, height: 16, color: '#22c55e' }} />
               No setup fees
-            </div>
-            <div className="flex items-center gap-2">
-              <FontAwesomeIcon icon={faCheck} className="w-4 h-4 text-green-500" />
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <FontAwesomeIcon icon={faCheck} style={{ width: 16, height: 16, color: '#22c55e' }} />
               Cancel anytime — no lock-in
-            </div>
-            <div className="flex items-center gap-2">
-              <FontAwesomeIcon icon={faCheck} className="w-4 h-4 text-green-500" />
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <FontAwesomeIcon icon={faCheck} style={{ width: 16, height: 16, color: '#22c55e' }} />
               Free migration from any system
-            </div>
-          </div>
+            </Box>
+          </Box>
 
           {/* Payment Methods */}
-          <div className="mt-8 flex flex-col items-center gap-3">
-            <div className="flex items-center gap-2 text-xs text-gray-500">
-              <FontAwesomeIcon icon={faLock} className="w-3 h-3" />
+          <Box sx={{ mt: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1.5 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, fontSize: '0.75rem', color: 'grey.500' }}>
+              <FontAwesomeIcon icon={faLock} style={{ width: 12, height: 12 }} />
               Secure payments powered by Paystack
-            </div>
-            <div className="flex items-center gap-3">
-              <FontAwesomeIcon icon={faCcVisa} className="w-10 h-10 text-gray-400 hover:text-[#1A1F71] transition-colors" />
-              <FontAwesomeIcon icon={faCcMastercard} className="w-10 h-10 text-gray-400 hover:text-[#EB001B] transition-colors" />
-              <FontAwesomeIcon icon={faCcAmex} className="w-10 h-10 text-gray-400 hover:text-[#006FCF] transition-colors" />
-              <div className="px-2 py-1 bg-gray-700 hover:bg-[#00425F] rounded text-[10px] font-bold text-gray-400 hover:text-white transition-colors">VERVE</div>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+              <Box sx={{ color: '#9ca3af', '&:hover': { color: '#1A1F71' }, transition: 'color 0.2s', cursor: 'pointer', lineHeight: 0 }}>
+                <FontAwesomeIcon icon={faCcVisa} style={{ width: 40, height: 40, color: 'inherit' }} />
+              </Box>
+              <Box sx={{ color: '#9ca3af', '&:hover': { color: '#EB001B' }, transition: 'color 0.2s', cursor: 'pointer', lineHeight: 0 }}>
+                <FontAwesomeIcon icon={faCcMastercard} style={{ width: 40, height: 40, color: 'inherit' }} />
+              </Box>
+              <Box sx={{ color: '#9ca3af', '&:hover': { color: '#006FCF' }, transition: 'color 0.2s', cursor: 'pointer', lineHeight: 0 }}>
+                <FontAwesomeIcon icon={faCcAmex} style={{ width: 40, height: 40, color: 'inherit' }} />
+              </Box>
+              <Box sx={{ px: 1, py: 0.5, bgcolor: 'grey.700', borderRadius: '4px', fontSize: '10px', fontWeight: 700, color: 'grey.400', transition: 'all 0.2s', '&:hover': { bgcolor: '#00425F', color: 'white' } }}>VERVE</Box>
+            </Box>
+          </Box>
+        </Box>
+      </Container>
+    </Box>
   );
 };

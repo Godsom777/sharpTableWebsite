@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
+import { Box, Typography } from '@mui/material';
 
 /* ─────────────────────────────────────────────────────────────
    PageHeader — a cinematic, abstract hero banner for each page.
@@ -89,9 +90,13 @@ const FloatingSymbol: React.FC<FloatingSymbolProps> = ({ symbol, index, total })
   const rotate = ((seed * 4.1) % 360);
 
   return (
-    <motion.span
-      className="absolute pointer-events-none select-none text-amber-500/[0.06]"
-      style={{
+    <Box
+      component={motion.span}
+      sx={{
+        position: 'absolute',
+        pointerEvents: 'none',
+        userSelect: 'none',
+        color: 'rgba(245, 158, 11, 0.06)',
         left: `${left}%`,
         top: `${top}%`,
         fontSize: `${size}px`,
@@ -111,33 +116,36 @@ const FloatingSymbol: React.FC<FloatingSymbolProps> = ({ symbol, index, total })
       }}
     >
       {symbol}
-    </motion.span>
+    </Box>
   );
 };
 
 /* ── Decorative line ─────────────────────────────────────── */
 
 const DecorativeLine: React.FC = () => (
-  <motion.div
-    className="flex items-center justify-center gap-3 mt-8"
+  <Box
+    component={motion.div}
     initial={{ opacity: 0, scaleX: 0 }}
     animate={{ opacity: 1, scaleX: 1 }}
     transition={{ duration: 0.8, delay: 1.2, ease: 'easeOut' }}
+    sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, mt: 4 }}
   >
-    <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-500/40" />
-    <motion.div
-      className="h-1.5 w-1.5 rounded-full bg-amber-500/60"
+    <Box sx={{ height: '1px', width: 48, background: 'linear-gradient(to right, transparent, rgba(245, 158, 11, 0.4))' }} />
+    <Box
+      component={motion.div}
       animate={{ scale: [1, 1.4, 1], opacity: [0.6, 1, 0.6] }}
       transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+      sx={{ height: 6, width: 6, borderRadius: '50%', bgcolor: 'rgba(245, 158, 11, 0.6)' }}
     />
-    <div className="h-px w-24 bg-gradient-to-r from-amber-500/40 to-amber-500/10" />
-    <motion.div
-      className="h-1 w-1 rounded-full bg-amber-500/40"
+    <Box sx={{ height: '1px', width: 96, background: 'linear-gradient(to right, rgba(245, 158, 11, 0.4), rgba(245, 158, 11, 0.1))' }} />
+    <Box
+      component={motion.div}
       animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0.8, 0.4] }}
       transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+      sx={{ height: 4, width: 4, borderRadius: '50%', bgcolor: 'rgba(245, 158, 11, 0.4)' }}
     />
-    <div className="h-px w-12 bg-gradient-to-l from-transparent to-amber-500/40" />
-  </motion.div>
+    <Box sx={{ height: '1px', width: 48, background: 'linear-gradient(to left, transparent, rgba(245, 158, 11, 0.4))' }} />
+  </Box>
 );
 
 /* ── Main component ──────────────────────────────────────── */
@@ -154,88 +162,92 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   const words = useMemo(() => subtitle.split(' '), [subtitle]);
 
   return (
-    <section className="relative overflow-hidden bg-black">
+    <Box component="section" sx={{ position: 'relative', overflow: 'hidden', bgcolor: 'black' }}>
       {/* ── Background layers ── */}
-      <div className="absolute inset-0 z-0">
+      <Box sx={{ position: 'absolute', inset: 0, zIndex: 0 }}>
         {/* Amber glow — top center */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(245,158,11,0.07)_0%,transparent_50%)]" />
+        <Box sx={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at top, rgba(245,158,11,0.07) 0%, transparent 50%)' }} />
         {/* Soft white glow — bottom right */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(255,255,255,0.02)_0%,transparent_50%)]" />
+        <Box sx={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at bottom right, rgba(255,255,255,0.02) 0%, transparent 50%)' }} />
         {/* Subtle grid overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
+        <Box
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            opacity: 0.03,
             backgroundImage: `linear-gradient(rgba(245,158,11,0.3) 1px, transparent 1px),
                               linear-gradient(90deg, rgba(245,158,11,0.3) 1px, transparent 1px)`,
             backgroundSize: '60px 60px',
           }}
         />
-      </div>
+      </Box>
 
       {/* ── Floating abstract symbols ── */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
+      <Box sx={{ position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden' }}>
         {symbols.map((sym, i) => (
           <FloatingSymbol key={`${sym}-${i}`} symbol={sym} index={i} total={symbols.length} />
         ))}
-      </div>
+      </Box>
 
       {/* ── Content ── */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 pt-32 pb-16 md:pt-40 md:pb-20 text-center">
+      <Box sx={{ position: 'relative', zIndex: 10, maxWidth: '1024px', mx: 'auto', px: 3, pt: { xs: 16, md: 20 }, pb: { xs: 8, md: 10 }, textAlign: 'center' }}>
         {/* Badge */}
         {badge && (
-          <motion.div
+          <Box
+            component={motion.div}
             variants={badgeVariants}
             initial="hidden"
             animate="visible"
-            className="flex justify-center mb-6"
+            sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}
           >
-            <span className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5 text-amber-300 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em]">
+            <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, borderRadius: '9999px', border: '1px solid rgba(245, 158, 11, 0.3)', bgcolor: 'rgba(245, 158, 11, 0.1)', px: 2, py: 0.75, color: '#fcd34d', fontSize: { xs: '0.625rem', sm: '0.6875rem' }, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em' }}>
               {badge}
-            </span>
-          </motion.div>
+            </Box>
+          </Box>
         )}
 
         {/* Character-animated title */}
-        <motion.h1
+        <Typography
+          component={motion.h1}
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.08] text-white"
-          style={{ perspective: '600px' }}
+          sx={{ fontSize: { xs: '2.25rem', sm: '3rem', md: '3.75rem', lg: '4.5rem' }, fontWeight: 800, letterSpacing: '-0.025em', lineHeight: 1.08, color: 'white', perspective: '600px' }}
         >
           {chars.map((char, i) => (
-            <motion.span
+            <Box
+              component={motion.span}
               key={i}
               variants={charVariants}
-              className={`inline-block ${char === ' ' ? 'w-[0.25em]' : ''}`}
-              style={{ transformOrigin: 'bottom center' }}
+              sx={{ display: 'inline-block', width: char === ' ' ? '0.25em' : 'auto', transformOrigin: 'bottom center' }}
             >
               {/* Highlight text inside asterisks-style markers — 
                   words between * become amber */}
               {char === ' ' ? '\u00A0' : char}
-            </motion.span>
+            </Box>
           ))}
-        </motion.h1>
+        </Typography>
 
         {/* Word-animated subtitle */}
-        <motion.p
+        <Typography
+          component={motion.p}
           variants={wordContainerVariants}
           initial="hidden"
           animate="visible"
-          className="mt-5 text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed font-light"
+          sx={{ mt: 2.5, fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' }, color: 'grey.400', maxWidth: 'md', mx: 'auto', lineHeight: 1.625, fontWeight: 300 }}
         >
           {words.map((word, i) => (
-            <motion.span key={i} variants={wordVariants} className="inline-block mr-[0.3em]">
+            <Box component={motion.span} key={i} variants={wordVariants} sx={{ display: 'inline-block', mr: '0.3em' }}>
               {word}
-            </motion.span>
+            </Box>
           ))}
-        </motion.p>
+        </Typography>
 
         <DecorativeLine />
-      </div>
+      </Box>
 
       {/* Bottom fade to black */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black to-transparent z-10" />
-    </section>
+      <Box sx={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 96, background: 'linear-gradient(to top, black, transparent)', zIndex: 10 }} />
+    </Box>
   );
 };

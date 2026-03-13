@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCheckCircle,
@@ -9,6 +9,7 @@ import {
   faEnvelope,
   faArrowRightToBracket,
 } from '@fortawesome/free-solid-svg-icons';
+import { Box, Typography, Button } from '@mui/material';
 
 type PaymentStatus = 'loading' | 'success' | 'failed';
 
@@ -76,121 +77,130 @@ export const PaymentCallback: React.FC = () => {
   };
 
   return (
-    <section className="min-h-screen bg-black flex items-center justify-center px-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-md w-full bg-zinc-900 rounded-2xl border border-zinc-800 p-8 text-center"
-      >
-        {status === 'loading' && (
-          <>
-            <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-amber-500/20 flex items-center justify-center">
-              <FontAwesomeIcon icon={faSpinner} className="w-8 h-8 text-amber-500 animate-spin" />
-            </div>
-            <h1 className="text-2xl font-bold text-white mb-2">Processing Payment</h1>
-            <p className="text-gray-400">Please wait while we confirm your subscription...</p>
-          </>
-        )}
+    <Box component="section" sx={{ minHeight: '100vh', bgcolor: 'black', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 2 }}>
+      <AnimatePresence mode="wait">
+        <Box
+          component={motion.div}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          sx={{ maxWidth: 'sm', width: '100%', bgcolor: 'grey.900', borderRadius: '1rem', border: '1px solid', borderColor: 'grey.800', p: { xs: 4, md: 6 }, textAlign: 'center' }}
+        >
+          {status === 'loading' && (
+            <>
+              <Box sx={{ width: 64, height: 64, mx: 'auto', mb: 3, borderRadius: '50%', bgcolor: 'rgba(245,158,11,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <FontAwesomeIcon icon={faSpinner} className="animate-spin" style={{ color: '#f59e0b', width: 32, height: 32 }} />
+              </Box>
+              <Typography variant="h1" sx={{ fontSize: '1.5rem', fontWeight: 700, color: 'white', mb: 1 }}>Processing Payment</Typography>
+              <Typography sx={{ color: 'grey.400', fontSize: '1rem' }}>Please wait while we confirm your subscription...</Typography>
+            </>
+          )}
 
-        {status === 'success' && (
-          <>
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: 'spring', damping: 15, delay: 0.2 }}
-              className="w-16 h-16 mx-auto mb-6 rounded-full bg-green-500/20 flex items-center justify-center"
-            >
-              <FontAwesomeIcon icon={faCheckCircle} className="w-8 h-8 text-green-500" />
-            </motion.div>
-            <h1 className="text-2xl font-bold text-white mb-2">Payment Successful!</h1>
-            <p className="text-gray-400 mb-6">
-              {subscriptionData ? (
-                <>
-                  Thank you, <span className="text-white font-medium">{subscriptionData.businessName}</span>! Your{' '}
-                  <span className="text-amber-400 font-medium capitalize">{subscriptionData.plan}</span> subscription is now active.
-                </>
-              ) : (
-                'Your subscription has been activated successfully.'
+          {status === 'success' && (
+            <>
+              <Box
+                component={motion.div}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: 'spring', damping: 15, delay: 0.2 }}
+                sx={{ width: 64, height: 64, mx: 'auto', mb: 3, borderRadius: '50%', bgcolor: 'rgba(34,197,94,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              >
+                <FontAwesomeIcon icon={faCheckCircle} style={{ color: '#22c55e', width: 32, height: 32 }} />
+              </Box>
+              <Typography variant="h1" sx={{ fontSize: '1.5rem', fontWeight: 700, color: 'white', mb: 1 }}>Payment Successful!</Typography>
+              <Typography sx={{ color: 'grey.400', mb: 4, lineHeight: 1.625 }}>
+                {subscriptionData ? (
+                  <>
+                    Thank you, <Box component="span" sx={{ color: 'white', fontWeight: 500 }}>{subscriptionData.businessName}</Box>! Your{' '}
+                    <Box component="span" sx={{ color: '#fbbf24', fontWeight: 500, textTransform: 'capitalize' }}>{subscriptionData.plan}</Box> subscription is now active.
+                  </>
+                ) : (
+                  'Your subscription has been activated successfully.'
+                )}
+              </Typography>
+
+              {subscriptionData && (
+                <Box sx={{ bgcolor: 'grey.800', borderRadius: '0.75rem', p: 3, mb: 4, textAlign: 'left' }}>
+                  <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'grey.400', mb: 2 }}>Subscription Details</Typography>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, fontSize: '0.875rem' }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <Typography sx={{ color: 'grey.500', fontSize: 'inherit' }}>Email</Typography>
+                      <Typography sx={{ color: 'white', fontSize: 'inherit' }}>{subscriptionData.email}</Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <Typography sx={{ color: 'grey.500', fontSize: 'inherit' }}>Plan</Typography>
+                      <Typography sx={{ color: '#fbbf24', fontWeight: 500, textTransform: 'capitalize', fontSize: 'inherit' }}>{subscriptionData.plan}</Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <Typography sx={{ color: 'grey.500', fontSize: 'inherit' }}>Reference</Typography>
+                      <Typography sx={{ color: 'grey.300', fontFamily: 'monospace', fontSize: '0.75rem' }}>{subscriptionData.paystackReference || '—'}</Typography>
+                    </Box>
+                  </Box>
+                </Box>
               )}
-            </p>
 
-            {subscriptionData && (
-              <div className="bg-zinc-800 rounded-xl p-4 mb-6 text-left">
-                <h3 className="text-sm font-semibold text-gray-400 mb-3">Subscription Details</h3>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Email</span>
-                    <span className="text-white">{subscriptionData.email}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Plan</span>
-                    <span className="text-amber-400 font-medium capitalize">{subscriptionData.plan}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Reference</span>
-                    <span className="text-gray-300 font-mono text-xs">{subscriptionData.paystackReference || '—'}</span>
-                  </div>
-                </div>
-              </div>
-            )}
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+                <Typography sx={{ fontSize: '0.875rem', color: 'grey.400', mb: 1 }}>
+                  Your account is ready! Sign in with the email and password you used during registration.
+                </Typography>
+                <Button
+                  onClick={handleGoToApp}
+                  variant="contained"
+                  sx={{ width: '100%', py: 1.5, borderRadius: '0.75rem', background: 'linear-gradient(to right, #f59e0b, #f97316)', color: 'white', fontWeight: 600, fontSize: '0.875rem', textTransform: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, '&:hover': { boxShadow: '0 10px 15px -3px rgba(245,158,11,0.25)' }, transition: 'all 0.2s', fontFamily: 'inherit' }}
+                >
+                  <FontAwesomeIcon icon={faArrowRightToBracket} style={{ width: 16, height: 16 }} />
+                  Go to App & Sign In
+                </Button>
+                <Button
+                  onClick={handleGoHome}
+                  variant="contained"
+                  sx={{ width: '100%', py: 1.5, borderRadius: '0.75rem', bgcolor: 'grey.800', color: 'grey.300', fontWeight: 600, fontSize: '0.875rem', textTransform: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, '&:hover': { bgcolor: 'grey.700', boxShadow: 'none' }, boxShadow: 'none', transition: 'all 0.2s', fontFamily: 'inherit' }}
+                >
+                  <FontAwesomeIcon icon={faHome} style={{ width: 16, height: 16 }} />
+                  Back to Home
+                </Button>
+              </Box>
+            </>
+          )}
 
-            <div className="space-y-3">
-              <p className="text-sm text-gray-400">
-                Your account is ready! Sign in with the email and password you used during registration.
-              </p>
-              <button
-                onClick={handleGoToApp}
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold text-sm hover:shadow-lg hover:shadow-amber-500/25 transition-all flex items-center justify-center gap-2"
+          {status === 'failed' && (
+            <>
+              <Box
+                component={motion.div}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: 'spring', damping: 15, delay: 0.2 }}
+                sx={{ width: 64, height: 64, mx: 'auto', mb: 3, borderRadius: '50%', bgcolor: 'rgba(239,68,68,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
-                <FontAwesomeIcon icon={faArrowRightToBracket} className="w-4 h-4" />
-                Go to App & Sign In
-              </button>
-              <button
-                onClick={handleGoHome}
-                className="w-full py-3 rounded-xl bg-zinc-800 text-gray-300 font-semibold text-sm hover:bg-zinc-700 transition-all flex items-center justify-center gap-2"
-              >
-                <FontAwesomeIcon icon={faHome} className="w-4 h-4" />
-                Back to Home
-              </button>
-            </div>
-          </>
-        )}
+                <FontAwesomeIcon icon={faTimesCircle} style={{ color: '#ef4444', width: 32, height: 32 }} />
+              </Box>
+              <Typography variant="h1" sx={{ fontSize: '1.5rem', fontWeight: 700, color: 'white', mb: 1 }}>Payment Issue</Typography>
+              <Typography sx={{ color: 'grey.400', mb: 4, lineHeight: 1.625 }}>
+                We couldn't confirm your payment. This could be due to a cancelled transaction or a technical issue.
+              </Typography>
 
-        {status === 'failed' && (
-          <>
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: 'spring', damping: 15, delay: 0.2 }}
-              className="w-16 h-16 mx-auto mb-6 rounded-full bg-red-500/20 flex items-center justify-center"
-            >
-              <FontAwesomeIcon icon={faTimesCircle} className="w-8 h-8 text-red-500" />
-            </motion.div>
-            <h1 className="text-2xl font-bold text-white mb-2">Payment Issue</h1>
-            <p className="text-gray-400 mb-6">
-              We couldn't confirm your payment. This could be due to a cancelled transaction or a technical issue.
-            </p>
-
-            <div className="space-y-3">
-              <button
-                onClick={handleGoHome}
-                className="w-full py-3 rounded-xl bg-zinc-800 text-white font-semibold text-sm hover:bg-zinc-700 transition-all flex items-center justify-center gap-2"
-              >
-                <FontAwesomeIcon icon={faHome} className="w-4 h-4" />
-                Try Again
-              </button>
-              <button
-                onClick={handleContactSupport}
-                className="w-full py-3 rounded-xl border border-zinc-700 text-gray-300 font-semibold text-sm hover:bg-zinc-800 transition-all flex items-center justify-center gap-2"
-              >
-                <FontAwesomeIcon icon={faEnvelope} className="w-4 h-4" />
-                Contact Support
-              </button>
-            </div>
-          </>
-        )}
-      </motion.div>
-    </section>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+                <Button
+                  onClick={handleGoHome}
+                  variant="contained"
+                  sx={{ width: '100%', py: 1.5, borderRadius: '0.75rem', bgcolor: 'grey.800', color: 'white', fontWeight: 600, fontSize: '0.875rem', textTransform: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, '&:hover': { bgcolor: 'grey.700', boxShadow: 'none' }, boxShadow: 'none', transition: 'all 0.2s', fontFamily: 'inherit' }}
+                >
+                  <FontAwesomeIcon icon={faHome} style={{ width: 16, height: 16 }} />
+                  Try Again
+                </Button>
+                <Button
+                  onClick={handleContactSupport}
+                  variant="outlined"
+                  sx={{ width: '100%', py: 1.5, borderRadius: '0.75rem', borderColor: 'grey.700', color: 'grey.300', fontWeight: 600, fontSize: '0.875rem', textTransform: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, '&:hover': { bgcolor: 'grey.800', borderColor: 'grey.700' }, transition: 'all 0.2s', fontFamily: 'inherit' }}
+                >
+                  <FontAwesomeIcon icon={faEnvelope} style={{ width: 16, height: 16 }} />
+                  Contact Support
+                </Button>
+              </Box>
+            </>
+          )}
+        </Box>
+      </AnimatePresence>
+    </Box>
   );
 };

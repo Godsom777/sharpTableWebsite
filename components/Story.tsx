@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment, faHeart, faStar, faWifi, faUsers, faUtensils, faReceipt, faChartLine } from '@fortawesome/free-solid-svg-icons';
+import { Box, Container, Typography, Grid } from '@mui/material';
 
 type Step = {
   id: number;
@@ -23,70 +24,70 @@ const steps: Step[] = [
     id: 1,
     title: 'Order Placed',
     description: 'Customer orders jollof rice and drinks. The order is captured — but your team can\'t fulfil it yet.',
-    icon: <FontAwesomeIcon icon={faUtensils} className="w-5 h-5" />,
-    color: 'blue',
+    icon: <FontAwesomeIcon icon={faUtensils} style={{ width: 20, height: 20 }} />,
+    color: '#3b82f6', // blue-500
     view: {
       title: 'Order Captured',
       description: 'Table 7 — Jollof Rice + Chapman. Status: AWAITING PAYMENT. Order is on hold.',
-      bgColor: 'bg-blue-900/10',
-      borderColor: 'border-blue-900/30',
-      iconColor: 'text-blue-500'
+      bgColor: 'rgba(30, 58, 138, 0.1)',
+      borderColor: 'rgba(30, 58, 138, 0.3)',
+      iconColor: '#3b82f6'
     }
   },
   {
     id: 2,
     title: 'Payment Collected',
     description: 'Your Marshall collects $45. The amount, method, and who collected it are all logged.',
-    icon: <FontAwesomeIcon icon={faReceipt} className="w-5 h-5" />,
-    color: 'purple',
+    icon: <FontAwesomeIcon icon={faReceipt} style={{ width: 20, height: 20 }} />,
+    color: '#a855f7', // purple-500
     view: {
       title: 'Payment Logged',
       description: 'Marshall "Alex" collected $45 via card. Time: 7:32 PM. Awaiting verification.',
-      bgColor: 'bg-purple-900/10',
-      borderColor: 'border-purple-900/30',
-      iconColor: 'text-purple-500'
+      bgColor: 'rgba(88, 28, 135, 0.1)',
+      borderColor: 'rgba(88, 28, 135, 0.3)',
+      iconColor: '#a855f7'
     }
   },
   {
     id: 3,
     title: 'Payment Verified',
     description: 'Marshall confirms the money is in. The gate opens. Order queue unlocks.',
-    icon: <FontAwesomeIcon icon={faUsers} className="w-5 h-5" />,
-    color: 'green',
+    icon: <FontAwesomeIcon icon={faUsers} style={{ width: 20, height: 20 }} />,
+    color: '#22c55e', // green-500
     view: {
       title: 'Payment Verified ✓',
       description: 'Marshall "Alex" verified payment. Order status: PAID. Ready to fulfil.',
-      bgColor: 'bg-green-900/10',
-      borderColor: 'border-green-900/30',
-      iconColor: 'text-green-500'
+      bgColor: 'rgba(20, 83, 45, 0.1)',
+      borderColor: 'rgba(20, 83, 45, 0.3)',
+      iconColor: '#22c55e'
     }
   },
   {
     id: 4,
     title: 'Order Fulfilled',
     description: 'Your team prepares and serves the order — knowing the money is already secured.',
-    icon: <FontAwesomeIcon icon={faWifi} className="w-5 h-5" />,
-    color: 'orange',
+    icon: <FontAwesomeIcon icon={faWifi} style={{ width: 20, height: 20 }} />,
+    color: '#f97316', // orange-500
     view: {
       title: 'Order Display',
       description: 'PAID ✓ — Table 7. Jollof Rice + Chapman. Ready to serve!',
-      bgColor: 'bg-orange-900/10',
-      borderColor: 'border-orange-900/30',
-      iconColor: 'text-orange-500'
+      bgColor: 'rgba(124, 45, 18, 0.1)',
+      borderColor: 'rgba(124, 45, 18, 0.3)',
+      iconColor: '#f97316'
     }
   },
   {
     id: 5,
     title: 'Full Trail Logged',
     description: 'Who took payment, when, how much, for what order. Everything is on record.',
-    icon: <FontAwesomeIcon icon={faChartLine} className="w-5 h-5" />,
-    color: 'amber',
+    icon: <FontAwesomeIcon icon={faChartLine} style={{ width: 20, height: 20 }} />,
+    color: '#f59e0b', // amber-500
     view: {
       title: 'Audit Complete',
       description: 'Order #4521 — Taken by "Adaeze" → Paid to "Chidi" → Cooked → Served. Full accountability.',
-      bgColor: 'bg-amber-900/10',
-      borderColor: 'border-amber-900/30',
-      iconColor: 'text-amber-500'
+      bgColor: 'rgba(120, 53, 15, 0.1)',
+      borderColor: 'rgba(120, 53, 15, 0.3)',
+      iconColor: '#f59e0b'
     }
   }
 ];
@@ -106,61 +107,63 @@ export const Story: React.FC = () => {
   }, [isAnimating]);
 
   return (
-    <section id="scenario" className="py-32 bg-black relative overflow-hidden">
+    <Box component="section" id="scenario" sx={{ py: { xs: 16, md: 24 }, bgcolor: 'black', position: 'relative', overflow: 'hidden' }}>
       {/* Background Gradient */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl bg-gradient-to-r from-purple-900/20 to-blue-900/20 blur-3xl rounded-full opacity-40 pointer-events-none" />
+      <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '100%', height: '100%', maxWidth: '900px', background: 'linear-gradient(to right, rgba(88,28,135,0.2), rgba(30,58,138,0.2))', filter: 'blur(64px)', borderRadius: '50%', opacity: 0.4, pointerEvents: 'none' }} />
 
-      <div className="max-w-5xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">How the Gate Works</h2>
-            <p className="text-gray-400">Order comes in. Payment gets verified. Only then does your team fulfil it. No exceptions.</p>
-        </div>
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 10, px: 3 }}>
+        <Box sx={{ textAlign: 'center', mb: { xs: 12, md: 20 } }}>
+            <Typography variant="h3" sx={{ fontSize: { xs: '1.875rem', md: '2.25rem' }, fontWeight: 700, color: 'white', mb: 2 }}>
+              How the Gate Works
+            </Typography>
+            <Typography sx={{ color: 'grey.400' }}>
+              Order comes in. Payment gets verified. Only then does your team fulfil it. No exceptions.
+            </Typography>
+        </Box>
 
-        <div className="flex flex-col md:flex-row gap-8">
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: { xs: 4, md: 8 } }}>
             {/* Left Card: The Experience */}
-            <motion.div 
+            <Box
+                component={motion.div}
                 initial={{ x: -50, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
                 viewport={{ once: true }}
-                className="flex-1 bg-zinc-900 border border-zinc-800 rounded-3xl p-8 shadow-2xl"
+                sx={{ flex: 1, bgcolor: 'grey.900', border: '1px solid', borderColor: 'grey.800', borderRadius: '1.5rem', p: { xs: 4, md: 6 }, boxShadow: 24 }}
                 onMouseEnter={() => setIsAnimating(false)}
                 onMouseLeave={() => setIsAnimating(true)}
             >
-                <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 rounded-full bg-amber-500/20 overflow-hidden relative flex items-center justify-center border border-amber-500/30">
-                         <FontAwesomeIcon icon={faReceipt} className="text-amber-500 w-6 h-6" />
-                    </div>
-                    <div>
-                        <h3 className="text-xl font-bold text-white">Order #4521</h3>
-                        <div className="flex items-center gap-2 text-sm text-amber-500">
-                             <FontAwesomeIcon icon={faStar} className="w-3.5 h-3.5" />
-                             <span>Payment-First Protected</span>
-                        </div>
-                    </div>
-                </div>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 4 }}>
+                    <Box sx={{ width: 64, height: 64, borderRadius: '50%', bgcolor: 'rgba(245,158,11,0.2)', overflow: 'hidden', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(245,158,11,0.3)' }}>
+                         <FontAwesomeIcon icon={faReceipt} style={{ color: '#f59e0b', width: 24, height: 24 }} />
+                    </Box>
+                    <Box>
+                        <Typography variant="h6" sx={{ fontSize: '1.25rem', fontWeight: 700, color: 'white' }}>
+                          Order #4521
+                        </Typography>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: '#f59e0b', fontSize: '0.875rem' }}>
+                             <FontAwesomeIcon icon={faStar} style={{ width: 14, height: 14 }} />
+                             <Box component="span">Payment-First Protected</Box>
+                        </Box>
+                    </Box>
+                </Box>
 
-                <div className="space-y-6 relative">
-                    <div className="absolute left-3 top-2 bottom-2 w-0.5 bg-zinc-800"></div>
+                <Box sx={{ '& > * + *': { mt: 3 }, position: 'relative' }}>
+                    <Box sx={{ position: 'absolute', left: 12, top: 8, bottom: 8, width: 2, bgcolor: 'grey.800' }}></Box>
 
                     {steps.map((step, index) => (
-                      <motion.div
+                      <Box
+                        component={motion.div}
                         key={step.id}
-                        className="relative pl-10 cursor-pointer"
                         onClick={() => setCurrentStep(index)}
                         animate={{
                           scale: currentStep === index ? 1.02 : 1,
                           opacity: currentStep === index ? 1 : 0.6
                         }}
                         transition={{ duration: 0.3 }}
+                        sx={{ position: 'relative', pl: 6, cursor: 'pointer' }}
                       >
-                        <motion.div 
-                          className={`absolute left-0 top-0 w-6 h-6 rounded-full flex items-center justify-center border text-xs ${
-                            currentStep === index 
-                              ? `bg-${step.color}-600 text-white border-${step.color}-500` 
-                              : currentStep > index
-                              ? 'bg-zinc-700 text-zinc-400 border-zinc-600'
-                              : 'bg-zinc-800 text-zinc-500 border-zinc-700'
-                          }`}
+                        <Box
+                          component={motion.div} 
                           animate={{
                             scale: currentStep === index ? [1, 1.2, 1] : 1,
                           }}
@@ -169,36 +172,44 @@ export const Story: React.FC = () => {
                             repeat: currentStep === index ? Infinity : 0,
                             repeatDelay: 2
                           }}
+                          sx={{
+                            position: 'absolute', left: 0, top: 0, width: 24, height: 24, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid', fontSize: '0.75rem',
+                            bgcolor: currentStep === index ? step.color : currentStep > index ? 'grey.700' : 'grey.800',
+                            color: currentStep === index ? 'white' : currentStep > index ? 'grey.400' : 'grey.500',
+                            borderColor: currentStep === index ? step.color : currentStep > index ? 'grey.600' : 'grey.700',
+                          }}
                         >
-                          {currentStep >= index ? step.id : step.id}
-                        </motion.div>
-                        <p className={`text-sm transition-colors ${
-                          currentStep === index ? 'text-white' : 'text-gray-400'
-                        }`}>
-                          <strong className="text-white">{step.title}:</strong> {step.description}
-                        </p>
-                      </motion.div>
+                          {step.id}
+                        </Box>
+                        <Typography sx={{ fontSize: '0.875rem', transition: 'color 0.2s', color: currentStep === index ? 'white' : 'grey.400' }}>
+                          <Box component="strong" sx={{ color: 'white' }}>{step.title}:</Box> {step.description}
+                        </Typography>
+                      </Box>
                     ))}
-                </div>
+                </Box>
 
                 {/* Progress Indicator */}
-                <div className="mt-8 flex gap-2 justify-center">
+                <Box sx={{ mt: 5, display: 'flex', gap: 1, justifyContent: 'center' }}>
                   {steps.map((_, index) => (
-                    <button
+                    <Box
+                      component="button"
                       key={index}
                       onClick={() => setCurrentStep(index)}
-                      className={`h-1.5 rounded-full transition-all ${
-                        currentStep === index ? 'w-8 bg-blue-500' : 'w-1.5 bg-zinc-700'
-                      }`}
+                      sx={{
+                        height: 6, borderRadius: '9999px', transition: 'all 0.3s', p: 0, border: 'none', cursor: 'pointer',
+                        width: currentStep === index ? 32 : 6,
+                        bgcolor: currentStep === index ? '#3b82f6' : 'grey.700'
+                      }}
                     />
                   ))}
-                </div>
-            </motion.div>
+                </Box>
+            </Box>
 
             {/* Right Card: Dynamic Views */}
-            <div className="flex-1 flex items-center justify-center relative min-h-[300px] md:min-h-0">
+            <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', minHeight: { xs: 300, md: 0 } }}>
               <AnimatePresence mode="wait">
-                <motion.div
+                <Box
+                  component={motion.div}
                   key={currentStep}
                   initial={{ scale: 0.8, opacity: 0, x: 50, y: 0 }}
                   animate={{ scale: 1, opacity: 1, x: 0, y: 0 }}
@@ -208,88 +219,103 @@ export const Story: React.FC = () => {
                     stiffness: 200,
                     damping: 20
                   }}
-                  className={`${steps[currentStep].view.bgColor} border ${steps[currentStep].view.borderColor} p-6 md:p-8 rounded-2xl shadow-2xl w-full relative`}
+                  sx={{
+                    bgcolor: steps[currentStep].view.bgColor,
+                    border: '1px solid',
+                    borderColor: steps[currentStep].view.borderColor,
+                    p: { xs: 3, md: 4 },
+                    borderRadius: '1rem',
+                    boxShadow: 24,
+                    width: '100%',
+                    position: 'relative'
+                  }}
                 >
-                  <div className="flex items-start gap-4">
-                    <motion.div
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
+                    <Box
+                      component={motion.div}
                       initial={{ rotate: -180, scale: 0 }}
                       animate={{ rotate: 0, scale: 1 }}
                       transition={{ delay: 0.2, type: "spring" }}
-                      className={steps[currentStep].view.iconColor}
+                      sx={{ color: steps[currentStep].view.iconColor }}
                     >
                       {steps[currentStep].icon}
-                    </motion.div>
-                    <div className="flex-1">
-                      <motion.p 
+                    </Box>
+                    <Box sx={{ flex: 1 }}>
+                      <Typography
+                        component={motion.p} 
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.3 }}
-                        className="text-white font-medium text-lg mb-2"
+                        sx={{ color: 'white', fontWeight: 500, fontSize: '1.125rem', mb: 1 }}
                       >
                         {steps[currentStep].view.title}
-                      </motion.p>
-                      <motion.p 
+                      </Typography>
+                      <Typography
+                        component={motion.p} 
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.4 }}
-                        className="text-gray-300 text-sm leading-relaxed"
+                        sx={{ color: 'grey.300', fontSize: '0.875rem', lineHeight: 1.625 }}
                       >
                         {steps[currentStep].view.description}
-                      </motion.p>
-                    </div>
-                  </div>
+                      </Typography>
+                    </Box>
+                  </Box>
 
                   {/* Step indicator in corner */}
-                  <motion.div
+                  <Box
+                    component={motion.div}
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.5 }}
-                    className="absolute top-3 right-3 md:top-4 md:right-4 w-7 h-7 md:w-8 md:h-8 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white text-xs font-bold"
+                    sx={{ position: 'absolute', top: { xs: 12, md: 16 }, right: { xs: 12, md: 16 }, width: { xs: 28, md: 32 }, height: { xs: 28, md: 32 }, bgcolor: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(4px)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '0.75rem', fontWeight: 700 }}
                   >
                     {currentStep + 1}
-                  </motion.div>
-                </motion.div>
+                  </Box>
+                </Box>
               </AnimatePresence>
 
               {/* Additional context card - Hidden on mobile, shown below on small screens */}
-              <motion.div
+              <Box
+                component={motion.div}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
-                className="hidden md:block absolute bottom-0 right-0 bg-amber-900/10 border border-amber-900/30 p-4 rounded-xl max-w-xs"
+                sx={{ display: { xs: 'none', md: 'block' }, position: 'absolute', bottom: 0, right: 0, bgcolor: 'rgba(120,53,15,0.1)', border: '1px solid rgba(120,53,15,0.3)', p: 2, borderRadius: '0.75rem', maxWidth: '320px' }}
               >
-                <div className="flex items-start gap-3">
-                  <FontAwesomeIcon icon={faHeart} className="text-amber-500 mt-0.5 w-4 h-4" />
-                  <div>
-                    <p className="text-white font-medium text-xs">Zero Walkouts</p>
-                    <p className="text-gray-400 text-xs mt-1">
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
+                  <FontAwesomeIcon icon={faHeart} style={{ color: '#f59e0b', marginTop: 2, width: 16, height: 16 }} />
+                  <Box>
+                    <Typography sx={{ color: 'white', fontWeight: 500, fontSize: '0.75rem' }}>Zero Walkouts</Typography>
+                    <Typography sx={{ color: 'grey.400', fontSize: '0.75rem', mt: 0.5 }}>
                       Nothing leaves your floor unless it's paid for. No more chasing customers.
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-        </div>
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+        </Box>
 
         {/* Mobile Retention Card - Shows below on mobile */}
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="md:hidden mt-6 bg-amber-900/10 border border-amber-900/30 p-4 rounded-xl"
+          sx={{ display: { xs: 'block', md: 'none' }, mt: 3, bgcolor: 'rgba(120,53,15,0.1)', border: '1px solid rgba(120,53,15,0.3)', p: 2, borderRadius: '0.75rem' }}
         >
-          <div className="flex items-start gap-3">
-            <FontAwesomeIcon icon={faHeart} className="text-amber-500 mt-0.5 flex-shrink-0 w-4 h-4" />
-            <div>
-              <p className="text-white font-medium text-xs">Zero Walkouts</p>
-              <p className="text-gray-400 text-xs mt-1">
+          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
+            <FontAwesomeIcon icon={faHeart} style={{ color: '#f59e0b', marginTop: 2, flexShrink: 0, width: 16, height: 16 }} />
+            <Box>
+              <Typography sx={{ color: 'white', fontWeight: 500, fontSize: '0.75rem' }}>Zero Walkouts</Typography>
+              <Typography sx={{ color: 'grey.400', fontSize: '0.75rem', mt: 0.5 }}>
                 Nothing leaves your floor unless it's paid for. No more chasing customers.
-              </p>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+      </Container>
+    </Box>
   );
 };

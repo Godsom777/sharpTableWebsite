@@ -7,6 +7,7 @@ import {
   faArrowTrendUp,
   faUtensils,
 } from '@fortawesome/free-solid-svg-icons';
+import { Box, Container, Typography } from '@mui/material';
 
 // Calculate restaurants secured: starts at base, +3 every week since launch
 const LAUNCH_DATE = new Date('2025-06-01'); // Adjust to your actual launch date
@@ -63,57 +64,6 @@ function useCounter(end: number, duration: number = 2000, startOnView: boolean =
   return { count, start: () => setHasStarted(true) };
 }
 
-interface StatCardProps {
-  icon: any;
-  value: string;
-  label: string;
-  subLabel: string;
-  accentColor: string;
-  delay: number;
-}
-
-const StatCard: React.FC<StatCardProps> = ({
-  icon,
-  value,
-  label,
-  subLabel,
-  accentColor,
-  delay,
-}) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.6, delay }}
-      className="relative group"
-    >
-      <div className="relative bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 rounded-2xl p-6 md:p-8 transition-all duration-300">
-        {/* Icon */}
-        <div
-          className={`w-14 h-14 rounded-xl bg-gradient-to-br ${accentColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
-        >
-          <FontAwesomeIcon icon={icon} className="w-6 h-6 text-white" />
-        </div>
-
-        {/* Value */}
-        <div className="text-3xl md:text-4xl font-bold text-white mb-1">{value}</div>
-
-        {/* Label */}
-        <div className="text-gray-300 font-medium mb-1">{label}</div>
-
-        {/* Sub Label */}
-        <div className="text-xs text-gray-500">{subLabel}</div>
-
-        {/* Decorative glow */}
-        <div
-          className={`absolute -inset-px rounded-2xl bg-gradient-to-br ${accentColor} opacity-0 group-hover:opacity-10 transition-opacity duration-300 -z-10`}
-        />
-      </div>
-    </motion.div>
-  );
-};
-
 export const TrustStats: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
@@ -132,63 +82,64 @@ export const TrustStats: React.FC = () => {
   }, [isInView]);
 
   return (
-    <section ref={ref} className="py-20 md:py-28 bg-black relative overflow-hidden">
+    <Box component="section" ref={ref} sx={{ py: { xs: 10, md: 14 }, bgcolor: 'black', position: 'relative', overflow: 'hidden' }}>
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(245,158,11,0.03)_0%,transparent_50%)]" />
+      <Box sx={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, rgba(245,158,11,0.03) 0%, transparent 50%)' }} />
 
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 10, px: 3 }}>
         {/* Header */}
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          sx={{ textAlign: 'center', mb: 6 }}
         >
-          <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 rounded-full px-4 py-1.5 mb-4">
-            <FontAwesomeIcon icon={faArrowTrendUp} className="w-4 h-4 text-green-400" />
-            <span className="text-green-400 font-semibold text-sm">Live Impact</span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+          <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, bgcolor: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.3)', borderRadius: '9999px', px: 2, py: 0.75, mb: 2 }}>
+            <FontAwesomeIcon icon={faArrowTrendUp} style={{ width: 16, height: 16, color: '#4ade80' }} />
+            <Box component="span" sx={{ color: '#4ade80', fontWeight: 600, fontSize: '0.875rem' }}>Live Impact</Box>
+          </Box>
+          <Typography variant="h3" sx={{ fontSize: { xs: '1.875rem', md: '2.25rem' }, fontWeight: 700, color: 'white', mb: 1.5 }}>
             Already stopping leaks worldwide
-          </h2>
-          <p className="text-gray-400 max-w-xl mx-auto">
+          </Typography>
+          <Typography sx={{ color: 'grey.400', maxWidth: 'md', mx: 'auto' }}>
             Restaurants using SharpTable don't chase payments. They collect them upfront.
-          </p>
-        </motion.div>
+          </Typography>
+        </Box>
 
         {/* Dramatic Stat Display */}
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
-          className="relative max-w-2xl mx-auto"
+          sx={{ position: 'relative', maxWidth: '672px', mx: 'auto' }}
         >
           {/* Animated background glow */}
-          <motion.div
+          <Box
+            component={motion.div}
             animate={{ 
               scale: [1, 1.1, 1],
               opacity: [0.15, 0.25, 0.15]
             }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute inset-0 bg-gradient-to-br from-amber-500 via-orange-500 to-amber-600 blur-[100px] rounded-full"
+            sx={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom right, #f59e0b, #ea580c)', filter: 'blur(100px)', borderRadius: '50%' }}
           />
 
           {/* Main card */}
-          <div className="relative bg-gradient-to-br from-zinc-900/90 via-zinc-900/95 to-black border-2 border-amber-500/30 rounded-3xl p-12 md:p-16 overflow-hidden shadow-2xl">
+          <Box sx={{ position: 'relative', background: 'linear-gradient(to bottom right, rgba(24,24,27,0.9), rgba(24,24,27,0.95), black)', border: '2px solid rgba(245,158,11,0.3)', borderRadius: '1.5rem', p: { xs: 6, md: 8 }, overflow: 'hidden', boxShadow: 24 }}>
             {/* Animated background pattern */}
-            <div className="absolute inset-0 opacity-5">
-              <div className="absolute inset-0" style={{
-                backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)',
-                backgroundSize: '30px 30px'
-              }} />
-            </div>
+            <Box sx={{ position: 'absolute', inset: 0, opacity: 0.05 }}>
+              <Box sx={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
+            </Box>
 
             {/* Content */}
-            <div className="relative z-10 text-center">
+            <Box sx={{ position: 'relative', zIndex: 10, textAlign: 'center' }}>
               {/* Icon */}
-              <motion.div
+              <Box
+                component={motion.div}
                 initial={{ scale: 0, rotate: -180 }}
                 whileInView={{ scale: 1, rotate: 0 }}
                 viewport={{ once: true }}
@@ -203,78 +154,83 @@ export const TrustStats: React.FC = () => {
                   rotate: [0, -5, 5, -5, 0],
                   transition: { duration: 0.5 }
                 }}
-                className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-8 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-2xl shadow-amber-500/50"
+                sx={{ width: { xs: 80, md: 96 }, height: { xs: 80, md: 96 }, mx: 'auto', mb: 4, borderRadius: '1rem', background: 'linear-gradient(to bottom right, #f59e0b, #ea580c)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 25px 50px -12px rgba(245,158,11,0.5)' }}
               >
-                <FontAwesomeIcon icon={faUtensils} className="w-10 h-10 md:w-12 md:h-12 text-white" />
-              </motion.div>
+                <FontAwesomeIcon icon={faUtensils} style={{ width: 40, height: 40, color: 'white' }} />
+              </Box>
 
               {/* Counter */}
-              <motion.div
+              <Box
+                component={motion.div}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
-                className="mb-4"
+                sx={{ mb: 2 }}
               >
-                <div className="text-7xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-br from-amber-400 via-amber-500 to-orange-600 mb-2">
+                <Box sx={{ fontSize: { xs: '4.5rem', md: '6rem' }, fontWeight: 900, color: 'transparent', backgroundClip: 'text', WebkitBackgroundClip: 'text', backgroundImage: 'linear-gradient(to bottom right, #fbbf24, #f59e0b, #ea580c)', mb: 1, lineHeight: 1 }}>
                   {restaurantsCounter.count}+
-                </div>
-              </motion.div>
+                </Box>
+              </Box>
 
               {/* Label */}
-              <motion.div
+              <Box
+                component={motion.div}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4 }}
-                className="mb-3"
+                sx={{ mb: 1.5 }}
               >
-                <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
+                <Typography variant="h4" sx={{ fontSize: { xs: '1.5rem', md: '1.875rem' }, fontWeight: 700, color: 'white', letterSpacing: '-0.025em' }}>
                   Restaurants Protected
-                </h3>
-              </motion.div>
+                </Typography>
+              </Box>
 
               {/* Subtext */}
-              <motion.div
+              <Box
+                component={motion.div}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.5 }}
-                className="text-gray-400 text-lg"
+                sx={{ color: 'grey.400', fontSize: '1.125rem' }}
               >
                 No more unpaid orders
-              </motion.div>
+              </Box>
 
               {/* Decorative line */}
-              <motion.div
+              <Box
+                component={motion.div}
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.6, duration: 0.8 }}
-                className="mt-8 h-px w-32 mx-auto bg-gradient-to-r from-transparent via-amber-500/50 to-transparent"
+                sx={{ mt: 4, height: 1, width: 128, mx: 'auto', background: 'linear-gradient(to right, transparent, rgba(245,158,11,0.5), transparent)' }}
               />
-            </div>
+            </Box>
 
             {/* Corner accents */}
-            <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-amber-500/30 rounded-tl-3xl" />
-            <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-amber-500/30 rounded-br-3xl" />
-          </div>
-        </motion.div>
+            <Box sx={{ position: 'absolute', top: 0, left: 0, width: 80, height: 80, borderTop: '2px solid rgba(245,158,11,0.3)', borderLeft: '2px solid rgba(245,158,11,0.3)', borderTopLeftRadius: '1.5rem' }} />
+            <Box sx={{ position: 'absolute', bottom: 0, right: 0, width: 80, height: 80, borderBottom: '2px solid rgba(245,158,11,0.3)', borderRight: '2px solid rgba(245,158,11,0.3)', borderBottomRightRadius: '1.5rem' }} />
+          </Box>
+        </Box>
 
         {/* Privacy message */}
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.7 }}
-          className="mt-12 text-center"
+          sx={{ mt: 6, textAlign: 'center' }}
         >
-          <div className="inline-flex items-center gap-2 text-sm text-gray-500">
-            <FontAwesomeIcon icon={faShieldHalved} className="w-4 h-4 text-amber-500" />
-            <span>We don't see your revenue. We don't touch your money. We just lock the gate.</span>
-          </div>
-        </motion.div>
-      </div>
-    </section>
+          <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, fontSize: '0.875rem', color: 'grey.500' }}>
+            <FontAwesomeIcon icon={faShieldHalved} style={{ width: 16, height: 16, color: '#f59e0b' }} />
+            <Box component="span">We don't see your revenue. We don't touch your money. We just lock the gate.</Box>
+          </Box>
+        </Box>
+      </Container>
+    </Box>
   );
 };

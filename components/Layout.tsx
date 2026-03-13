@@ -1,18 +1,24 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
+import { Box } from '@mui/material';
 import { NavBar } from './NavBar';
 import { Footer } from './Footer';
 import { PaymentModal } from './PaymentModal';
 
 export const Layout: React.FC = () => {
   return (
-    <div className="bg-black min-h-screen text-white selection:bg-amber-500/30">
+    <Box sx={{ 
+      bgcolor: 'black', 
+      minHeight: '100vh', 
+      color: 'white',
+      '& ::selection': { bgcolor: 'rgba(245, 158, 11, 0.3)' }
+    }}>
       <NavBar />
-      <main>
+      <Box component="main">
         <Outlet />
-      </main>
+      </Box>
       <Footer />
       <PaymentModal />
-    </div>
+    </Box>
   );
 };

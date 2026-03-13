@@ -5,120 +5,137 @@ import { faEnvelope, faShield, faFileLines, faUserGroup } from '@fortawesome/fre
 import { faTelegram } from '@fortawesome/free-brands-svg-icons';
 import { LegalModal, useLegalModal } from './LegalModal';
 import { Link } from 'react-router-dom';
+import { Box, Container, Typography } from '@mui/material';
 
 export const Footer: React.FC = () => {
   const { isOpen, type, openPrivacyPolicy, openTermsOfService, closeModal } = useLegalModal();
 
   return (
     <>
-      <footer className="bg-black py-12 border-t border-white/10 text-center">
-      <div className="max-w-7xl mx-auto px-6 flex flex-col items-center">
-        <motion.div
+      <Box component="footer" sx={{ bgcolor: 'black', py: 12, borderTop: '1px solid rgba(255, 255, 255, 0.1)', textAlign: 'center' }}>
+      <Container maxWidth="lg" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', px: { xs: 3, md: 3 } }}>
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-6 flex items-center gap-2 md:gap-3"
+          sx={{ mb: 6, display: 'flex', alignItems: 'center', gap: { xs: 1, md: 1.5 } }}
         >
-          <img 
+          <Box 
+            component="img"
             src="/assets/logos/logo-white.png" 
             alt="SharpTable" 
-            className="h-8 md:h-10 w-auto"
+            sx={{ height: { xs: 32, md: 40 }, width: 'auto' }}
           />
-          <span className="font-bold text-xl md:text-2xl tracking-tight text-white">SharpTable</span>
-        </motion.div>
-        <motion.p
+          <Typography variant="h5" component="span" sx={{ fontWeight: 700, letterSpacing: '-0.025em', color: 'white' }}>
+            SharpTable
+          </Typography>
+        </Box>
+        <Typography
+          component={motion.p}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-gray-500 text-sm max-w-md mx-auto mb-6"
+          sx={{ color: 'text.secondary', fontSize: '0.875rem', maxWidth: 'md', mx: 'auto', mb: 6, lineHeight: 1.5 }}
         >
             Simpler restaurant payments. Tighter operations. <br/>
             No complicated POS. Just what works.
-        </motion.p>
+        </Typography>
         
-        <motion.a
+        <Box
+          component={motion.a}
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
           whileHover={{ scale: 1.05, y: -2 }}
           href="mailto:info@sharptable.com.ng" 
-          className="text-amber-500 hover:text-amber-400 transition-colors text-lg font-medium mb-8 flex items-center gap-2"
+          sx={{ color: 'primary.main', textDecoration: 'none', transition: 'color 0.2s', '&:hover': { color: 'primary.light' }, fontSize: '1.125rem', fontWeight: 500, mb: 8, display: 'flex', alignItems: 'center', gap: 1 }}
         >
-            <FontAwesomeIcon icon={faEnvelope} className="w-5 h-5" />
+            <FontAwesomeIcon icon={faEnvelope} style={{ width: 20, height: 20 }} />
            info@sharptable.com.ng
-        </motion.a>
+        </Box>
 
         {/* Navigation Links */}
-        <motion.nav
+        <Box
+          component={motion.nav}
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.25 }}
-          className="flex flex-wrap justify-center gap-6 text-sm text-gray-400 mb-8"
+          sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 3, typography: 'body2', color: 'text.secondary', mb: 8 }}
         >
-          <Link to="/" className="hover:text-white transition-colors">Home</Link>
-          <Link to="/features" className="hover:text-white transition-colors">Features</Link>
-          <Link to="/pricing" className="hover:text-white transition-colors">Pricing</Link>
-          <Link to="/faq" className="hover:text-white transition-colors">FAQ</Link>
-          <Link to="/partnership" className="hover:text-white transition-colors">Partnership</Link>
-        </motion.nav>
+          {['/', '/features', '/pricing', '/faq', '/partnership'].map((path) => {
+            const label = path === '/' ? 'Home' : path.slice(1).charAt(0).toUpperCase() + path.slice(2);
+            return (
+              <Box component={Link} to={path} key={path} sx={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s', '&:hover': { color: 'white' } }}>
+                {label}
+              </Box>
+            );
+          })}
+        </Box>
 
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex gap-6 text-sm text-gray-400"
+          sx={{ display: 'flex', gap: 3, typography: 'body2', color: 'text.secondary', flexWrap: 'wrap', justifyContent: 'center' }}
         >
-            <motion.button
+            <Box
+              component={motion.button}
               whileHover={{ scale: 1.1, color: '#fff' }}
               onClick={openPrivacyPolicy}
-              className="hover:text-white transition-colors flex items-center gap-1 cursor-pointer"
+              sx={{ bgcolor: 'transparent', border: 'none', display: 'flex', alignItems: 'center', gap: 0.5, cursor: 'pointer', color: 'inherit', transition: 'color 0.2s', p: 0 }}
             >
-              <FontAwesomeIcon icon={faShield} className="w-3.5 h-3.5" />
+              <FontAwesomeIcon icon={faShield} style={{ width: 14, height: 14 }} />
               Privacy Policy
-            </motion.button>
-            <motion.button
+            </Box>
+            <Box
+              component={motion.button}
               whileHover={{ scale: 1.1, color: '#fff' }}
               onClick={openTermsOfService}
-              className="hover:text-white transition-colors flex items-center gap-1 cursor-pointer"
+              sx={{ bgcolor: 'transparent', border: 'none', display: 'flex', alignItems: 'center', gap: 0.5, cursor: 'pointer', color: 'inherit', transition: 'color 0.2s', p: 0 }}
             >
-              <FontAwesomeIcon icon={faFileLines} className="w-3.5 h-3.5" />
+              <FontAwesomeIcon icon={faFileLines} style={{ width: 14, height: 14 }} />
               Terms of Service
-            </motion.button>
-            <motion.a
+            </Box>
+            <Box
+              component={motion.a}
               whileHover={{ scale: 1.1, color: '#fff' }}
               href="mailto:info@sharptable.com.ng"
-              className="hover:text-white transition-colors flex items-center gap-1"
+              sx={{ display: 'flex', alignItems: 'center', gap: 0.5, textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}
             >
-              <FontAwesomeIcon icon={faEnvelope} className="w-3.5 h-3.5" />
+              <FontAwesomeIcon icon={faEnvelope} style={{ width: 14, height: 14 }} />
               Contact
-            </motion.a>
-            <motion.a
+            </Box>
+            <Box
+              component={motion.a}
               whileHover={{ scale: 1.1, color: '#fff' }}
               href="https://t.me/+8W0SXa62SU41Mzlk"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white transition-colors flex items-center gap-1 opacity-40"
+              sx={{ display: 'flex', alignItems: 'center', gap: 0.5, textDecoration: 'none', color: 'inherit', transition: 'color 0.2s', opacity: 0.4 }}
             >
-              <FontAwesomeIcon icon={faTelegram} className="w-3.5 h-3.5" />
+              <FontAwesomeIcon icon={faTelegram} style={{ width: 14, height: 14 }} />
               Installer Squad
-            </motion.a>
-        </motion.div>
-        <motion.div
+            </Box>
+        </Box>
+        <Box
+          component={motion.div}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-4 text-zinc-700 text-xs"
+          sx={{ mt: 4, color: 'grey.700', fontSize: '0.75rem' }}
         >
             © {new Date().getFullYear()} SharpTable Tech. All rights reserved.
-        </motion.div>
-      </div>
-    </footer>
+        </Box>
+      </Container>
+    </Box>
     
     {/* Legal Modal */}
     <LegalModal isOpen={isOpen} onClose={closeModal} type={type} />
