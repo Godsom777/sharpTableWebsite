@@ -2,17 +2,16 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faQrcode,
-  faReceipt,
-  faUtensils,
-  faBell,
-  faCommentDots,
-  faSliders,
+  faShieldHalved,
+  faHeadset,
+  faMobileScreenButton,
+  faRotateLeft,
   faBoxesStacked,
+  faSliders,
   faUsers,
-  faAddressBook,
-  faChartPie,
-  faRankingStar,
+  faMask,
+  faHeart,
+  faBuilding,
   faUserShield,
   faArrowRight,
   faLayerGroup,
@@ -40,9 +39,9 @@ interface Tier {
 
 const tiers: Tier[] = [
   {
-    id: 'floor',
-    label: 'The Floor',
-    tagline: 'Your customers order and pay without hassle — your staff move faster',
+    id: 'foundation',
+    label: 'Foundation',
+    tagline: 'Reliability, support, and long-term stability for daily restaurant operations',
     accent: '#f59e0b',
     bgGradient: 'linear-gradient(to bottom, rgba(245,158,11,0.1), rgba(245,158,11,0.05), transparent)',
     borderColor: 'rgba(245,158,11,0.25)',
@@ -50,36 +49,31 @@ const tiers: Tier[] = [
     iconTextColor: '#fbbf24',
     features: [
       {
-        icon: faQrcode,
-        title: 'QR Code Menu',
-        description: 'Customer sits down, scans a code, sees your full menu. No printing costs, no app download, no waiting.',
+        icon: faShieldHalved,
+        title: 'Reliable Daily Operations',
+        description: 'Run service on a dependable workflow where orders, payments, and handoffs stay consistent through every shift.',
       },
       {
-        icon: faReceipt,
-        title: 'Split Billing',
-        description: 'A table of 6 wants to split? They handle it themselves — per item, equal, or custom. Your staff don\'t touch it.',
+        icon: faHeadset,
+        title: 'Responsive Support',
+        description: 'Your team is not left alone with a fragile setup. SharpTable is positioned as software you can lean on over time.',
       },
       {
-        icon: faUtensils,
-        title: 'Centralized Menu',
-        description: 'Change a price or 86 an item once — it updates on every table, every screen, instantly. No reprinting menus.',
+        icon: faMobileScreenButton,
+        title: 'Phone-First Control',
+        description: 'Update items, follow activity, and keep tabs on operations from your phone without chasing staff for answers.',
       },
       {
-        icon: faCommentDots,
-        title: 'Message to Kitchen',
-        description: '"No pepper", "Extra sauce", "Allergy: nuts" — the customer types it, the kitchen sees it. Nothing gets lost in translation.',
-      },
-      {
-        icon: faBell,
-        title: 'Food Ready Alert',
-        description: 'Kitchen taps "ready" — your floor team knows instantly. No shouting across the room, no cold food sitting on the pass.',
+        icon: faRotateLeft,
+        title: 'Void Tracking',
+        description: 'Track voids and reversals clearly so unusual activity stands out instead of disappearing into the noise.',
       },
     ],
   },
   {
     id: 'control',
-    label: 'The Control Room',
-    tagline: 'Stop guessing, start knowing — manage your restaurant without the chaos',
+    label: 'Control Room',
+    tagline: 'Tighter fraud prevention and clearer oversight inside every restaurant',
     accent: '#3b82f6',
     bgGradient: 'linear-gradient(to bottom, rgba(59,130,246,0.1), rgba(59,130,246,0.05), transparent)',
     borderColor: 'rgba(59,130,246,0.25)',
@@ -88,30 +82,30 @@ const tiers: Tier[] = [
     features: [
       {
         icon: faSliders,
-        title: 'Real-time Menu Adjustments',
-        description: 'Ran out of chicken? Mark it sold out from your phone. Price change? Done in 5 seconds. No need to call anyone.',
+        title: 'Live Operational Control',
+        description: 'Adjust menus, pricing, and availability in real time without waiting on branch managers to call you back.',
       },
       {
         icon: faBoxesStacked,
-        title: 'Real-time Inventory',
-        description: 'You always know what you have. Stock updates as orders come in. Get alerts before you run out during a Friday rush.',
+        title: 'Total Inventory Tracking',
+        description: 'See stock movement as service happens, catch shortages early, and keep a tighter grip on what is actually on hand.',
       },
       {
         icon: faUsers,
-        title: 'Staff Management',
-        description: 'See who\'s working, what they collected, and which tables they handled. Accountability without standing over their shoulder.',
+        title: 'Cashier Activities',
+        description: 'Know who processed what, when they did it, and which transactions need a second look before the day closes.',
       },
       {
-        icon: faAddressBook,
-        title: 'Customer Info Collection',
-        description: 'Know who comes back, what they order, and how much they spend — automatically. No loyalty cards, no sign-up forms.',
+        icon: faMask,
+        title: 'Expose Staff Theft',
+        description: 'When patterns break, the audit trail makes it easier to investigate discrepancies and identify internal leakage.',
       },
     ],
   },
   {
     id: 'command',
     label: 'Command Center',
-    tagline: 'Own 2 locations or 20 — see everything from one screen without visiting each one',
+    tagline: 'One stable system for customer retention and multi-restaurant visibility',
     accent: '#a855f7',
     bgGradient: 'linear-gradient(to bottom, rgba(168,85,247,0.1), rgba(168,85,247,0.05), transparent)',
     borderColor: 'rgba(168,85,247,0.25)',
@@ -120,23 +114,23 @@ const tiers: Tier[] = [
     features: [
       {
         icon: faBoxesStacked,
-        title: 'Multi-Branch Inventory',
-        description: 'One branch is low on drinks but another has plenty? You\'ll see it before your manager calls you.',
+        title: 'Multi-Restaurant Inventory',
+        description: 'Track stock across locations from one view so you can see which branches are tight, which are overstocked, and where action is needed.',
       },
       {
-        icon: faChartPie,
-        title: 'Cross-Branch Metrics',
-        description: 'Revenue, order count, average spend — compare all your locations side by side without driving around town.',
+        icon: faHeart,
+        title: 'Customer Retention',
+        description: 'See repeat-customer behavior and ordering patterns so good service turns into stronger loyalty over time.',
       },
       {
-        icon: faRankingStar,
-        title: 'Top Sellers per Branch',
-        description: 'Jollof rice flies in one branch but flops in another. Now you know — and you can act on it.',
+        icon: faBuilding,
+        title: 'Cross-Branch Oversight',
+        description: 'Compare branches side by side without visiting each restaurant just to understand what happened that day.',
       },
       {
         icon: faUserShield,
-        title: 'Admin Management',
-        description: 'Give your branch managers exactly the access they need. No more, no less. Add or remove them in seconds.',
+        title: 'Role-Based Control',
+        description: 'Give each manager the right access while you keep the full picture across all restaurants from one command view.',
       },
     ],
   },
@@ -174,11 +168,9 @@ export const FeatureStack: React.FC = () => {
 
   return (
     <Box component="section" id="capabilities" sx={{ py: { xs: 12, md: 16 }, bgcolor: 'black', position: 'relative', overflow: 'hidden' }}>
-      {/* Background */}
       <Box sx={{ position: 'absolute', inset: 0, zIndex: 0, background: 'radial-gradient(ellipse at top right, rgba(139,92,246,0.06) 0%, transparent 50%)' }} />
 
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 10, px: 3 }}>
-        {/* Header */}
         <Box
           component={motion.div}
           initial={{ opacity: 0, y: 20 }}
@@ -194,14 +186,14 @@ export const FeatureStack: React.FC = () => {
             </Box>
           </Box>
           <Typography variant="h2" sx={{ fontSize: { xs: '1.875rem', md: '3rem' }, fontWeight: 800, color: 'white', letterSpacing: '-0.025em', lineHeight: 1.1 }}>
-            Everything you need.<Box component="br" sx={{ display: { sm: 'none' } }} /> Nothing you don't.
+            Control what matters.
+            <Box component="br" sx={{ display: { sm: 'none' } }} /> Keep it stable as you grow.
           </Typography>
           <Typography sx={{ mt: 2, color: 'grey.400', maxWidth: 'md', mx: 'auto', fontSize: { xs: '0.875rem', md: '1rem' } }}>
-            Most POS systems give you 100 features you'll never touch and charge you for all of them. SharpTable gives you what actually matters — from the table to the back office.
+            SharpTable brings reliability, support, fraud prevention, inventory visibility, staff accountability, and multi-restaurant control into one coherent operating system.
           </Typography>
         </Box>
 
-        {/* Tier Selector */}
         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 5 }}>
           <Box sx={{ display: 'inline-flex', bgcolor: 'rgba(24,24,27,0.8)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1rem', p: 0.75, gap: 0.5 }}>
             {tiers.map((tier, index) => (
@@ -229,7 +221,6 @@ export const FeatureStack: React.FC = () => {
           </Box>
         </Box>
 
-        {/* Active Tier Content */}
         <AnimatePresence mode="wait">
           <Box
             component={motion.div}
@@ -248,12 +239,10 @@ export const FeatureStack: React.FC = () => {
                 p: { xs: 3, md: 5 }
               }}
             >
-              {/* Tier Tagline */}
               <Box sx={{ mb: 4, textAlign: 'center' }}>
                 <Typography sx={{ color: 'grey.400', fontSize: '0.875rem' }}>{tiers[activeTier].tagline}</Typography>
               </Box>
 
-              {/* Features Grid */}
               <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 1 }}>
                 <AnimatePresence mode="wait">
                   {tiers[activeTier].features.map((feature, index) => (
@@ -267,7 +256,6 @@ export const FeatureStack: React.FC = () => {
                 </AnimatePresence>
               </Box>
 
-              {/* Tier Footer — visual connector */}
               {activeTier < tiers.length - 1 && (
                 <Box
                   component={motion.div}
