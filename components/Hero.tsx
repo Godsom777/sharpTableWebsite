@@ -7,7 +7,9 @@ import {
   faQrcode,
   faBolt,
   faCircleCheck,
-  faLock
+  faLock,
+  faMessage,
+  faBoxesStacked
 } from '@fortawesome/free-solid-svg-icons';
 import { useGeoLocation } from '../hooks/useGeoLocation';
 import { Box, Typography, Button } from '@mui/material';
@@ -60,8 +62,7 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
           sx={{ mt: 2, textAlign: 'center', fontSize: { xs: '0.875rem', sm: '1rem', md: '1.125rem' }, color: 'grey.400', maxWidth: 'md', mx: 'auto', lineHeight: 1.625 }}
         >
-          SharpTable gives you dependable visibility into fraud prevention, voids, total inventory, cashier activity,
-          staff theft risk, and customer retention
+          SharpTable gives you dependable visibility into WhatsApp orders, ingredient-level inventory, fraud prevention, and total oversight
           <Box component="span" sx={{ color: 'white', fontWeight: 500 }}> across one restaurant or every branch you own.</Box>
         </Typography>
 
@@ -105,8 +106,8 @@ export const Hero: React.FC = () => {
           sx={{ mt: 4, display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 1, fontSize: '0.75rem' }}
         >
           {[
-            { icon: faCircleCheck, text: 'Reliable day-to-day operations' },
-            { icon: faBolt, text: 'Support when your team needs it' },
+            { icon: faMessage, text: 'WhatsApp & Remote Ordering' },
+            { icon: faBoxesStacked, text: 'Ingredient-Level Inventory' },
             { icon: faLock, text: 'Fraud prevention built in' },
             { icon: faQrcode, text: 'Control every branch from your phone' }
           ].map((item) => (

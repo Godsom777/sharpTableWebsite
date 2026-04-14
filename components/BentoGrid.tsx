@@ -37,45 +37,45 @@ export const BentoGrid: React.FC = () => {
               <Box sx={{ borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)', bgcolor: 'rgba(255,255,255,0.05)', p: 4 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
                   <Box sx={{ width: 40, height: 40, borderRadius: '0.75rem', bgcolor: 'rgba(245,158,11,0.15)', border: '1px solid rgba(245,158,11,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fcd34d', fontWeight: 800 }}>1</Box>
-                  <Typography variant="h4" sx={{ color: 'white', fontWeight: 700, fontSize: '1.125rem' }}>Every order starts clean</Typography>
+                  <Typography variant="h4" sx={{ color: 'white', fontWeight: 700, fontSize: '1.125rem' }}>WhatsApp & Remote Ordering</Typography>
                 </Box>
                 <Typography sx={{ fontSize: '0.875rem', color: 'grey.400', lineHeight: 1.625 }}>
-                  Customers order from their phone, and the order enters your system the same way every time. No missing tickets, no verbal mistakes, no side handling.
+                  Customers can chat directly with your business on WhatsApp, place orders, and get their food ready without visiting the restaurant. Orders flow directly into the kitchen display.
                 </Typography>
-                <Typography sx={{ mt: 2, fontSize: '0.875rem', color: 'grey.300', fontWeight: 500 }}>Consistency at the front creates control at the back.</Typography>
+                <Typography sx={{ mt: 2, fontSize: '0.875rem', color: 'grey.300', fontWeight: 500 }}>Convenience for customers creates more orders for you.</Typography>
               </Box>
 
               <Box sx={{ borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)', bgcolor: 'rgba(255,255,255,0.05)', p: 4 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
                   <Box sx={{ width: 40, height: 40, borderRadius: '0.75rem', bgcolor: 'rgba(245,158,11,0.15)', border: '1px solid rgba(245,158,11,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fcd34d', fontWeight: 800 }}>2</Box>
-                  <Typography variant="h4" sx={{ color: 'white', fontWeight: 700, fontSize: '1.125rem' }}>Fraud prevention starts before prep</Typography>
+                  <Typography variant="h4" sx={{ color: 'white', fontWeight: 700, fontSize: '1.125rem' }}>Ingredient-Level Inventory</Typography>
                 </Box>
                 <Typography sx={{ fontSize: '0.875rem', color: 'grey.400', lineHeight: 1.625 }}>
-                  Orders do not move until payment is confirmed, which helps stop unpaid tickets, suspicious void patterns, and end-of-day cash gaps before they spread.
+                  Track your stock concisely down to the exact ingredients. Automatically calculate how ingredients are used per dish to reduce waste and catch shortages before they happen.
                 </Typography>
-                <Typography sx={{ mt: 2, fontSize: '0.875rem', color: 'grey.300', fontWeight: 500 }}>Less leakage. More confidence in the numbers.</Typography>
+                <Typography sx={{ mt: 2, fontSize: '0.875rem', color: 'grey.300', fontWeight: 500 }}>Stop guessing and know exactly what is in your kitchen.</Typography>
               </Box>
 
               <Box sx={{ borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)', bgcolor: 'rgba(255,255,255,0.05)', p: 4 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
                   <Box sx={{ width: 40, height: 40, borderRadius: '0.75rem', bgcolor: 'rgba(245,158,11,0.15)', border: '1px solid rgba(245,158,11,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fcd34d', fontWeight: 800 }}>3</Box>
-                  <Typography variant="h4" sx={{ color: 'white', fontWeight: 700, fontSize: '1.125rem' }}>Cashier and staff actions stay visible</Typography>
+                  <Typography variant="h4" sx={{ color: 'white', fontWeight: 700, fontSize: '1.125rem' }}>Remote Owner Monitoring</Typography>
                 </Box>
                 <Typography sx={{ fontSize: '0.875rem', color: 'grey.400', lineHeight: 1.625 }}>
-                  Confirmations, cashier activity, and staff handoffs are logged clearly, giving you the evidence to spot weak controls and expose theft early.
+                  Managers and owners get a real-time, consolidated view across every branch. Monitor cashier actions, live sales, and total kitchen performance from anywhere, right on your phone.
                 </Typography>
-                <Typography sx={{ mt: 2, fontSize: '0.875rem', color: 'grey.300', fontWeight: 500 }}>Accountability without standing in the restaurant all day.</Typography>
+                <Typography sx={{ mt: 2, fontSize: '0.875rem', color: 'grey.300', fontWeight: 500 }}>Total operational awareness without standing in the restaurant.</Typography>
               </Box>
 
               <Box sx={{ borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)', bgcolor: 'rgba(255,255,255,0.05)', p: 4 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
                   <Box sx={{ width: 40, height: 40, borderRadius: '0.75rem', bgcolor: 'rgba(245,158,11,0.15)', border: '1px solid rgba(245,158,11,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fcd34d', fontWeight: 800 }}>4</Box>
-                  <Typography variant="h4" sx={{ color: 'white', fontWeight: 700, fontSize: '1.125rem' }}>One view across service, stock, and repeat guests</Typography>
+                  <Typography variant="h4" sx={{ color: 'white', fontWeight: 700, fontSize: '1.125rem' }}>Fraud Prevention & Audit</Typography>
                 </Box>
                 <Typography sx={{ fontSize: '0.875rem', color: 'grey.400', lineHeight: 1.625 }}>
-                  Inventory stays current, customer patterns become visible, and retention gets easier because you can finally see what is happening across every location.
+                  Stop unpaid tickets, trace suspicious void patterns, and expose staff theft early. Every single receipt and handoff is logged to ensure accountability.
                 </Typography>
-                <Typography sx={{ mt: 2, fontSize: '0.875rem', color: 'grey.300', fontWeight: 500 }}>From one branch to many, the system stays stable and connected.</Typography>
+                <Typography sx={{ mt: 2, fontSize: '0.875rem', color: 'grey.300', fontWeight: 500 }}>Less leakage. More confidence in the numbers.</Typography>
               </Box>
             </Box>
 
