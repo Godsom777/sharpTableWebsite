@@ -5,13 +5,14 @@ import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Link, useLocation } from 'react-router-dom';
 import { Box, Container, IconButton, Button, Typography } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
+import { useSubscription } from '../hooks/useSubscription';
 
 export const NavBar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const { user } = useAuth();
-
+  const { subscription } = useSubscription(user?.email);
   const isActive = (path: string) => location.pathname === path;
 
   useEffect(() => {
@@ -131,7 +132,7 @@ export const NavBar: React.FC = () => {
               border: '1px solid rgba(255,255,255,0.16)',
             }}
           >
-            {user ? 'Manage Plan' : 'Login'}
+            {user ? (subscription?.businessName || user.email) : 'Login'}
           </Button>
         </Box>
 
@@ -245,7 +246,7 @@ export const NavBar: React.FC = () => {
                 border: '1px solid rgba(255,255,255,0.16)',
               }}
             >
-              {user ? 'Manage Plan' : 'Login'}
+              {user ? (subscription?.businessName || user.email) : 'Login'}
             </Button>
           </Box>
         )}

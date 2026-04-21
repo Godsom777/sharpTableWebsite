@@ -12,10 +12,15 @@ import {
   faBoxesStacked
 } from '@fortawesome/free-solid-svg-icons';
 import { useGeoLocation } from '../hooks/useGeoLocation';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button, useMediaQuery } from '@mui/material';
+import { useAuth } from '../contexts/AuthContext';
+import { useSubscription } from '../hooks/useSubscription';
 
 export const Hero: React.FC = () => {
-  const shouldReduceMotion = useReducedMotion();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+  const shouldReduceMotion = prefersReducedMotion;
+  const { user } = useAuth();
+  const { subscription } = useSubscription(user?.email);
   const { isAfrica } = useGeoLocation();
 
   const heroImages = {
@@ -87,7 +92,7 @@ export const Hero: React.FC = () => {
             whileTap={{ scale: 0.98 }}
             sx={{ width: { xs: '100%', sm: 'auto' }, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, borderRadius: '9999px', bgcolor: 'rgba(255,255,255,0.05)', color: 'white', border: '1px solid rgba(255,255,255,0.1)', px: 4, py: 2, fontWeight: 600, fontSize: '1rem', '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' }, textTransform: 'none' }}
           >
-            Login
+            {user ? (subscription?.businessName || user.email) : 'Login'}
             <FontAwesomeIcon icon={faLock} style={{ width: 14, height: 14 }} />
           </Button>
         </Box>
