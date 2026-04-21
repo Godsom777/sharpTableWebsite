@@ -197,7 +197,7 @@ export const PaymentModal: React.FC = () => {
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 2, py: 0.5, borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', ...(registrationStep === 'payment' ? { bgcolor: 'white', color: 'black' } : { border: '1px solid rgba(255,255,255,0.2)', color: 'grey.500' }) }}><FontAwesomeIcon icon={faLock} /> Pay</Box>
                 </Box>
 
-                {errors.auth && <Box sx={{ p: 2, borderRadius: '0.5rem', bgcolor: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', color: '#f87171', fontSize: '0.875rem', fontWeight: 600 }}>{errors.auth}</Box>}
+
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
                   <Box>
@@ -254,6 +254,8 @@ export const PaymentModal: React.FC = () => {
                     Facebook
                   </Box>
                 </Box>
+
+                {errors.auth && <Box sx={{ mt: 3, p: 2, borderRadius: '0.5rem', bgcolor: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', color: '#f87171', fontSize: '0.875rem', fontWeight: 600 }}>{errors.auth}</Box>}
               </Box>
 
               <Box sx={{ px: 4, pb: 4, pt: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
