@@ -12,6 +12,7 @@ import { PartnershipApplyPage } from './pages/PartnershipApplyPage';
 import { PartnershipPage } from './pages/PartnershipPage';
 import { AccountPage } from './pages/AccountPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
+import { GoogleOnboardingPage } from './pages/GoogleOnboardingPage';
 
 function App() {
   return (
@@ -25,6 +26,15 @@ function App() {
               element={
                 <div className="bg-black min-h-screen text-white selection:bg-amber-500/30">
                   <PaymentCallback />
+                </div>
+              }
+            />
+
+            <Route
+              path="/google-onboarding"
+              element={
+                <div className="bg-black min-h-screen text-white selection:bg-amber-500/30">
+                  <GoogleOnboardingPage />
                 </div>
               }
             />

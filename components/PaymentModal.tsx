@@ -5,8 +5,8 @@ import {
   faXmark, faEnvelope, faBuilding, faSpinner, faShieldHalved, faLock,
   faCrown, faArrowRight, faCheck, faKey, faEye, faEyeSlash, faUserPlus, faGlobe
 } from '@fortawesome/free-solid-svg-icons';
-import { faCcVisa, faCcMastercard, faCcAmex } from '@fortawesome/free-brands-svg-icons';
-import { Box, Typography, IconButton, InputBase, MenuItem, Select, Checkbox, CircularProgress } from '@mui/material';
+import { faCcVisa, faCcMastercard, faCcAmex, faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { Box, Typography, IconButton, InputBase, MenuItem, Select, Checkbox, CircularProgress, Divider } from '@mui/material';
 import { usePayment, PLAN_CONFIG } from '../contexts/PaymentContext';
 import { LegalModal, useLegalModal } from './LegalModal';
 import { useGeoLocation } from '../hooks/useGeoLocation';
@@ -131,6 +131,48 @@ export const PaymentModal: React.FC = () => {
     }
   };
 
+  const handleGoogleAuth = async () => {
+    if (!formData.businessName.trim() || !formData.country) {
+      setErrors({ 
+        businessName: !formData.businessName.trim() ? 'Required for Google Sign-In' : undefined, 
+        country: !formData.country ? 'Required for Google Sign-In' : undefined 
+      });
+      return;
+    }
+    if (!agreedToTerms) {
+      setErrors({ auth: 'You must agree to the Terms and Privacy Policy.' });
+      return;
+    }
+    const client = getAppSupabaseClient();
+    if (!client) { setErrors({ auth: 'System configuration error. Contact support.' }); return; }
+
+    setIsSubmitting(true);
+    setErrors({});
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const referralCode = urlParams.get('ref') || '';
+    const pendingData = { 
+      businessName: formData.businessName.trim(), 
+      country: formData.country, 
+      plan: selectedPlan, 
+      planCode: planDetails?.planCode,
+      referralCode 
+    };
+    localStorage.setItem('sharptable_google_pending', JSON.stringify(pendingData));
+    
+    const { error } = await client.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/google-onboarding`
+      }
+    });
+
+    if (error) {
+      setErrors({ auth: error.message });
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <>
       <AnimatePresence>
@@ -193,7 +235,18 @@ export const PaymentModal: React.FC = () => {
                 </Box>
 
                 <Box component="button" type="submit" disabled={isSubmitting || !agreedToTerms} sx={{ width: '100%', py: 2, borderRadius: '9999px', fontWeight: 800, fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, cursor: isSubmitting || !agreedToTerms ? 'not-allowed' : 'pointer', border: 'none', transition: 'all 0.2s', bgcolor: isSubmitting || !agreedToTerms ? 'grey.800' : 'white', color: isSubmitting || !agreedToTerms ? 'grey.500' : 'black', fontFamily: 'inherit', '&:hover:not(:disabled)': { bgcolor: 'grey.200' } }}>
-                  {isSubmitting ? <><CircularProgress size={16} sx={{ color: 'inherit' }} />{registrationStep === 'registering' ? 'Registering...' : 'Securing Gateway...'}</> : <><FontAwesomeIcon icon={faLock} /> Complete Subscription</>}
+                  {isSubmitting && registrationStep !== 'form' ? <><CircularProgress size={16} sx={{ color: 'inherit' }} />{registrationStep === 'registering' ? 'Registering...' : 'Securing...'}</> : <><FontAwesomeIcon icon={faLock} /> Complete Subscription</>}
+                </Box>
+
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, my: 1 }}>
+                  <Divider sx={{ flex: 1, borderColor: 'rgba(255,255,255,0.08)' }} />
+                  <Typography sx={{ color: 'grey.600', fontSize: '0.8rem', fontWeight: 600, textTransform: 'uppercase' }}>OR</Typography>
+                  <Divider sx={{ flex: 1, borderColor: 'rgba(255,255,255,0.08)' }} />
+                </Box>
+
+                <Box component="button" type="button" onClick={handleGoogleAuth} disabled={isSubmitting || !agreedToTerms} sx={{ width: '100%', py: 2, borderRadius: '9999px', fontWeight: 700, fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, cursor: isSubmitting || !agreedToTerms ? 'not-allowed' : 'pointer', border: '1px solid rgba(255,255,255,0.2)', transition: 'all 0.2s', bgcolor: 'transparent', color: isSubmitting || !agreedToTerms ? 'grey.600' : 'white', fontFamily: 'inherit', '&:hover:not(:disabled)': { bgcolor: 'rgba(255,255,255,0.05)' } }}>
+                  {isSubmitting && registrationStep === 'form' ? <CircularProgress size={16} sx={{ color: 'inherit' }} /> : <FontAwesomeIcon icon={faGoogle} />}
+                  Sign up with Google
                 </Box>
               </Box>
 
