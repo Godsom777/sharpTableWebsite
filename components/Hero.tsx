@@ -69,7 +69,7 @@ export const Hero: React.FC = () => {
         >
           <Button
             component={motion.button}
-            onClick={() => (window.location.href = '/signup')}
+            onClick={() => (window.location.href = '/pricing')}
             whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             sx={{ width: { xs: '100%', sm: 'auto' }, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, borderRadius: '9999px', bgcolor: 'white', color: 'black', px: 4, py: 2, fontWeight: 700, fontSize: '1rem', '&:hover': { bgcolor: 'grey.200' }, textTransform: 'none' }}
@@ -82,7 +82,7 @@ export const Hero: React.FC = () => {
 
           <Button
             component={motion.button}
-            onClick={() => (window.location.href = '/login')}
+            onClick={() => (window.location.href = '/account')}
             whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             sx={{ width: { xs: '100%', sm: 'auto' }, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, borderRadius: '9999px', bgcolor: 'rgba(255,255,255,0.05)', color: 'white', border: '1px solid rgba(255,255,255,0.1)', px: 4, py: 2, fontWeight: 600, fontSize: '1rem', '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' }, textTransform: 'none' }}
