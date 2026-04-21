@@ -53,7 +53,7 @@ export const ResetPasswordPage: React.FC = () => {
     <>
       <PageHeader
         title="Reset Password"
-        subtitle="Finish the recovery flow, set a new password, and use the same credentials in both the website and the app."
+        subtitle="Finish the recovery flow and set a new password for your account."
         badge="Credential Recovery"
         symbols={resetSymbols}
       />
@@ -96,7 +96,7 @@ export const ResetPasswordPage: React.FC = () => {
                   Set a new password for {user.email}
                 </Typography>
                 <Typography sx={{ color: 'grey.400', lineHeight: 1.7 }}>
-                  This only changes authentication credentials. It does not alter the assigned subscription tier.
+                  This updates your login password only. Your current plan stays the same.
                 </Typography>
 
                 <Box>

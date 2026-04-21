@@ -1,81 +1,170 @@
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleCheck, faLock } from '@fortawesome/free-solid-svg-icons';
+import {
+  faChampagneGlasses,
+  faFireBurner,
+  faMartiniGlassCitrus,
+  faStore,
+  faUtensils,
+} from '@fortawesome/free-solid-svg-icons';
 import { Box, Container, Typography } from '@mui/material';
+
+const builtForGroups = [
+  {
+    title: 'Restaurants',
+    description:
+      'Full-service restaurants that need clean ordering, faster table turns, and tighter control from floor to kitchen.',
+    icon: faUtensils,
+  },
+  {
+    title: 'Bars and Grills',
+    description:
+      'Busy bar and grill operations where speed, accurate handoff, and real-time oversight matter during peak hours.',
+    icon: faMartiniGlassCitrus,
+  },
+  {
+    title: 'Food Outlets',
+    description:
+      'Fast-moving food outlets that want less queue friction, fewer mistakes, and a simpler paid-before-prep flow.',
+    icon: faStore,
+  },
+  {
+    title: 'Lounges and Rooftops',
+    description:
+      'Premium spaces that want smooth guest ordering without breaking the atmosphere or slowing down service teams.',
+    icon: faChampagneGlasses,
+  },
+  {
+    title: 'Grills and Takeout Spots',
+    description:
+      'Operators handling heavy order volume who need speed, structure, and visibility without bloated POS complexity.',
+    icon: faFireBurner,
+  },
+];
 
 export const WhoIsThisFor: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <Box component="section" sx={{ bgcolor: '#000000' }}>
-      <Container maxWidth="lg" sx={{ px: 3, pb: 12 }}>
+    <Box component="section" sx={{ bgcolor: '#000000', position: 'relative', overflow: 'hidden' }}>
+      <Box
+        sx={{
+          position: 'absolute',
+          inset: 0,
+          background:
+            'radial-gradient(circle at 15% 20%, rgba(201,168,76,0.12), transparent 32%), radial-gradient(circle at 85% 80%, rgba(255,255,255,0.05), transparent 28%)',
+        }}
+      />
+
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, px: 3, py: { xs: 10, md: 16 } }}>
         <Box
           component={motion.div}
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
-          sx={{ maxWidth: 'md', mx: 'auto' }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.55 }}
+          sx={{ maxWidth: 760, mb: { xs: 5, md: 7 } }}
         >
-          <Box sx={{ borderRadius: '2rem', border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', p: { xs: 4, md: 5 } }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2, mb: 5 }}>
-              <Box sx={{ height: '1px', width: 40, bgcolor: 'rgba(255,255,255,0.2)' }} />
-              <Typography sx={{ color: 'grey.300', fontWeight: 800, letterSpacing: '0.1em', fontSize: '0.75rem', textTransform: 'uppercase' }}>Who is SharpTable for?</Typography>
-              <Box sx={{ height: '1px', width: 40, bgcolor: 'rgba(255,255,255,0.2)' }} />
-            </Box>
+          <Typography
+            sx={{
+              color: '#C9A84C',
+              fontWeight: 800,
+              letterSpacing: '0.12em',
+              fontSize: '0.78rem',
+              textTransform: 'uppercase',
+              mb: 2,
+            }}
+          >
+            Built For
+          </Typography>
 
-            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 4 }}>
-              {/* Built for you if */}
-              <Box sx={{ borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.1)', bgcolor: '#131313', p: 3.5, display: 'flex', flexDirection: 'column' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3 }}>
-                  <Box sx={{ width: 32, height: 32, borderRadius: '50%', bgcolor: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <FontAwesomeIcon icon={faCircleCheck} style={{ width: 14, height: 14, color: 'white' }} />
-                  </Box>
-                  <Typography variant="h4" sx={{ color: 'white', fontWeight: 800, fontSize: '1.25rem', letterSpacing: '-0.02em' }}>Built for you if:</Typography>
-                </Box>
-                <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0, display: 'flex', flexDirection: 'column', gap: 2, color: 'grey.300', fontSize: '0.95rem', lineHeight: 1.5 }}>
-                  <Box component="li" sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
-                    <Box component="span" sx={{ mt: 0.75, width: 4, height: 4, borderRadius: '50%', bgcolor: 'white', flexShrink: 0 }} />You manage massive multi-branch luxury operations
-                  </Box>
-                  <Box component="li" sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
-                    <Box component="span" sx={{ mt: 0.75, width: 4, height: 4, borderRadius: '50%', bgcolor: 'white', flexShrink: 0 }} />Staff theft and zero inventory oversight are destroying your margins
-                  </Box>
-                  <Box component="li" sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
-                    <Box component="span" sx={{ mt: 0.75, width: 4, height: 4, borderRadius: '50%', bgcolor: 'white', flexShrink: 0 }} />You want frictionless ordering without cheapening the guest experience
-                  </Box>
-                  <Box component="li" sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
-                    <Box component="span" sx={{ mt: 0.75, width: 4, height: 4, borderRadius: '50%', bgcolor: 'white', flexShrink: 0 }} />You demand absolute real-time command across every location
-                  </Box>
-                </Box>
+          <Typography
+            sx={{
+              color: 'white',
+              fontWeight: 900,
+              fontSize: { xs: '2rem', md: '3.5rem' },
+              lineHeight: 1.05,
+              letterSpacing: '-0.04em',
+              mb: 2,
+            }}
+          >
+            SharpTable fits service businesses that need speed, control, and clean execution.
+          </Typography>
+
+          <Typography
+            sx={{
+              color: 'grey.400',
+              fontSize: { xs: '1rem', md: '1.1rem' },
+              lineHeight: 1.8,
+              maxWidth: 640,
+            }}
+          >
+            Built for operators who want ordering, payment confirmation, and kitchen flow to work without delays, confusion, or manual follow-up.
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)', xl: 'repeat(5, 1fr)' },
+            gap: 2.5,
+          }}
+        >
+          {builtForGroups.map((group, index) => (
+            <Box
+              key={group.title}
+              component={motion.div}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.45, delay: shouldReduceMotion ? 0 : index * 0.06 }}
+              sx={{
+                minHeight: 250,
+                borderRadius: '1.75rem',
+                border: '1px solid rgba(255,255,255,0.08)',
+                bgcolor: 'rgba(17,17,17,0.92)',
+                p: 3,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Box
+                sx={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  bgcolor: 'rgba(201,168,76,0.14)',
+                  color: '#E5C46B',
+                  mb: 4,
+                }}
+              >
+                <FontAwesomeIcon icon={group.icon} style={{ width: 18, height: 18 }} />
               </Box>
 
-              {/* Not the right fit if */}
-              <Box sx={{ borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.02)', bgcolor: '#0a0a0a', p: 3.5, display: 'flex', flexDirection: 'column' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3, opacity: 0.5 }}>
-                  <Box sx={{ width: 32, height: 32, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <FontAwesomeIcon icon={faLock} style={{ width: 12, height: 12, color: 'white' }} />
-                  </Box>
-                  <Typography variant="h4" sx={{ color: 'white', fontWeight: 800, fontSize: '1.25rem', letterSpacing: '-0.02em' }}>Not the right fit if:</Typography>
-                </Box>
-                <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0, display: 'flex', flexDirection: 'column', gap: 2, color: 'grey.500', fontSize: '0.95rem', lineHeight: 1.5 }}>
-                  <Box component="li" sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
-                    <Box component="span" sx={{ mt: 0.75, width: 4, height: 4, borderRadius: '50%', bgcolor: 'grey.600', flexShrink: 0 }} />You run a single small neighbourhood cafe
-                  </Box>
-                  <Box component="li" sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
-                    <Box component="span" sx={{ mt: 0.75, width: 4, height: 4, borderRadius: '50%', bgcolor: 'grey.600', flexShrink: 0 }} />You are satisfied with messy ordering and chaotic handoffs
-                  </Box>
-                  <Box component="li" sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
-                    <Box component="span" sx={{ mt: 0.75, width: 4, height: 4, borderRadius: '50%', bgcolor: 'grey.600', flexShrink: 0 }} />Absolute operational efficiency is simply not your priority
-                  </Box>
-                </Box>
+              <Box>
+                <Typography
+                  sx={{
+                    color: 'white',
+                    fontWeight: 800,
+                    fontSize: '1.15rem',
+                    letterSpacing: '-0.02em',
+                    mb: 1.5,
+                  }}
+                >
+                  {group.title}
+                </Typography>
+
+                <Typography sx={{ color: 'grey.400', fontSize: '0.95rem', lineHeight: 1.7 }}>
+                  {group.description}
+                </Typography>
               </Box>
             </Box>
-
-            <Typography sx={{ mt: 5, textAlign: 'center', fontSize: '0.85rem', color: 'grey.500', fontWeight: 500 }}>
-              SharpTable is explicitly engineered for ambitious operators where precision, speed, and uncompromising revenue control are required.
-            </Typography>
-          </Box>
+          ))}
         </Box>
       </Container>
     </Box>

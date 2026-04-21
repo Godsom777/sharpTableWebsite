@@ -5,7 +5,6 @@ import {
   faArrowRotateRight,
   faBan,
   faCalendarDay,
-  faCircleInfo,
   faKey,
   faRightFromBracket,
   faShieldHalved,
@@ -170,9 +169,7 @@ export const AccountPage: React.FC = () => {
       return;
     }
 
-    setAuthMessage(
-      'If that email exists in Supabase Auth, a password setup or recovery link has been sent there.'
-    );
+    setAuthMessage('If that email matches an account, a password link has been sent.');
   };
 
   const handlePlanChange = async (targetPlan: PlanType) => {
@@ -246,7 +243,7 @@ export const AccountPage: React.FC = () => {
     <>
       <PageHeader
         title="Account & Billing"
-        subtitle="Sign in with the same account the app uses, review the current tier, and schedule upgrades, downgrades, or cancellation without changing access before renewal."
+        subtitle="Log in to review your current plan and schedule upgrades, downgrades, or cancellation without changing access before renewal."
         badge="Customer Access"
         symbols={accountSymbols}
       />
@@ -283,7 +280,7 @@ export const AccountPage: React.FC = () => {
                 Existing customer login
               </Typography>
               <Typography sx={{ color: 'grey.400', mb: 4, lineHeight: 1.7 }}>
-                This page only works for users who already exist in the app&apos;s Supabase Auth project. If a user was inserted only in the subscription table, they still need an auth account before they can log in here.
+                Log in to manage your subscription, update your plan, or cancel renewal.
               </Typography>
 
               {authError && (
@@ -440,7 +437,7 @@ export const AccountPage: React.FC = () => {
                 </Box>
               ) : !subscription?.planType ? (
                 <Alert severity="warning">
-                  No subscription record was found for this account on the shared billing table. That means login worked, but there is nothing to upgrade, downgrade, or cancel yet.
+                  We could not find an active subscription for this account yet.
                 </Alert>
               ) : (
                 <>
@@ -515,7 +512,7 @@ export const AccountPage: React.FC = () => {
                       Schedule a different plan
                     </Typography>
                     <Typography sx={{ color: 'grey.400', mb: 4, lineHeight: 1.7 }}>
-                      Upgrades and downgrades are queued for the next renewal date. The website updates the shared subscription record, so the app sees the same plan state.
+                      Upgrades and downgrades are queued for the next renewal date.
                     </Typography>
 
                     <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)', xl: 'repeat(3, 1fr)' }, gap: 2.5 }}>
@@ -594,7 +591,7 @@ export const AccountPage: React.FC = () => {
                       <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
                         <FontAwesomeIcon icon={faShieldHalved} style={{ marginTop: 4, color: '#fbbf24' }} />
                         <Typography sx={{ color: 'grey.400', lineHeight: 1.7 }}>
-                          Weak assumption to avoid: cancelling here does not delete the account. It only stops the next recurring charge and keeps the current period intact.
+                          Cancelling here stops the next renewal. Your current plan stays active until the end of the billing period.
                         </Typography>
                       </Box>
 
@@ -624,24 +621,6 @@ export const AccountPage: React.FC = () => {
                     </Box>
                   </Box>
 
-                  <Box
-                    sx={{
-                      bgcolor: '#111111',
-                      border: '1px solid rgba(255,255,255,0.08)',
-                      borderRadius: '1.5rem',
-                      p: { xs: 3, md: 4 },
-                      display: 'grid',
-                      gap: 1.5,
-                    }}
-                  >
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.2 }}>
-                      <FontAwesomeIcon icon={faCircleInfo} style={{ color: '#fbbf24' }} />
-                      <Typography sx={{ color: 'white', fontWeight: 800 }}>Known limitation</Typography>
-                    </Box>
-                    <Typography sx={{ color: 'grey.400', lineHeight: 1.7 }}>
-                      A backend-added user can manage billing here only if that same email also exists in Supabase Auth. If the person only exists in the billing table, use the password link flow only after creating or inviting the auth user on the shared app project.
-                    </Typography>
-                  </Box>
                 </>
               )}
             </Box>
