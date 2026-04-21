@@ -5,7 +5,7 @@ import {
   faXmark, faEnvelope, faBuilding, faSpinner, faShieldHalved, faLock,
   faCrown, faArrowRight, faCheck, faKey, faEye, faEyeSlash, faUserPlus, faGlobe
 } from '@fortawesome/free-solid-svg-icons';
-import { faCcVisa, faCcMastercard, faCcAmex, faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { faCcVisa, faCcMastercard, faCcAmex, faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { Box, Typography, IconButton, InputBase, MenuItem, Select, Checkbox, CircularProgress, Divider } from '@mui/material';
 import { usePayment, PLAN_CONFIG } from '../contexts/PaymentContext';
 import { LegalModal, useLegalModal } from './LegalModal';
@@ -131,11 +131,11 @@ export const PaymentModal: React.FC = () => {
     }
   };
 
-  const handleGoogleAuth = async () => {
+  const handleOAuth = async (provider: 'google' | 'facebook') => {
     if (!formData.businessName.trim() || !formData.country) {
       setErrors({ 
-        businessName: !formData.businessName.trim() ? 'Required for Google Sign-In' : undefined, 
-        country: !formData.country ? 'Required for Google Sign-In' : undefined 
+        businessName: !formData.businessName.trim() ? `Required for ${provider} Sign-In` : undefined, 
+        country: !formData.country ? `Required for ${provider} Sign-In` : undefined 
       });
       return;
     }
@@ -161,7 +161,7 @@ export const PaymentModal: React.FC = () => {
     localStorage.setItem('sharptable_google_pending', JSON.stringify(pendingData));
     
     const { error } = await client.auth.signInWithOAuth({
-      provider: 'google',
+      provider,
       options: {
         redirectTo: `${window.location.origin}/google-onboarding`
       }
@@ -244,9 +244,15 @@ export const PaymentModal: React.FC = () => {
                   <Divider sx={{ flex: 1, borderColor: 'rgba(255,255,255,0.08)' }} />
                 </Box>
 
-                <Box component="button" type="button" onClick={handleGoogleAuth} disabled={isSubmitting || !agreedToTerms} sx={{ width: '100%', py: 2, borderRadius: '9999px', fontWeight: 700, fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, cursor: isSubmitting || !agreedToTerms ? 'not-allowed' : 'pointer', border: '1px solid rgba(255,255,255,0.2)', transition: 'all 0.2s', bgcolor: 'transparent', color: isSubmitting || !agreedToTerms ? 'grey.600' : 'white', fontFamily: 'inherit', '&:hover:not(:disabled)': { bgcolor: 'rgba(255,255,255,0.05)' } }}>
-                  {isSubmitting && registrationStep === 'form' ? <CircularProgress size={16} sx={{ color: 'inherit' }} /> : <FontAwesomeIcon icon={faGoogle} />}
-                  Sign up with Google
+                <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
+                  <Box component="button" type="button" onClick={() => handleOAuth('google')} disabled={isSubmitting || !agreedToTerms} sx={{ flex: 1, py: 2, borderRadius: '9999px', fontWeight: 700, fontSize: '0.9rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, cursor: isSubmitting || !agreedToTerms ? 'not-allowed' : 'pointer', border: '1px solid rgba(255,255,255,0.2)', transition: 'all 0.2s', bgcolor: 'transparent', color: isSubmitting || !agreedToTerms ? 'grey.600' : 'white', fontFamily: 'inherit', '&:hover:not(:disabled)': { bgcolor: 'rgba(255,255,255,0.05)' } }}>
+                    {isSubmitting && registrationStep === 'form' ? <CircularProgress size={16} sx={{ color: 'inherit' }} /> : <FontAwesomeIcon icon={faGoogle} />}
+                    Google
+                  </Box>
+                  <Box component="button" type="button" onClick={() => handleOAuth('facebook')} disabled={isSubmitting || !agreedToTerms} sx={{ flex: 1, py: 2, borderRadius: '9999px', fontWeight: 700, fontSize: '0.9rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, cursor: isSubmitting || !agreedToTerms ? 'not-allowed' : 'pointer', border: '1px solid rgba(13,110,253,0.5)', transition: 'all 0.2s', bgcolor: 'rgba(13,110,253,0.05)', color: isSubmitting || !agreedToTerms ? 'grey.600' : '#3b5998', fontFamily: 'inherit', '&:hover:not(:disabled)': { bgcolor: 'rgba(13,110,253,0.1)' } }}>
+                    {isSubmitting && registrationStep === 'form' ? <CircularProgress size={16} sx={{ color: 'inherit' }} /> : <FontAwesomeIcon icon={faFacebook} />}
+                    Facebook
+                  </Box>
                 </Box>
               </Box>
 
