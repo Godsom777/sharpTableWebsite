@@ -1,364 +1,562 @@
 // @ts-nocheck
-// This file runs on Deno (Supabase Edge Functions), not Node.js
-// TypeScript errors from VS Code can be ignored - it works correctly when deployed
 
 import { serve } from 'https://deno.land/std@0.177.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import { createHmac } from 'https://deno.land/std@0.177.0/node/crypto.ts';
 
-// APP'S SUPABASE CREDENTIALS (using shared database)
 const APP_SUPABASE_URL = Deno.env.get('SUPABASE_URL');
 const APP_SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+const PAYSTACK_SECRET_KEY = Deno.env.get('PAYSTACK_SECRET_KEY');
 
-if (!APP_SUPABASE_URL) {
-  console.error('SUPABASE_URL not configured');
-}
-
-if (!APP_SUPABASE_SERVICE_KEY) {
-  console.error('SUPABASE_SERVICE_ROLE_KEY not configured');
-}
-
-// CORS headers for preflight requests
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-paystack-signature',
 };
 
-// Verify Paystack webhook signature
+function jsonResponse(body: Record<string, unknown>, status = 200) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+  });
+}
+
 function verifyPaystackSignature(payload: string, signature: string, secret: string): boolean {
   const hash = createHmac('sha512', secret).update(payload).digest('hex');
   return hash === signature;
 }
 
-serve(async (req) => {
-  // Handle CORS preflight
-  if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders });
+function normalizeEmail(email?: string | null) {
+  return (email || '').trim().toLowerCase();
+}
+
+function normalizeStatus(status?: string | null) {
+  if (!status) return 'pending';
+  return status === 'non-renewing' ? 'non_renewing' : status;
+}
+
+function isoFromUnix(value?: number | null) {
+  if (!value || Number.isNaN(value)) {
+    return null;
+  }
+
+  return new Date(value * 1000).toISOString();
+}
+
+function extractCustomField(customFields: any[], variableName: string) {
+  return customFields.find((field: any) => field.variable_name === variableName)?.value || null;
+}
+
+function isFutureDate(value?: string | null) {
+  if (!value) {
+    return false;
+  }
+
+  return new Date(value).getTime() > Date.now();
+}
+
+async function fetchPaystackSubscription(subscriptionCode: string) {
+  const response = await fetch(`https://api.paystack.co/subscription/${subscriptionCode}`, {
+    headers: {
+      Authorization: `Bearer ${PAYSTACK_SECRET_KEY}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok || data.status === false) {
+    throw new Error(data.message || 'Unable to fetch subscription from Paystack');
+  }
+
+  return data.data;
+}
+
+async function getExistingSubscription(supabase: any, email: string) {
+  const { data, error } = await supabase
+    .from('subscriptions')
+    .select('*')
+    .eq('email', email)
+    .maybeSingle();
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}
+
+async function upsertCurrentSubscription(supabase: any, payload: Record<string, unknown>) {
+  const { error } = await supabase.from('subscriptions').upsert(payload, {
+    onConflict: 'email',
+  });
+
+  if (error) {
+    throw error;
+  }
+}
+
+async function updateSubscription(supabase: any, email: string, payload: Record<string, unknown>) {
+  const { error } = await supabase
+    .from('subscriptions')
+    .update(payload)
+    .eq('email', email);
+
+  if (error) {
+    throw error;
+  }
+}
+
+async function logPayment(supabase: any, payload: Record<string, unknown>) {
+  const { error } = await supabase.from('subscription_payments').upsert(payload, {
+    onConflict: 'reference',
+  });
+
+  if (error) {
+    throw error;
+  }
+}
+
+async function maybeFetchPaystackDetails(subscriptionCode?: string | null) {
+  if (!subscriptionCode || !PAYSTACK_SECRET_KEY) {
+    return null;
   }
 
   try {
-    // Get the raw body for signature verification
-    const payload = await req.text();
-    const signature = req.headers.get('x-paystack-signature');
+    return await fetchPaystackSubscription(subscriptionCode);
+  } catch (error) {
+    console.error('Failed to fetch Paystack subscription details:', error);
+    return null;
+  }
+}
 
-    // Get Paystack secret key from environment
-    const paystackSecretKey = Deno.env.get('PAYSTACK_SECRET_KEY');
-    if (!paystackSecretKey) {
-      console.error('PAYSTACK_SECRET_KEY not configured');
-      return new Response(JSON.stringify({ error: 'Server configuration error' }), {
-        status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
+async function processPartnerUpfrontCommission(args: {
+  supabase: any;
+  referralCode: string | null;
+  email: string;
+  planType: string | null;
+  plan: any;
+  subscriptionId: string | null;
+}) {
+  const { supabase, referralCode, email, planType, plan, subscriptionId } = args;
+  if (!referralCode) {
+    return;
+  }
+
+  try {
+    const { data: partner } = await supabase
+      .from('partners')
+      .select('id, status')
+      .eq('referral_code', referralCode)
+      .eq('status', 'active')
+      .single();
+
+    if (!partner) {
+      return;
     }
 
-    // Verify signature
-    if (!signature || !verifyPaystackSignature(payload, signature, paystackSecretKey)) {
-      console.error('Invalid Paystack signature');
-      return new Response(JSON.stringify({ error: 'Invalid signature' }), {
-        status: 401,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
+    const subscriptionAmount = plan.amount / 100;
+    const isYearly =
+      (planType || '').includes('yearly') ||
+      plan.interval === 'annually' ||
+      plan.plan_code === 'PLN_lu2vu0x7b0z4esc' ||
+      plan.plan_code === 'PLN_geld4bet9hwqca0' ||
+      plan.plan_code === 'PLN_2a41260dnw7z99x';
+
+    const commissionRate = isYearly ? 0.3 : 0.5;
+    const commissionType = isYearly ? 'one-time' : 'upfront';
+    const commission = subscriptionAmount * commissionRate;
+
+    await supabase.from('partner_referrals').insert({
+      partner_id: partner.id,
+      subscription_email: email,
+      subscription_id: subscriptionId,
+      plan_type: planType,
+      plan_amount: subscriptionAmount,
+      commission_type: commissionType,
+      commission_rate: commissionRate,
+      commission_amount: commission,
+      currency: plan.currency,
+      status: 'pending',
+      recurring_month: null,
+    });
+
+    await supabase.rpc('increment_partner_earnings', {
+      p_partner_id: partner.id,
+      p_amount: commission,
+    });
+  } catch (error) {
+    console.error('Error processing upfront partner commission:', error);
+  }
+}
+
+async function processPartnerRecurringCommission(args: {
+  supabase: any;
+  email: string;
+  planCode: string | null;
+  amount: number;
+  currency: string;
+}) {
+  const { supabase, email, planCode, amount, currency } = args;
+
+  try {
+    const { data: subscription } = await supabase
+      .from('subscriptions')
+      .select('id, referral_code, plan_type')
+      .eq('email', email)
+      .single();
+
+    if (!subscription?.referral_code) {
+      return;
     }
 
-    // Parse the event
+    const isYearly =
+      (subscription.plan_type || '').includes('yearly') ||
+      planCode === 'PLN_lu2vu0x7b0z4esc' ||
+      planCode === 'PLN_geld4bet9hwqca0' ||
+      planCode === 'PLN_2a41260dnw7z99x';
+
+    if (isYearly) {
+      return;
+    }
+
+    const { data: partner } = await supabase
+      .from('partners')
+      .select('id, status')
+      .eq('referral_code', subscription.referral_code)
+      .eq('status', 'active')
+      .single();
+
+    if (!partner) {
+      return;
+    }
+
+    const { count } = await supabase
+      .from('partner_referrals')
+      .select('id', { count: 'exact', head: true })
+      .eq('partner_id', partner.id)
+      .eq('subscription_email', email)
+      .eq('commission_type', 'recurring');
+
+    const recurringMonth = (count || 0) + 1;
+    if (recurringMonth > 6) {
+      return;
+    }
+
+    const commissionAmount = amount * 0.2;
+
+    await supabase.from('partner_referrals').insert({
+      partner_id: partner.id,
+      subscription_email: email,
+      subscription_id: subscription.id,
+      plan_type: planCode,
+      plan_amount: amount,
+      commission_type: 'recurring',
+      commission_rate: 0.2,
+      commission_amount: commissionAmount,
+      currency,
+      status: 'pending',
+      recurring_month: recurringMonth,
+    });
+
+    await supabase.rpc('increment_partner_earnings', {
+      p_partner_id: partner.id,
+      p_amount: commissionAmount,
+    });
+  } catch (error) {
+    console.error('Error processing recurring partner commission:', error);
+  }
+}
+
+serve(async (request) => {
+  if (request.method === 'OPTIONS') {
+    return new Response('ok', { headers: corsHeaders });
+  }
+
+  if (!APP_SUPABASE_URL || !APP_SUPABASE_SERVICE_KEY || !PAYSTACK_SECRET_KEY) {
+    return jsonResponse({ error: 'Server configuration error' }, 500);
+  }
+
+  try {
+    const payload = await request.text();
+    const signature = request.headers.get('x-paystack-signature');
+
+    if (!signature || !verifyPaystackSignature(payload, signature, PAYSTACK_SECRET_KEY)) {
+      return jsonResponse({ error: 'Invalid signature' }, 401);
+    }
+
     const event = JSON.parse(payload);
-    console.log('Received Paystack event:', event.event);
-
-    // Initialize Supabase client for APP'S database
     const supabase = createClient(APP_SUPABASE_URL, APP_SUPABASE_SERVICE_KEY);
+    const now = new Date().toISOString();
 
-    // Handle different event types
     switch (event.event) {
       case 'subscription.create': {
-        // New subscription created
         const data = event.data;
-        const customer = data.customer;
-        const plan = data.plan;
-        
-        // Extract custom fields from metadata
+        const customer = data.customer || {};
+        const plan = data.plan || {};
+        const email = normalizeEmail(customer.email);
         const metadata = data.metadata || {};
         const customFields = metadata.custom_fields || [];
-        const businessName = customFields.find((f: any) => f.variable_name === 'business_name')?.value || '';
-        const planType = customFields.find((f: any) => f.variable_name === 'plan_type')?.value || '';
-        const country = customFields.find((f: any) => f.variable_name === 'country')?.value || null;
-        const referralCode = customFields.find((f: any) => f.variable_name === 'referral_code')?.value || null;
+        const businessName = extractCustomField(customFields, 'business_name');
+        const planType = extractCustomField(customFields, 'plan_type');
+        const country = extractCustomField(customFields, 'country');
+        const referralCode = extractCustomField(customFields, 'referral_code');
+        const existing = await getExistingSubscription(supabase, email);
 
-        // Upsert subscription record
-        const { error } = await supabase
-          .from('subscriptions')
-          .upsert({
-            email: customer.email.toLowerCase(),
-            customer_code: customer.customer_code,
-            business_name: businessName,
-            country: country,
-            plan_type: planType,
-            plan_code: plan.plan_code,
-            plan_name: plan.name,
-            subscription_code: data.subscription_code,
-            status: data.status,
-            amount: plan.amount / 100, // Convert from smallest currency unit
-            currency: plan.currency,
-            referral_code: referralCode,
-            next_payment_date: data.next_payment_date,
-            created_at: data.createdAt || new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-          }, {
-            onConflict: 'email',
+        const currentPayload = {
+          email,
+          customer_code: customer.customer_code || existing?.customer_code || null,
+          business_name: businessName || existing?.business_name || null,
+          country: country || existing?.country || null,
+          plan_type: planType || existing?.plan_type || null,
+          plan_code: plan.plan_code,
+          plan_name: plan.name,
+          subscription_code: data.subscription_code,
+          email_token: data.email_token || null,
+          status: normalizeStatus(data.status),
+          amount: typeof plan.amount === 'number' ? plan.amount / 100 : null,
+          currency: plan.currency || existing?.currency || 'NGN',
+          referral_code: referralCode || existing?.referral_code || null,
+          next_payment_date: data.next_payment_date || existing?.next_payment_date || null,
+          subscription_started_at: isoFromUnix(data.start),
+          updated_at: now,
+        };
+
+        const isScheduledCreate =
+          existing &&
+          existing.subscription_code !== data.subscription_code &&
+          (existing.scheduled_subscription_code === data.subscription_code ||
+            existing.scheduled_plan_code === plan.plan_code ||
+            (existing.cancel_at_period_end && isFutureDate(data.next_payment_date)));
+
+        if (!existing || !existing.subscription_code || existing.subscription_code === data.subscription_code) {
+          await upsertCurrentSubscription(supabase, {
+            ...currentPayload,
+            created_at: data.createdAt || existing?.created_at || now,
           });
 
-        if (error) {
-          console.error('Error upserting subscription:', error);
-          throw error;
-        }
-
-        // ── Partner commission ──
-        // Monthly plans: 50% upfront + 20% recurring × 6 months
-        // Yearly plans:  30% one-time, no recurring
-        if (referralCode) {
-          try {
-            // Look up partner by referral code
-            const { data: partner } = await supabase
-              .from('partners')
-              .select('id, status')
-              .eq('referral_code', referralCode)
-              .eq('status', 'active')
-              .single();
-
-            if (partner) {
-              const subscriptionAmount = plan.amount / 100;
-
-              // Detect yearly vs monthly plan
-              const isYearly = planType.includes('yearly') ||
-                plan.interval === 'annually' ||
-                plan.plan_code === 'PLN_lu2vu0x7b0z4esc' || // pro-yearly
-                plan.plan_code === 'PLN_geld4bet9hwqca0' || // enterprise-yearly
-                plan.plan_code === 'PLN_2a41260dnw7z99x';   // lite-yearly
-
-              const commissionRate = isYearly ? 0.30 : 0.50;
-              const commissionType = isYearly ? 'one-time' : 'upfront';
-              const commission = subscriptionAmount * commissionRate;
-
-              // Get the subscription record we just upserted
-              const { data: subRecord } = await supabase
-                .from('subscriptions')
-                .select('id')
-                .eq('email', customer.email.toLowerCase())
-                .single();
-
-              // Record commission
-              await supabase.from('partner_referrals').insert({
-                partner_id: partner.id,
-                subscription_email: customer.email.toLowerCase(),
-                subscription_id: subRecord?.id || null,
-                plan_type: planType,
-                plan_amount: subscriptionAmount,
-                commission_type: commissionType,
-                commission_rate: commissionRate,
-                commission_amount: commission,
-                currency: plan.currency,
-                status: 'pending',
-                recurring_month: null,
-              });
-
-              // Update partner total earned
-              await supabase.rpc('increment_partner_earnings', {
-                p_partner_id: partner.id,
-                p_amount: commission,
-              });
-
-              console.log(`Partner ${referralCode}: ${commissionType} commission (${commissionRate * 100}%) ₦${commission} recorded [${isYearly ? 'yearly' : 'monthly'}]`);
-            }
-          } catch (partnerErr) {
-            console.error('Error processing partner commission:', partnerErr);
-            // Don't fail the webhook — subscription was already created
+          if (!existing?.subscription_code) {
+            const inserted = await getExistingSubscription(supabase, email);
+            await processPartnerUpfrontCommission({
+              supabase,
+              referralCode,
+              email,
+              planType,
+              plan,
+              subscriptionId: inserted?.id || null,
+            });
           }
+        } else if (isScheduledCreate) {
+          await updateSubscription(supabase, email, {
+            customer_code: currentPayload.customer_code,
+            business_name: currentPayload.business_name,
+            country: currentPayload.country,
+            referral_code: currentPayload.referral_code,
+            scheduled_plan_type: planType || existing?.scheduled_plan_type || null,
+            scheduled_plan_code: plan.plan_code,
+            scheduled_plan_name: plan.name,
+            scheduled_subscription_code: data.subscription_code,
+            scheduled_email_token: data.email_token || null,
+            scheduled_change_effective_at:
+              existing?.scheduled_change_effective_at || existing?.next_payment_date || data.next_payment_date || null,
+            updated_at: now,
+          });
+        } else {
+          await upsertCurrentSubscription(supabase, {
+            ...currentPayload,
+            cancel_at_period_end: false,
+            scheduled_plan_type: null,
+            scheduled_plan_code: null,
+            scheduled_plan_name: null,
+            scheduled_subscription_code: null,
+            scheduled_email_token: null,
+            scheduled_change_effective_at: null,
+            created_at: data.createdAt || existing?.created_at || now,
+          });
         }
 
-        console.log(`Subscription created for ${customer.email}`);
         break;
       }
 
       case 'charge.success': {
-        // Successful charge (including recurring payments)
         const data = event.data;
-        const customer = data.customer;
+        if (!data.plan?.plan_code) {
+          break;
+        }
 
-        // Check if this is a subscription charge
-        if (data.plan && data.plan.plan_code) {
-          // Update subscription status and next payment date
-          const { error } = await supabase
-            .from('subscriptions')
-            .update({
-              status: 'active',
-              last_payment_date: new Date().toISOString(),
-              last_payment_reference: data.reference,
-              updated_at: new Date().toISOString(),
-            })
-            .eq('email', customer.email.toLowerCase());
+        const customer = data.customer || {};
+        const email = normalizeEmail(customer.email);
+        const existing = await getExistingSubscription(supabase, email);
 
-          if (error) {
-            console.error('Error updating subscription on charge:', error);
-          }
+        await logPayment(supabase, {
+          email,
+          reference: data.reference,
+          amount: data.amount / 100,
+          currency: data.currency,
+          status: 'success',
+          paid_at: data.paid_at || now,
+        });
 
-          // Log the payment
-          await supabase.from('subscription_payments').insert({
-            email: customer.email.toLowerCase(),
-            reference: data.reference,
+        if (existing?.scheduled_plan_code && existing.scheduled_plan_code === data.plan.plan_code) {
+          const scheduledDetails = await maybeFetchPaystackDetails(existing.scheduled_subscription_code);
+
+          await updateSubscription(supabase, email, {
+            customer_code: customer.customer_code || existing.customer_code || null,
+            plan_type: existing.scheduled_plan_type || existing.plan_type,
+            plan_code: existing.scheduled_plan_code || data.plan.plan_code,
+            plan_name:
+              scheduledDetails?.plan?.name ||
+              existing.scheduled_plan_name ||
+              data.plan.name ||
+              existing.plan_name,
+            subscription_code:
+              existing.scheduled_subscription_code ||
+              scheduledDetails?.subscription_code ||
+              existing.subscription_code,
+            email_token:
+              scheduledDetails?.email_token ||
+              existing.scheduled_email_token ||
+              existing.email_token ||
+              null,
+            status: 'active',
             amount: data.amount / 100,
             currency: data.currency,
-            status: 'success',
-            paid_at: data.paid_at || new Date().toISOString(),
+            next_payment_date:
+              scheduledDetails?.next_payment_date ||
+              existing.scheduled_change_effective_at ||
+              existing.next_payment_date,
+            last_payment_date: data.paid_at || now,
+            last_payment_reference: data.reference,
+            cancel_at_period_end: false,
+            scheduled_plan_type: null,
+            scheduled_plan_code: null,
+            scheduled_plan_name: null,
+            scheduled_subscription_code: null,
+            scheduled_email_token: null,
+            scheduled_change_effective_at: null,
+            updated_at: now,
           });
+        } else {
+          const currentDetails = await maybeFetchPaystackDetails(existing?.subscription_code);
 
-          // ── Partner recurring commission (20% for 6 months — monthly plans only) ──
-          try {
-            // Check if subscription has a referral code
-            const { data: subscription } = await supabase
-              .from('subscriptions')
-              .select('id, referral_code, plan_type')
-              .eq('email', customer.email.toLowerCase())
-              .single();
-
-            if (subscription?.referral_code) {
-              // Detect yearly plan — yearly plans get 30% one-time only, no recurring
-              const isYearly = (subscription.plan_type || '').includes('yearly') ||
-                (data.plan.plan_code === 'PLN_lu2vu0x7b0z4esc') || // pro-yearly
-                (data.plan.plan_code === 'PLN_geld4bet9hwqca0') || // enterprise-yearly
-                (data.plan.plan_code === 'PLN_2a41260dnw7z99x');   // lite-yearly
-
-              if (isYearly) {
-                console.log(`Yearly plan — no recurring commission for ${customer.email}`);
-              } else {
-                // Look up active partner
-                const { data: partner } = await supabase
-                  .from('partners')
-                  .select('id, status')
-                  .eq('referral_code', subscription.referral_code)
-                  .eq('status', 'active')
-                  .single();
-
-                if (partner) {
-                  // Count how many recurring commissions already exist for this referral
-                  const { count } = await supabase
-                    .from('partner_referrals')
-                    .select('id', { count: 'exact', head: true })
-                    .eq('partner_id', partner.id)
-                    .eq('subscription_email', customer.email.toLowerCase())
-                    .eq('commission_type', 'recurring');
-
-                  const recurringMonth = (count || 0) + 1;
-
-                  // Only pay recurring for months 1-6
-                  if (recurringMonth <= 6) {
-                    const chargeAmount = data.amount / 100;
-                    const recurringCommission = chargeAmount * 0.20; // 20%
-
-                    await supabase.from('partner_referrals').insert({
-                      partner_id: partner.id,
-                      subscription_email: customer.email.toLowerCase(),
-                      subscription_id: subscription.id,
-                      plan_type: data.plan.plan_code,
-                      plan_amount: chargeAmount,
-                      commission_type: 'recurring',
-                      commission_rate: 0.20,
-                      commission_amount: recurringCommission,
-                      currency: data.currency,
-                      status: 'pending',
-                      recurring_month: recurringMonth,
-                    });
-
-                    // Update partner total earned
-                    await supabase.rpc('increment_partner_earnings', {
-                      p_partner_id: partner.id,
-                      p_amount: recurringCommission,
-                    });
-
-                    console.log(`Partner recurring commission month ${recurringMonth}: ₦${recurringCommission}`);
-                  }
-                }
-              }
-            }
-          } catch (partnerErr) {
-            console.error('Error processing recurring partner commission:', partnerErr);
-          }
-
-          console.log(`Payment successful for ${customer.email}`);
+          await updateSubscription(supabase, email, {
+            customer_code: customer.customer_code || existing?.customer_code || null,
+            email_token: currentDetails?.email_token || existing?.email_token || null,
+            status: 'active',
+            amount: data.amount / 100,
+            currency: data.currency,
+            next_payment_date: currentDetails?.next_payment_date || existing?.next_payment_date || null,
+            last_payment_date: data.paid_at || now,
+            last_payment_reference: data.reference,
+            updated_at: now,
+          });
         }
+
+        await processPartnerRecurringCommission({
+          supabase,
+          email,
+          planCode: data.plan.plan_code,
+          amount: data.amount / 100,
+          currency: data.currency,
+        });
+
         break;
       }
 
       case 'subscription.not_renew': {
-        // Subscription will not renew (customer cancelled)
         const data = event.data;
-        const customer = data.customer;
-
-        const { error } = await supabase
-          .from('subscriptions')
-          .update({
-            status: 'cancelled',
-            cancelled_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-          })
-          .eq('email', customer.email.toLowerCase());
-
-        if (error) {
-          console.error('Error updating cancelled subscription:', error);
+        const customer = data.customer || {};
+        const email = normalizeEmail(customer.email);
+        const existing = await getExistingSubscription(supabase, email);
+        if (!existing) {
+          break;
         }
 
-        console.log(`Subscription cancelled for ${customer.email}`);
+        if (existing.subscription_code === data.subscription_code) {
+          await updateSubscription(supabase, email, {
+            status: 'non_renewing',
+            cancel_at_period_end: true,
+            updated_at: now,
+          });
+        } else if (existing.scheduled_subscription_code === data.subscription_code) {
+          await updateSubscription(supabase, email, {
+            scheduled_plan_type: null,
+            scheduled_plan_code: null,
+            scheduled_plan_name: null,
+            scheduled_subscription_code: null,
+            scheduled_email_token: null,
+            scheduled_change_effective_at: null,
+            updated_at: now,
+          });
+        }
+
         break;
       }
 
       case 'subscription.disable': {
-        // Subscription disabled (payment failed or manually disabled)
         const data = event.data;
-        const customer = data.customer;
-
-        const { error } = await supabase
-          .from('subscriptions')
-          .update({
-            status: 'inactive',
-            updated_at: new Date().toISOString(),
-          })
-          .eq('email', customer.email.toLowerCase());
-
-        if (error) {
-          console.error('Error updating disabled subscription:', error);
+        const customer = data.customer || {};
+        const email = normalizeEmail(customer.email);
+        const existing = await getExistingSubscription(supabase, email);
+        if (!existing) {
+          break;
         }
 
-        console.log(`Subscription disabled for ${customer.email}`);
+        if (existing.subscription_code === data.subscription_code) {
+          await updateSubscription(supabase, email, {
+            status: existing.scheduled_subscription_code ? 'pending' : 'cancelled',
+            cancelled_at: now,
+            cancel_at_period_end: Boolean(existing.scheduled_subscription_code),
+            next_payment_date: existing.scheduled_subscription_code ? existing.next_payment_date : null,
+            updated_at: now,
+          });
+        } else if (existing.scheduled_subscription_code === data.subscription_code) {
+          await updateSubscription(supabase, email, {
+            scheduled_plan_type: null,
+            scheduled_plan_code: null,
+            scheduled_plan_name: null,
+            scheduled_subscription_code: null,
+            scheduled_email_token: null,
+            scheduled_change_effective_at: null,
+            updated_at: now,
+          });
+        }
+
         break;
       }
 
       case 'invoice.payment_failed': {
-        // Payment failed for subscription
         const data = event.data;
-        const customer = data.customer;
+        const customer = data.customer || {};
+        const email = normalizeEmail(customer.email);
+        const existing = await getExistingSubscription(supabase, email);
 
-        // Log failed payment
-        await supabase.from('subscription_payments').insert({
-          email: customer.email.toLowerCase(),
+        await logPayment(supabase, {
+          email,
           reference: data.reference || `failed_${Date.now()}`,
           amount: data.amount / 100,
           currency: data.currency,
           status: 'failed',
-          paid_at: new Date().toISOString(),
+          paid_at: now,
         });
 
-        // Update subscription status
-        const { error } = await supabase
-          .from('subscriptions')
-          .update({
+        if (existing?.scheduled_plan_code && existing.scheduled_plan_code === data.plan?.plan_code) {
+          await updateSubscription(supabase, email, {
             status: 'payment_failed',
-            updated_at: new Date().toISOString(),
-          })
-          .eq('email', customer.email.toLowerCase());
-
-        if (error) {
-          console.error('Error updating failed payment subscription:', error);
+            cancel_at_period_end: false,
+            scheduled_plan_type: null,
+            scheduled_plan_code: null,
+            scheduled_plan_name: null,
+            scheduled_subscription_code: null,
+            scheduled_email_token: null,
+            scheduled_change_effective_at: null,
+            updated_at: now,
+          });
+        } else {
+          await updateSubscription(supabase, email, {
+            status: 'payment_failed',
+            updated_at: now,
+          });
         }
 
-        console.log(`Payment failed for ${customer.email}`);
         break;
       }
 
@@ -366,16 +564,9 @@ serve(async (req) => {
         console.log(`Unhandled event type: ${event.event}`);
     }
 
-    return new Response(JSON.stringify({ received: true }), {
-      status: 200,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    });
-
+    return jsonResponse({ received: true });
   } catch (error) {
     console.error('Webhook error:', error);
-    return new Response(JSON.stringify({ error: 'Webhook processing failed' }), {
-      status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    });
+    return jsonResponse({ error: 'Webhook processing failed' }, 500);
   }
 });

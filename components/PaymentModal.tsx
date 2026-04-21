@@ -8,9 +8,9 @@ import {
 import { faCcVisa, faCcMastercard, faCcAmex } from '@fortawesome/free-brands-svg-icons';
 import { Box, Typography, IconButton, InputBase, MenuItem, Select, Checkbox, CircularProgress } from '@mui/material';
 import { usePayment, PLAN_CONFIG } from '../contexts/PaymentContext';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { LegalModal, useLegalModal } from './LegalModal';
 import { useGeoLocation } from '../hooks/useGeoLocation';
+import { getAppSupabaseClient } from '../lib/supabase';
 
 const SUPPORTED_COUNTRIES = [
   { code: 'NG', name: 'Nigeria', flag: '🇳🇬' }, { code: 'GH', name: 'Ghana', flag: '🇬🇭' },
@@ -18,15 +18,6 @@ const SUPPORTED_COUNTRIES = [
   { code: 'US', name: 'United States', flag: '🇺🇸' }, { code: 'GB', name: 'United Kingdom', flag: '🇬🇧' },
   { code: 'OTHER', name: 'Other', flag: '🌍' },
 ] as const;
-
-const appSupabaseUrl = import.meta.env.VITE_APP_SUPABASE_URL || '';
-const appSupabaseAnonKey = import.meta.env.VITE_APP_SUPABASE_ANON_KEY || '';
-let supabase: SupabaseClient | null = null;
-function getSupabaseClient(): SupabaseClient | null {
-  if (!appSupabaseUrl || !appSupabaseAnonKey) return null;
-  if (!supabase) supabase = createClient(appSupabaseUrl, appSupabaseAnonKey);
-  return supabase;
-}
 
 const PAYSTACK_PUBLIC_KEY = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
 declare global { interface Window { PaystackPop: { setup: (options: any) => { openIframe: () => void } }; } }
@@ -113,7 +104,7 @@ export const PaymentModal: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm() || !agreedToTerms) return;
-    const client = getSupabaseClient();
+    const client = getAppSupabaseClient();
     if (!client) { setErrors({ auth: 'System configuration error. Contact support.' }); return; }
 
     setIsSubmitting(true); setRegistrationStep('registering'); setErrors({});
@@ -123,7 +114,11 @@ export const PaymentModal: React.FC = () => {
         options: { data: { business_name: formData.businessName.trim(), country: formData.country, plan_type: selectedPlan } },
       });
       if (authError) {
-        setErrors({ auth: authError.message.includes('already registered') ? 'Email already registered.' : authError.message });
+        setErrors({
+          auth: authError.message.includes('already registered')
+            ? 'Email already registered. Log in from /account to upgrade, downgrade, or cancel.'
+            : authError.message,
+        });
         setIsSubmitting(false); setRegistrationStep('form');
         return;
       }

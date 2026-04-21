@@ -1,213 +1,176 @@
 # SharpTable Paystack Subscription Setup Guide
 
-## Overview
-This guide explains how to set up the Paystack subscription payment system for SharpTable.
+## Current Direction
+
+SharpTable should use a single Supabase project for both the website and the app:
+
+- Supabase project: `wwlopezoazuugxcvjgus`
+- Base URL: `https://wwlopezoazuugxcvjgus.supabase.co`
+
+This is the safest way to add website sign-in and billing management without disrupting the app flow, because:
+
+- the same Supabase Auth users can sign in on both surfaces
+- the same `subscriptions` table remains the source of truth
+- website plan changes are immediately visible to the app
+
+Do not create a second auth/database flow for the website.
 
 ## Architecture
-```
-User clicks "Get Started" → PaymentModal opens
-        ↓
-User fills: Email, Business Name, Password
-        ↓
-Supabase Auth creates user account in App's database
-        ↓
-Paystack Inline SDK opens payment popup
-        ↓
-User completes payment → Paystack creates subscription
-        ↓
-Paystack sends webhook → Website's Supabase Edge Function
-        ↓
-Edge Function stores subscription in App's PostgreSQL
-        ↓
-User can now login to PWA with same credentials
+
+```text
+User clicks "Get Started" on website
+        ->
+User signs up in the shared Supabase Auth project
+        ->
+Paystack checkout creates subscription
+        ->
+Paystack webhook writes into the same shared Supabase project
+        ->
+Website and app both read the same subscription state
 ```
 
-## Important: Two Supabase Projects
-- **Website Supabase** (eplonlnwcuyqhgkrhqzg): Hosts the webhook edge function
-- **App Supabase** (wwlopezoazuugxcvjgus): Stores users and subscriptions
+## What Should Stay Shared
 
-## Step 1: Set Up Supabase Database
+Use the same Supabase project for:
 
-### Option A: Run Migration via Supabase Dashboard
-1. Go to your Supabase project → SQL Editor
-2. Copy the contents of `supabase/migrations/20260113000000_create_subscriptions_table.sql`
-3. Run the SQL query
+- Auth users
+- `subscriptions` table
+- `subscription_payments` table
+- billing-related migrations
+- RLS policies
 
-### Option B: Run Migration via CLI
+That means the SQL migrations in this repo should be run in the same SQL editor you already use for the app project.
+
+## Step 1: Run the SQL in the App Project
+
+Open the SQL editor for:
+
+- `https://wwlopezoazuugxcvjgus.supabase.co`
+
+Run these migrations there:
+
+- `supabase/migrations/20260113000000_create_subscriptions_table.sql`
+- `supabase/migrations/20260212000000_create_partners_table.sql` if you use partner referrals
+- `supabase/migrations/20260222000000_add_country_to_subscriptions.sql`
+- `supabase/migrations/20260421000000_add_subscription_management_fields.sql`
+
+The last migration is required for:
+
+- cancel at renewal
+- upgrade/downgrade at next renewal
+- storing the Paystack email token and scheduled plan metadata
+
+## Step 2: Website Environment Variables
+
+Your website frontend should keep using the shared app project:
+
+```env
+VITE_PAYSTACK_PUBLIC_KEY=pk_live_your_public_key_here
+VITE_APP_SUPABASE_URL=https://wwlopezoazuugxcvjgus.supabase.co
+VITE_APP_SUPABASE_ANON_KEY=your_shared_project_anon_key
+```
+
+These power:
+
+- sign in
+- password recovery
+- reading subscription state in the browser
+
+## Step 3: Server-Side Billing Variables
+
+If you use the website route `api/billing/manage.ts`, the deployed backend also needs:
+
+```env
+APP_SUPABASE_URL=https://wwlopezoazuugxcvjgus.supabase.co
+APP_SUPABASE_ANON_KEY=your_shared_project_anon_key
+APP_SUPABASE_SERVICE_ROLE_KEY=your_shared_project_service_role_key
+PAYSTACK_SECRET_KEY=sk_live_your_secret_key_here
+```
+
+These are server-only values for:
+
+- cancelling subscriptions
+- scheduling plan switches for the next renewal
+- calling Paystack securely
+
+Do not expose `APP_SUPABASE_SERVICE_ROLE_KEY` or `PAYSTACK_SECRET_KEY` in browser code.
+
+## Step 4: Deploy the Paystack Webhook Against the Same Project
+
+The webhook should now be deployed against the same shared Supabase project, not the old split host.
+
+Example:
+
 ```bash
-npx supabase db push
-```
-
-## Step 2: Deploy the Webhook Edge Function
-
-### Prerequisites
-- Install Supabase CLI: `npm install -g supabase`
-- Login: `supabase login`
-- Link your project: `supabase link --project-ref your-project-ref`
-
-### Set Secrets
-```bash
-# Set your Paystack secret key (IMPORTANT: Keep this secret!)
+supabase link --project-ref wwlopezoazuugxcvjgus
 supabase secrets set PAYSTACK_SECRET_KEY=sk_live_your_secret_key_here
-```
-
-### Deploy the Function
-```bash
+supabase secrets set SUPABASE_URL=https://wwlopezoazuugxcvjgus.supabase.co
+supabase secrets set SUPABASE_SERVICE_ROLE_KEY=your_shared_project_service_role_key
 supabase functions deploy paystack-webhook --no-verify-jwt
 ```
 
-The `--no-verify-jwt` flag is important because Paystack webhooks don't include Supabase JWT tokens.
+Your Paystack webhook URL should then be:
 
-### Get Your Webhook URL
-After deployment, your webhook URL will be:
-```
-https://your-project-ref.supabase.co/functions/v1/paystack-webhook
+```text
+https://wwlopezoazuugxcvjgus.supabase.co/functions/v1/paystack-webhook
 ```
 
-## Step 3: Configure Paystack Webhook
+If Paystack still points at:
 
-1. Log in to your [Paystack Dashboard](https://dashboard.paystack.com)
-2. Go to **Settings** → **API Keys & Webhooks**
-3. Under **Webhook URL**, enter:
-   ```
-   https://your-project-ref.supabase.co/functions/v1/paystack-webhook
-   ```
-4. Click **Update**
-5. Make sure these events are enabled:
-   - `subscription.create`
-   - `charge.success`
-   - `subscription.not_renew`
-   - `subscription.disable`
-   - `invoice.payment_failed`
+- `https://eplonlnwcuyqhgkrhqzg.supabase.co/functions/v1/paystack-webhook`
 
-## Step 4: Configure Environment Variables
+then the repo is still carrying the old split setup and should be updated in the Paystack dashboard.
 
-Create a `.env` file in your project root:
+## Step 5: Events to Enable in Paystack
 
-```env
-# Paystack
-VITE_PAYSTACK_PUBLIC_KEY=pk_live_your_public_key_here
+Make sure these events are enabled:
 
-# Website Supabase (for webhook hosting - not currently used in frontend)
-VITE_SUPABASE_URL=https://your-website-project.supabase.co
-VITE_SUPABASE_ANON_KEY=your_website_supabase_anon_key
+- `subscription.create`
+- `charge.success`
+- `subscription.not_renew`
+- `subscription.disable`
+- `invoice.payment_failed`
 
-# App Supabase (for user auth & subscription storage)
-VITE_APP_SUPABASE_URL=https://your-app-project.supabase.co
-VITE_APP_SUPABASE_ANON_KEY=your_app_supabase_anon_key
-```
+## Existing App Flow Safety
 
-**IMPORTANT:** Get the `VITE_APP_SUPABASE_ANON_KEY` from your SharpTable app's Supabase project:
-1. Go to your App Supabase Dashboard → Settings → API
-2. Copy the `anon` key (public)
-3. Paste it in the `.env` file
+To avoid disrupting the app:
 
-## Step 5: Using the Subscription Hook in Your App
+- do not migrate users to another auth project
+- do not replace the existing `subscriptions` table with a new one
+- do not change existing subscription rows manually unless necessary
+- only add the new columns from the migration
 
-```tsx
-import { useSubscription } from './hooks/useSubscription';
+The changes in this repo are additive:
 
-function MyComponent() {
-  const { subscription, isLoading, checkSubscription } = useSubscription();
+- website sign-in uses the same auth project the app already uses
+- plan changes update the same subscription row the app already reads
+- `non_renewing` should still be treated as active until the renewal date
 
-  // Check subscription for a specific user
-  const handleLogin = async (email: string) => {
-    const sub = await checkSubscription(email);
-    
-    if (sub?.hasActiveSubscription) {
-      // User has active subscription
-      if (sub.planType === 'enterprise') {
-        // Enable enterprise features
-      } else {
-        // Enable pro features
-      }
-    } else {
-      // User doesn't have subscription - show pricing
-    }
-  };
+## Backend-Added Users
 
-  return (
-    <div>
-      {isLoading && <p>Checking subscription...</p>}
-      {subscription?.hasActiveSubscription && (
-        <p>Plan: {subscription.planType}</p>
-      )}
-    </div>
-  );
-}
-```
+Important limitation:
 
-## Step 6: Protecting Routes/Features
+- if a customer exists only in `subscriptions` but does not exist in Supabase Auth, they still cannot log in
 
-```tsx
-// Example: Protect a route based on subscription
-function ProtectedFeature() {
-  const { subscription, isLoading } = useSubscription(userEmail);
+To let them use the new website sign-in flow:
 
-  if (isLoading) return <LoadingSpinner />;
-  
-  if (!subscription?.hasActiveSubscription) {
-    return <Navigate to="/pricing" />;
-  }
+- create or invite the auth user in the shared Supabase project
+- keep the same email as the subscription row
 
-  if (subscription.planType !== 'enterprise' && isEnterpriseFeature) {
-    return <UpgradePrompt currentPlan={subscription.planType} />;
-  }
+That will preserve the current tier while letting them sign in and manage billing.
 
-  return <YourFeatureComponent />;
-}
-```
+## Verify After Deployment
 
-## Testing
-
-### Test Mode
-1. Use Paystack test keys (`pk_test_...` and `sk_test_...`)
-2. Use Paystack test cards:
-   - Success: `4084 0841 1111 1111`
-   - Failed: `4084 0841 2222 2222`
-
-### Verify Webhook
-1. Make a test payment
-2. Check Supabase function logs: `supabase functions logs paystack-webhook`
-3. Check your `subscriptions` table in Supabase
-
-## Subscription Statuses
-
-| Status | Description |
-|--------|-------------|
-| `active` | Subscription is active and paid |
-| `pending` | Subscription initiated but not confirmed |
-| `inactive` | Subscription disabled (manual or failed payment) |
-| `cancelled` | User cancelled subscription |
-| `payment_failed` | Recurring payment failed |
-
-## Plan Codes Reference
-
-| Plan | Code | Price |
-|------|------|-------|
-| Pro | `PLN_rknt3upbuue6dmh` | $65/month |
-| Enterprise | `PLN_b36ulzsdy6d418n` | $129/month |
+1. Sign in on `/account` with an existing shared auth user.
+2. Confirm the current plan matches the app.
+3. Schedule a downgrade or upgrade.
+4. Confirm the `subscriptions` row gets `scheduled_plan_type` and `cancel_at_period_end`.
+5. Confirm the app still treats the current plan as active until renewal.
+6. Test cancellation and confirm it marks the record as non-renewing instead of cutting access immediately.
 
 ## Security Notes
 
-1. **Never expose `sk_live_...`** - Only use in server-side code (Edge Functions)
-2. **`pk_live_...` is safe** - Designed to be used in frontend
-3. **Always verify webhook signatures** - The Edge Function does this automatically
-4. **Use Row Level Security** - Already configured in the migration
-
-## Troubleshooting
-
-### Webhook not receiving events
-- Verify webhook URL in Paystack dashboard
-- Check Edge Function logs for errors
-- Ensure `--no-verify-jwt` flag was used during deployment
-
-### Subscription not showing in database
-- Check Edge Function logs: `supabase functions logs paystack-webhook`
-- Verify PAYSTACK_SECRET_KEY is set correctly
-- Check for RLS policy issues
-
-### Payment modal not opening
-- Ensure Paystack script is loaded in `index.html`
-- Check browser console for errors
-- Verify public key is correct
+- `VITE_*` values are safe for frontend use.
+- `PAYSTACK_SECRET_KEY` must stay server-side only.
+- `APP_SUPABASE_SERVICE_ROLE_KEY` must stay server-side only.
+- The webhook must verify Paystack signatures before writing to the database.

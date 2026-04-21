@@ -1,42 +1,47 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { PaymentCallback } from './components/PaymentCallback';
-import { PaymentProvider } from './contexts/PaymentContext';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Layout } from './components/Layout';
+import { PaymentCallback } from './components/PaymentCallback';
 import { ScrollToTop } from './components/ScrollToTop';
-import { HomePage } from './pages/HomePage';
-import { FeaturesPage } from './pages/FeaturesPage';
-import { PricingPage } from './pages/PricingPage';
+import { AuthProvider } from './contexts/AuthContext';
+import { PaymentProvider } from './contexts/PaymentContext';
 import { FAQPage } from './pages/FAQPage';
-import { PartnershipPage } from './pages/PartnershipPage';
+import { FeaturesPage } from './pages/FeaturesPage';
+import { HomePage } from './pages/HomePage';
+import { PricingPage } from './pages/PricingPage';
 import { PartnershipApplyPage } from './pages/PartnershipApplyPage';
+import { PartnershipPage } from './pages/PartnershipPage';
+import { AccountPage } from './pages/AccountPage';
+import { ResetPasswordPage } from './pages/ResetPasswordPage';
 
 function App() {
   return (
     <BrowserRouter>
-      <PaymentProvider>
-        <ScrollToTop />
-        <Routes>
-          {/* Payment callback — standalone page, no nav/footer */}
-          <Route
-            path="/payment/callback"
-            element={
-              <div className="bg-black min-h-screen text-white selection:bg-amber-500/30">
-                <PaymentCallback />
-              </div>
-            }
-          />
+      <AuthProvider>
+        <PaymentProvider>
+          <ScrollToTop />
+          <Routes>
+            <Route
+              path="/payment/callback"
+              element={
+                <div className="bg-black min-h-screen text-white selection:bg-amber-500/30">
+                  <PaymentCallback />
+                </div>
+              }
+            />
 
-          {/* All pages that share NavBar + Footer */}
-          <Route element={<Layout />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/features" element={<FeaturesPage />} />
-            <Route path="/pricing" element={<PricingPage />} />
-            <Route path="/faq" element={<FAQPage />} />
-            <Route path="/partnership" element={<PartnershipPage />} />
-            <Route path="/partnership/apply" element={<PartnershipApplyPage />} />
-          </Route>
-        </Routes>
-      </PaymentProvider>
+            <Route element={<Layout />}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/features" element={<FeaturesPage />} />
+              <Route path="/pricing" element={<PricingPage />} />
+              <Route path="/faq" element={<FAQPage />} />
+              <Route path="/partnership" element={<PartnershipPage />} />
+              <Route path="/partnership/apply" element={<PartnershipApplyPage />} />
+              <Route path="/account" element={<AccountPage />} />
+              <Route path="/account/reset-password" element={<ResetPasswordPage />} />
+            </Route>
+          </Routes>
+        </PaymentProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

@@ -4,11 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Link, useLocation } from 'react-router-dom';
 import { Box, Container, IconButton, Button, Typography } from '@mui/material';
+import { useAuth } from '../contexts/AuthContext';
 
 export const NavBar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { user } = useAuth();
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -22,6 +24,10 @@ export const NavBar: React.FC = () => {
 
   const handleGetStarted = () => {
     window.location.href = '/pricing';
+  };
+
+  const handleManageAccount = () => {
+    window.location.href = '/account';
   };
 
   return (
@@ -106,6 +112,26 @@ export const NavBar: React.FC = () => {
             }}
           >
             Get Started
+          </Button>
+
+          <Button
+            component={motion.button}
+            onClick={handleManageAccount}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            sx={{
+              color: 'white',
+              px: 2,
+              py: 1,
+              borderRadius: '9999px',
+              textTransform: 'none',
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              minWidth: 'auto',
+              border: '1px solid rgba(255,255,255,0.16)',
+            }}
+          >
+            {user ? 'Manage Plan' : 'Login'}
           </Button>
         </Box>
 
@@ -196,6 +222,30 @@ export const NavBar: React.FC = () => {
               }}
             >
               Get Started
+            </Button>
+
+            <Button
+              component={motion.button}
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              onClick={() => {
+                handleManageAccount();
+                setIsMobileMenuOpen(false);
+              }}
+              sx={{
+                color: 'white',
+                px: 2,
+                py: 1.5,
+                borderRadius: '9999px',
+                textTransform: 'none',
+                fontSize: '0.875rem',
+                fontWeight: 600,
+                width: '100%',
+                border: '1px solid rgba(255,255,255,0.16)',
+              }}
+            >
+              {user ? 'Manage Plan' : 'Login'}
             </Button>
           </Box>
         )}

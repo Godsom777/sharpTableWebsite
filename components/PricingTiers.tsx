@@ -121,86 +121,111 @@ const PricingTiers: React.FC = () => {
         {isCurrencyLoading ? (
             <Box sx={{ height: 600, bgcolor: 'grey.900', border: '1px solid', borderColor: 'grey.800', borderRadius: '1.5rem', animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' }} />
         ) : (
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' }, gap: { xs: 3, md: 4 } }}>
-            {tierConfigs.map((config, index) => (
+          <Box sx={{ display: 'grid', gap: 3 }}>
+            <Box sx={{ display: 'flex', justifyContent: { xs: 'flex-start', md: 'flex-end' } }}>
               <Box
-                key={config.name}
-                component={motion.div}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                sx={{ 
-                  bgcolor: '#111111', 
-                  borderRadius: '2rem', 
-                  p: { xs: 3, md: 5 },
-                  border: config.active ? '1px solid #C9A84C' : '1px solid rgba(255,255,255,0.05)',
-                  display: 'flex',
-                  flexDirection: 'column'
+                component="a"
+                href="/account"
+                sx={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 1,
+                  px: 2.5,
+                  py: 1.25,
+                  borderRadius: '999px',
+                  border: '1px solid rgba(255,255,255,0.16)',
+                  color: 'white',
+                  textDecoration: 'none',
+                  fontWeight: 700,
+                  fontSize: '0.85rem',
                 }}
               >
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 6 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                     <Box sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: 'white' }} />
-                     <Typography sx={{ color: 'white', fontWeight: 700, fontSize: '1rem' }}>{config.name}</Typography>
-                  </Box>
-                  <Box sx={{ px: 2, py: 0.5, borderRadius: '999px', border: '1px solid rgba(255,255,255,0.1)', color: 'grey.400', fontSize: '0.75rem', fontWeight: 600 }}>
-                    {config.periodDelay}
-                  </Box>
-                </Box>
+                <FontAwesomeIcon icon={faLock} style={{ width: 12, height: 12 }} />
+                Existing customer? Log in to manage your plan
+              </Box>
+            </Box>
 
-                <Typography sx={{ fontSize: { xs: '2.5rem', md: '4.5rem' }, fontWeight: 900, color: 'white', letterSpacing: '-0.05em', lineHeight: 1, mb: 1 }}>
-                  {config.price}
-                  <Box component="span" sx={{ fontSize: '1rem', fontWeight: 500, color: 'grey.500', display: 'inline-block', ml: 1 }}>
-                    {billingCycle === 'monthly' ? '/mo' : '/yr'}
-                  </Box>
-                </Typography>
-                
-                <Typography sx={{ color: 'grey.400', fontSize: '0.9rem', mb: 6, minHeight: 40 }}>
-                  {config.description}
-                </Typography>
-
+            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' }, gap: { xs: 3, md: 4 } }}>
+              {tierConfigs.map((config, index) => (
                 <Box
-                  component="button"
-                  onClick={() => openPaymentModal(config.key)}
-                  sx={{
-                    w: '100%',
-                    py: 2,
-                    borderRadius: '999px',
-                    fontWeight: 800,
-                    fontSize: '1rem',
-                    transition: 'all 0.3s',
-                    mb: 8,
-                    cursor: 'pointer',
-                    border: 'none',
-                    ...(config.active
-                      ? { bgcolor: '#C9A84C', color: 'black', '&:hover': { transform: 'scale(1.02)', bgcolor: '#b8933f' } }
-                      : { bgcolor: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)', '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' } }),
+                  key={config.name}
+                  component={motion.div}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  sx={{ 
+                    bgcolor: '#111111', 
+                    borderRadius: '2rem', 
+                    p: { xs: 3, md: 5 },
+                    border: config.active ? '1px solid #C9A84C' : '1px solid rgba(255,255,255,0.05)',
+                    display: 'flex',
+                    flexDirection: 'column'
                   }}
                 >
-                  Choose Plan
-                </Box>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 6 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                       <Box sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: 'white' }} />
+                       <Typography sx={{ color: 'white', fontWeight: 700, fontSize: '1rem' }}>{config.name}</Typography>
+                    </Box>
+                    <Box sx={{ px: 2, py: 0.5, borderRadius: '999px', border: '1px solid rgba(255,255,255,0.1)', color: 'grey.400', fontSize: '0.75rem', fontWeight: 600 }}>
+                      {config.periodDelay}
+                    </Box>
+                  </Box>
 
-                <Typography sx={{ color: 'white', fontWeight: 700, fontSize: '1rem', mb: 4 }}>
-                  What's included:
-                </Typography>
+                  <Typography sx={{ fontSize: { xs: '2.5rem', md: '4.5rem' }, fontWeight: 900, color: 'white', letterSpacing: '-0.05em', lineHeight: 1, mb: 1 }}>
+                    {config.price}
+                    <Box component="span" sx={{ fontSize: '1rem', fontWeight: 500, color: 'grey.500', display: 'inline-block', ml: 1 }}>
+                      {billingCycle === 'monthly' ? '/mo' : '/yr'}
+                    </Box>
+                  </Typography>
+                  
+                  <Typography sx={{ color: 'grey.400', fontSize: '0.9rem', mb: 6, minHeight: 40 }}>
+                    {config.description}
+                  </Typography>
 
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-                  {config.features.map(feat => {
-                    const isCumulative = feat.includes('Everything in');
-                    return (
-                      <Box key={feat} sx={{ display: 'flex', alignItems: 'center', gap: 2, color: isCumulative ? 'white' : 'grey.400', fontSize: '0.9rem', fontWeight: isCumulative ? 700 : 400 }}>
-                        <Box sx={{ width: 20, height: 20, borderRadius: '50%', bgcolor: isCumulative ? 'rgba(201,168,76,0.1)' : 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          <FontAwesomeIcon icon={faCheck} style={{ width: 10, height: 10, color: isCumulative ? '#C9A84C' : 'white' }} />
+                  <Box
+                    component="button"
+                    onClick={() => openPaymentModal(config.key)}
+                    sx={{
+                      w: '100%',
+                      py: 2,
+                      borderRadius: '999px',
+                      fontWeight: 800,
+                      fontSize: '1rem',
+                      transition: 'all 0.3s',
+                      mb: 8,
+                      cursor: 'pointer',
+                      border: 'none',
+                      ...(config.active
+                        ? { bgcolor: '#C9A84C', color: 'black', '&:hover': { transform: 'scale(1.02)', bgcolor: '#b8933f' } }
+                        : { bgcolor: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)', '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' } }),
+                    }}
+                  >
+                    Choose Plan
+                  </Box>
+
+                  <Typography sx={{ color: 'white', fontWeight: 700, fontSize: '1rem', mb: 4 }}>
+                    What's included:
+                  </Typography>
+
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                    {config.features.map(feat => {
+                      const isCumulative = feat.includes('Everything in');
+                      return (
+                        <Box key={feat} sx={{ display: 'flex', alignItems: 'center', gap: 2, color: isCumulative ? 'white' : 'grey.400', fontSize: '0.9rem', fontWeight: isCumulative ? 700 : 400 }}>
+                          <Box sx={{ width: 20, height: 20, borderRadius: '50%', bgcolor: isCumulative ? 'rgba(201,168,76,0.1)' : 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <FontAwesomeIcon icon={faCheck} style={{ width: 10, height: 10, color: isCumulative ? '#C9A84C' : 'white' }} />
+                          </Box>
+                          {feat}
                         </Box>
-                        {feat}
-                      </Box>
-                    );
-                  })}
-                </Box>
+                      );
+                    })}
+                  </Box>
 
-              </Box>
-            ))}
+                </Box>
+              ))}
+            </Box>
           </Box>
         )}
       </Container>
