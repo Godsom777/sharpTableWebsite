@@ -69,12 +69,12 @@ export const Hero: React.FC = () => {
         >
           <Button
             component={motion.button}
-            onClick={() => (window.location.href = 'mailto:info@sharptable.com.ng')}
+            onClick={() => (window.location.href = '/signup')}
             whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             sx={{ width: { xs: '100%', sm: 'auto' }, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, borderRadius: '9999px', bgcolor: 'white', color: 'black', px: 4, py: 2, fontWeight: 700, fontSize: '1rem', '&:hover': { bgcolor: 'grey.200' }, textTransform: 'none' }}
           >
-            Jump Right In
+            Signup
             <Box sx={{ bgcolor: 'black', color: 'white', width: 24, height: 24, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <FontAwesomeIcon icon={faChevronRight} style={{ width: 10, height: 10 }} />
             </Box>
@@ -82,39 +82,51 @@ export const Hero: React.FC = () => {
 
           <Button
             component={motion.button}
-            onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => (window.location.href = '/login')}
             whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             sx={{ width: { xs: '100%', sm: 'auto' }, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, borderRadius: '9999px', bgcolor: 'rgba(255,255,255,0.05)', color: 'white', border: '1px solid rgba(255,255,255,0.1)', px: 4, py: 2, fontWeight: 600, fontSize: '1rem', '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' }, textTransform: 'none' }}
           >
-            Learn More
-            <FontAwesomeIcon icon={faQrcode} style={{ width: 14, height: 14 }} />
+            Login
+            <FontAwesomeIcon icon={faLock} style={{ width: 14, height: 14 }} />
           </Button>
         </Box>
 
-        <Box
-          component={motion.div}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          sx={{ mt: 6, display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 1.5, fontSize: '0.85rem' }}
-        >
-          {[
-            { text: 'QR code ordering' },
-            { text: 'Synchronized kitchen alerts' },
-            { text: 'Enterprise WhatsApp ordering' },
-            { text: 'Granular food inventory' },
-            { text: 'Fraud prevention architecture' },
-            { text: 'Multi-branch supremacy' }
-          ].map((item) => (
-            <Box
-              key={item.text}
-              component="span"
-              sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, borderRadius: '9999px', border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', px: 2, py: 1, color: 'grey.300', fontWeight: 600 }}
-            >
-              {item.text}
+        {/* Scrolling Features Marquee */}
+        <Box sx={{ mt: 8, width: '100vw', marginLeft: 'calc(-50vw + 50%)', position: 'relative', overflow: 'hidden' }}>
+          <Box sx={{ position: 'absolute', top: 0, left: 0, w: '80px', h: '100%', background: 'linear-gradient(to right, #000, transparent)', zIndex: 1 }} />
+          <Box sx={{ position: 'absolute', top: 0, right: 0, w: '80px', h: '100%', background: 'linear-gradient(to left, #000, transparent)', zIndex: 1 }} />
+          
+          <Box
+            component={motion.div}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            sx={{ display: 'flex' }}
+          >
+            <Box sx={{ display: 'flex', gap: 2, width: 'max-content', animation: 'marquee 40s linear infinite' }}>
+              {[...Array(2)].map((_, arrayIndex) => (
+                <React.Fragment key={arrayIndex}>
+                  {[
+                    { text: 'QR code ordering' },
+                    { text: 'Synchronized kitchen alerts' },
+                    { text: 'Enterprise WhatsApp ordering' },
+                    { text: 'Granular food inventory' },
+                    { text: 'Fraud prevention architecture' },
+                    { text: 'Multi-branch supremacy' }
+                  ].map((item, index) => (
+                    <Box
+                      key={`${arrayIndex}-${index}`}
+                      component="span"
+                      sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, borderRadius: '9999px', border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', px: 2.5, py: 1.25, color: 'grey.300', fontWeight: 600, fontSize: '0.85rem', whiteSpace: 'nowrap' }}
+                    >
+                      {item.text}
+                    </Box>
+                  ))}
+                </React.Fragment>
+              ))}
             </Box>
-          ))}
+          </Box>
         </Box>
 
         <Box

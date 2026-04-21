@@ -22,7 +22,7 @@ export const BentoGrid: React.FC = () => {
               Operational Control
             </Box>
             <Typography sx={{ fontSize: { xs: '2rem', md: '4rem', lg: '5rem' }, fontWeight: 900, color: 'white', lineHeight: 1, letterSpacing: '-0.04em' }}>
-              Built For Scale
+              Engineered for Enterprise
             </Typography>
             <Typography sx={{ mt: 3, color: 'grey.400', maxWidth: 'md', lineHeight: 1.625, fontSize: '1.125rem' }}>
               SharpTable protects your multi-branch enterprise from staff theft, inventory blindness, and slow turnarounds with a system that feels warm, clear, and flawlessly engineered for luxury hospitality.
@@ -30,8 +30,8 @@ export const BentoGrid: React.FC = () => {
           </Box>
         </Box>
 
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: { xs: 3, md: 4 } }}>
-          <Box sx={{ borderRadius: { xs: '1.5rem', md: '2.5rem' }, border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', p: { xs: 3, md: 6 }, display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' }, gridAutoRows: { md: '1fr' }, gap: { xs: 3, md: 4 } }}>
+          <Box sx={{ gridColumn: { md: 'span 2' }, borderRadius: { xs: '1.5rem', md: '2.5rem' }, border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', p: { xs: 3, md: 6 }, display: 'flex', flexDirection: 'column' }}>
              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 4 }}>
                 <Typography sx={{ color: 'white', fontWeight: 800, fontSize: { xs: '1.5rem', md: '1.75rem' }, letterSpacing: '-0.02em', maxWidth: '70%' }}>Enterprise WhatsApp</Typography>
                 <Box sx={{ width: 44, height: 44, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
@@ -45,7 +45,7 @@ export const BentoGrid: React.FC = () => {
              <Typography sx={{ fontSize: '1.05rem', color: 'grey.400', lineHeight: 1.6, mt: 'auto' }}>Elevate your guest communications. Turn WhatsApp into a premium, integrated remote channel that routes directly to your kitchen.</Typography>
           </Box>
 
-          <Box sx={{ borderRadius: { xs: '1.5rem', md: '2.5rem' }, border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', p: { xs: 3, md: 6 }, display: 'flex', flexDirection: 'column' }}>
+          <Box sx={{ gridColumn: { md: 'span 1' }, borderRadius: { xs: '1.5rem', md: '2.5rem' }, border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', p: { xs: 3, md: 6 }, display: 'flex', flexDirection: 'column' }}>
              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 4 }}>
                 <Typography sx={{ color: 'white', fontWeight: 800, fontSize: { xs: '1.5rem', md: '1.75rem' }, letterSpacing: '-0.02em', maxWidth: '70%' }}>Food Tracking</Typography>
                 <Box sx={{ width: 44, height: 44, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
@@ -59,7 +59,7 @@ export const BentoGrid: React.FC = () => {
              <Typography sx={{ fontSize: '1.05rem', color: 'grey.400', lineHeight: 1.6, mt: 'auto' }}>Absolute inventory oversight. Pinpoint exact ingredient usage, anticipate shortages, and brutally track waste down to the gram across every single branch.</Typography>
           </Box>
 
-          <Box sx={{ borderRadius: { xs: '1.5rem', md: '2.5rem' }, border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', p: { xs: 3, md: 6 }, display: 'flex', flexDirection: 'column' }}>
+          <Box sx={{ gridColumn: { md: 'span 1' }, borderRadius: { xs: '1.5rem', md: '2.5rem' }, border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', p: { xs: 3, md: 6 }, display: 'flex', flexDirection: 'column' }}>
              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 4 }}>
                 <Typography sx={{ color: 'white', fontWeight: 800, fontSize: { xs: '1.5rem', md: '1.75rem' }, letterSpacing: '-0.02em', maxWidth: '70%' }}>Owner Monitoring</Typography>
                 <Box sx={{ width: 44, height: 44, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
@@ -73,7 +73,7 @@ export const BentoGrid: React.FC = () => {
              <Typography sx={{ fontSize: '1.05rem', color: 'grey.400', lineHeight: 1.6, mt: 'auto' }}>Real-time visibility into your entire empire. No more guessing. Watch live sales and cashier inputs as they happen, from absolutely anywhere.</Typography>
           </Box>
 
-          <Box sx={{ borderRadius: { xs: '1.5rem', md: '2.5rem' }, border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', p: { xs: 3, md: 6 }, display: 'flex', flexDirection: 'column' }}>
+          <Box sx={{ gridColumn: { md: 'span 2' }, borderRadius: { xs: '1.5rem', md: '2.5rem' }, border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', p: { xs: 3, md: 6 }, display: 'flex', flexDirection: 'column' }}>
              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 4 }}>
                 <Typography sx={{ color: 'white', fontWeight: 800, fontSize: { xs: '1.5rem', md: '1.75rem' }, letterSpacing: '-0.02em', maxWidth: '70%' }}>Fraud Prevention</Typography>
                 <Box sx={{ width: 44, height: 44, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>

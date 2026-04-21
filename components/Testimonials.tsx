@@ -130,7 +130,7 @@ const TestimonialCard: React.FC<{ testimonial: Testimonial; delay: number }> = (
         </Box>
         <Box sx={{ flex: 1 }}>
           <Typography sx={{ color: 'white', fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.01em' }}>{testimonial.author}</Typography>
-          <Typography sx={{ color: 'grey.500', fontSize: '0.85rem', fontWeight: 600 }}>{testimonial.role}</Typography>
+          <Typography sx={{ color: 'grey.500', fontSize: '0.85rem', fontWeight: 600 }}>{testimonial.role}, {testimonial.restaurant}</Typography>
         </Box>
       </Box>
     </Box>
