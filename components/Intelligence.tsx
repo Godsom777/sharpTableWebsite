@@ -14,15 +14,15 @@ const visitData = [
 ];
 
 const itemData = [
-  { name: 'Jollof Rice', count: 470 },
-  { name: 'Fried Rice', count: 380 },
-  { name: 'Chicken', count: 520 },
-  { name: 'Chapman', count: 210 },
+  { name: 'Tasting Menu', count: 470 },
+  { name: 'Wagyu A5', count: 380 },
+  { name: 'Caviar', count: 520 },
+  { name: 'Dom Perignon', count: 210 },
 ];
 
 export const Intelligence: React.FC = () => {
   return (
-    <Box component="section" id="analytics" sx={{ py: { xs: 12, md: 16 }, bgcolor: '#09090b', borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+    <Box component="section" id="analytics" sx={{ py: { xs: 12, md: 24 }, bgcolor: '#000000', borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
       <Container maxWidth="lg" sx={{ px: 3 }}>
         <Box
           component={motion.div}
@@ -30,13 +30,13 @@ export const Intelligence: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          sx={{ textAlign: 'center', mb: { xs: 10, md: 12 } }}
+          sx={{ textAlign: 'center', mb: { xs: 10, md: 16 } }}
         >
-          <Typography variant="h2" sx={{ fontSize: { xs: '2.25rem', md: '3rem' }, fontWeight: 700, color: 'white', mb: 3 }}>
-            You should not have to guess what happened in the business
+          <Typography variant="h2" sx={{ fontSize: { xs: '2.5rem', md: '4rem' }, fontWeight: 900, letterSpacing: '-0.04em', color: 'white', mb: 3 }}>
+            Eradicate the guesswork.
           </Typography>
-          <Typography sx={{ fontSize: { xs: '1.125rem', md: '1.25rem' }, color: 'grey.400', maxWidth: 'md', mx: 'auto' }}>
-            SharpTable turns daily activity into evidence: revenue, voids, inventory movement, cashier behavior, and customer patterns tracked in one place across all your restaurants.
+          <Typography sx={{ fontSize: { xs: '1rem', md: '1.25rem' }, color: 'grey.500', maxWidth: 'md', mx: 'auto', lineHeight: 1.6 }}>
+            SharpTable translates daily restaurant activity into irrefutable evidence: revenue surges, explicit voids, detailed inventory depletion, and cashier behavior isolated precisely by branch.
           </Typography>
         </Box>
 
@@ -46,43 +46,25 @@ export const Intelligence: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            whileHover={{ scale: 1.02, boxShadow: '0 20px 60px rgba(139, 92, 246, 0.15)' }}
             transition={{ duration: 0.3 }}
-            sx={{ bgcolor: 'rgba(24,24,27,0.4)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1.5rem', p: { xs: 3, md: 4 }, cursor: 'pointer', transition: 'border-color 0.2s', '&:hover': { borderColor: 'rgba(168,85,247,0.3)' } }}
+            sx={{ bgcolor: '#111111', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '2rem', p: { xs: 4, md: 6 } }}
           >
-            <Box
-              component={motion.div}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              sx={{ mb: 4 }}
-            >
-              <Typography variant="h3" sx={{ fontSize: '1.125rem', fontWeight: 600, color: 'white' }}>Revenue by Day</Typography>
-              <Typography sx={{ fontSize: '0.875rem', color: 'grey.500' }}>See performance clearly enough to plan staffing, stock, and support.</Typography>
+            <Box sx={{ mb: 6 }}>
+              <Typography variant="h3" sx={{ fontSize: '1.5rem', fontWeight: 800, color: 'white', letterSpacing: '-0.02em', mb: 1 }}>Revenue by Day</Typography>
+              <Typography sx={{ fontSize: '0.95rem', color: 'grey.500' }}>Monitor performance meticulously to anticipate staffing and high-volume stock requisitions.</Typography>
             </Box>
-            <Box
-              component={motion.div}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              sx={{ height: 300, width: '100%', minHeight: 300 }}
-            >
+            <Box sx={{ height: 300, width: '100%', minHeight: 300 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={visitData}>
                   <defs>
                     <linearGradient id="colorVisits" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.3} />
-                      <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#ffffff" stopOpacity={0.2} />
+                      <stop offset="95%" stopColor="#ffffff" stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <XAxis dataKey="name" stroke="#525252" fontSize={12} tickLine={false} axisLine={false} />
-                  <Tooltip
-                    contentStyle={{ backgroundColor: '#171717', border: '1px solid #333', borderRadius: '8px', color: '#fff' }}
-                    itemStyle={{ color: '#fff' }}
-                  />
-                  <Area type="monotone" dataKey="visits" stroke="#8b5cf6" strokeWidth={2} fillOpacity={1} fill="url(#colorVisits)" />
+                  <Tooltip contentStyle={{ backgroundColor: '#000000', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff' }} itemStyle={{ color: '#fff' }} />
+                  <Area type="monotone" dataKey="visits" stroke="#ffffff" strokeWidth={2} fillOpacity={1} fill="url(#colorVisits)" />
                 </AreaChart>
               </ResponsiveContainer>
             </Box>
@@ -94,39 +76,21 @@ export const Intelligence: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            whileHover={{ scale: 1.02, boxShadow: '0 20px 60px rgba(59, 130, 246, 0.15)' }}
-            sx={{ bgcolor: 'rgba(24,24,27,0.4)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1.5rem', p: { xs: 3, md: 4 }, cursor: 'pointer', transition: 'border-color 0.2s', '&:hover': { borderColor: 'rgba(59,130,246,0.3)' } }}
+            sx={{ bgcolor: '#111111', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '2rem', p: { xs: 4, md: 6 } }}
           >
-            <Box
-              component={motion.div}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              sx={{ mb: 4 }}
-            >
-              <Typography variant="h3" sx={{ fontSize: '1.125rem', fontWeight: 600, color: 'white' }}>Top Items Sold</Typography>
-              <Typography sx={{ fontSize: '0.875rem', color: 'grey.500' }}>Track demand and inventory pressure without relying on guesswork.</Typography>
+            <Box sx={{ mb: 6 }}>
+              <Typography variant="h3" sx={{ fontSize: '1.5rem', fontWeight: 800, color: 'white', letterSpacing: '-0.02em', mb: 1 }}>Premium Item Depletion</Typography>
+              <Typography sx={{ fontSize: '0.95rem', color: 'grey.500' }}>Track demand and intercept margin leakage on your most valuable inventory instantly.</Typography>
             </Box>
-            <Box
-              component={motion.div}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
-              sx={{ height: 300, width: '100%', minHeight: 300 }}
-            >
+            <Box sx={{ height: 300, width: '100%', minHeight: 300 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={itemData} layout="vertical">
                   <XAxis type="number" hide />
-                  <YAxis dataKey="name" type="category" stroke="#525252" fontSize={12} tickLine={false} axisLine={false} width={80} />
-                  <Tooltip
-                    cursor={{ fill: 'transparent' }}
-                    contentStyle={{ backgroundColor: '#171717', border: '1px solid #333', borderRadius: '8px', color: '#fff' }}
-                  />
-                  <Bar dataKey="count" barSize={20} radius={[0, 4, 4, 0]}>
+                  <YAxis dataKey="name" type="category" stroke="#525252" fontSize={12} tickLine={false} axisLine={false} width={100} />
+                  <Tooltip cursor={{ fill: 'transparent' }} contentStyle={{ backgroundColor: '#000000', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff' }} />
+                  <Bar dataKey="count" barSize={24} radius={[0, 4, 4, 0]}>
                     {itemData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={['#f59e0b', '#3b82f6', '#10b981', '#ef4444'][index % 4]} />
+                      <Cell key={`cell-${index}`} fill={['#ffffff', '#cccccc', '#999999', '#666666'][index % 4]} />
                     ))}
                   </Bar>
                 </BarChart>
@@ -141,40 +105,19 @@ export const Intelligence: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 0.6 }}
-          sx={{ mt: 8, p: { xs: 4, md: 6 }, border: '1px dashed', borderColor: 'grey.700', borderRadius: '1.5rem', bgcolor: 'rgba(24,24,27,0.2)', textAlign: 'center', transition: 'all 0.3s', '&:hover': { borderColor: 'rgba(245,158,11,0.3)', bgcolor: 'rgba(24,24,27,0.3)' } }}
+          sx={{ mt: 10, p: { xs: 4, md: 6 }, border: '1px solid', borderColor: 'rgba(255,255,255,0.05)', borderRadius: '2rem', bgcolor: '#0a0a0a', textAlign: 'center' }}
         >
-          <Box component="span" sx={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'grey.500', fontWeight: 700 }}>Every action leaves a trail</Box>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: 2, mt: 3, fontSize: { xs: '0.875rem', md: '1rem' }, color: 'grey.300', fontWeight: 500 }}>
-            {['Order Placed', 'Payment Confirmed', 'Cashier Logged', 'Inventory Updated', 'Branch View Synced'].map((step, index) => (
+          <Box component="span" sx={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'grey.600', fontWeight: 800 }}>Permanent Action Ledger</Box>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: 3, mt: 4, fontSize: { xs: '0.875rem', md: '1rem' }, color: 'white', fontWeight: 700 }}>
+            {['Order Intercepted', 'Payment Secured', 'Executor Logged', 'Inventory Deducted', 'Live Sync'].map((step, index) => (
               <React.Fragment key={index}>
                 <Box
                   component={motion.span}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.5 + index * 0.1 }}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  sx={{
-                    px: 2, py: 1, borderRadius: '9999px',
-                    ...(index === 1 ? { bgcolor: 'rgba(120,53,15,0.3)', color: '#fbbf24', border: '1px solid rgba(146,64,14,1)' } :
-                      index === 4 ? { bgcolor: 'rgba(20,83,45,0.3)', color: '#4ade80', border: '1px solid rgba(22,101,52,1)' } :
-                        { bgcolor: 'grey.800' })
-                  }}
+                  sx={{ px: 3, py: 1.5, borderRadius: '9999px', bgcolor: '#111111', border: '1px solid rgba(255,255,255,0.1)' }}
                 >
                   {step}
                 </Box>
-                {index < 4 && (
-                  <Box
-                    component={motion.span}
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.5 + index * 0.1 + 0.05 }}
-                    sx={{ color: 'grey.600' }}
-                  >
-                    →
-                  </Box>
-                )}
+                {index < 4 && <Box component="span" sx={{ color: 'grey.700' }}>→</Box>}
               </React.Fragment>
             ))}
           </Box>

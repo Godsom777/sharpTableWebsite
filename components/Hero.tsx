@@ -24,13 +24,8 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <Box component="section" sx={{ position: 'relative', overflow: 'hidden', bgcolor: 'black' }}>
-      <Box sx={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-        <Box sx={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at top, rgba(245,158,11,0.08) 0%, transparent 50%)' }} />
-        <Box sx={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at bottom right, rgba(255,255,255,0.03) 0%, transparent 50%)' }} />
-      </Box>
-
-      <Box sx={{ position: 'relative', zIndex: 10, maxWidth: 'lg', mx: 'auto', px: 2, pt: { xs: 10, md: 14 }, pb: { xs: 6, md: 10 } }}>
+    <Box component="section" sx={{ position: 'relative', overflow: 'hidden', bgcolor: '#000000' }}>
+      <Box sx={{ position: 'relative', zIndex: 10, maxWidth: 'lg', mx: 'auto', px: 2, pt: { xs: 16, md: 20 }, pb: { xs: 8, md: 12 } }}>
         <Box
           component={motion.div}
           initial={{ opacity: 0, y: 10 }}
@@ -38,9 +33,9 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.5 }}
           sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}
         >
-          <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, borderRadius: '9999px', border: '1px solid rgba(245,158,11,0.3)', bgcolor: 'rgba(245,158,11,0.1)', px: 1.5, py: 0.75, color: '#fcd34d', fontSize: { xs: '0.625rem', sm: '0.6875rem' }, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', flexWrap: 'wrap', justifyContent: 'center', textAlign: 'center', lineHeight: 1.25, maxWidth: '92vw' }}>
-            <FontAwesomeIcon icon={faShieldHalved} style={{ width: 12, height: 12 }} />
-            <Box component="span">Reliable restaurant operations</Box>
+          <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, borderRadius: '9999px', border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', px: 2, py: 1, color: 'grey.300', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+            <Box sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: 'white' }} />
+            <Box component="span">Elite Operations Standard</Box>
           </Box>
         </Box>
 
@@ -49,10 +44,10 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.05 }}
-          sx={{ textAlign: 'center', fontSize: { xs: '1.875rem', sm: '2.25rem', md: '3rem', lg: '3.75rem' }, fontWeight: 800, letterSpacing: '-0.025em', lineHeight: 1.1, color: 'white' }}
+          sx={{ textAlign: 'center', fontSize: { xs: '2rem', sm: '2.5rem', md: '5rem', lg: '6.5rem' }, fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.05, color: 'white', wordBreak: 'break-word' }}
         >
-          Reliable restaurant control,
-          <Box component="span" sx={{ color: '#fbbf24' }}> built with support and long-term stability.</Box>
+          Uncompromising control.
+          <Box component="span" sx={{ color: 'grey.500', display: 'block' }}>Flawless execution.</Box>
         </Typography>
 
         <Typography
@@ -60,10 +55,9 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          sx={{ mt: 2, textAlign: 'center', fontSize: { xs: '0.875rem', sm: '1rem', md: '1.125rem' }, color: 'grey.400', maxWidth: 'md', mx: 'auto', lineHeight: 1.625 }}
+          sx={{ mt: 4, mb: 6, textAlign: 'center', fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' }, color: 'grey.400', maxWidth: 'md', mx: 'auto', lineHeight: 1.6 }}
         >
-          SharpTable gives you dependable visibility into WhatsApp orders, ingredient-level inventory, fraud prevention, and total oversight
-          <Box component="span" sx={{ color: 'white', fontWeight: 500 }}> across one restaurant or every branch you own.</Box>
+          SharpTable gives luxury multi-branch chains absolute command over ordering, split payments, kitchen rhythm, and fraud prevention—all from a single uncompromising interface.
         </Typography>
 
         <Box
@@ -71,18 +65,18 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          sx={{ mt: 4, display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: 'center', justifyContent: 'center', gap: 1.5 }}
+          sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: 'center', justifyContent: 'center', gap: 2 }}
         >
           <Button
             component={motion.button}
             onClick={() => (window.location.href = 'mailto:info@sharptable.com.ng')}
             whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            sx={{ width: { xs: '100%', sm: 'auto' }, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 1, borderRadius: '0.75rem', bgcolor: 'white', color: 'black', px: 3, py: 1.75, fontWeight: 700, fontSize: '0.875rem', boxShadow: 3, '&:hover': { bgcolor: 'grey.100' }, textTransform: 'none' }}
+            sx={{ width: { xs: '100%', sm: 'auto' }, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, borderRadius: '9999px', bgcolor: 'white', color: 'black', px: 4, py: 2, fontWeight: 700, fontSize: '1rem', '&:hover': { bgcolor: 'grey.200' }, textTransform: 'none' }}
           >
-            See it in action
-            <Box component="span">
-              <FontAwesomeIcon icon={faChevronRight} style={{ width: 16, height: 16 }} />
+            Jump Right In
+            <Box sx={{ bgcolor: 'black', color: 'white', width: 24, height: 24, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <FontAwesomeIcon icon={faChevronRight} style={{ width: 10, height: 10 }} />
             </Box>
           </Button>
 
@@ -91,10 +85,10 @@ export const Hero: React.FC = () => {
             onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
             whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            sx={{ width: { xs: '100%', sm: 'auto' }, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 1, borderRadius: '0.75rem', bgcolor: 'rgba(255,255,255,0.05)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', px: 3, py: 1.75, fontWeight: 600, fontSize: '0.875rem', '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' }, textTransform: 'none' }}
+            sx={{ width: { xs: '100%', sm: 'auto' }, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, borderRadius: '9999px', bgcolor: 'rgba(255,255,255,0.05)', color: 'white', border: '1px solid rgba(255,255,255,0.1)', px: 4, py: 2, fontWeight: 600, fontSize: '1rem', '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' }, textTransform: 'none' }}
           >
-            How it works
-            <FontAwesomeIcon icon={faQrcode} style={{ width: 16, height: 16, color: '#fcd34d' }} />
+            Learn More
+            <FontAwesomeIcon icon={faQrcode} style={{ width: 14, height: 14 }} />
           </Button>
         </Box>
 
@@ -103,20 +97,21 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          sx={{ mt: 4, display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 1, fontSize: '0.75rem' }}
+          sx={{ mt: 6, display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 1.5, fontSize: '0.85rem' }}
         >
           {[
-            { icon: faMessage, text: 'WhatsApp & Remote Ordering' },
-            { icon: faBoxesStacked, text: 'Ingredient-Level Inventory' },
-            { icon: faLock, text: 'Fraud prevention built in' },
-            { icon: faQrcode, text: 'Control every branch from your phone' }
+            { text: 'QR code ordering' },
+            { text: 'Synchronized kitchen alerts' },
+            { text: 'Enterprise WhatsApp ordering' },
+            { text: 'Granular food inventory' },
+            { text: 'Fraud prevention architecture' },
+            { text: 'Multi-branch supremacy' }
           ].map((item) => (
             <Box
               key={item.text}
               component="span"
-              sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.75, borderRadius: '9999px', border: '1px solid rgba(255,255,255,0.1)', bgcolor: 'rgba(255,255,255,0.05)', px: 1.5, py: 0.75, color: 'grey.300' }}
+              sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, borderRadius: '9999px', border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', px: 2, py: 1, color: 'grey.300', fontWeight: 600 }}
             >
-              <FontAwesomeIcon icon={item.icon} style={{ width: 12, height: 12, color: '#fbbf24' }} />
               {item.text}
             </Box>
           ))}
@@ -124,60 +119,51 @@ export const Hero: React.FC = () => {
 
         <Box
           component={motion.div}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.25 }}
-          sx={{ mt: { xs: 5, md: 7 }, position: 'relative' }}
+          sx={{ mt: { xs: 8, md: 10 }, position: 'relative' }}
         >
-          <Box sx={{ position: 'relative', borderRadius: { xs: '1rem', md: '1.5rem' }, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)', boxShadow: 10 }}>
+          <Box sx={{ position: 'relative', borderRadius: { xs: '1.5rem', md: '2.5rem' }, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)' }}>
             <Box
               component="img"
               src={heroImages.diners}
               alt="Happy guests enjoying their meal"
               loading="eager"
-              sx={{ width: '100%', height: { xs: 192, sm: 256, md: 320, lg: 384 }, objectFit: 'cover' }}
+              sx={{ width: '100%', height: { xs: 240, sm: 320, md: 480, lg: 540 }, objectFit: 'cover' }}
             />
-            <Box sx={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.6), transparent, transparent)' }} />
+            <Box sx={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent, transparent)' }} />
 
-            <Box sx={{ position: 'absolute', bottom: 16, left: 16, right: 16, '@media (min-width: 600px)': { left: 'auto', right: 16, bottom: 16, width: 'auto' } }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, borderRadius: '0.75rem', bgcolor: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(4px)', border: '1px solid rgba(255,255,255,0.1)', px: 2, py: 1.5 }}>
-                <Box sx={{ height: 40, width: 40, borderRadius: '0.5rem', bgcolor: 'rgba(245,158,11,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <FontAwesomeIcon icon={faShieldHalved} style={{ width: 20, height: 20, color: '#fbbf24' }} />
+            <Box sx={{ position: 'absolute', bottom: 24, left: 24, right: 24, '@media (min-width: 600px)': { left: 'auto', right: 24, bottom: 24, width: 'auto' } }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, borderRadius: '1.5rem', bgcolor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.1)', px: 3, py: 2 }}>
+                <Box sx={{ height: 48, width: 48, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <FontAwesomeIcon icon={faShieldHalved} style={{ width: 20, height: 20, color: 'white' }} />
                 </Box>
                 <Box>
-                  <Box sx={{ color: 'white', fontWeight: 700, fontSize: '0.875rem' }}>Reliable. Supported. Built to last.</Box>
-                  <Box sx={{ color: 'grey.400', fontSize: '0.75rem' }}>Visibility into every order, cashier, and branch.</Box>
+                  <Box sx={{ color: 'white', fontWeight: 800, fontSize: '1rem', letterSpacing: '-0.02em' }}>Flawless. Secure. Absolute.</Box>
+                  <Box sx={{ color: 'grey.400', fontSize: '0.85rem' }}>Visibility into every branch action.</Box>
                 </Box>
               </Box>
             </Box>
           </Box>
 
-          <Box sx={{ display: { xs: 'none', md: 'block' }, position: 'absolute', right: { md: -16, lg: -32 }, top: '50%', transform: 'translateY(-50%)', width: { md: 128, lg: 160 } }}>
-            <Box sx={{ borderRadius: '1rem', overflow: 'hidden', border: '2px solid rgba(245,158,11,0.3)', boxShadow: 5 }}>
+          <Box sx={{ display: { xs: 'none', md: 'block' }, position: 'absolute', right: { md: -20, lg: -40 }, top: '50%', transform: 'translateY(-50%)', width: { md: 160, lg: 200 } }}>
+            <Box sx={{ borderRadius: '1.5rem', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
               <Box
                 component="img"
                 src={heroImages.manager}
                 alt="Restaurant manager reviewing dashboard"
                 loading="eager"
-                sx={{ width: '100%', height: { md: 160, lg: 192 }, objectFit: 'cover' }}
+                sx={{ width: '100%', height: { md: 200, lg: 240 }, objectFit: 'cover' }}
               />
             </Box>
-            <Box sx={{ mt: 1, textAlign: 'center' }}>
-              <Box sx={{ fontSize: '0.75rem', color: '#fcd34d', fontWeight: 600 }}>Multi-restaurant control</Box>
-              <Box sx={{ fontSize: '0.625rem', color: 'grey.500' }}>Real-time oversight from anywhere</Box>
+            <Box sx={{ mt: 2, textAlign: 'center' }}>
+              <Box sx={{ fontSize: '0.85rem', color: 'white', fontWeight: 700 }}>Total Overview</Box>
+              <Box sx={{ fontSize: '0.75rem', color: 'grey.500' }}>Live executive command</Box>
             </Box>
           </Box>
         </Box>
 
-        <Typography
-          component={motion.p}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          sx={{ mt: 3, textAlign: 'center', fontSize: '0.75rem', color: 'grey.500' }}
-        >
-          Built for operators who need dependable software, real support, and long-term stability
-        </Typography>
       </Box>
     </Box>
   );

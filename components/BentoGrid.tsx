@@ -1,124 +1,91 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Box, Container, Typography } from '@mui/material';
 
 export const BentoGrid: React.FC = () => {
   return (
-    <Box component="section" id="features" sx={{ py: { xs: 16, md: 32 }, bgcolor: 'black', position: 'relative', overflow: 'hidden' }}>
-      <Box sx={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, rgba(251,191,36,0.08) 0%, transparent 60%)', zIndex: 0 }} />
-      <Box sx={{ position: 'absolute', top: 0, right: 0, width: 600, height: 600, background: 'linear-gradient(to bottom right, rgba(245,158,11,0.1), rgba(249,115,22,0.05), transparent)', borderRadius: '50%', filter: 'blur(80px)', opacity: 0.6, zIndex: 0 }} />
-      <Box sx={{ position: 'absolute', bottom: 0, left: 0, width: 500, height: 500, background: 'linear-gradient(to top right, rgba(59,130,246,0.1), rgba(168,85,247,0.05), transparent)', borderRadius: '50%', filter: 'blur(80px)', opacity: 0.6, zIndex: 0 }} />
-
-      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 10, px: 3 }}>
+    <Box component="section" id="features" sx={{ py: { xs: 12, md: 24 }, bgcolor: '#000000', position: 'relative' }}>
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 10, px: { xs: 2.5, md: 4 } }}>
         <Box
           component={motion.div}
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
-          transition={{ duration: 0.6, delay: 0.05 }}
-          sx={{ mb: { xs: 10, md: 20 } }}
+          transition={{ duration: 0.6 }}
+          sx={{ mb: { xs: 8, md: 10 } }}
         >
-          <Box sx={{ maxWidth: '4xl', mx: 'auto' }}>
-            <Box sx={{ textAlign: 'center', mb: 10 }}>
-              <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.22em', color: 'rgba(252,211,77,0.8)', textTransform: 'uppercase' }}>
-                Operational control without the drama
-              </Typography>
-              <Typography variant="h3" sx={{ mt: 3, fontSize: { xs: '1.875rem', md: '2.25rem' }, fontWeight: 800, color: 'white' }}>
-                A system your team can trust from day one
-              </Typography>
-              <Typography sx={{ mt: 3, color: 'grey.400', maxWidth: 'md', mx: 'auto', lineHeight: 1.625 }}>
-                SharpTable gives you reliable workflows, cleaner handoffs, and supportable operations without weeks of training or fragile setup.
-              </Typography>
+          <Box sx={{ maxWidth: '4xl' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'grey.300', fontSize: '0.875rem', mb: 2 }}>
+              <Box sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: 'white' }} />
+              Operational Control
             </Box>
-
-            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: 3 }}>
-              <Box sx={{ borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)', bgcolor: 'rgba(255,255,255,0.05)', p: 4 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-                  <Box sx={{ width: 40, height: 40, borderRadius: '0.75rem', bgcolor: 'rgba(245,158,11,0.15)', border: '1px solid rgba(245,158,11,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fcd34d', fontWeight: 800 }}>1</Box>
-                  <Typography variant="h4" sx={{ color: 'white', fontWeight: 700, fontSize: '1.125rem' }}>WhatsApp & Remote Ordering</Typography>
-                </Box>
-                <Typography sx={{ fontSize: '0.875rem', color: 'grey.400', lineHeight: 1.625 }}>
-                  Customers can chat directly with your business on WhatsApp, place orders, and get their food ready without visiting the restaurant. Orders flow directly into the kitchen display.
-                </Typography>
-                <Typography sx={{ mt: 2, fontSize: '0.875rem', color: 'grey.300', fontWeight: 500 }}>Convenience for customers creates more orders for you.</Typography>
-              </Box>
-
-              <Box sx={{ borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)', bgcolor: 'rgba(255,255,255,0.05)', p: 4 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-                  <Box sx={{ width: 40, height: 40, borderRadius: '0.75rem', bgcolor: 'rgba(245,158,11,0.15)', border: '1px solid rgba(245,158,11,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fcd34d', fontWeight: 800 }}>2</Box>
-                  <Typography variant="h4" sx={{ color: 'white', fontWeight: 700, fontSize: '1.125rem' }}>Ingredient-Level Inventory</Typography>
-                </Box>
-                <Typography sx={{ fontSize: '0.875rem', color: 'grey.400', lineHeight: 1.625 }}>
-                  Track your stock concisely down to the exact ingredients. Automatically calculate how ingredients are used per dish to reduce waste and catch shortages before they happen.
-                </Typography>
-                <Typography sx={{ mt: 2, fontSize: '0.875rem', color: 'grey.300', fontWeight: 500 }}>Stop guessing and know exactly what is in your kitchen.</Typography>
-              </Box>
-
-              <Box sx={{ borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)', bgcolor: 'rgba(255,255,255,0.05)', p: 4 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-                  <Box sx={{ width: 40, height: 40, borderRadius: '0.75rem', bgcolor: 'rgba(245,158,11,0.15)', border: '1px solid rgba(245,158,11,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fcd34d', fontWeight: 800 }}>3</Box>
-                  <Typography variant="h4" sx={{ color: 'white', fontWeight: 700, fontSize: '1.125rem' }}>Remote Owner Monitoring</Typography>
-                </Box>
-                <Typography sx={{ fontSize: '0.875rem', color: 'grey.400', lineHeight: 1.625 }}>
-                  Managers and owners get a real-time, consolidated view across every branch. Monitor cashier actions, live sales, and total kitchen performance from anywhere, right on your phone.
-                </Typography>
-                <Typography sx={{ mt: 2, fontSize: '0.875rem', color: 'grey.300', fontWeight: 500 }}>Total operational awareness without standing in the restaurant.</Typography>
-              </Box>
-
-              <Box sx={{ borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)', bgcolor: 'rgba(255,255,255,0.05)', p: 4 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-                  <Box sx={{ width: 40, height: 40, borderRadius: '0.75rem', bgcolor: 'rgba(245,158,11,0.15)', border: '1px solid rgba(245,158,11,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fcd34d', fontWeight: 800 }}>4</Box>
-                  <Typography variant="h4" sx={{ color: 'white', fontWeight: 700, fontSize: '1.125rem' }}>Fraud Prevention & Audit</Typography>
-                </Box>
-                <Typography sx={{ fontSize: '0.875rem', color: 'grey.400', lineHeight: 1.625 }}>
-                  Stop unpaid tickets, trace suspicious void patterns, and expose staff theft early. Every single receipt and handoff is logged to ensure accountability.
-                </Typography>
-                <Typography sx={{ mt: 2, fontSize: '0.875rem', color: 'grey.300', fontWeight: 500 }}>Less leakage. More confidence in the numbers.</Typography>
-              </Box>
-            </Box>
-
-            <Box sx={{ mt: 5, borderRadius: '1rem', border: '1px solid rgba(245,158,11,0.2)', background: 'linear-gradient(to right, rgba(245,158,11,0.1), rgba(249,115,22,0.05), transparent)', p: 4, textAlign: 'center' }}>
-              <Typography sx={{ color: 'white', fontWeight: 800, fontSize: { xs: '1.5rem', md: '1.875rem' }, lineHeight: 1.25 }}>
-                Reliable control for today.
-                <Box component="span" sx={{ color: '#fcd34d' }}> Long-term stability for every restaurant you add tomorrow.</Box>
-              </Typography>
-            </Box>
+            <Typography sx={{ fontSize: { xs: '2rem', md: '4rem', lg: '5rem' }, fontWeight: 900, color: 'white', lineHeight: 1, letterSpacing: '-0.04em' }}>
+              Built For Scale
+            </Typography>
+            <Typography sx={{ mt: 3, color: 'grey.400', maxWidth: 'md', lineHeight: 1.625, fontSize: '1.125rem' }}>
+              SharpTable protects your multi-branch enterprise from staff theft, inventory blindness, and slow turnarounds with a system that feels warm, clear, and flawlessly engineered for luxury hospitality.
+            </Typography>
           </Box>
         </Box>
 
-        <Box
-          component={motion.div}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          sx={{ mt: { xs: 10, md: 20 }, textAlign: 'center' }}
-        >
-          <Box
-            component={motion.button}
-            onClick={() => window.location.href = 'mailto:info@sharptable.com.ng'}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-            sx={{
-              position: 'relative', display: 'inline-flex', alignItems: 'center', gap: 1.5,
-              background: 'linear-gradient(to right, #f59e0b, #f97316, #f59e0b)', backgroundSize: '200% 100%',
-              color: 'white', px: 5, py: 2.5, borderRadius: '1rem', fontWeight: 700, fontSize: '1.125rem',
-              transition: 'all 0.3s', boxShadow: '0 10px 15px -3px rgba(245,158,11,0.25)', border: 'none', cursor: 'pointer', fontFamily: 'inherit',
-              '&:hover': { boxShadow: '0 10px 15px -3px rgba(245,158,11,0.4)', backgroundPosition: '100% 50%' }
-            }}
-          >
-            <Box component="span">Book a Demo</Box>
-            <Box
-              component={motion.div}
-              animate={{ x: [0, 5, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            >
-              <FontAwesomeIcon icon={faArrowRight} style={{ width: 20, height: 20 }} />
-            </Box>
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: { xs: 3, md: 4 } }}>
+          <Box sx={{ borderRadius: { xs: '1.5rem', md: '2.5rem' }, border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', p: { xs: 3, md: 6 }, display: 'flex', flexDirection: 'column' }}>
+             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 4 }}>
+                <Typography sx={{ color: 'white', fontWeight: 800, fontSize: { xs: '1.5rem', md: '1.75rem' }, letterSpacing: '-0.02em', maxWidth: '70%' }}>Enterprise WhatsApp</Typography>
+                <Box sx={{ width: 44, height: 44, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
+                  <FontAwesomeIcon icon={faPlus} style={{ width: 16, height: 16 }} />
+                </Box>
+             </Box>
+             <Box sx={{ display: 'flex', gap: 1.5, mb: 4, flexWrap: 'wrap' }}>
+                <Box sx={{ px: 2.5, py: 1, borderRadius: '999px', bgcolor: 'rgba(255,255,255,0.06)', color: 'grey.300', fontSize: '0.85rem', fontWeight: 600 }}>Chat Ordering</Box>
+                <Box sx={{ px: 2.5, py: 1, borderRadius: '999px', bgcolor: 'rgba(255,255,255,0.06)', color: 'grey.300', fontSize: '0.85rem', fontWeight: 600 }}>Integrated</Box>
+             </Box>
+             <Typography sx={{ fontSize: '1.05rem', color: 'grey.400', lineHeight: 1.6, mt: 'auto' }}>Elevate your guest communications. Turn WhatsApp into a premium, integrated remote channel that routes directly to your kitchen.</Typography>
           </Box>
-          <Typography sx={{ color: 'grey.500', fontSize: '0.875rem', mt: 1 }}>Usually responds within 2 hours</Typography>
+
+          <Box sx={{ borderRadius: { xs: '1.5rem', md: '2.5rem' }, border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', p: { xs: 3, md: 6 }, display: 'flex', flexDirection: 'column' }}>
+             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 4 }}>
+                <Typography sx={{ color: 'white', fontWeight: 800, fontSize: { xs: '1.5rem', md: '1.75rem' }, letterSpacing: '-0.02em', maxWidth: '70%' }}>Food Tracking</Typography>
+                <Box sx={{ width: 44, height: 44, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
+                  <FontAwesomeIcon icon={faPlus} style={{ width: 16, height: 16 }} />
+                </Box>
+             </Box>
+             <Box sx={{ display: 'flex', gap: 1.5, mb: 4, flexWrap: 'wrap' }}>
+                <Box sx={{ px: 2.5, py: 1, borderRadius: '999px', bgcolor: 'rgba(255,255,255,0.06)', color: 'grey.300', fontSize: '0.85rem', fontWeight: 600 }}>Stock Visibility</Box>
+                <Box sx={{ px: 2.5, py: 1, borderRadius: '999px', bgcolor: 'rgba(255,255,255,0.06)', color: 'grey.300', fontSize: '0.85rem', fontWeight: 600 }}>Waste Control</Box>
+             </Box>
+             <Typography sx={{ fontSize: '1.05rem', color: 'grey.400', lineHeight: 1.6, mt: 'auto' }}>Absolute inventory oversight. Pinpoint exact ingredient usage, anticipate shortages, and brutally track waste down to the gram across every single branch.</Typography>
+          </Box>
+
+          <Box sx={{ borderRadius: { xs: '1.5rem', md: '2.5rem' }, border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', p: { xs: 3, md: 6 }, display: 'flex', flexDirection: 'column' }}>
+             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 4 }}>
+                <Typography sx={{ color: 'white', fontWeight: 800, fontSize: { xs: '1.5rem', md: '1.75rem' }, letterSpacing: '-0.02em', maxWidth: '70%' }}>Owner Monitoring</Typography>
+                <Box sx={{ width: 44, height: 44, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
+                  <FontAwesomeIcon icon={faPlus} style={{ width: 16, height: 16 }} />
+                </Box>
+             </Box>
+             <Box sx={{ display: 'flex', gap: 1.5, mb: 4, flexWrap: 'wrap' }}>
+                <Box sx={{ px: 2.5, py: 1, borderRadius: '999px', bgcolor: 'rgba(255,255,255,0.06)', color: 'grey.300', fontSize: '0.85rem', fontWeight: 600 }}>Real-time</Box>
+                <Box sx={{ px: 2.5, py: 1, borderRadius: '999px', bgcolor: 'rgba(255,255,255,0.06)', color: 'grey.300', fontSize: '0.85rem', fontWeight: 600 }}>Multi-Branch</Box>
+             </Box>
+             <Typography sx={{ fontSize: '1.05rem', color: 'grey.400', lineHeight: 1.6, mt: 'auto' }}>Real-time visibility into your entire empire. No more guessing. Watch live sales and cashier inputs as they happen, from absolutely anywhere.</Typography>
+          </Box>
+
+          <Box sx={{ borderRadius: { xs: '1.5rem', md: '2.5rem' }, border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', p: { xs: 3, md: 6 }, display: 'flex', flexDirection: 'column' }}>
+             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 4 }}>
+                <Typography sx={{ color: 'white', fontWeight: 800, fontSize: { xs: '1.5rem', md: '1.75rem' }, letterSpacing: '-0.02em', maxWidth: '70%' }}>Fraud Prevention</Typography>
+                <Box sx={{ width: 44, height: 44, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
+                  <FontAwesomeIcon icon={faPlus} style={{ width: 16, height: 16 }} />
+                </Box>
+             </Box>
+             <Box sx={{ display: 'flex', gap: 1.5, mb: 4, flexWrap: 'wrap' }}>
+                <Box sx={{ px: 2.5, py: 1, borderRadius: '999px', bgcolor: 'rgba(255,255,255,0.06)', color: 'grey.300', fontSize: '0.85rem', fontWeight: 600 }}>Audit Trail</Box>
+                <Box sx={{ px: 2.5, py: 1, borderRadius: '999px', bgcolor: 'rgba(255,255,255,0.06)', color: 'grey.300', fontSize: '0.85rem', fontWeight: 600 }}>Security</Box>
+             </Box>
+             <Typography sx={{ fontSize: '1.05rem', color: 'grey.400', lineHeight: 1.6, mt: 'auto' }}>A rigid, undisputable audit trail. We track every void, catch suspicious ticket patterns instantly, and secure your revenue with absolute confidence.</Typography>
+          </Box>
         </Box>
       </Container>
     </Box>

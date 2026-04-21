@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
 
   return (
     <>
-      <Box component="footer" sx={{ bgcolor: 'black', py: 12, borderTop: '1px solid rgba(255, 255, 255, 0.1)', textAlign: 'center' }}>
+      <Box component="footer" sx={{ bgcolor: '#000000', py: 12, borderTop: '1px solid rgba(255, 255, 255, 0.05)', textAlign: 'center' }}>
       <Container maxWidth="lg" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', px: { xs: 3, md: 3 } }}>
         <Box
           component={motion.div}
@@ -28,7 +28,7 @@ export const Footer: React.FC = () => {
             alt="SharpTable" 
             sx={{ height: { xs: 32, md: 40 }, width: 'auto' }}
           />
-          <Typography variant="h5" component="span" sx={{ fontWeight: 700, letterSpacing: '-0.025em', color: 'white' }}>
+          <Typography variant="h5" component="span" sx={{ fontWeight: 900, letterSpacing: '-0.04em', color: 'white' }}>
             SharpTable
           </Typography>
         </Box>
@@ -38,10 +38,10 @@ export const Footer: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          sx={{ color: 'text.secondary', fontSize: '0.875rem', maxWidth: 'md', mx: 'auto', mb: 6, lineHeight: 1.5 }}
+          sx={{ color: 'grey.500', fontSize: '1rem', maxWidth: 'md', mx: 'auto', mb: 6, lineHeight: 1.6 }}
         >
-            Simpler restaurant payments. Tighter operations. <br/>
-            No complicated POS. Just what works.
+            Absolute Restaurant Command.<br/>
+            Uncompromising luxury operations without the friction.
         </Typography>
         
         <Box
@@ -52,7 +52,7 @@ export const Footer: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           whileHover={{ scale: 1.05, y: -2 }}
           href="mailto:info@sharptable.com.ng" 
-          sx={{ color: 'primary.main', textDecoration: 'none', transition: 'color 0.2s', '&:hover': { color: 'primary.light' }, fontSize: '1.125rem', fontWeight: 500, mb: 8, display: 'flex', alignItems: 'center', gap: 1 }}
+          sx={{ color: 'white', textDecoration: 'none', transition: 'color 0.2s', '&:hover': { color: 'grey.300' }, fontSize: '1.125rem', fontWeight: 700, mb: 8, display: 'flex', alignItems: 'center', gap: 1 }}
         >
             <FontAwesomeIcon icon={faEnvelope} style={{ width: 20, height: 20 }} />
            info@sharptable.com.ng

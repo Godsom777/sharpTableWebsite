@@ -111,7 +111,7 @@ const PrivacyPolicyContent: React.FC = () => (
         <Box component="li">Payment data handled exclusively by Paystack (PCI-DSS compliant)</Box>
       </Box>
       <Typography sx={{ mt: 1.5 }}>
-        <Box component="strong" sx={{ color: 'white' }}>Data Retention:</Box> Order history is retained based on your subscription plan (90 days for Control, unlimited for Command). You may request data deletion at any time.
+        <Box component="strong" sx={{ color: 'white' }}>Data Retention:</Box> Order history is retained based on your subscription plan (90 days for Pro, unlimited for Enterprise). You may request data deletion at any time.
       </Typography>
     </AccordionItem>
 
@@ -190,7 +190,7 @@ const TermsOfServiceContent: React.FC = () => (
         <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Kitchen Display System (KDS):</Box> Real-time order management for kitchen staff</Box>
         <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Admin Dashboard:</Box> Staff management, menu control, and business analytics</Box>
         <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Audit Trail:</Box> Complete transaction logging for financial accountability</Box>
-        <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Multi-location Management:</Box> Unified control across branches (Command plan)</Box>
+        <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Multi-location Management:</Box> Unified control across branches (Enterprise plan)</Box>
         <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Customer Intelligence:</Box> Guest recognition and spending insights</Box>
       </Box>
     </AccordionItem>
@@ -198,8 +198,8 @@ const TermsOfServiceContent: React.FC = () => (
     <AccordionItem title="2. Subscription Plans & Billing">
       <Typography><Box component="strong" sx={{ color: 'white' }}>Plans Offered:</Box></Typography>
       <Box component="ul" sx={{ listStyleType: 'disc', pl: 3, m: 0, display: 'flex', flexDirection: 'column', gap: 0.5, mt: 1 }}>
-        <Box component="li"><Box component="strong" sx={{ color: '#fbbf24' }}>Control Plan:</Box> Up to 50 tables, 15 staff, 1 location, 90-day order history</Box>
-        <Box component="li"><Box component="strong" sx={{ color: '#c084fc' }}>Command Plan:</Box> Unlimited tables, staff, locations, and order history</Box>
+        <Box component="li"><Box component="strong" sx={{ color: '#fbbf24' }}>Pro Plan:</Box> Up to 50 tables, 15 staff, 1 branch, 90-day order history. WhatsApp ordering, food inventory, and food tracker are excluded.</Box>
+        <Box component="li"><Box component="strong" sx={{ color: '#c084fc' }}>Enterprise Plan:</Box> Unlimited tables, staff, and order history with 4 branches included. Each branch above 4 adds 50,000 naira. WhatsApp ordering, food inventory, and food tracker are included.</Box>
       </Box>
 
       <Typography sx={{ mt: 1.5 }}><Box component="strong" sx={{ color: 'white' }}>Billing Terms:</Box></Typography>

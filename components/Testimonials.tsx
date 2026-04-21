@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faQuoteLeft, faUtensils, faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useGeoLocation } from '../hooks/useGeoLocation';
 import { Box, Container, Typography } from '@mui/material';
 
@@ -18,42 +18,42 @@ interface Testimonial {
 
 const africanTestimonials: Testimonial[] = [
   {
-    quote: "What sold me was not just fraud control. It was knowing the system would stay reliable, my team would get support, and I could keep growing without replacing everything in a year.",
+    quote: "With five locations running simultaneously, stopping staff theft and stabilizing our supply chain used to be exhausting. SharpTable handed us total visibility in weeks.",
     author: "David O.",
-    role: "Owner",
+    role: "CEO",
     restaurant: "Grill House",
     location: "Lagos, Nigeria",
     rating: 5,
     metric: "$2.1K",
-    metricLabel: "saved and recovered in first 3 months"
+    metricLabel: "saved & recovered in first 3 months"
   },
   {
-    quote: "We needed something stable enough for the long run. Now we track voids, cashier activity, and daily operations without turning every shift into an investigation.",
+    quote: "Slow turnarounds and messy handoffs were destroying our dinner service. This system changed our entire kitchen rhythm overnight, making everything feel effortless.",
     author: "Amara K.",
-    role: "General Manager",
+    role: "Operations Director",
     restaurant: "Big Joe's Diner",
     location: "Abuja, Nigeria",
     rating: 5,
     metric: "10 min",
-    metricLabel: "to get the team comfortable"
+    metricLabel: "to perfectionize table service"
   },
   {
-    quote: "I manage 3 branches. Now I can track inventory, staff behavior, customer trends, and branch performance from one screen instead of chasing updates all day.",
+    quote: "No guessing on inventory, no wondering about voids. It gives us the exact confidence we require to elegantly manage and scale our operations.",
     author: "Michael T.",
-    role: "CEO",
+    role: "Owner",
     restaurant: "Urban Kitchen Group",
     location: "Port Harcourt, Nigeria",
     rating: 5,
     metric: "3",
-    metricLabel: "branches on one screen"
+    metricLabel: "branches optimized on one screen"
   }
 ];
 
 const globalTestimonials: Testimonial[] = [
   {
-    quote: "We wanted stronger control, but the deciding factor was long-term stability. SharpTable gave us fraud visibility without introducing a system the team would hate using.",
+    quote: "With five locations running simultaneously, stopping staff theft and stabilizing our supply chain used to be exhausting. SharpTable handed us absolute clarity.",
     author: "Marcus L.",
-    role: "Owner",
+    role: "CEO",
     restaurant: "The Copper Pot",
     location: "London, UK",
     rating: 5,
@@ -61,7 +61,7 @@ const globalTestimonials: Testimonial[] = [
     metricLabel: "protected in the first quarter"
   },
   {
-    quote: "We evaluated three systems. SharpTable was the one that balanced reliable operations, real support, and clear fraud prevention without bloating the workflow.",
+    quote: "Slow turnarounds and messy handoffs were destroying our dinner service. This system changed our entire kitchen rhythm overnight.",
     author: "Sarah M.",
     role: "Operations Director",
     restaurant: "Harbour Kitchen",
@@ -71,9 +71,9 @@ const globalTestimonials: Testimonial[] = [
     metricLabel: "to go fully live"
   },
   {
-    quote: "Five locations, five different sets of problems. SharpTable gave me one stable view of inventory, cashier activity, retention, and branch performance across the whole group.",
+    quote: "No guessing on inventory, no wondering about voids. It gives us the exact confidence we need to open our next five luxury locations.",
     author: "James R.",
-    role: "CEO",
+    role: "Owner",
     restaurant: "Bistro Group NYC",
     location: "New York, USA",
     rating: 5,
@@ -90,52 +90,47 @@ const TestimonialCard: React.FC<{ testimonial: Testimonial; delay: number }> = (
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay }}
-      sx={{ position: 'relative', height: '100%', '.group:hover & .card-inner': { borderColor: 'rgba(245,158,11,0.3)' } }}
-      className="group"
+      sx={{ 
+        height: '100%', 
+        bgcolor: '#111111', 
+        border: '1px solid rgba(255,255,255,0.05)', 
+        borderRadius: '2rem', 
+        p: { xs: 3, md: 5 },
+        display: 'flex',
+        flexDirection: 'column',
+        transition: 'all 0.3s',
+        '&:hover': {
+          borderColor: 'rgba(255,255,255,0.1)',
+          transform: 'translateY(-4px)'
+        }
+      }}
     >
-      <Box className="card-inner" sx={{ position: 'relative', height: '100%', bgcolor: 'rgba(24,24,27,0.8)', border: '1px solid', borderColor: 'grey.800', borderRadius: '1rem', p: { xs: 3, md: 4 }, transition: 'all 0.3s' }}>
-        <Box sx={{ position: 'absolute', top: -16, left: 24 }}>
-          <Box sx={{ width: 32, height: 32, borderRadius: '50%', bgcolor: '#f59e0b', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <FontAwesomeIcon icon={faQuoteLeft} style={{ width: 16, height: 16, color: 'black' }} />
-          </Box>
+      <Box sx={{ display: 'flex', gap: 0.5, mb: 4 }}>
+        {[...Array(testimonial.rating)].map((_, i) => (
+          <FontAwesomeIcon key={i} icon={faStar} style={{ width: 14, height: 14, color: '#fbbf24' }} />
+        ))}
+      </Box>
+
+      <Typography sx={{ color: 'white', fontSize: { xs: '1.25rem', md: '1.5rem' }, fontWeight: 700, lineHeight: 1.4, mb: 4, letterSpacing: '-0.02em' }}>
+        "{testimonial.quote}"
+      </Typography>
+
+      {testimonial.metric && (
+        <Box sx={{ mb: 4, mt: 'auto' }}>
+          <Typography sx={{ fontSize: { xs: '3rem', md: '3.5rem' }, fontWeight: 900, color: 'white', letterSpacing: '-0.04em', lineHeight: 1 }}>{testimonial.metric}</Typography>
+          <Typography sx={{ fontSize: '0.85rem', color: 'grey.500', fontWeight: 600, mt: 1 }}>{testimonial.metricLabel}</Typography>
         </Box>
+      )}
 
-        <Box sx={{ display: 'flex', gap: 0.5, mb: 3, pt: 1 }}>
-          {[...Array(testimonial.rating)].map((_, i) => (
-            <FontAwesomeIcon key={i} icon={faStar} style={{ width: 16, height: 16, color: '#fbbf24' }} />
-          ))}
+      {!testimonial.metric && <Box sx={{ mt: 'auto' }} />}
+
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, pt: 4, borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+        <Box sx={{ width: 48, height: 48, borderRadius: '50%', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'black', fontWeight: 900, fontSize: '1.25rem' }}>
+          {testimonial.author.charAt(0)}
         </Box>
-
-        <Typography sx={{ color: 'grey.300', fontSize: { xs: '0.875rem', md: '1rem' }, lineHeight: 1.625, mb: 4 }}>
-          "{testimonial.quote}"
-        </Typography>
-
-        {testimonial.metric && (
-          <Box sx={{ mb: 4, p: 2, borderRadius: '0.75rem', bgcolor: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.2)' }}>
-            <Typography sx={{ fontSize: '1.875rem', fontWeight: 700, color: '#fbbf24' }}>{testimonial.metric}</Typography>
-            <Typography sx={{ fontSize: '0.75rem', color: 'grey.400' }}>{testimonial.metricLabel}</Typography>
-          </Box>
-        )}
-
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, pt: 3, borderTop: '1px solid', borderColor: 'grey.800' }}>
-          <Box sx={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(to bottom right, #f59e0b, #f97316)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 700 }}>
-            {testimonial.author.charAt(0)}
-          </Box>
-          <Box sx={{ flex: 1 }}>
-            <Typography sx={{ color: 'white', fontWeight: 600, fontSize: '0.875rem' }}>{testimonial.author}</Typography>
-            <Typography sx={{ color: 'grey.500', fontSize: '0.75rem' }}>{testimonial.role}</Typography>
-          </Box>
-        </Box>
-
-        <Box sx={{ mt: 2, display: 'flex', flexWrap: 'wrap', gap: 1.5, fontSize: '0.75rem', color: 'grey.500' }}>
-          <Box component="span" sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-            <FontAwesomeIcon icon={faUtensils} style={{ width: 12, height: 12 }} />
-            {testimonial.restaurant}
-          </Box>
-          <Box component="span" sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-            <FontAwesomeIcon icon={faLocationDot} style={{ width: 12, height: 12 }} />
-            {testimonial.location}
-          </Box>
+        <Box sx={{ flex: 1 }}>
+          <Typography sx={{ color: 'white', fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.01em' }}>{testimonial.author}</Typography>
+          <Typography sx={{ color: 'grey.500', fontSize: '0.85rem', fontWeight: 600 }}>{testimonial.role}</Typography>
         </Box>
       </Box>
     </Box>
@@ -147,27 +142,28 @@ export const Testimonials: React.FC = () => {
   const testimonials = isAfrica ? africanTestimonials : globalTestimonials;
 
   return (
-    <Box component="section" sx={{ py: { xs: 10, md: 14 }, bgcolor: 'black', position: 'relative', overflow: 'hidden' }}>
-      <Box sx={{ position: 'absolute', inset: 0, zIndex: 0, background: 'radial-gradient(ellipse at center, rgba(251,191,36,0.03) 0%, transparent 50%)' }} />
-
-      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 10, px: 3 }}>
+    <Box component="section" sx={{ py: { xs: 12, md: 24 }, bgcolor: '#000000', position: 'relative' }}>
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 10, px: { xs: 2.5, md: 4 } }}>
         <Box
           component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          sx={{ textAlign: 'center', mb: { xs: 8, md: 10 } }}
+          sx={{ display: 'flex', flexDirection: { xs: 'column', lg: 'row' }, justifyContent: 'space-between', alignItems: { xs: 'flex-start', lg: 'flex-end' }, mb: { xs: 8, md: 16 } }}
         >
-          <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, bgcolor: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.3)', borderRadius: '9999px', px: 2, py: 0.75, mb: 2 }}>
-            <FontAwesomeIcon icon={faStar} style={{ width: 16, height: 16, color: '#4ade80' }} />
-            <Box component="span" sx={{ color: '#4ade80', fontWeight: 600, fontSize: '0.875rem' }}>Operators wanted proof</Box>
+          <Box sx={{ maxWidth: '3xl' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'grey.300', fontSize: '0.875rem', mb: 2 }}>
+              <Box sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: 'white' }} />
+              Feedback
+            </Box>
+            <Typography variant="h2" sx={{ fontSize: { xs: '2.5rem', md: '4.5rem', lg: '5.5rem' }, fontWeight: 900, color: 'white', letterSpacing: '-0.04em', lineHeight: 1 }}>
+              What our
+              <br />customers say
+            </Typography>
           </Box>
-          <Typography variant="h2" sx={{ fontSize: { xs: '1.875rem', md: '2.25rem' }, fontWeight: 700, color: 'white', mb: 1.5 }}>
-            "We needed something we could rely on"
-          </Typography>
-          <Typography sx={{ color: 'grey.400', maxWidth: 'md', mx: 'auto' }}>
-            The pattern is the same: better visibility, tighter control, stronger support, and a system that scales across locations.
+          <Typography sx={{ color: 'grey.400', maxWidth: 300, fontSize: '1.1rem', lineHeight: 1.6, mt: { xs: 4, lg: 0 } }}>
+            The pattern is the same: eliminate mess, protect revenue, and deliver a system that scales luxury effortlessly.
           </Typography>
         </Box>
 
@@ -175,24 +171,6 @@ export const Testimonials: React.FC = () => {
           {testimonials.map((testimonial, index) => (
             <TestimonialCard key={index} testimonial={testimonial} delay={index * 0.1} />
           ))}
-        </Box>
-
-        <Box
-          component={motion.div}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          sx={{ mt: { xs: 10, md: 12 }, textAlign: 'center' }}
-        >
-          <Typography sx={{ color: 'grey.500', fontSize: '0.875rem', mb: 3 }}>Trusted by leading restaurants and food businesses</Typography>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: { xs: 2, md: 4 }, opacity: 0.5 }}>
-            {['Restaurants', 'Food Courts', 'Kitchens', 'Grills', 'Cafes'].map((name, i) => (
-              <Box key={i} sx={{ px: 2, py: 1, border: '1px solid', borderColor: 'grey.800', borderRadius: '0.5rem', color: 'grey.600', fontSize: '0.875rem', fontWeight: 500 }}>
-                {name}
-              </Box>
-            ))}
-          </Box>
         </Box>
       </Container>
     </Box>

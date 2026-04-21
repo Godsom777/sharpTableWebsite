@@ -21,7 +21,7 @@ function getSupabaseClient(): SupabaseClient | null {
 
 export interface SubscriptionStatus {
   hasActiveSubscription: boolean;
-  planType: 'pro' | 'enterprise' | null;
+  planType: 'lite' | 'pro' | 'enterprise' | null;
   status: 'active' | 'inactive' | 'cancelled' | 'payment_failed' | 'pending' | null;
   nextPaymentDate: string | null;
   businessName: string | null;
@@ -83,7 +83,7 @@ export function useSubscription(email?: string): UseSubscriptionResult {
 
       const result: SubscriptionStatus = {
         hasActiveSubscription: data.status === 'active',
-        planType: data.plan_type as 'pro' | 'enterprise',
+        planType: data.plan_type as 'lite' | 'pro' | 'enterprise',
         status: data.status,
         nextPaymentDate: data.next_payment_date,
         businessName: data.business_name,
@@ -150,7 +150,7 @@ export async function checkSubscriptionStatus(email: string): Promise<Subscripti
 
     return {
       hasActiveSubscription: data.status === 'active',
-      planType: data.plan_type as 'pro' | 'enterprise',
+      planType: data.plan_type as 'lite' | 'pro' | 'enterprise',
       status: data.status,
       nextPaymentDate: data.next_payment_date,
       businessName: data.business_name,

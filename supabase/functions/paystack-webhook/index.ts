@@ -131,7 +131,8 @@ serve(async (req) => {
               const isYearly = planType.includes('yearly') ||
                 plan.interval === 'annually' ||
                 plan.plan_code === 'PLN_lu2vu0x7b0z4esc' || // pro-yearly
-                plan.plan_code === 'PLN_geld4bet9hwqca0';   // enterprise-yearly
+                plan.plan_code === 'PLN_geld4bet9hwqca0' || // enterprise-yearly
+                plan.plan_code === 'PLN_2a41260dnw7z99x';   // lite-yearly
 
               const commissionRate = isYearly ? 0.30 : 0.50;
               const commissionType = isYearly ? 'one-time' : 'upfront';
@@ -222,7 +223,8 @@ serve(async (req) => {
               // Detect yearly plan — yearly plans get 30% one-time only, no recurring
               const isYearly = (subscription.plan_type || '').includes('yearly') ||
                 (data.plan.plan_code === 'PLN_lu2vu0x7b0z4esc') || // pro-yearly
-                (data.plan.plan_code === 'PLN_geld4bet9hwqca0');    // enterprise-yearly
+                (data.plan.plan_code === 'PLN_geld4bet9hwqca0') || // enterprise-yearly
+                (data.plan.plan_code === 'PLN_2a41260dnw7z99x');   // lite-yearly
 
               if (isYearly) {
                 console.log(`Yearly plan — no recurring commission for ${customer.email}`);

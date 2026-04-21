@@ -34,9 +34,9 @@ export const NavBar: React.FC = () => {
         right: 0,
         zIndex: 50,
         transition: 'all 0.3s ease',
-        backgroundColor: isScrolled ? 'rgba(0, 0, 0, 0.7)' : 'transparent',
+        backgroundColor: isScrolled ? '#000000' : 'transparent',
         backdropFilter: isScrolled ? 'blur(12px)' : 'none',
-        borderBottom: isScrolled ? '1px solid rgba(255, 255, 255, 0.1)' : 'none',
+        borderBottom: isScrolled ? '1px solid rgba(255, 255, 255, 0.05)' : 'none',
       }}
     >
       <Container maxWidth="lg" sx={{ height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: { xs: 3, md: 3 } }}>
@@ -55,7 +55,7 @@ export const NavBar: React.FC = () => {
             alt="SharpTable"
             sx={{ height: { xs: 24, md: 32 }, width: 'auto' }}
           />
-          <Typography variant="h6" component="span" sx={{ fontWeight: 600, letterSpacing: '-0.025em', color: 'white' }}>
+          <Typography variant="h6" component="span" sx={{ fontWeight: 900, letterSpacing: '-0.04em', color: 'white', fontSize: '1.25rem' }}>
             SharpTable
           </Typography>
         </motion.div>

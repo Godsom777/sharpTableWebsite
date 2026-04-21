@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 
-export type PlanType = 'pro' | 'enterprise' | 'pro-yearly' | 'enterprise-yearly';
+export type PlanType = 'lite' | 'pro' | 'enterprise' | 'lite-yearly' | 'pro-yearly' | 'enterprise-yearly';
 export type BillingCycle = 'monthly' | 'yearly';
 
 export interface PlanDetails {
@@ -15,36 +15,52 @@ export interface PlanDetails {
 // Base prices in Naira — backend source of truth (Paystack charges in NGN)
 // Frontend displays converted USD prices via useCurrency hook
 export const BASE_PRICES_NGN = {
+  'lite': 50_000,
   'pro': 99_999,
   'enterprise': 199_999,
+  'lite-yearly': 500_000,
   'pro-yearly': 1_000_000,
   'enterprise-yearly': 2_000_000,
 };
 
 export const PLAN_CONFIG: Record<PlanType, PlanDetails> = {
+  lite: {
+    name: 'Lite',
+    planCode: 'PLN_mquahijhgi8tzux',
+    price: '50000',
+    period: '/month',
+    billingCycle: 'monthly',
+  },
   pro: {
-    name: 'Control',
+    name: 'Pro',
     planCode: 'PLN_rknt3upbuue6dmh',
     price: '99999',
     period: '/month',
     billingCycle: 'monthly',
   },
   enterprise: {
-    name: 'Command',
+    name: 'Enterprise',
     planCode: 'PLN_b36ulzsdy6d418n',
     price: '199999',
     period: '/month',
     billingCycle: 'monthly',
   },
+  'lite-yearly': {
+    name: 'Lite',
+    planCode: 'PLN_2a41260dnw7z99x',
+    price: '500000',
+    period: '/year',
+    billingCycle: 'yearly',
+  },
   'pro-yearly': {
-    name: 'Control',
+    name: 'Pro',
     planCode: 'PLN_lu2vu0x7b0z4esc',
     price: '1000000',
     period: '/year',
     billingCycle: 'yearly',
   },
   'enterprise-yearly': {
-    name: 'Command',
+    name: 'Enterprise',
     planCode: 'PLN_geld4bet9hwqca0',
     price: '2000000',
     period: '/year',
