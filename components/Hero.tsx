@@ -111,9 +111,9 @@ export const Hero: React.FC = () => {
                     { text: 'QR code ordering' },
                     { text: 'Synchronized kitchen alerts' },
                     { text: 'Enterprise WhatsApp ordering' },
-                    { text: 'Granular food inventory' },
+                    { text: 'Granular inventory' },
                     { text: 'Fraud prevention architecture' },
-                    { text: 'Multi-branch supremacy' }
+                    { text: 'Multi-branch monitoring' }
                   ].map((item, index) => (
                     <Box
                       key={`${arrayIndex}-${index}`}

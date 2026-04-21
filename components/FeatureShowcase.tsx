@@ -5,6 +5,10 @@ import { faArrowRight, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons
 import { Box, Container, Typography } from '@mui/material';
 import Lottie from 'lottie-react';
 import ChatBubblesAnimation from '../public/assets/3d_services/Chat Bubbles.json';
+import StatsGoingUpAnimation from '../public/assets/3d_services/Stats Going Up.json';
+import QrCodeAnimation from '../public/assets/3d_services/qrcode.json';
+import MoneyAnalysisAnimation from '../public/assets/3d_services/money analysis.json';
+import ChefAnimation from '../public/assets/3d_services/chef animation.json';
 
 interface ShowcaseItem {
   number: string;
@@ -12,8 +16,8 @@ interface ShowcaseItem {
   tags: string[];
   description: string;
   plan: string;
-  video?: string;
-  lottie?: any;
+  plan: string;
+  lottie: any;
 }
 
 const items: ShowcaseItem[] = [
@@ -23,7 +27,7 @@ const items: ShowcaseItem[] = [
     tags: ['QR Menus', 'Fast Service'],
     description: 'Eliminate the noise of messy ordering. Give your guests a seamless, luxury dining experience with instant live menus and wait-free orders.',
     plan: 'Pro',
-    video: '/assets/3d_services/qrcode.webm'
+    lottie: QrCodeAnimation
   },
   {
     number: '02',
@@ -31,7 +35,7 @@ const items: ShowcaseItem[] = [
     tags: ['Split Payment', 'Group Dining'],
     description: "Group dining shouldn't end in billing chaos. Let multiple guests pay separately while keeping the table flow perfectly intact and completely transparent.",
     plan: 'Pro',
-    video: '/assets/3d_services/money analysis.webm'
+    lottie: MoneyAnalysisAnimation
   },
   {
     number: '03',
@@ -39,7 +43,7 @@ const items: ShowcaseItem[] = [
     tags: ['Live Alerts', 'Peak Sync'],
     description: 'Replace slow turnarounds with synchronized service. Absolute connection between the front of house and back of house, ensuring every dish drops perfectly on time.',
     plan: 'Pro',
-    video: '/assets/3d_services/Chef animation.webm'
+    lottie: ChefAnimation
   },
   {
     number: '04',
@@ -55,7 +59,7 @@ const items: ShowcaseItem[] = [
     tags: ['Multi-branch', 'Live Audit'],
     description: 'Total command across every location. Consolidate your live audits, spot inventory shrinkage instantly, and protect your margins before they leak.',
     plan: 'Enterprise',
-    video: '/assets/3d_services/Stats Going Up.webm'
+    lottie: StatsGoingUpAnimation
   }
 ];
 
@@ -183,23 +187,10 @@ export const FeatureShowcase: React.FC = () => {
                             </Box>
                           </Box>
                         </Box>
-                        <Box sx={{ width: '100%', maxWidth: { xs: '85%', md: index === 0 ? '40%' : '85%' }, aspectRatio: index === 0 ? '16/10' : '4/3', borderRadius: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', order: { xs: 1, md: index === 0 ? 2 : 1 }, mx: { xs: 'auto', md: index === 0 ? 0 : 'auto' } }}>
-                          {item.video && (
-                            <Box 
-                              component="video"
-                              src={item.video}
-                              autoPlay
-                              loop
-                              muted
-                              playsInline
-                              sx={{ width: '100%', height: '100%', objectFit: 'contain', border: 'none' }}
-                            />
-                          )}
-                          {item.lottie && (
-                            <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                              <Lottie animationData={item.lottie} loop={true} style={{ width: '100%', height: '100%' }} />
-                            </Box>
-                          )}
+                        <Box sx={{ width: '100%', maxWidth: { xs: '70%', md: index === 0 ? '30%' : '60%' }, aspectRatio: index === 0 ? '16/10' : '4/3', borderRadius: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', order: { xs: 1, md: index === 0 ? 2 : 1 }, mx: 'auto' }}>
+                          <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <Lottie animationData={item.lottie} loop={true} style={{ width: '100%', height: '100%' }} />
+                          </Box>
                         </Box>
                       </Box>
                     </Box>
