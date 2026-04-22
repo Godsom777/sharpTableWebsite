@@ -7,6 +7,7 @@ import {
   faMartiniGlassCitrus,
   faStore,
   faUtensils,
+  faHotel,
 } from '@fortawesome/free-solid-svg-icons';
 import { Box, Container, Typography } from '@mui/material';
 
@@ -36,10 +37,10 @@ const builtForGroups = [
     icon: faChampagneGlasses,
   },
   {
-    title: 'Grills and Takeout Spots',
+    title: 'Hotels & Resorts',
     description:
-      'Operators handling heavy order volume who need speed, structure, and visibility without bloated POS complexity.',
-    icon: faFireBurner,
+      'Seamless visitor tracking, integrated booking flows, and digital room service without bloating your core operations.',
+    icon: faHotel,
   },
 ];
 

@@ -60,6 +60,14 @@ const items: ShowcaseItem[] = [
     description: 'Total command across every location. Consolidate your live audits, spot inventory shrinkage instantly, and protect your margins before they leak.',
     plan: 'Enterprise',
     lottie: StatsGoingUpAnimation
+  },
+  {
+    number: '06',
+    title: 'Hotels & Visitor Tracking',
+    tags: ['Guest Logs', 'Room Service'],
+    description: 'A dedicated suite for hospitality. Seamlessly manage visitor booking tracking and digital room service menus without bloating your operations or confusing your front desk.',
+    plan: 'Enterprise',
+    lottie: ChatBubblesAnimation
   }
 ];
 
@@ -89,7 +97,7 @@ export const FeatureShowcase: React.FC = () => {
             <Typography variant="h2" sx={{ color: 'white', fontWeight: 900, fontSize: { xs: '2.5rem', md: '5rem', lg: '6rem' }, letterSpacing: '-0.04em', lineHeight: 1 }}>
               Our Services
             </Typography>
-            <Typography sx={{ color: 'grey.500', display: { xs: 'none', md: 'block' }, fontSize: '1.5rem', fontWeight: 600 }}>04</Typography>
+            <Typography sx={{ color: 'grey.500', display: { xs: 'none', md: 'block' }, fontSize: '1.5rem', fontWeight: 600 }}>06</Typography>
           </Box>
         </Box>
 
@@ -115,7 +123,7 @@ export const FeatureShowcase: React.FC = () => {
                   transition: 'background-color 0.3s',
                   display: 'flex',
                   flexDirection: 'column',
-                  gridColumn: { md: index === 0 ? '1 / -1' : 'auto' } // Make the first one span full width!
+                  gridColumn: { md: (index === 0 || index === items.length - 1) ? '1 / -1' : 'auto' } // First and last span full width
                 }}
               >
                 <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', mb: { md: 2 } }}>
@@ -163,12 +171,12 @@ export const FeatureShowcase: React.FC = () => {
                     >
                       <Box sx={{ 
                         display: 'flex', 
-                        flexDirection: { xs: 'column', md: index === 0 ? 'row' : 'column' }, 
+                        flexDirection: { xs: 'column', md: (index === 0 || index === items.length - 1) ? 'row' : 'column' }, 
                         gap: 3,
-                        alignItems: { xs: 'flex-start', md: index === 0 ? 'center' : 'flex-start' },
+                        alignItems: { xs: 'flex-start', md: (index === 0 || index === items.length - 1) ? 'center' : 'flex-start' },
                         flex: 1
                       }}>
-                        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 3, order: { xs: 2, md: index === 0 ? 1 : 2 } }}>
+                        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 3, order: { xs: 2, md: (index === 0 || index === items.length - 1) ? 1 : 2 } }}>
                           <Typography sx={{ color: 'grey.400', fontSize: '1rem', lineHeight: 1.6 }}>
                             {item.description}
                           </Typography>
@@ -187,7 +195,7 @@ export const FeatureShowcase: React.FC = () => {
                             </Box>
                           </Box>
                         </Box>
-                        <Box sx={{ width: '100%', maxWidth: { xs: '70%', md: index === 0 ? '30%' : '60%' }, aspectRatio: index === 0 ? '16/10' : '4/3', borderRadius: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', order: { xs: 1, md: index === 0 ? 2 : 1 }, mx: 'auto' }}>
+                        <Box sx={{ width: '100%', maxWidth: { xs: '70%', md: (index === 0 || index === items.length - 1) ? '30%' : '60%' }, aspectRatio: (index === 0 || index === items.length - 1) ? '16/10' : '4/3', borderRadius: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', order: { xs: 1, md: (index === 0 || index === items.length - 1) ? 2 : 1 }, mx: 'auto' }}>
                           <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <Lottie animationData={item.lottie} loop={true} style={{ width: '100%', height: '100%' }} />
                           </Box>

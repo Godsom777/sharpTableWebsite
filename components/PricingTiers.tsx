@@ -46,7 +46,7 @@ const PricingTiers: React.FC = () => {
         features: [
           'Everything in Lite, plus:',
           'Up to 2 Locations',
-          'Direct Customer Ordering',
+          'Guest Ordering & Room Service',
           'Staff & Role Management'
         ],
         active: true,
@@ -59,8 +59,9 @@ const PricingTiers: React.FC = () => {
         description: 'Built for serious operators with multiple branches.',
         features: [
           'Everything in Pro, plus:',
-          'Up to 4 Locations Max',
-          'Premium WhatsApp Ordering',
+          'Unlimited Locations Max',
+          'Enterprise WhatsApp Ordering',
+          'Hotel Visitor Tracking Suite',
           'Food Inventory & Tracking'
         ],
         active: false,

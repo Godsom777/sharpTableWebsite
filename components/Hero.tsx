@@ -62,7 +62,7 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
           sx={{ mt: 4, mb: 6, textAlign: 'center', fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' }, color: 'grey.400', maxWidth: 'md', mx: 'auto', lineHeight: 1.6 }}
         >
-          SharpTable gives luxury multi-branch chains absolute command over ordering, split payments, kitchen rhythm, and fraud prevention—all from a single uncompromising interface.
+          SharpTable gives luxury multi-branch restaurants and modern hospitality brands absolute command over ordering, visitor tracking, room service logistics, and fraud prevention—all from a single uncompromising interface.
         </Typography>
 
         <Box
@@ -114,11 +114,12 @@ export const Hero: React.FC = () => {
                 <React.Fragment key={arrayIndex}>
                   {[
                     { text: 'QR code ordering' },
+                    { text: 'Digital room service' },
                     { text: 'Synchronized kitchen alerts' },
-                    { text: 'Enterprise WhatsApp ordering' },
-                    { text: 'Granular inventory' },
-                    { text: 'Fraud prevention architecture' },
-                    { text: 'Multi-branch monitoring' }
+                    { text: 'Enterprise visitor logging' },
+                    { text: 'WhatsApp channel ordering' },
+                    { text: 'Multi-branch monitoring' },
+                    { text: 'Fraud prevention architecture' }
                   ].map((item, index) => (
                     <Box
                       key={`${arrayIndex}-${index}`}
