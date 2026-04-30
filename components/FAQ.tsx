@@ -67,7 +67,7 @@ const faqs: FAQItem[] = [
     category: 'pricing',
     icon: faCreditCard,
     question: "How does the pricing work? I see USD but I'm not in the US.",
-    answer: "Prices are displayed in USD for global clarity, but you're billed in your local currency (Nigerian Naira via Paystack). The USD amount converts to the equivalent in Naira at current exchange rates when you subscribe. For example, the Pro plan is approximately N99,999/month and Enterprise is approximately N199,999/month. Enterprise includes up to 4 branches, and each branch above 4 adds N50,000. No surprise charges, no hidden fees - what you see on the pricing page is what you'll pay, converted to Naira at checkout.",
+    answer: "Prices are displayed in USD for global clarity, but you're billed in your local currency (Nigerian Naira via Paystack). The USD amount converts to the equivalent in Naira at current exchange rates when you subscribe. For example, the Pro plan is approximately N150,000/month and Enterprise is approximately N199,999/month. Enterprise includes up to 4 branches, and each branch above 4 adds N50,000. No surprise charges, no hidden fees - what you see on the pricing page is what you'll pay, converted to Naira at checkout.",
   },
   {
     category: 'pricing',

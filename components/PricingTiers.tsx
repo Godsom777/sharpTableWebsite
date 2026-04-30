@@ -1,9 +1,8 @@
-import React, { memo, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faXmark, faLock } from '@fortawesome/free-solid-svg-icons';
-import { faCcVisa, faCcMastercard, faCcAmex } from '@fortawesome/free-brands-svg-icons';
-import { usePayment, PlanType, BillingCycle, PLAN_CONFIG } from '../contexts/PaymentContext';
+import { faCheck, faLock } from '@fortawesome/free-solid-svg-icons';
+import { usePayment, PlanType, BillingCycle, BASE_PRICES_NGN } from '../contexts/PaymentContext';
 import { useCurrency } from '../hooks/useCurrency';
 import { Box, Container, Typography } from '@mui/material';
 
@@ -13,22 +12,13 @@ const PricingTiers: React.FC = () => {
   const { convertFromNaira, isLoading: isCurrencyLoading } = useCurrency();
 
   const tierConfigs = useMemo(() => {
-    const liteMonthly = 50000;
-    const liteYearly = 500000;
-
-    const proMonthly = 100000;
-    const proYearly = 1000000;
-
-    const enterpriseMonthly = 200000;
-    const enterpriseYearly = 2000000;
-
     const periodLabel = billingCycle === 'monthly' ? '1 Month' : '1 Year';
 
     return [
       {
         name: 'Lite Plan',
         periodDelay: periodLabel,
-        price: convertFromNaira(billingCycle === 'monthly' ? liteMonthly : liteYearly),
+        price: convertFromNaira(billingCycle === 'monthly' ? BASE_PRICES_NGN.lite : BASE_PRICES_NGN['lite-yearly']),
         description: 'QR code order viewing, perfect for single locations getting started.',
         features: [
           '1 Location Included',
@@ -41,7 +31,7 @@ const PricingTiers: React.FC = () => {
       {
         name: 'Pro Plan',
         periodDelay: periodLabel,
-        price: convertFromNaira(billingCycle === 'monthly' ? proMonthly : proYearly),
+        price: convertFromNaira(billingCycle === 'monthly' ? BASE_PRICES_NGN.pro : BASE_PRICES_NGN['pro-yearly']),
         description: 'Tight control with complete direct ordering features.',
         features: [
           'Everything in Lite, plus:',
@@ -55,7 +45,7 @@ const PricingTiers: React.FC = () => {
       {
         name: 'Enterprise Plan',
         periodDelay: periodLabel,
-        price: convertFromNaira(billingCycle === 'monthly' ? enterpriseMonthly : enterpriseYearly),
+        price: convertFromNaira(billingCycle === 'monthly' ? BASE_PRICES_NGN.enterprise : BASE_PRICES_NGN['enterprise-yearly']),
         description: 'Built for serious operators with multiple branches.',
         features: [
           'Everything in Pro, plus:',

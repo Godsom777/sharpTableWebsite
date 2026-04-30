@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShieldHalved, faHeadset, faMobileScreenButton, faRotateLeft, faBoxesStacked, faSliders, faUsers, faMask, faBuilding, faUserShield, faArrowRight, faLayerGroup, faMessage, faChartSimple } from '@fortawesome/free-solid-svg-icons';
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { Box, Container, Typography } from '@mui/material';
+import { RotatingIndustryHeadline } from './RotatingIndustryHeadline';
 
 interface FeatureItem {
   icon: IconDefinition;
@@ -99,8 +100,7 @@ export const FeatureStack: React.FC = () => {
             </Box>
           </Box>
           <Typography variant="h2" sx={{ fontSize: { xs: '2.5rem', md: '4rem' }, fontWeight: 900, color: 'white', letterSpacing: '-0.04em', lineHeight: 1.1 }}>
-            Control what matters.
-            <Box component="span" sx={{ display: 'block', color: 'grey.600' }}>Maintain absolute authority.</Box>
+            <RotatingIndustryHeadline accentColor="#C9A84C" />
           </Typography>
         </Box>
 

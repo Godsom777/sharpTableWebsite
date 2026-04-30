@@ -16,7 +16,7 @@ export interface PlanDetails {
 // Frontend displays converted USD prices via useCurrency hook
 export const BASE_PRICES_NGN = {
   'lite': 50_000,
-  'pro': 99_999,
+  'pro': 150_000,
   'enterprise': 199_999,
   'lite-yearly': 500_000,
   'pro-yearly': 1_000_000,
@@ -34,7 +34,7 @@ export const PLAN_CONFIG: Record<PlanType, PlanDetails> = {
   pro: {
     name: 'Pro',
     planCode: 'PLN_rknt3upbuue6dmh',
-    price: '99999',
+    price: '150000',
     period: '/month',
     billingCycle: 'monthly',
   },

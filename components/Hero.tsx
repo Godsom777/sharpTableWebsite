@@ -1,20 +1,12 @@
 import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faChevronRight,
-  faShieldHalved,
-  faQrcode,
-  faBolt,
-  faCircleCheck,
-  faLock,
-  faMessage,
-  faBoxesStacked
-} from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight, faShieldHalved, faLock } from '@fortawesome/free-solid-svg-icons';
 import { useGeoLocation } from '../hooks/useGeoLocation';
 import { Box, Typography, Button, useMediaQuery } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
 import { useSubscription } from '../hooks/useSubscription';
+import { RotatingIndustryHeadline } from './RotatingIndustryHeadline';
 
 export const Hero: React.FC = () => {
   const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
@@ -49,10 +41,13 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.05 }}
-          sx={{ textAlign: 'center', fontSize: { xs: '2rem', sm: '2.5rem', md: '5rem', lg: '6.5rem' }, fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.05, color: 'white', wordBreak: 'break-word' }}
+          sx={{ textAlign: 'center', fontSize: { xs: '2rem', sm: '2.5rem', md: '4.5rem', lg: '5.75rem' }, fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.02, color: 'white', wordBreak: 'break-word' }}
         >
-          Uncompromising control.
-          <Box component="span" sx={{ color: 'grey.500', display: 'block' }}>Flawless execution.</Box>
+          <RotatingIndustryHeadline
+            accentColor="#C9A84C"
+            lineSx={{ whiteSpace: { md: 'nowrap' } }}
+            termSx={{ minWidth: { xs: '10.5ch', sm: '12ch', md: '13ch' } }}
+          />
         </Typography>
 
         <Typography
@@ -62,7 +57,7 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
           sx={{ mt: 4, mb: 6, textAlign: 'center', fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' }, color: 'grey.400', maxWidth: 'md', mx: 'auto', lineHeight: 1.6 }}
         >
-          SharpTable gives luxury multi-branch restaurants and modern hospitality brands absolute command over ordering, visitor tracking, room service logistics, and fraud prevention—all from a single uncompromising interface.
+          SharpTable gives luxury multi-branch restaurants and modern hospitality brands absolute command of hospitality operations across ordering, visitor tracking, room service logistics, and fraud prevention from a single uncompromising interface.
         </Typography>
 
         <Box
@@ -97,11 +92,10 @@ export const Hero: React.FC = () => {
           </Button>
         </Box>
 
-        {/* Scrolling Features Marquee */}
         <Box sx={{ mt: 8, width: '100vw', marginLeft: 'calc(-50vw + 50%)', position: 'relative', overflow: 'hidden' }}>
           <Box sx={{ position: 'absolute', top: 0, left: 0, w: '80px', h: '100%', background: 'linear-gradient(to right, #000, transparent)', zIndex: 1 }} />
           <Box sx={{ position: 'absolute', top: 0, right: 0, w: '80px', h: '100%', background: 'linear-gradient(to left, #000, transparent)', zIndex: 1 }} />
-          
+
           <Box
             component={motion.div}
             initial={{ opacity: 0 }}
@@ -119,7 +113,7 @@ export const Hero: React.FC = () => {
                     { text: 'Enterprise visitor logging' },
                     { text: 'WhatsApp channel ordering' },
                     { text: 'Multi-branch monitoring' },
-                    { text: 'Fraud prevention architecture' }
+                    { text: 'Fraud prevention architecture' },
                   ].map((item, index) => (
                     <Box
                       key={`${arrayIndex}-${index}`}
@@ -181,7 +175,6 @@ export const Hero: React.FC = () => {
             </Box>
           </Box>
         </Box>
-
       </Box>
     </Box>
   );
