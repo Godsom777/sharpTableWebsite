@@ -33,6 +33,30 @@ export default function RootLayout({
           rel="stylesheet"
         />
         <meta name="theme-color" content="#000000" />
+        
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              "name": "SharpTable",
+              "operatingSystem": "Web",
+              "applicationCategory": "BusinessApplication",
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.9",
+                "ratingCount": "128"
+              },
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "NGN"
+              },
+              "description": "Absolute command of hospitality operations across ordering, visitor tracking, room service logistics, and fraud prevention."
+            })
+          }}
+        />
       </head>
       <body>
         <ThemeRegistry>
