@@ -79,6 +79,15 @@ export const FeatureShowcase: React.FC = () => {
     setExpandedIndex(prev => (prev === index ? null : index));
   };
 
+  const [isClientMediumUp, setIsClientMediumUp] = React.useState(true); // default to true to match server
+
+  React.useEffect(() => {
+    const checkSize = () => setIsClientMediumUp(window.innerWidth >= 900);
+    checkSize();
+    window.addEventListener('resize', checkSize);
+    return () => window.removeEventListener('resize', checkSize);
+  }, []);
+
   return (
     <Box component="section" sx={{ position: 'relative', bgcolor: '#000000', py: { xs: 12, md: 20 } }}>
       <Container maxWidth="md" sx={{ position: 'relative', zIndex: 2, px: { xs: 2.5, md: 4 } }}>
@@ -104,8 +113,7 @@ export const FeatureShowcase: React.FC = () => {
 
         <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: { xs: 2, md: 3 } }}>
           {items.map((item, index) => {
-            const isMediumUp = typeof window !== 'undefined' ? window.innerWidth >= 900 : true; // rough check for 'md', default to true on server
-            const isExpanded = expandedIndex === index || isMediumUp; // Auto expand on large screens
+            const isExpanded = expandedIndex === index || isClientMediumUp; // Auto expand on large screens
 
             return (
               <Box
@@ -116,11 +124,11 @@ export const FeatureShowcase: React.FC = () => {
                 viewport={{ once: true, amount: 0.1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 sx={{
-                  bgcolor: '#131313', 
+                  bgcolor: '#1e1b20ff', 
                   borderRadius: { xs: '1.5rem', md: '2rem' },
                   px: { xs: 3, md: 4 },
                   py: { xs: 3, md: 4 },
-                  border: '1px solid rgba(255,255,255,0.03)',
+                  border: '1px solid rgba(255, 255, 255, 0.28)',
                   transition: 'background-color 0.3s',
                   display: 'flex',
                   flexDirection: 'column',
