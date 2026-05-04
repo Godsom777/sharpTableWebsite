@@ -103,7 +103,7 @@ const FloatingSymbol: React.FC<FloatingSymbolProps> = ({ symbol, index, total })
         top: `${top}%`,
         fontSize: `${size}px`,
       }}
-      initial={{ opacity: 0, scale: 0.3, rotate: rotate }}
+      initial={false}
       animate={{
         opacity: [0, 0.6, 0.3, 0.6, 0],
         scale: [0.3, 1, 0.8, 1, 0.3],
@@ -127,7 +127,7 @@ const FloatingSymbol: React.FC<FloatingSymbolProps> = ({ symbol, index, total })
 const DecorativeLine: React.FC = () => (
   <Box
     component={motion.div}
-    initial={{ opacity: 0, scaleX: 0 }}
+    initial={false}
     animate={{ opacity: 1, scaleX: 1 }}
     transition={{ duration: 0.8, delay: 1.2, ease: 'easeOut' }}
     sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, mt: 4 }}
@@ -253,3 +253,4 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
     </Box>
   );
 };
+

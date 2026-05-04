@@ -27,7 +27,7 @@ export const Hero: React.FC = () => {
       <Box sx={{ position: 'relative', zIndex: 10, maxWidth: 'lg', mx: 'auto', px: 2, pt: { xs: 16, md: 20 }, pb: { xs: 8, md: 12 } }}>
         <Box
           component={motion.div}
-          initial={{ opacity: 0, y: 10 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}
@@ -40,7 +40,7 @@ export const Hero: React.FC = () => {
 
         <Typography
           component={motion.h1}
-          initial={{ opacity: 0, y: 12 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.05 }}
           sx={{ textAlign: 'center', fontSize: { xs: '2rem', sm: '2.5rem', md: '4.5rem', lg: '5.75rem' }, fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.02, color: 'white', wordBreak: 'break-word' }}
@@ -54,7 +54,7 @@ export const Hero: React.FC = () => {
 
         <Typography
           component={motion.p}
-          initial={{ opacity: 0, y: 10 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
           sx={{ mt: 4, mb: 6, textAlign: 'center', fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' }, color: 'grey.400', maxWidth: 'md', mx: 'auto', lineHeight: 1.6 }}
@@ -64,7 +64,7 @@ export const Hero: React.FC = () => {
 
         <Box
           component={motion.div}
-          initial={{ opacity: 0, y: 12 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.15 }}
           sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: 'center', justifyContent: 'center', gap: 2 }}
@@ -100,7 +100,7 @@ export const Hero: React.FC = () => {
 
           <Box
             component={motion.div}
-            initial={{ opacity: 0 }}
+            initial={false}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             sx={{ display: 'flex' }}
@@ -133,7 +133,7 @@ export const Hero: React.FC = () => {
 
         <Box
           component={motion.div}
-          initial={{ opacity: 0, y: 30 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.25 }}
           sx={{ mt: { xs: 8, md: 10 }, position: 'relative' }}
@@ -181,3 +181,4 @@ export const Hero: React.FC = () => {
     </Box>
   );
 };
+

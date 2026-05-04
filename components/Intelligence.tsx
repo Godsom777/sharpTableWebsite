@@ -28,7 +28,7 @@ export const Intelligence: React.FC = () => {
       <Container maxWidth="lg" sx={{ px: 3 }}>
         <Box
           component={motion.div}
-          initial={{ opacity: 0, y: 30 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
@@ -45,7 +45,7 @@ export const Intelligence: React.FC = () => {
         <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', lg: '1fr 1fr' }, gap: 4 }}>
           <Box
             component={motion.div}
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.3 }}
@@ -74,7 +74,7 @@ export const Intelligence: React.FC = () => {
 
           <Box
             component={motion.div}
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
@@ -103,7 +103,7 @@ export const Intelligence: React.FC = () => {
 
         <Box
           component={motion.div}
-          initial={{ opacity: 0, y: 30 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 0.6 }}
@@ -128,3 +128,4 @@ export const Intelligence: React.FC = () => {
     </Box>
   );
 };
+

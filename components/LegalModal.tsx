@@ -335,7 +335,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({ isOpen, onClose, type })
           {/* Backdrop */}
           <Box
             component={motion.div}
-            initial={{ opacity: 0 }}
+            initial={false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
@@ -345,7 +345,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({ isOpen, onClose, type })
           {/* Modal */}
           <Box
             component={motion.div}
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.2 }}
@@ -411,3 +411,4 @@ export const useLegalModal = () => {
     closeModal,
   };
 };
+

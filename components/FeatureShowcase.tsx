@@ -84,7 +84,7 @@ export const FeatureShowcase: React.FC = () => {
       <Container maxWidth="md" sx={{ position: 'relative', zIndex: 2, px: { xs: 2.5, md: 4 } }}>
         <Box
           component={motion.div}
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
@@ -111,7 +111,7 @@ export const FeatureShowcase: React.FC = () => {
               <Box
                 key={item.number}
                 component={motion.div}
-                initial={{ opacity: 0, y: 20 }}
+                initial={false}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -213,3 +213,4 @@ export const FeatureShowcase: React.FC = () => {
     </Box>
   );
 };
+

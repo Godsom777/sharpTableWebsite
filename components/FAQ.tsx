@@ -145,7 +145,7 @@ const FAQAccordionItem: React.FC<{ faq: FAQItem; index: number }> = ({ faq, inde
   return (
     <Box
       component={motion.div}
-      initial={{ opacity: 0, y: 20 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
@@ -206,7 +206,7 @@ export const FAQ: React.FC = () => {
       <Container maxWidth="md" sx={{ position: 'relative', zIndex: 10, px: 3 }}>
         <Box
           component={motion.div}
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
@@ -229,7 +229,7 @@ export const FAQ: React.FC = () => {
 
         <Box
           component={motion.div}
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
@@ -264,7 +264,7 @@ export const FAQ: React.FC = () => {
             <Box
               component={motion.div}
               key={activeCategory}
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
@@ -279,7 +279,7 @@ export const FAQ: React.FC = () => {
 
         <Box
           component={motion.div}
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -304,3 +304,4 @@ export const FAQ: React.FC = () => {
     </Box>
   );
 };
+

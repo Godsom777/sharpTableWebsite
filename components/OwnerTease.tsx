@@ -18,7 +18,7 @@ export const OwnerTease: React.FC = () => {
           
           <Box
             component={motion.div}
-            initial={{ opacity: 0, x: -30 }}
+            initial={false}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
@@ -26,7 +26,7 @@ export const OwnerTease: React.FC = () => {
           >
             <Typography
               component={motion.h2}
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
@@ -71,7 +71,7 @@ export const OwnerTease: React.FC = () => {
 
           <Box
             component={motion.div}
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={false}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}

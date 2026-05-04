@@ -18,7 +18,7 @@ export const Footer: React.FC = () => {
       <Container maxWidth="lg" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', px: { xs: 3, md: 3 } }}>
         <Box
           component={motion.div}
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
@@ -36,7 +36,7 @@ export const Footer: React.FC = () => {
         </Box>
         <Typography
           component={motion.p}
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
@@ -48,7 +48,7 @@ export const Footer: React.FC = () => {
         
         <Box
           component={motion.a}
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={false}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -63,7 +63,7 @@ export const Footer: React.FC = () => {
         {/* Navigation Links */}
         <Box
           component={motion.nav}
-          initial={{ opacity: 0, y: 10 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.25 }}
@@ -81,7 +81,7 @@ export const Footer: React.FC = () => {
 
         <Box
           component={motion.div}
-          initial={{ opacity: 0 }}
+          initial={false}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
@@ -128,7 +128,7 @@ export const Footer: React.FC = () => {
         </Box>
         <Box
           component={motion.div}
-          initial={{ opacity: 0 }}
+          initial={false}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.5 }}

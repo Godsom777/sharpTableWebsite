@@ -40,7 +40,7 @@ export const PaymentCallback: React.FC = () => {
   return (
     <Box component="section" sx={{ minHeight: '100vh', bgcolor: '#000000', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 2 }}>
       <AnimatePresence mode="wait">
-        <Box component={motion.div} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} sx={{ maxWidth: 'sm', width: '100%', bgcolor: '#111111', borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.05)', p: { xs: 4, md: 6 }, textAlign: 'center' }}>
+        <Box component={motion.div} initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} sx={{ maxWidth: 'sm', width: '100%', bgcolor: '#111111', borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.05)', p: { xs: 4, md: 6 }, textAlign: 'center' }}>
           
           {status === 'loading' && (
             <>
@@ -109,3 +109,4 @@ export const PaymentCallback: React.FC = () => {
     </Box>
   );
 };
+

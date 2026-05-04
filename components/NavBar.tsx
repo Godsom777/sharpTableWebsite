@@ -51,7 +51,7 @@ export const NavBar: React.FC = () => {
     >
       <Container maxWidth="lg" sx={{ height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: { xs: 3, md: 3 } }}>
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
+          initial={false}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
           onClick={() => { window.location.href = '/'; }}
@@ -72,7 +72,7 @@ export const NavBar: React.FC = () => {
 
         <Box
           component={motion.div}
-          initial={{ opacity: 0, y: -10 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
           sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 4, typography: 'body2', fontWeight: 500, color: 'text.secondary' }}
@@ -141,7 +141,7 @@ export const NavBar: React.FC = () => {
 
         <IconButton
           component={motion.button}
-          initial={{ opacity: 0 }}
+          initial={false}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
           whileTap={{ scale: 0.9 }}
@@ -157,7 +157,7 @@ export const NavBar: React.FC = () => {
         {isMobileMenuOpen && (
           <Box
             component={motion.div}
-            initial={{ opacity: 0, height: 0 }}
+            initial={false}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
@@ -257,3 +257,4 @@ export const NavBar: React.FC = () => {
     </Box>
   );
 };
+

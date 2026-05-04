@@ -57,7 +57,7 @@ const FAQItem: React.FC<{ item: typeof faqs[0]; index: number }> = ({ item, inde
   return (
     <Box
       component={motion.div}
-      initial={{ opacity: 0, y: 12 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.05 }}
@@ -115,7 +115,7 @@ export const PartnershipInfo: React.FC = () => {
   return (
     <Box component="section" sx={{ position: 'relative', bgcolor: '#000000' }}>
       <Container maxWidth="md" sx={{ pt: { xs: 12, md: 16 }, pb: { xs: 10, md: 16 }, px: 3 }}>
-        <Box component={motion.div} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} sx={{ textAlign: 'center', mb: 8 }}>
+        <Box component={motion.div} initial={false} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} sx={{ textAlign: 'center', mb: 8 }}>
           <Typography variant="h2" sx={{ fontSize: { xs: '2.5rem', md: '3.5rem' }, fontWeight: 900, color: 'white', mb: 2, letterSpacing: '-0.04em' }}>
             Capital Protocol
           </Typography>
@@ -126,7 +126,7 @@ export const PartnershipInfo: React.FC = () => {
 
         <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', lg: 'repeat(4, 1fr)' }, gap: 3 }}>
           {steps.map((step, i) => (
-            <Box component={motion.div} key={step.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} sx={{ position: 'relative', borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', p: 4, textAlign: 'center' }}>
+            <Box component={motion.div} key={step.title} initial={false} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} sx={{ position: 'relative', borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', p: 4, textAlign: 'center' }}>
               <Box sx={{ position: 'absolute', top: 12, right: 16, color: 'grey.800', fontSize: '2rem', fontWeight: 900, userSelect: 'none' }}>{i + 1}</Box>
               <Box sx={{ width: 48, height: 48, mx: 'auto', mb: 3, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <FontAwesomeIcon icon={step.icon} style={{ width: 16, height: 16, color: 'white' }} />
@@ -140,7 +140,7 @@ export const PartnershipInfo: React.FC = () => {
 
       <Box sx={{ bgcolor: '#0a0a0a', borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
         <Container maxWidth="md" sx={{ py: { xs: 12, md: 16 }, px: 3 }}>
-          <Box component={motion.div} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} sx={{ textAlign: 'center', mb: 8 }}>
+          <Box component={motion.div} initial={false} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} sx={{ textAlign: 'center', mb: 8 }}>
             <Typography variant="h2" sx={{ fontSize: { xs: '2rem', md: '3rem' }, fontWeight: 900, letterSpacing: '-0.04em', color: 'white', mb: 2 }}>
               The Returns
             </Typography>
@@ -151,7 +151,7 @@ export const PartnershipInfo: React.FC = () => {
 
           <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: 4, mb: 6 }}>
             {commissions.map((commission, i) => (
-              <Box component={motion.div} key={commission.label} initial={{ opacity: 0, x: i === 0 ? -20 : 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} sx={{ borderRadius: '2rem', border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', p: { xs: 4, md: 6 }, textAlign: 'center' }}>
+              <Box component={motion.div} key={commission.label} initial={false} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} sx={{ borderRadius: '2rem', border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', p: { xs: 4, md: 6 }, textAlign: 'center' }}>
                 <Box sx={{ width: 64, height: 64, mx: 'auto', mb: 4, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <FontAwesomeIcon icon={commission.icon} style={{ width: 24, height: 24, color: 'white' }} />
                 </Box>
@@ -162,7 +162,7 @@ export const PartnershipInfo: React.FC = () => {
             ))}
           </Box>
 
-          <Box component={motion.div} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} sx={{ borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden' }}>
+          <Box component={motion.div} initial={false} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} sx={{ borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden' }}>
             <Box sx={{ bgcolor: '#111111', px: 4, py: 3, borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
               <Typography sx={{ color: 'white', fontWeight: 800, display: 'flex', alignItems: 'center', gap: 1.5, fontSize: '1.125rem' }}>
                 <FontAwesomeIcon icon={faChartLine} style={{ width: 18, height: 18, color: 'white' }} /> Revenue Projections
@@ -199,7 +199,7 @@ export const PartnershipInfo: React.FC = () => {
       </Box>
 
       <Container maxWidth="md" sx={{ px: 3, py: { xs: 12, md: 16 }, textAlign: 'center' }}>
-        <Box component={motion.div} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+        <Box component={motion.div} initial={false} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <Box sx={{ width: 80, height: 80, mx: 'auto', mb: 4, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <FontAwesomeIcon icon={faHandshake} style={{ width: 32, height: 32, color: 'white' }} />
           </Box>
@@ -220,7 +220,7 @@ export const PartnershipInfo: React.FC = () => {
 
       <Box sx={{ borderTop: '1px solid rgba(255,255,255,0.05)', bgcolor: '#000000' }}>
         <Container maxWidth="md" sx={{ px: 3, py: { xs: 12, md: 16 } }}>
-          <Box component={motion.div} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} sx={{ textAlign: 'center', mb: 8 }}>
+          <Box component={motion.div} initial={false} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} sx={{ textAlign: 'center', mb: 8 }}>
             <Typography variant="h2" sx={{ fontSize: { xs: '1.5rem', md: '2rem' }, fontWeight: 900, letterSpacing: '-0.02em', color: 'white', mb: 2 }}>
               Directives
             </Typography>
@@ -235,3 +235,4 @@ export const PartnershipInfo: React.FC = () => {
     </Box>
   );
 };
+

@@ -63,7 +63,7 @@ export const WhoIsThisFor: React.FC = () => {
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, px: 3, py: { xs: 10, md: 16 } }}>
         <Box
           component={motion.div}
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: shouldReduceMotion ? 0 : 0.55 }}
@@ -118,7 +118,7 @@ export const WhoIsThisFor: React.FC = () => {
             <Box
               key={group.title}
               component={motion.div}
-              initial={{ opacity: 0, y: 24 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.45, delay: shouldReduceMotion ? 0 : index * 0.06 }}
@@ -173,3 +173,4 @@ export const WhoIsThisFor: React.FC = () => {
     </Box>
   );
 };
+

@@ -12,7 +12,7 @@ export const GateSection: React.FC = () => {
       <Container maxWidth="lg" sx={{ px: { xs: 2, md: 3 }, py: { xs: 5, md: 7 } }}>
         <Box
           component={motion.div}
-          initial={{ opacity: 0, y: 12 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}

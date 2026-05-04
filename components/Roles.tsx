@@ -58,7 +58,7 @@ export const Roles: React.FC = () => {
           <Box>
             <Typography
               component={motion.h2}
-              initial={{ opacity: 0, x: -30 }}
+              initial={false}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
@@ -105,7 +105,7 @@ export const Roles: React.FC = () => {
               <Box
                 component={motion.div}
                 key={activeTab}
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={false}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
@@ -143,3 +143,4 @@ export const Roles: React.FC = () => {
     </Box>
   );
 };
+

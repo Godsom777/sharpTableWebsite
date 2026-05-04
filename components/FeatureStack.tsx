@@ -61,7 +61,7 @@ const tiers: Tier[] = [
 const FeatureCard: React.FC<{ feature: FeatureItem; index: number }> = ({ feature, index }) => (
   <Box
     component={motion.div}
-    initial={{ opacity: 0, y: 16 }}
+    initial={false}
     animate={{ opacity: 1, y: 0 }}
     exit={{ opacity: 0, y: -8 }}
     transition={{ duration: 0.35, delay: index * 0.06 }}
@@ -89,7 +89,7 @@ export const FeatureStack: React.FC = () => {
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 10, px: 3 }}>
         <Box
           component={motion.div}
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
@@ -133,7 +133,7 @@ export const FeatureStack: React.FC = () => {
           <Box
             component={motion.div}
             key={activeTier}
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.4 }}
@@ -152,7 +152,7 @@ export const FeatureStack: React.FC = () => {
               </Box>
 
               {activeTier < tiers.length - 1 && (
-                <Box component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} sx={{ mt: 6, pt: 4, borderTop: '1px solid rgba(255,255,255,0.05)', textAlign: 'center' }}>
+                <Box component={motion.div} initial={false} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} sx={{ mt: 6, pt: 4, borderTop: '1px solid rgba(255,255,255,0.05)', textAlign: 'center' }}>
                   <Box component="button" onClick={() => setActiveTier((prev) => prev + 1)} sx={{ display: 'inline-flex', alignItems: 'center', gap: 1.5, fontSize: '0.85rem', color: 'grey.400', fontWeight: 600, bgcolor: 'transparent', border: 'none', cursor: 'pointer', '&:hover': { color: 'white' }, transition: 'color 0.2s' }}>
                     Unlock more with <Box component="span" sx={{ fontWeight: 800, color: 'white' }}>{tiers[activeTier + 1].label}</Box>
                     <FontAwesomeIcon icon={faArrowRight} style={{ width: 14, height: 14 }} />
@@ -166,3 +166,4 @@ export const FeatureStack: React.FC = () => {
     </Box>
   );
 };
+

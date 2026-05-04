@@ -97,7 +97,7 @@ export const PartnerApplyForm: React.FC = () => {
 
         <AnimatePresence mode="wait">
           {!submitted ? (
-            <Box component={motion.div} key="form" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} sx={{ borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', p: { xs: 4, md: 6 } }}>
+            <Box component={motion.div} key="form" initial={false} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} sx={{ borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', p: { xs: 4, md: 6 } }}>
               <Box sx={{ textAlign: 'center', mb: 6 }}>
                 <Typography variant="h1" sx={{ fontSize: '2rem', fontWeight: 900, color: 'white', mb: 1.5, letterSpacing: '-0.02em' }}>Partner Profile</Typography>
                 <Typography sx={{ color: 'grey.500', fontSize: '1rem', lineHeight: 1.6 }}>Enforce the network. Establish your payout matrix.</Typography>
@@ -125,7 +125,7 @@ export const PartnerApplyForm: React.FC = () => {
               </Box>
             </Box>
           ) : (
-            <Box component={motion.div} key="success" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} sx={{ borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.1)', bgcolor: '#111111', p: { xs: 4, md: 6 }, textAlign: 'center' }}>
+            <Box component={motion.div} key="success" initial={false} animate={{ opacity: 1, scale: 1 }} sx={{ borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.1)', bgcolor: '#111111', p: { xs: 4, md: 6 }, textAlign: 'center' }}>
               <Box sx={{ width: 64, height: 64, mx: 'auto', mb: 4, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <FontAwesomeIcon icon={faCheckCircle} style={{ width: 24, height: 24, color: 'white' }} />
               </Box>
@@ -156,3 +156,4 @@ export const PartnerApplyForm: React.FC = () => {
     </Box>
   );
 };
+

@@ -88,7 +88,7 @@ const TestimonialCard: React.FC<{ testimonial: Testimonial; delay: number }> = (
   return (
     <Box
       component={motion.div}
-      initial={{ opacity: 0, y: 30 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay }}
@@ -148,7 +148,7 @@ export const Testimonials: React.FC = () => {
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 10, px: { xs: 2.5, md: 4 } }}>
         <Box
           component={motion.div}
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
@@ -178,3 +178,4 @@ export const Testimonials: React.FC = () => {
     </Box>
   );
 };
+

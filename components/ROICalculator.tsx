@@ -30,7 +30,7 @@ export const ROICalculator: React.FC = () => {
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 10, px: 3 }}>
         <Box
           component={motion.div}
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
@@ -52,7 +52,7 @@ export const ROICalculator: React.FC = () => {
           {/* Input Section */}
           <Box
             component={motion.div}
-            initial={{ opacity: 0, x: -30 }}
+            initial={false}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
@@ -125,7 +125,7 @@ export const ROICalculator: React.FC = () => {
           {/* Results Section */}
           <Box
             component={motion.div}
-            initial={{ opacity: 0, x: 30 }}
+            initial={false}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
@@ -170,3 +170,4 @@ export const ROICalculator: React.FC = () => {
     </Box>
   );
 };
+

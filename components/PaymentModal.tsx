@@ -179,8 +179,8 @@ export const PaymentModal: React.FC = () => {
     <>
       <AnimatePresence>
         {isModalOpen && planDetails && (
-          <Box component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} onClick={(e) => { if (e.target === e.currentTarget) closePaymentModal() }} sx={{ position: 'fixed', inset: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', p: 2, bgcolor: 'rgba(0,0,0,0.9)', backdropFilter: 'blur(10px)' }}>
-            <Box component={motion.div} initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} transition={{ duration: 0.3 }} sx={{ position: 'relative', width: '100%', maxWidth: '28rem', bgcolor: '#111111', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)', overflow: 'hidden' }}>
+          <Box component={motion.div} initial={false} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} onClick={(e) => { if (e.target === e.currentTarget) closePaymentModal() }} sx={{ position: 'fixed', inset: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', p: 2, bgcolor: 'rgba(0,0,0,0.9)', backdropFilter: 'blur(10px)' }}>
+            <Box component={motion.div} initial={false} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} transition={{ duration: 0.3 }} sx={{ position: 'relative', width: '100%', maxWidth: '28rem', bgcolor: '#111111', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)', overflow: 'hidden' }}>
               <Box sx={{ position: 'relative', px: 4, pt: 4, pb: 3, borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                 <IconButton onClick={closePaymentModal} sx={{ position: 'absolute', top: 16, right: 16, width: 32, height: 32, color: 'grey.500', '&:hover': { color: 'white' } }}><FontAwesomeIcon icon={faXmark} style={{ width: 16, height: 16 }} /></IconButton>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -275,3 +275,4 @@ export const PaymentModal: React.FC = () => {
     </>
   );
 };
+
