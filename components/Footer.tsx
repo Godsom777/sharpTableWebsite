@@ -1,10 +1,12 @@
+'use client';
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faShield, faFileLines, faUserGroup } from '@fortawesome/free-solid-svg-icons';
 import { faTelegram } from '@fortawesome/free-brands-svg-icons';
 import { LegalModal, useLegalModal } from './LegalModal';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Box, Container, Typography } from '@mui/material';
 
 export const Footer: React.FC = () => {
@@ -70,7 +72,7 @@ export const Footer: React.FC = () => {
           {['/', '/features', '/pricing', '/faq', '/partnership'].map((path) => {
             const label = path === '/' ? 'Home' : path.slice(1).charAt(0).toUpperCase() + path.slice(2);
             return (
-              <Box component={Link} to={path} key={path} sx={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s', '&:hover': { color: 'white' } }}>
+              <Box component={Link} href={path} key={path} sx={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s', '&:hover': { color: 'white' } }}>
                 {label}
               </Box>
             );

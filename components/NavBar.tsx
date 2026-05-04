@@ -1,8 +1,11 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Box, Container, IconButton, Button, Typography } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
 import { useSubscription } from '../hooks/useSubscription';
@@ -10,10 +13,10 @@ import { useSubscription } from '../hooks/useSubscription';
 export const NavBar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
+  const pathname = usePathname();
   const { user } = useAuth();
   const { subscription } = useSubscription(user?.email);
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => pathname === path;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,7 +80,7 @@ export const NavBar: React.FC = () => {
           {['/', '/features', '/pricing', '/faq', '/partnership'].map((path, idx) => {
             const label = path === '/' ? 'Home' : path.slice(1).charAt(0).toUpperCase() + path.slice(2);
             return (
-              <Box component={Link} to={path} key={path} sx={{ textDecoration: 'none', color: 'inherit' }}>
+              <Box component={Link} href={path} key={path} sx={{ textDecoration: 'none', color: 'inherit' }}>
                 <Box
                   component={motion.span}
                   whileHover={{ scale: 1.1, y: -2 }}
@@ -184,7 +187,7 @@ export const NavBar: React.FC = () => {
                 >
                   <Box
                     component={Link}
-                    to={path}
+                    href={path}
                     onClick={() => setIsMobileMenuOpen(false)}
                     sx={{
                       display: 'block',

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,7 +21,7 @@ const SUPPORTED_COUNTRIES = [
   { code: 'OTHER', name: 'Other', flag: '🌍' },
 ] as const;
 
-const PAYSTACK_PUBLIC_KEY = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
+const PAYSTACK_PUBLIC_KEY = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY;
 declare global { interface Window { PaystackPop: { setup: (options: any) => { openIframe: () => void } }; } }
 
 export const PaymentModal: React.FC = () => {
@@ -69,7 +71,7 @@ export const PaymentModal: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleInputChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | { value: unknown }>) => {
+  const handleInputChange = (field: string) => (e: any) => {
     setFormData(prev => ({ ...prev, [field]: e.target.value as string }));
     if (errors[field]) setErrors((prev: any) => ({ ...prev, [field]: undefined }));
   };

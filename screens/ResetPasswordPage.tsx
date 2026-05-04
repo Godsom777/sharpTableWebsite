@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Alert, Box, Button, CircularProgress, Container, InputBase, Typography } from '@mui/material';
 import { PageHeader } from '../components/PageHeader';

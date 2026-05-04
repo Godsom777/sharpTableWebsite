@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,12 +8,12 @@ import {
   faBuildingColumns, faCreditCard, faIdCard, faArrowRight, faArrowLeft,
   faCircleCheck, faCopy, faShieldHalved,
 } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { createClient } from '@supabase/supabase-js';
 import { Box, Typography, Container } from '@mui/material';
 
-const supabaseUrl = import.meta.env.VITE_APP_SUPABASE_URL || '';
-const supabaseAnonKey = import.meta.env.VITE_APP_SUPABASE_ANON_KEY || '';
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
 function getSupabase() {
   if (!supabaseUrl || !supabaseAnonKey) return null;
@@ -89,7 +91,7 @@ export const PartnerApplyForm: React.FC = () => {
   return (
     <Box component="section" sx={{ position: 'relative', bgcolor: '#000000', py: { xs: 8, md: 16 } }}>
       <Container maxWidth="sm" sx={{ px: 3 }}>
-        <Box component={Link} to="/partnership" sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, color: 'grey.500', fontSize: '0.875rem', mb: 6, fontWeight: 600, textDecoration: 'none', transition: 'color 0.2s', '&:hover': { color: 'white' } }}>
+        <Box component={Link} href="/partnership" sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, color: 'grey.500', fontSize: '0.875rem', mb: 6, fontWeight: 600, textDecoration: 'none', transition: 'color 0.2s', '&:hover': { color: 'white' } }}>
           <FontAwesomeIcon icon={faArrowLeft} /> Abort Registration
         </Box>
 
@@ -144,7 +146,7 @@ export const PartnerApplyForm: React.FC = () => {
                 Deliver this link to enterprise leads. They will be explicitly tied to your payout matrix indefinitely.
               </Typography>
 
-              <Box component={Link} to="/partnership" sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, color: 'white', fontWeight: 600, fontSize: '1rem', textDecoration: 'none', '&:hover': { color: 'grey.300' } }}>
+              <Box component={Link} href="/partnership" sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, color: 'white', fontWeight: 600, fontSize: '1rem', textDecoration: 'none', '&:hover': { color: 'grey.300' } }}>
                 <FontAwesomeIcon icon={faArrowLeft} /> Return
               </Box>
             </Box>

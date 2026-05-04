@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,7 +17,6 @@ interface ShowcaseItem {
   title: string;
   tags: string[];
   description: string;
-  plan: string;
   plan: string;
   lottie: any;
 }
@@ -103,7 +104,7 @@ export const FeatureShowcase: React.FC = () => {
 
         <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: { xs: 2, md: 3 } }}>
           {items.map((item, index) => {
-            const isMediumUp = window.innerWidth >= 900; // rough check for 'md'
+            const isMediumUp = typeof window !== 'undefined' ? window.innerWidth >= 900 : true; // rough check for 'md', default to true on server
             const isExpanded = expandedIndex === index || isMediumUp; // Auto expand on large screens
 
             return (

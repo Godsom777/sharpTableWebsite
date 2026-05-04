@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,7 +19,7 @@ import {
   faCalendarCheck,
   faCalculator,
 } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Box, Container, Typography } from '@mui/material';
 
 const steps = [
@@ -207,7 +209,7 @@ export const PartnershipInfo: React.FC = () => {
           <Typography sx={{ color: 'grey.500', maxWidth: 500, mx: 'auto', fontSize: '1.25rem', lineHeight: 1.6, mb: 6 }}>
             The process takes two minutes. Secure massive multi-branch clients and secure the upside.
           </Typography>
-          <Link to="/partnership/apply" style={{ textDecoration: 'none' }}>
+          <Link href="/partnership/apply" style={{ textDecoration: 'none' }}>
             <Box component="button" sx={{ display: 'inline-flex', alignItems: 'center', gap: 1.5, bgcolor: 'white', color: 'black', px: 5, py: 2.5, borderRadius: '9999px', fontWeight: 900, fontSize: '1.125rem', cursor: 'pointer', border: 'none', transition: 'all 0.2s', '&:hover': { bgcolor: 'grey.300' }, fontFamily: 'inherit' }}>
               Initiate Application
               <FontAwesomeIcon icon={faArrowRight} style={{ width: 16, height: 16 }} />

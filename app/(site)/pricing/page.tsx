@@ -1,8 +1,9 @@
-import React from 'react';
-import { PageHeader } from '../components/PageHeader';
-import { PricingTiers } from '../components/PricingTiers';
-import { ROICalculator } from '../components/ROICalculator';
-import { FAQ } from '../components/FAQ';
+'use client';
+
+import { PageHeader } from '@/components/PageHeader';
+import { PricingTiers } from '@/components/PricingTiers';
+import { ROICalculator } from '@/components/ROICalculator';
+import { FAQ } from '@/components/FAQ';
 
 // Abstract symbols subtly related to "pricing" / value / currency / growth
 const pricingSymbols = [
@@ -10,7 +11,7 @@ const pricingSymbols = [
   '△', '⊕', '✧', '⬥', '⏣', '◉', '⊗', '⟠',
 ];
 
-export const PricingPage: React.FC = () => {
+export default function PricingPage() {
   return (
     <>
       <PageHeader
@@ -24,4 +25,4 @@ export const PricingPage: React.FC = () => {
       <FAQ />
     </>
   );
-};
+}

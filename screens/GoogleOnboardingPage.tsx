@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,7 +8,7 @@ import { Box, Typography } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
 import { getAppSupabaseClient } from '../lib/supabase';
 
-const PAYSTACK_PUBLIC_KEY = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
+const PAYSTACK_PUBLIC_KEY = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY;
 
 export const GoogleOnboardingPage: React.FC = () => {
   const { user, isLoading } = useAuth();

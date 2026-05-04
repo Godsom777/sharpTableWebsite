@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Box, useMediaQuery } from '@mui/material';
@@ -37,9 +39,9 @@ export const RotatingIndustryHeadline: React.FC<RotatingIndustryHeadlineProps> =
   return (
     <>
       Absolute command
-      <Box component="span" sx={[{ color: accentColor, display: 'block' }, lineSx]}>
+      <Box component="span" sx={{ color: accentColor, display: 'block', ...lineSx as any }}>
         of{' '}
-        <Box component="span" sx={[{ display: 'inline-grid', minWidth: '13ch', textAlign: 'left' }, termSx]}>
+        <Box component="span" sx={{ display: 'inline-grid', minWidth: '13ch', textAlign: 'left', ...termSx as any }}>
           <AnimatePresence mode="wait" initial={false}>
             <Box
               key={activeIndustry}

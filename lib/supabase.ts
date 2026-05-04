@@ -1,7 +1,7 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
-const appSupabaseUrl = import.meta.env.VITE_APP_SUPABASE_URL || '';
-const appSupabaseAnonKey = import.meta.env.VITE_APP_SUPABASE_ANON_KEY || '';
+const appSupabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const appSupabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
 let appSupabaseClient: SupabaseClient | null = null;
 

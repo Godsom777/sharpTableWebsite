@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Box, Container, Typography } from '@mui/material';
