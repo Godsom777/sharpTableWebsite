@@ -1,4 +1,3 @@
-'use client';
 
 import { PageHeader } from '@/components/PageHeader';
 import { FeatureStack } from '@/components/FeatureStack';

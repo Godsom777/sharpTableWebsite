@@ -1,4 +1,3 @@
-'use client';
 
 import { PageHeader } from '@/components/PageHeader';
 import { PartnershipInfo } from '@/components/PartnershipInfo';

@@ -1,4 +1,3 @@
-'use client';
 
 import { PageHeader } from '@/components/PageHeader';
 import { FAQ } from '@/components/FAQ';
