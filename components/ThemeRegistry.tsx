@@ -6,6 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
 import { useServerInsertedHTML } from 'next/navigation';
+import { MotionConfig } from 'framer-motion';
 import theme from '@/theme';
 
 // This creates an emotion cache that works with Next.js App Router SSR
@@ -44,7 +45,10 @@ export function ThemeRegistry({ children }: { children: React.ReactNode }) {
     <CacheProvider value={cache}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {children}
+        {/* reducedMotion="always" forces every Framer Motion component to skip animations and render in its final visible state on the server, ensuring crawlability without opacity: 0 */}
+        <MotionConfig reducedMotion="always">
+          {children}
+        </MotionConfig>
       </ThemeProvider>
     </CacheProvider>
   );
