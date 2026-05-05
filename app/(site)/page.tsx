@@ -4,6 +4,7 @@ import { FeatureShowcase } from '@/components/FeatureShowcase';
 import { BentoGrid } from '@/components/BentoGrid';
 import { Testimonials } from '@/components/Testimonials';
 import { WhoIsThisFor } from '@/components/WhoIsThisFor';
+import { PricingAnchor } from '@/components/PricingAnchor';
 
 export default function HomePage() {
   return (
@@ -13,6 +14,7 @@ export default function HomePage() {
       <WhoIsThisFor />
       <BentoGrid />
       <Testimonials />
+      <PricingAnchor />
     </>
   );
 }

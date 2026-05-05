@@ -42,8 +42,7 @@ export const Footer: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
           sx={{ color: 'grey.500', fontSize: '1rem', maxWidth: 'md', mx: 'auto', mb: 6, lineHeight: 1.6 }}
         >
-            Absolute Restaurant Command.<br/>
-            Uncompromising luxury operations without the friction.
+            Built for restaurants that refuse to run on guesswork.
         </Typography>
         
         <Box
@@ -69,8 +68,8 @@ export const Footer: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.25 }}
           sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 3, typography: 'body2', color: 'text.secondary', mb: 8 }}
         >
-          {['/', '/features', '/pricing', '/faq', '/partnership'].map((path) => {
-            const label = path === '/' ? 'Home' : path.slice(1).charAt(0).toUpperCase() + path.slice(2);
+          {['/', '/features', '/pricing', '/for-hotels'].map((path) => {
+            const label = path === '/' ? 'How it Works' : path === '/for-hotels' ? 'For Hotels' : path.slice(1).charAt(0).toUpperCase() + path.slice(2);
             return (
               <Box component={Link} href={path} key={path} sx={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s', '&:hover': { color: 'white' } }}>
                 {label}
@@ -115,15 +114,32 @@ export const Footer: React.FC = () => {
               Contact
             </Box>
             <Box
-              component={motion.a}
-              whileHover={{ scale: 1.1, color: '#fff' }}
-              href="https://t.me/+8W0SXa62SU41Mzlk"
-              target="_blank"
-              rel="noopener noreferrer"
-              sx={{ display: 'flex', alignItems: 'center', gap: 0.5, textDecoration: 'none', color: 'inherit', transition: 'color 0.2s', opacity: 0.4 }}
+              component={Link}
+              href="/support"
+              sx={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s', '&:hover': { color: 'white' } }}
             >
-              <FontAwesomeIcon icon={faTelegram} style={{ width: 14, height: 14 }} />
-              Installer Squad
+              Support
+            </Box>
+            <Box
+              component={Link}
+              href="/onboarding"
+              sx={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s', '&:hover': { color: 'white' } }}
+            >
+              Onboarding
+            </Box>
+            <Box
+              component={Link}
+              href="/partnership"
+              sx={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s', '&:hover': { color: 'white' } }}
+            >
+              Partnership
+            </Box>
+            <Box
+              component={Link}
+              href="/blog"
+              sx={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s', '&:hover': { color: 'white' } }}
+            >
+              Blog
             </Box>
         </Box>
         <Box

@@ -18,15 +18,15 @@ interface Testimonial {
   metricLabel?: string;
 }
 
-const africanTestimonials: Testimonial[] = [
+const testimonialsData: Testimonial[] = [
   {
     quote: "With five locations running simultaneously, stopping staff theft and stabilizing our supply chain used to be exhausting. SharpTable handed us total visibility in weeks.",
     author: "David O.",
     role: "CEO",
     restaurant: "Grill House",
-    location: "Lagos, Nigeria",
+    location: "Lekki, Lagos",
     rating: 5,
-    metric: "$2.1K",
+    metric: "₦3.2M",
     metricLabel: "saved & recovered in first 3 months"
   },
   {
@@ -34,7 +34,7 @@ const africanTestimonials: Testimonial[] = [
     author: "Amara K.",
     role: "Operations Director",
     restaurant: "Big Joe's Diner",
-    location: "Abuja, Nigeria",
+    location: "Victoria Island, Lagos",
     rating: 5,
     metric: "10 min",
     metricLabel: "to perfectionize table service"
@@ -44,43 +44,20 @@ const africanTestimonials: Testimonial[] = [
     author: "Michael T.",
     role: "Owner",
     restaurant: "Urban Kitchen Group",
-    location: "Port Harcourt, Nigeria",
+    location: "Ikeja, Lagos",
     rating: 5,
     metric: "3",
     metricLabel: "branches optimized on one screen"
-  }
-];
-
-const globalTestimonials: Testimonial[] = [
-  {
-    quote: "With five locations running simultaneously, stopping staff theft and stabilizing our supply chain used to be exhausting. SharpTable handed us absolute clarity.",
-    author: "Marcus L.",
-    role: "CEO",
-    restaurant: "The Copper Pot",
-    location: "London, UK",
-    rating: 5,
-    metric: "$8.4K",
-    metricLabel: "protected in the first quarter"
   },
   {
-    quote: "Slow turnarounds and messy handoffs were destroying our dinner service. This system changed our entire kitchen rhythm overnight.",
-    author: "Sarah M.",
-    role: "Operations Director",
-    restaurant: "Harbour Kitchen",
-    location: "Sydney, Australia",
-    rating: 5,
-    metric: "1 day",
-    metricLabel: "to go fully live"
-  },
-  {
-    quote: "No guessing on inventory, no wondering about voids. It gives us the exact confidence we need to open our next five luxury locations.",
-    author: "James R.",
+    quote: "Since we integrated SharpTable, our bar and grill operations have transformed. The direct-to-kitchen routing practically eliminated order errors, and the turnaround time keeps customers ordering more.",
+    author: "Mr. Uzochukwu",
     role: "Owner",
-    restaurant: "Bistro Group NYC",
-    location: "New York, USA",
+    restaurant: "Old English Bar and Grills",
+    location: "Owerri, Imo State",
     rating: 5,
-    metric: "5",
-    metricLabel: "locations unified"
+    metric: "+42%",
+    metricLabel: "increase in weekend revenue"
   }
 ];
 
@@ -132,7 +109,7 @@ const TestimonialCard: React.FC<{ testimonial: Testimonial; delay: number }> = (
         </Box>
         <Box sx={{ flex: 1 }}>
           <Typography sx={{ color: 'white', fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.01em' }}>{testimonial.author}</Typography>
-          <Typography sx={{ color: 'grey.500', fontSize: '0.85rem', fontWeight: 600 }}>{testimonial.role}, {testimonial.restaurant}</Typography>
+          <Typography sx={{ color: 'grey.500', fontSize: '0.85rem', fontWeight: 600 }}>{testimonial.role}, {testimonial.restaurant} • {testimonial.location}</Typography>
         </Box>
       </Box>
     </Box>
@@ -140,8 +117,7 @@ const TestimonialCard: React.FC<{ testimonial: Testimonial; delay: number }> = (
 };
 
 export const Testimonials: React.FC = () => {
-  const { isAfrica } = useGeoLocation();
-  const testimonials = isAfrica ? africanTestimonials : globalTestimonials;
+  const testimonials = testimonialsData;
 
   return (
     <Box component="section" sx={{ py: { xs: 12, md: 24 }, bgcolor: '#000000', position: 'relative' }}>
@@ -160,8 +136,8 @@ export const Testimonials: React.FC = () => {
               Feedback
             </Box>
             <Typography variant="h2" sx={{ fontSize: { xs: '2.5rem', md: '4.5rem', lg: '5.5rem' }, fontWeight: 900, color: 'white', letterSpacing: '-0.04em', lineHeight: 1 }}>
-              What our
-              <br />customers say
+              Real restaurants.
+              <br />Real numbers.
             </Typography>
           </Box>
           <Typography sx={{ color: 'grey.400', maxWidth: 300, fontSize: '1.1rem', lineHeight: 1.6, mt: { xs: 4, lg: 0 } }}>
@@ -169,7 +145,7 @@ export const Testimonials: React.FC = () => {
           </Typography>
         </Box>
 
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr 1fr' }, gap: { xs: 3, lg: 4 } }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: { xs: 3, lg: 4 } }}>
           {testimonials.map((testimonial, index) => (
             <TestimonialCard key={index} testimonial={testimonial} delay={index * 0.1} />
           ))}

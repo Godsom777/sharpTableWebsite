@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faShieldHalved, faLock } from '@fortawesome/free-solid-svg-icons';
 import { useGeoLocation } from '../hooks/useGeoLocation';
@@ -17,10 +17,32 @@ export const Hero: React.FC = () => {
   const { subscription } = useSubscription(user?.email);
   const { isAfrica } = useGeoLocation();
 
-  const heroImages = {
-    diners: isAfrica ? '/assets/photos/happy_diners.jpg' : '/assets/photos/global_diners.jpg',
-    manager: isAfrica ? '/assets/photos/manager_africa.jpg' : '/assets/photos/manager_global.jpg',
-  };
+
+
+  const carouselImages = [
+    '/assets/photos/1 (1).png',
+    '/assets/photos/1 (2).png',
+    '/assets/photos/global_diners.jpg',
+    '/assets/photos/happy_diners.jpg'
+  ];
+
+  const managerImages = [
+    '/assets/photos/manager_africa.jpg',
+    '/assets/photos/manager_global.jpg'
+  ];
+
+  const [tick, setTick] = useState(0);
+
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+    const interval = setInterval(() => {
+      setTick((prev) => prev + 1);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [shouldReduceMotion]);
+
+  const currentImageIndex = tick % carouselImages.length;
+  const currentManagerIndex = tick % managerImages.length;
 
   return (
     <Box component="section" sx={{ position: 'relative', overflow: 'hidden', bgcolor: '#000000' }}>
@@ -34,7 +56,7 @@ export const Hero: React.FC = () => {
         >
           <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, borderRadius: '9999px', border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', px: 2, py: 1, color: 'grey.300', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
             <Box sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: 'white' }} />
-            <Box component="span">Elite Operations Standard</Box>
+            <Box component="span">Trusted by 50+ restaurants across Nigeria</Box>
           </Box>
         </Box>
 
@@ -45,11 +67,7 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.05 }}
           sx={{ textAlign: 'center', fontSize: { xs: '2rem', sm: '2.5rem', md: '4.5rem', lg: '5.75rem' }, fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.02, color: 'white', wordBreak: 'break-word' }}
         >
-          <RotatingIndustryHeadline
-            accentColor="#C9A84C"
-            lineSx={{ whiteSpace: { md: 'nowrap' } }}
-            termSx={{ minWidth: { xs: '10.5ch', sm: '12ch', md: '13ch' } }}
-          />
+          Your restaurant, running exactly how you built it.
         </Typography>
 
         <Typography
@@ -59,7 +77,7 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
           sx={{ mt: 4, mb: 6, textAlign: 'center', fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' }, color: 'grey.400', maxWidth: 'md', mx: 'auto', lineHeight: 1.6 }}
         >
-          SharpTable gives luxury multi-branch restaurants and modern hospitality brands absolute command of hospitality operations across ordering, visitor tracking, room service logistics, and fraud prevention from a single uncompromising interface.
+          SharpTable is the operating system for serious Nigerian restaurants. One platform for ordering, kitchen flow, payments, staff oversight, and multi-branch control — with zero chaos in between.
         </Typography>
 
         <Box
@@ -138,17 +156,23 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.7, delay: 0.25 }}
           sx={{ mt: { xs: 8, md: 10 }, position: 'relative' }}
         >
-          <Box sx={{ position: 'relative', borderRadius: { xs: '1.5rem', md: '2.5rem' }, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)' }}>
-            <Box
-              component="img"
-              src={heroImages.diners}
-              alt="Happy guests enjoying their meal"
-              loading="eager"
-              sx={{ width: '100%', height: { xs: 240, sm: 320, md: 480, lg: 540 }, objectFit: 'cover' }}
-            />
-            <Box sx={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent, transparent)' }} />
+          <Box sx={{ position: 'relative', borderRadius: { xs: '1.5rem', md: '2.5rem' }, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)', height: { xs: 240, sm: 320, md: 480, lg: 540 } }}>
+            <AnimatePresence initial={false}>
+              <Box
+                key={currentImageIndex}
+                component={motion.img}
+                src={carouselImages[currentImageIndex]}
+                alt="Restaurant operations"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1 }}
+                sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            </AnimatePresence>
+            <Box sx={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent, transparent)', zIndex: 1 }} />
 
-            <Box sx={{ position: 'absolute', bottom: 24, left: 24, right: 24, '@media (min-width: 600px)': { left: 'auto', right: 24, bottom: 24, width: 'auto' } }}>
+            <Box sx={{ position: 'absolute', zIndex: 2, bottom: 24, left: 24, right: 24, '@media (min-width: 600px)': { left: 'auto', right: 24, bottom: 24, width: 'auto' } }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, borderRadius: '1.5rem', bgcolor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.1)', px: 3, py: 2 }}>
                 <Box sx={{ height: 48, width: 48, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <FontAwesomeIcon icon={faShieldHalved} style={{ width: 20, height: 20, color: 'white' }} />
@@ -161,15 +185,21 @@ export const Hero: React.FC = () => {
             </Box>
           </Box>
 
-          <Box sx={{ display: { xs: 'none', md: 'block' }, position: 'absolute', right: { md: -20, lg: -40 }, top: '50%', transform: 'translateY(-50%)', width: { md: 160, lg: 200 } }}>
-            <Box sx={{ borderRadius: '1.5rem', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
-              <Box
-                component="img"
-                src={heroImages.manager}
-                alt="Restaurant manager reviewing dashboard"
-                loading="eager"
-                sx={{ width: '100%', height: { md: 200, lg: 240 }, objectFit: 'cover' }}
-              />
+          <Box sx={{ display: { xs: 'none', md: 'block' }, position: 'absolute', right: { md: -20, lg: -40 }, top: '50%', transform: 'translateY(-50%)', width: { md: 160, lg: 200 }, zIndex: 3 }}>
+            <Box sx={{ position: 'relative', borderRadius: '1.5rem', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)', height: { md: 200, lg: 240 } }}>
+              <AnimatePresence initial={false}>
+                <Box
+                  key={currentManagerIndex}
+                  component={motion.img}
+                  src={managerImages[currentManagerIndex]}
+                  alt="Restaurant manager reviewing dashboard"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 1 }}
+                  sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              </AnimatePresence>
             </Box>
             <Box sx={{ mt: 2, textAlign: 'center' }}>
               <Box sx={{ fontSize: '0.85rem', color: 'white', fontWeight: 700 }}>Total Overview</Box>

@@ -24,49 +24,49 @@ interface ShowcaseItem {
 const items: ShowcaseItem[] = [
   {
     number: '01',
-    title: 'In-house ordering',
+    title: 'QR Ordering',
     tags: ['QR Menus', 'Fast Service'],
-    description: 'Eliminate the noise of messy ordering. Give your guests a seamless, luxury dining experience with instant live menus and wait-free orders.',
+    description: 'Guests scan, select, and order without waiting for staff. Orders land directly in the kitchen — no miscommunication, no delay.',
     plan: 'Pro',
     lottie: QrCodeAnimation
   },
   {
     number: '02',
-    title: 'Table flexibility',
+    title: 'Split Payments',
     tags: ['Split Payment', 'Group Dining'],
-    description: "Group dining shouldn't end in billing chaos. Let multiple guests pay separately while keeping the table flow perfectly intact and completely transparent.",
+    description: "Group tables pay separately without restarting the bill. Every guest's portion is tracked cleanly and confirmed before anyone leaves.",
     plan: 'Pro',
     lottie: MoneyAnalysisAnimation
   },
   {
     number: '03',
-    title: 'Kitchen flow',
+    title: 'Kitchen Sync',
     tags: ['Live Alerts', 'Peak Sync'],
-    description: 'Replace slow turnarounds with synchronized service. Absolute connection between the front of house and back of house, ensuring every dish drops perfectly on time.',
+    description: 'Front of house and kitchen stay connected in real time. No shouting, no missing tickets. Every dish drops when it should.',
     plan: 'Pro',
     lottie: ChefAnimation
   },
   {
     number: '04',
-    title: 'Remote channel',
+    title: 'WhatsApp Orders',
     tags: ['WhatsApp', 'Omnichannel'],
-    description: 'Extend your luxury experience directly into WhatsApp. Own the off-premise channel seamlessly without adding an inch of complexity to your existing workflow.',
+    description: 'Accept orders directly from WhatsApp without adding complexity. Your off-premise channel, fully integrated into your kitchen flow.',
     plan: 'Enterprise',
     lottie: ChatBubblesAnimation
   },
   {
     number: '05',
-    title: 'Owner oversight',
+    title: 'Multi-Branch Control',
     tags: ['Multi-branch', 'Live Audit'],
-    description: 'Total command across every location. Consolidate your live audits, spot inventory shrinkage instantly, and protect your margins before they leak.',
+    description: 'Watch every location from one screen. Live sales, cashier activity, and inventory — consolidated across all branches, in real time.',
     plan: 'Enterprise',
     lottie: StatsGoingUpAnimation
   },
   {
     number: '06',
-    title: 'Hotels & Visitor Tracking',
+    title: 'Hotel & Room Service',
     tags: ['Guest Logs', 'Room Service'],
-    description: 'A dedicated suite for hospitality. Seamlessly manage visitor booking tracking and digital room service menus without bloating your operations or confusing your front desk.',
+    description: 'Visitor tracking, booking flows, and digital room service built for hospitality — without overcomplicating your front desk.',
     plan: 'Enterprise',
     lottie: ChatBubblesAnimation
   }
@@ -105,7 +105,7 @@ export const FeatureShowcase: React.FC = () => {
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <Typography variant="h2" sx={{ color: 'white', fontWeight: 900, fontSize: { xs: '2.5rem', md: '5rem', lg: '6rem' }, letterSpacing: '-0.04em', lineHeight: 1 }}>
-              Our Services
+              Everything running. Nothing slipping.
             </Typography>
             <Typography sx={{ color: 'grey.500', display: { xs: 'none', md: 'block' }, fontSize: '1.5rem', fontWeight: 600 }}>06</Typography>
           </Box>

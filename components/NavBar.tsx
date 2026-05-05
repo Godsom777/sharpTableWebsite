@@ -77,15 +77,15 @@ export const NavBar: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 4, typography: 'body2', fontWeight: 500, color: 'text.secondary' }}
         >
-          {['/', '/features', '/pricing', '/faq', '/partnership'].map((path, idx) => {
-            const label = path === '/' ? 'Home' : path.slice(1).charAt(0).toUpperCase() + path.slice(2);
+          {['/', '/features', '/pricing', '/for-hotels'].map((path, idx) => {
+            const label = path === '/' ? 'How it Works' : path === '/for-hotels' ? 'For Hotels' : path.slice(1).charAt(0).toUpperCase() + path.slice(2);
             return (
               <Box component={Link} href={path} key={path} sx={{ textDecoration: 'none', color: 'inherit' }}>
                 <Box
                   component={motion.span}
                   whileHover={{ scale: 1.1, y: -2 }}
                   sx={{
-                    color: isActive(path) || (path === '/partnership' && isActive('/partnership/apply')) ? (path === '/partnership' ? 'primary.main' : 'white') : 'text.secondary',
+                    color: isActive(path) ? 'white' : 'text.secondary',
                     transition: 'color 0.2s',
                     display: 'inline-block',
                     '&:hover': { color: 'white' }
@@ -115,7 +115,7 @@ export const NavBar: React.FC = () => {
               '&:hover': { bgcolor: 'grey.200' }
             }}
           >
-            Get Started
+            Start Free Trial
           </Button>
 
           <Button
@@ -175,8 +175,8 @@ export const NavBar: React.FC = () => {
               overflow: 'hidden'
             }}
           >
-            {['/', '/features', '/pricing', '/faq', '/partnership'].map((path, idx) => {
-              const label = path === '/' ? 'Home' : path.slice(1).charAt(0).toUpperCase() + path.slice(2);
+            {['/', '/features', '/pricing', '/for-hotels'].map((path, idx) => {
+              const label = path === '/' ? 'How it Works' : path === '/for-hotels' ? 'For Hotels' : path.slice(1).charAt(0).toUpperCase() + path.slice(2);
               return (
                 <Box
                   key={path}
@@ -192,7 +192,7 @@ export const NavBar: React.FC = () => {
                     sx={{
                       display: 'block',
                       textDecoration: 'none',
-                      color: isActive(path) || (path === '/partnership' && isActive('/partnership/apply')) ? (path === '/partnership' ? 'primary.main' : 'white') : 'text.secondary',
+                      color: isActive(path) ? 'white' : 'text.secondary',
                       '&:hover': { color: 'white' }
                     }}
                   >
@@ -225,7 +225,7 @@ export const NavBar: React.FC = () => {
                 '&:hover': { bgcolor: 'grey.200' }
               }}
             >
-              Get Started
+              Start Free Trial
             </Button>
 
             <Button
