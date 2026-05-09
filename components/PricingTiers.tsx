@@ -5,13 +5,19 @@ import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faLock } from '@fortawesome/free-solid-svg-icons';
 import { usePayment, PlanType, BillingCycle, BASE_PRICES_NGN } from '../contexts/PaymentContext';
-import { useCurrency } from '../hooks/useCurrency';
 import { Box, Container, Typography } from '@mui/material';
 
 const PricingTiers: React.FC = () => {
   const { openPaymentModal } = usePayment();
   const [billingCycle, setBillingCycle] = useState<BillingCycle>('monthly');
-  const { convertFromNaira, isLoading: isCurrencyLoading } = useCurrency();
+
+  const formatPrice = (amount: number) => {
+    return new Intl.NumberFormat('en-NG', {
+      style: 'currency',
+      currency: 'NGN',
+      maximumFractionDigits: 0,
+    }).format(amount);
+  };
 
   const tierConfigs = useMemo(() => {
     const periodLabel = billingCycle === 'monthly' ? '1 Month' : '1 Year';
@@ -20,7 +26,7 @@ const PricingTiers: React.FC = () => {
       {
         name: 'Lite Plan',
         periodDelay: periodLabel,
-        price: convertFromNaira(billingCycle === 'monthly' ? BASE_PRICES_NGN.lite : BASE_PRICES_NGN['lite-yearly']),
+        price: formatPrice(billingCycle === 'monthly' ? BASE_PRICES_NGN.lite : BASE_PRICES_NGN['lite-yearly']),
         description: 'QR code order viewing, perfect for single locations getting started.',
         features: [
           '1 Location Included',
@@ -33,13 +39,14 @@ const PricingTiers: React.FC = () => {
       {
         name: 'Pro Plan',
         periodDelay: periodLabel,
-        price: convertFromNaira(billingCycle === 'monthly' ? BASE_PRICES_NGN.pro : BASE_PRICES_NGN['pro-yearly']),
-        description: 'Tight control with complete direct ordering features.',
+        price: formatPrice(billingCycle === 'monthly' ? BASE_PRICES_NGN.pro : BASE_PRICES_NGN['pro-yearly']),
+        description: 'Unrivaled control and inventory tools for growing hospitality brands.',
         features: [
           'Everything in Lite, plus:',
-          'Up to 2 Locations',
+          'Up to 5 Locations',
           'Guest Ordering & Room Service',
-          'Staff & Role Management'
+          'Staff & Role Management',
+          'Basic Food Inventory'
         ],
         active: true,
         key: (billingCycle === 'monthly' ? 'pro' : 'pro-yearly') as PlanType
@@ -47,20 +54,20 @@ const PricingTiers: React.FC = () => {
       {
         name: 'Enterprise Plan',
         periodDelay: periodLabel,
-        price: convertFromNaira(billingCycle === 'monthly' ? BASE_PRICES_NGN.enterprise : BASE_PRICES_NGN['enterprise-yearly']),
+        price: formatPrice(billingCycle === 'monthly' ? BASE_PRICES_NGN.enterprise : BASE_PRICES_NGN['enterprise-yearly']),
         description: 'Built for serious operators with multiple branches.',
         features: [
           'Everything in Pro, plus:',
           'Unlimited Locations Max',
           'Enterprise WhatsApp Ordering',
           'Hotel Visitor Tracking Suite',
-          'Food Inventory & Tracking'
+          'Advanced Inventory & Waste Tracking'
         ],
         active: false,
         key: (billingCycle === 'monthly' ? 'enterprise' : 'enterprise-yearly') as PlanType
       }
     ];
-  }, [billingCycle, convertFromNaira]);
+  }, [billingCycle]);
 
   return (
     <Box component="section" id="pricing" sx={{ py: { xs: 12, md: 24 }, bgcolor: '#000000', position: 'relative', overflow: 'hidden' }}>
@@ -103,19 +110,18 @@ const PricingTiers: React.FC = () => {
               sx={{
                 px: 3, py: 1.5, borderRadius: '999px', fontWeight: 600, fontSize: '0.9rem', cursor: 'pointer', border: 'none', fontFamily: 'inherit',
                 transition: 'all 0.3s',
+                display: 'flex', alignItems: 'center', gap: 1.5,
                 ...(billingCycle === 'yearly' ? { bgcolor: '#2a2a2a', color: 'white', border: '1px solid #C9A84C' } : { bgcolor: 'transparent', color: 'grey.500' }),
               }}
             >
               Yearly
+              <Box component="span" sx={{ bgcolor: 'rgba(201,168,76,0.15)', color: '#C9A84C', px: 1.25, py: 0.25, borderRadius: '999px', fontSize: '0.7rem', fontWeight: 800 }}>Save ~16%</Box>
             </Box>
           </Box>
         </Box>
 
-        {isCurrencyLoading ? (
-            <Box sx={{ height: 600, bgcolor: 'grey.900', border: '1px solid', borderColor: 'grey.800', borderRadius: '1.5rem', animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' }} />
-        ) : (
-          <Box sx={{ display: 'grid', gap: 3 }}>
-            <Box sx={{ display: 'flex', justifyContent: { xs: 'flex-start', md: 'flex-end' } }}>
+        <Box sx={{ display: 'grid', gap: 3 }}>
+          <Box sx={{ display: 'flex', justifyContent: { xs: 'flex-start', md: 'flex-end' } }}>
               <Box
                 component="a"
                 href="/account"
@@ -219,8 +225,7 @@ const PricingTiers: React.FC = () => {
                 </Box>
               ))}
             </Box>
-          </Box>
-        )}
+        </Box>
       </Container>
     </Box>
   );

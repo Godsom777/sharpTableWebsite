@@ -25,7 +25,6 @@ import {
 import { PageHeader } from '../components/PageHeader';
 import { useAuth } from '../contexts/AuthContext';
 import { BASE_PRICES_NGN, PLAN_CONFIG, type PlanType } from '../contexts/PaymentContext';
-import { useCurrency } from '../hooks/useCurrency';
 import { useSubscription } from '../hooks/useSubscription';
 
 const accountSymbols = ['<>', '[]', '{}', '##', '//', '||', '==', '**'];
@@ -110,7 +109,13 @@ async function sendBillingAction(
 
 export const AccountPage: React.FC = () => {
   const { user, session, isLoading, isConfigured, signInWithPassword, signOut, sendPasswordRecovery } = useAuth();
-  const { convertFromNaira } = useCurrency();
+  const formatPrice = (amount: number) => {
+    return new Intl.NumberFormat('en-NG', {
+      style: 'currency',
+      currency: 'NGN',
+      maximumFractionDigits: 0,
+    }).format(amount);
+  };
   const { subscription, isLoading: isSubscriptionLoading, error: subscriptionError, refetch } = useSubscription(
     user?.email
   );
@@ -131,10 +136,10 @@ export const AccountPage: React.FC = () => {
     () =>
       planGroups.map((plan) => ({
         ...plan,
-        displayPrice: convertFromNaira(BASE_PRICES_NGN[plan.key]),
+        displayPrice: formatPrice(BASE_PRICES_NGN[plan.key]),
         period: PLAN_CONFIG[plan.key].period,
       })),
-    [convertFromNaira]
+    []
   );
 
   const handleSignIn = async (event: React.FormEvent) => {
@@ -473,7 +478,7 @@ export const AccountPage: React.FC = () => {
                           Current Billing
                         </Typography>
                         <Typography sx={{ color: 'white', fontWeight: 700 }}>
-                          {convertFromNaira(BASE_PRICES_NGN[normalizedCurrentPlan])} {PLAN_CONFIG[normalizedCurrentPlan].period}
+                          {formatPrice(BASE_PRICES_NGN[normalizedCurrentPlan])} {PLAN_CONFIG[normalizedCurrentPlan].period}
                         </Typography>
                       </Box>
                       <Box sx={{ bgcolor: '#070707', borderRadius: '1rem', p: 2.5 }}>
