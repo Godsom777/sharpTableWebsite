@@ -27,9 +27,9 @@ type HotelCard = {
 };
 
 const heroStats = [
-  { label: 'Unposted outlet charges', value: 'Flagged' },
-  { label: 'Rooms with balances', value: 'Live' },
-  { label: 'EOD exceptions', value: 'Visible' },
+  { label: 'Revenue capture', value: 'Unified' },
+  { label: 'Guest ledgers', value: 'Live' },
+  { label: 'Day-end close', value: 'Auditable' },
 ];
 
 const heroWorkflows: HotelCard[] = [
@@ -161,10 +161,10 @@ export const HotelsPage: React.FC = () => {
           <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1.02fr 0.98fr' }, gap: { xs: 7, md: 8 }, alignItems: 'center' }}>
             <Box>
               <Typography component="h1" sx={{ color: 'white', fontSize: { xs: '3rem', sm: '4rem', md: '5.8rem' }, lineHeight: 0.95, letterSpacing: '-0.055em', fontWeight: 950, maxWidth: 720 }}>
-                Stop hotel revenue from disappearing between outlets and checkout.
+                A unified operating layer for profitable hotel management.
               </Typography>
               <Typography sx={{ mt: 4, color: 'grey.300', fontSize: { xs: '1.05rem', md: '1.28rem' }, lineHeight: 1.65, maxWidth: 650, fontWeight: 300 }}>
-                SharpTable gives owners and GMs live control over room ledgers, restaurant charges, service postings, housekeeping readiness, staff actions, and end-of-day closure.
+                SharpTable brings room ledgers, outlet postings, housekeeping, approvals, reporting, and day-end close into one clear workflow, helping hotel teams protect revenue while running daily operations with confidence.
               </Typography>
               <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', mt: 5 }}>
                 <Button
@@ -199,10 +199,10 @@ export const HotelsPage: React.FC = () => {
               <Box sx={{ mt: 3, p: 3, borderRadius: '1.25rem', bgcolor: 'rgba(201,168,76,0.1)', border: '1px solid rgba(201,168,76,0.18)' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
                   <FontAwesomeIcon icon={faMagnifyingGlassChart} style={{ color: '#fcd34d', width: 18, height: 18 }} />
-                  <Typography sx={{ color: 'white', fontWeight: 850 }}>Revenue command center</Typography>
+                  <Typography sx={{ color: 'white', fontWeight: 850 }}>Hotel operations command center</Typography>
                 </Box>
                 <Typography sx={{ color: 'grey.400', lineHeight: 1.6, fontSize: '0.95rem' }}>
-                  See what was sold, what was posted, what was collected, what is still owed, and what needs manager attention before the day is closed.
+                  Centralize what was sold, what was posted, what was collected, what is still owed, and what requires manager attention before the business day is closed.
                 </Typography>
               </Box>
             </Box>
