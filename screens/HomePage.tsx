@@ -1,19 +1,25 @@
 'use client';
 
 import React from 'react';
-import { Hero } from '../components/Hero';
+import SharpTableHero from '../components/SharpTableHero';
 import { FeatureShowcase } from '../components/FeatureShowcase';
-import { BentoGrid } from '../components/BentoGrid';
 import { Testimonials } from '../components/Testimonials';
 import { WhoIsThisFor } from '../components/WhoIsThisFor';
+import SharpTableFlow from '../components/SharpTableFlow';
+import SharpTableDashboard from '../components/SharpTableDashboard';
+import SharpTableOversight from '../components/SharpTableOversight';
+import SharpTableWhatsApp from '../components/SharpTableWhatsApp';
 
 export const HomePage: React.FC = () => {
   return (
     <>
-      <Hero />
+      <SharpTableHero />
       <FeatureShowcase />
       <WhoIsThisFor />
-      <BentoGrid />
+      <SharpTableFlow />
+      <SharpTableDashboard />
+      <SharpTableOversight />
+      <SharpTableWhatsApp />
       <Testimonials />
     </>
   );

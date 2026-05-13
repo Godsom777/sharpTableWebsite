@@ -1,18 +1,24 @@
 
-import { Hero } from '@/components/Hero';
+import SharpTableHero from '@/components/SharpTableHero';
 import { FeatureShowcase } from '@/components/FeatureShowcase';
-import { BentoGrid } from '@/components/BentoGrid';
 import { Testimonials } from '@/components/Testimonials';
 import { WhoIsThisFor } from '@/components/WhoIsThisFor';
 import { PricingAnchor } from '@/components/PricingAnchor';
+import SharpTableFlow from '@/components/SharpTableFlow';
+import SharpTableDashboard from '@/components/SharpTableDashboard';
+import SharpTableOversight from '@/components/SharpTableOversight';
+import SharpTableWhatsApp from '@/components/SharpTableWhatsApp';
 
 export default function HomePage() {
   return (
     <>
-      <Hero />
+      <SharpTableHero />
       <FeatureShowcase />
+      <SharpTableWhatsApp />
       <WhoIsThisFor />
-      <BentoGrid />
+      <SharpTableFlow />
+      <SharpTableDashboard />
+      <SharpTableOversight />
       <Testimonials />
       <PricingAnchor />
     </>
