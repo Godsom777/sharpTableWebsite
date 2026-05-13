@@ -449,9 +449,9 @@ function MarshallVoidDialog({ filled }) {
 function SyncConnector({ active }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 6px', gap: 4, minWidth: 46 }}>
-      <div style={{ color: active ? '#2B6FE6' : 'transparent', fontSize: 7, fontWeight: 800, letterSpacing: '0.06em', textTransform: 'uppercase', transition: 'color 0.5s', textAlign: 'center', lineHeight: 1.3 }}>LIVE{'\n'}SYNC</div>
-      <div style={{ width: 1, height: 44, background: active ? 'linear-gradient(to bottom, transparent, #2B6FE6)' : '#111', transition: 'background 0.5s' }} />
-      <div style={{ width: 26, height: 26, borderRadius: '50%', background: active ? 'rgba(43,111,230,0.15)' : '#0a0a0a', border: `1px solid ${active ? '#2B6FE6' : '#1a1a1a'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, transition: 'all 0.5s', animation: active ? 'pulse 1.2s infinite' : 'none' }}>⚡</div>
+      <div style={{ color: active ? '#f59e0b' : 'transparent', fontSize: 7, fontWeight: 800, letterSpacing: '0.06em', textTransform: 'uppercase', transition: 'color 0.5s', textAlign: 'center', lineHeight: 1.3 }}>LIVE{'\n'}SYNC</div>
+      <div style={{ width: 1, height: 44, background: active ? 'linear-gradient(to bottom, transparent, #f59e0b)' : '#111', transition: 'background 0.5s' }} />
+      <div style={{ width: 26, height: 26, borderRadius: '50%', background: active ? 'rgba(245,158,11,0.15)' : '#0a0a0a', border: `1px solid ${active ? '#f59e0b' : '#1a1a1a'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, transition: 'all 0.5s', animation: active ? 'pulse 1.2s infinite' : 'none' }}>⚡</div>
       <div style={{ width: 1, height: 44, background: active ? 'linear-gradient(to top, transparent, #22c55e)' : '#111', transition: 'background 0.5s' }} />
       <div style={{ color: active ? '#22c55e' : 'transparent', fontSize: 7, fontWeight: 800, letterSpacing: '0.06em', textTransform: 'uppercase', transition: 'color 0.5s', textAlign: 'center', lineHeight: 1.3 }}>REAL{'\n'}TIME</div>
     </div>
@@ -499,17 +499,17 @@ export default function SharpTableFlow() {
       overflow: 'hidden',
     }}>
       {/* Ambient glow */}
-      <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 700px 400px at 50% 50%, rgba(43,111,230,0.06) 0%, transparent 70%)' }} />
+      <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 700px 400px at 50% 50%, rgba(245,158,11,0.06) 0%, transparent 70%)' }} />
 
       {/* Headline */}
       <div style={{ textAlign: 'center', maxWidth: 520, position: 'relative' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(43,111,230,0.1)', border: '1px solid rgba(43,111,230,0.25)', borderRadius: 20, padding: '4px 14px', marginBottom: 14 }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.25)', borderRadius: 20, padding: '4px 14px', marginBottom: 14 }}>
           <div style={{ width: 6, height: 6, background: '#22c55e', borderRadius: '50%', animation: 'pulse 2s infinite' }} />
-          <span style={{ color: '#2B6FE6', fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>End-to-End Flow</span>
+          <span style={{ color: '#f59e0b', fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>End-to-End Flow</span>
         </div>
         <h2 style={{ color: '#fff', fontSize: 34, fontWeight: 800, lineHeight: 1.15, margin: '0 0 12px', letterSpacing: '-0.02em' }}>
           Guest orders. Kitchen fires.<br />
-          <span style={{ color: '#2B6FE6' }}>Nothing slips.</span>
+          <span style={{ color: '#f59e0b' }}>Nothing slips.</span>
         </h2>
         <p style={{ color: '#4a4a4a', fontSize: 13, lineHeight: 1.65, margin: 0 }}>
           Watch a real order move from QR scan to Marshall verification — and see exactly what happens when someone tries to void without authorization.
@@ -538,7 +538,7 @@ export default function SharpTableFlow() {
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
         <div style={{ display: 'flex', gap: 7, alignItems: 'center' }}>
           {PHASES.map((_, i) => (
-            <div key={i} onClick={() => setPhaseIdx(i)} style={{ width: i === phaseIdx ? 22 : 6, height: 6, background: i === phaseIdx ? '#2B6FE6' : '#1e1e1e', borderRadius: 3, cursor: 'pointer', transition: 'all 0.35s ease' }} />
+            <div key={i} onClick={() => setPhaseIdx(i)} style={{ width: i === phaseIdx ? 22 : 6, height: 6, background: i === phaseIdx ? '#f59e0b' : '#1e1e1e', borderRadius: 3, cursor: 'pointer', transition: 'all 0.35s ease' }} />
           ))}
         </div>
         <div style={{ color: '#2a2a2a', fontSize: 9, letterSpacing: '0.07em', textTransform: 'uppercase', transition: 'color 0.3s' }}>

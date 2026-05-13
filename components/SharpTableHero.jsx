@@ -216,7 +216,7 @@ export default function SharpTableHero() {
             transition: "left 0.9s cubic-bezier(0.16,1,0.3,1), top 0.9s cubic-bezier(0.16,1,0.3,1), background 0.7s ease",
           }} />
           {/* Static ambient */}
-          <div style={{ position: "absolute", top: "35%", left: "56%", transform: "translate(-50%,-50%)", width: 900, height: 700, background: "radial-gradient(ellipse, rgba(239,68,68,0.035) 0%, rgba(43,111,230,0.025) 50%, transparent 70%)" }} />
+          <div style={{ position: "absolute", top: "35%", left: "56%", transform: "translate(-50%,-50%)", width: 900, height: 700, background: "radial-gradient(ellipse, rgba(245,158,11,0.035) 0%, rgba(245,158,11,0.015) 50%, transparent 70%)" }} />
           {/* Dot grid */}
           <svg width="100%" height="100%" style={{ position: "absolute", inset: 0, opacity: 0.13 }}>
             <defs>
@@ -248,11 +248,11 @@ export default function SharpTableHero() {
             <div style={enter(0)}>
               <span style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
-                background: "rgba(239,68,68,0.07)", border: "1px solid rgba(239,68,68,0.16)",
+                background: "rgba(245,158,11,0.07)", border: "1px solid rgba(245,158,11,0.16)",
                 borderRadius: 24, padding: "6px 15px",
               }}>
-                <span style={{ width: 7, height: 7, background: "#ef4444", borderRadius: "50%", animation: "pulse 2s infinite", display: "block" }} />
-                <span style={{ color: "#ef4444", fontSize: 10, fontWeight: 700, letterSpacing: "0.13em", fontFamily: '"JetBrains Mono", monospace' }}>LIVE · 50+ RESTAURANTS</span>
+                <span style={{ width: 7, height: 7, background: "#f59e0b", borderRadius: "50%", animation: "pulse 2s infinite", display: "block" }} />
+                <span style={{ color: "#f59e0b", fontSize: 10, fontWeight: 700, letterSpacing: "0.13em", fontFamily: '"JetBrains Mono", monospace' }}>LIVE · 50+ RESTAURANTS</span>
               </span>
             </div>
 
@@ -290,17 +290,17 @@ export default function SharpTableHero() {
             {/* CTAs */}
             <div style={{ display: "flex", gap: 12, alignItems: "center", ...enter(260) }}>
               <a href="https://app.sharptable.com.ng" style={{
-                background: "#ef4444", color: "#fff",
+                background: "#f59e0b", color: "#fff",
                 padding: "13px 28px", borderRadius: 10,
                 fontWeight: 700, fontSize: 14, textDecoration: "none",
                 display: "inline-flex", alignItems: "center", gap: 9,
-                boxShadow: "0 0 30px rgba(239,68,68,0.2)",
+                boxShadow: "0 0 30px rgba(245,158,11,0.2)",
                 transition: "all 0.25s ease",
                 fontFamily: '"Montserrat", sans-serif',
                 letterSpacing: "-0.01em",
               }}
-              onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 0 55px rgba(239,68,68,0.42)"; e.currentTarget.style.transform = "translateY(-2px) scale(1.02)"; }}
-              onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 30px rgba(239,68,68,0.2)"; e.currentTarget.style.transform = "translateY(0) scale(1)"; }}
+              onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 0 55px rgba(245,158,11,0.42)"; e.currentTarget.style.transform = "translateY(-2px) scale(1.02)"; }}
+              onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 30px rgba(245,158,11,0.2)"; e.currentTarget.style.transform = "translateY(0) scale(1)"; }}
               >
                 Start Free Trial
                 <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M7.5 2.5l4 4-4 4" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -392,7 +392,7 @@ export default function SharpTableHero() {
                     }}>{r}</button>
                   ))}
                   <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 5 }}>
-                    <span style={{ width: 6, height: 6, background: "#ef4444", borderRadius: "50%", animation: "pulse 1.5s infinite", display: "block" }} />
+                    <span style={{ width: 6, height: 6, background: "#f59e0b", borderRadius: "50%", animation: "pulse 1.5s infinite", display: "block" }} />
                     <span style={{ color: "#282828", fontSize: 8, fontFamily: '"JetBrains Mono", monospace' }}>LIVE</span>
                   </div>
                 </div>
