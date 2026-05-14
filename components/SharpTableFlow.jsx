@@ -448,7 +448,7 @@ function MarshallVoidDialog({ filled }) {
 // ── Sync connector ────────────────────────────────────────────────────────────
 function SyncConnector({ active }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 6px', gap: 4, minWidth: 46 }}>
+    <div className="flow-sync" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 6px', gap: 4, minWidth: 46 }}>
       <div style={{ color: active ? '#f59e0b' : 'transparent', fontSize: 7, fontWeight: 800, letterSpacing: '0.06em', textTransform: 'uppercase', transition: 'color 0.5s', textAlign: 'center', lineHeight: 1.3 }}>LIVE{'\n'}SYNC</div>
       <div style={{ width: 1, height: 44, background: active ? 'linear-gradient(to bottom, transparent, #f59e0b)' : '#111', transition: 'background 0.5s' }} />
       <div style={{ width: 26, height: 26, borderRadius: '50%', background: active ? 'rgba(245,158,11,0.15)' : '#0a0a0a', border: `1px solid ${active ? '#f59e0b' : '#1a1a1a'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, transition: 'all 0.5s', animation: active ? 'pulse 1.2s infinite' : 'none' }}>⚡</div>
@@ -517,7 +517,7 @@ export default function SharpTableFlow() {
       </div>
 
       {/* Column labels */}
-      <div style={{ display: 'flex', width: '100%', maxWidth: 600, justifyContent: 'space-between', padding: '0 12px' }}>
+      <div className="flow-labels" style={{ display: 'flex', width: '100%', maxWidth: 600, justifyContent: 'space-between', padding: '0 12px' }}>
         <div style={{ width: 252, textAlign: 'center' }}>
           <div style={{ color: '#ef4444', fontSize: 9, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase' }}>● Guest Experience</div>
         </div>
@@ -528,7 +528,7 @@ export default function SharpTableFlow() {
       </div>
 
       {/* Dual phones */}
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div className="flow-phones" style={{ display: 'flex', alignItems: 'center' }}>
         <Phone glowColor="#ef4444">{customerContent()}</Phone>
         <SyncConnector active={syncActive} />
         <Phone glowColor="#22c55e">{marshallContent()}</Phone>
@@ -558,6 +558,11 @@ export default function SharpTableFlow() {
         @keyframes popIn {
           from { opacity: 0; transform: scale(0.85); }
           to   { opacity: 1; transform: scale(1); }
+        }
+        @media (max-width: 768px) {
+          .flow-labels { display: none !important; }
+          .flow-phones { flex-direction: column !important; gap: 32px !important; }
+          .flow-sync { transform: rotate(90deg); margin: 24px 0; }
         }
       `}</style>
     </section>

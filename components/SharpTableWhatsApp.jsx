@@ -353,7 +353,7 @@ export default function SharpTableWhatsApp() {
       </div>
 
       {/* Dual phone layout */}
-      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+      <div className="wa-phones" style={{ display: "flex", alignItems: "center", gap: 12 }}>
 
         {/* WhatsApp phone */}
         <div style={{
@@ -378,7 +378,7 @@ export default function SharpTableWhatsApp() {
         </div>
 
         {/* Arrow connector */}
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+        <div className="wa-arrow" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
           <div style={{ color: GREEN, fontSize: 16, animation: "arrowPulse 1.5s ease-in-out infinite" }}>→</div>
         </div>
 
@@ -406,7 +406,7 @@ export default function SharpTableWhatsApp() {
       </div>
 
       {/* Labels */}
-      <div style={{ display: "flex", gap: 64, opacity: visible ? 1 : 0, transition: "opacity 0.6s ease 0.3s" }}>
+      <div className="wa-labels" style={{ display: "flex", gap: 64, opacity: visible ? 1 : 0, transition: "opacity 0.6s ease 0.3s" }}>
         <div style={{ textAlign: "center", width: 200 }}>
           <div style={{ color: GREEN, fontSize: 9, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 3 }}>● Customer on WhatsApp</div>
           <div style={{ color: "#333", fontSize: 9 }}>Browses, orders, pays — without leaving the chat</div>
@@ -437,6 +437,11 @@ export default function SharpTableWhatsApp() {
         @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
         @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
         @keyframes arrowPulse { 0%,100% { opacity: 0.3; transform: translateX(0); } 50% { opacity: 1; transform: translateX(3px); } }
+        @media (max-width: 768px) {
+          .wa-phones { flex-direction: column !important; gap: 32px !important; }
+          .wa-labels { flex-direction: column !important; gap: 24px !important; align-items: center; }
+          .wa-arrow { transform: rotate(90deg); margin: 16px 0; }
+        }
       `}</style>
     </section>
   );

@@ -159,10 +159,10 @@ export default function SharpTableDashboard() {
       </div>
 
       {/* Dashboard area */}
-      <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div className="dash-phone-wrap" style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}>
 
         {/* Floating metric cards — LEFT */}
-        <div style={{
+        <div className="dash-float-left" style={{
           display: "flex", flexDirection: "column", gap: 10,
           position: "absolute", left: -210, top: "50%", transform: "translateY(-50%)",
         }}>
@@ -526,7 +526,7 @@ export default function SharpTableDashboard() {
         )}
 
         {/* Floating metric cards — RIGHT */}
-        <div style={{
+        <div className="dash-float-right" style={{
           display: "flex", flexDirection: "column", gap: 10,
           position: "absolute", right: -210, bottom: 60,
         }}>
@@ -589,6 +589,11 @@ export default function SharpTableDashboard() {
         @keyframes toastIn {
           from { opacity: 0; transform: translateX(16px) scale(0.97); }
           to   { opacity: 1; transform: translateX(0) scale(1); }
+        }
+        @media (max-width: 1024px) {
+          .dash-float-left { position: static !important; flex-direction: row !important; flex-wrap: wrap; transform: none !important; margin-bottom: 24px; justify-content: center; left: auto !important; top: auto !important; }
+          .dash-float-right { position: static !important; flex-direction: row !important; flex-wrap: wrap; transform: none !important; margin-top: 24px; justify-content: center; right: auto !important; bottom: auto !important; }
+          .dash-phone-wrap { display: flex; flex-direction: column; align-items: center; }
         }
       `}</style>
     </section>

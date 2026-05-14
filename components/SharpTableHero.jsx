@@ -33,67 +33,67 @@ const BRANCH_DATA = {
     todayRev: 1360700, weekRev: 8942300, monthRev: 56075100,
     orders: { today: 37, week: 241, month: 986 },
     payments: [
-      { label: "Transfer", pct: 56, today: 192400,  week: 1240000, month: 7414650, color: "#a855f7" },
-      { label: "POS",      pct: 31, today: 105800,  week: 680000,  month: 8038300, color: "#2B6FE6" },
-      { label: "D.Bill",   pct: 13, today: 42800,   week: 280000,  month: 1156300, color: "#c9a227" },
+      { label: "Transfer", pct: 56, today: 192400,  week: 1240000, month: 7414650, color: "#f59e0b" },
+      { label: "POS",      pct: 31, today: 105800,  week: 680000,  month: 8038300, color: "#ffffff" },
+      { label: "D.Bill",   pct: 13, today: 42800,   week: 280000,  month: 1156300, color: "#525252" },
     ],
     feed: [
-      { icon: "🛎", text: "Table T-12 · Smoked Fish ×2 placed",          tag: "ORDER",   tagColor: "#2B6FE6" },
-      { icon: "✅", text: "Transfer confirmed · ₦192,400 · T-07",          tag: "PAID",    tagColor: "#22c55e" },
-      { icon: "🔒", text: "Void blocked · Emeka · T-05 · PIN required",    tag: "BLOCKED", tagColor: "#a855f7" },
+      { icon: "🛎", text: "Table T-12 · Smoked Fish ×2 placed",          tag: "ORDER",   tagColor: "#ffffff" },
+      { icon: "✅", text: "Transfer confirmed · ₦192,400 · T-07",          tag: "PAID",    tagColor: "#f59e0b" },
+      { icon: "🔒", text: "Void blocked · Emeka · T-05 · PIN required",    tag: "BLOCKED", tagColor: "#525252" },
       { icon: "⚠️", text: "Chicken critical · 4 portions remaining",       tag: "ALERT",   tagColor: "#f59e0b" },
-      { icon: "📦", text: "T-22 → Kitchen · Jollof ×2, Beef ×1",            tag: "KITCHEN", tagColor: "#2B6FE6" },
+      { icon: "📦", text: "T-22 → Kitchen · Jollof ×2, Beef ×1",            tag: "KITCHEN", tagColor: "#a3a3a3" },
     ],
     marshalls: [
       { name: "Tunde",  collected: "₦4,500",  verified: 1 },
       { name: "Okoro",  collected: "₦77,900", verified: 3 },
     ],
     shift: { cash: "₦0", pos: "₦4,500", transfer: "₦0", pending: 1 },
-    color: "#ef4444",
+    color: "#f59e0b",
   },
   "Osapa London": {
     todayRev: 430100, weekRev: 3140500, monthRev: 31240500,
     orders: { today: 24, week: 158, month: 621 },
     payments: [
-      { label: "Cash",     pct: 48, today: 206448, week: 1400000, month: 5200000, color: "#22c55e" },
-      { label: "POS",      pct: 38, today: 163438, week: 930000,  month: 3900000, color: "#2B6FE6" },
-      { label: "Transfer", pct: 14, today: 60214,  week: 410000,  month: 2100000, color: "#a855f7" },
+      { label: "Cash",     pct: 48, today: 206448, week: 1400000, month: 5200000, color: "#f59e0b" },
+      { label: "POS",      pct: 38, today: 163438, week: 930000,  month: 3900000, color: "#ffffff" },
+      { label: "Transfer", pct: 14, today: 60214,  week: 410000,  month: 2100000, color: "#525252" },
     ],
     feed: [
-      { icon: "🛎", text: "Table T-04 · Ofe Owerri ×1 placed",         tag: "ORDER",   tagColor: "#2B6FE6" },
-      { icon: "✅", text: "Cash collected · ₦45,000 · Amaka shift",      tag: "PAID",    tagColor: "#22c55e" },
-      { icon: "📦", text: "T-09 → Kitchen · Nkwobi ×2, Goat ×1",         tag: "KITCHEN", tagColor: "#2B6FE6" },
+      { icon: "🛎", text: "Table T-04 · Ofe Owerri ×1 placed",         tag: "ORDER",   tagColor: "#ffffff" },
+      { icon: "✅", text: "Cash collected · ₦45,000 · Amaka shift",      tag: "PAID",    tagColor: "#f59e0b" },
+      { icon: "📦", text: "T-09 → Kitchen · Nkwobi ×2, Goat ×1",         tag: "KITCHEN", tagColor: "#a3a3a3" },
       { icon: "⚠️", text: "Beef portions low · 6 remaining",              tag: "ALERT",   tagColor: "#f59e0b" },
-      { icon: "✅", text: "POS confirmed · ₦28,000 · T-06",                tag: "PAID",    tagColor: "#22c55e" },
+      { icon: "✅", text: "POS confirmed · ₦28,000 · T-06",                tag: "PAID",    tagColor: "#f59e0b" },
     ],
     marshalls: [
       { name: "Amaka", collected: "₦91,000", verified: 4 },
       { name: "Joy",   collected: "₦54,200", verified: 2 },
     ],
     shift: { cash: "₦206,448", pos: "₦163,438", transfer: "₦60,214", pending: 2 },
-    color: "#22c55e",
+    color: "#ffffff",
   },
   "Palm Beach": {
     todayRev: 118200, weekRev: 1240000, monthRev: 18692000,
     orders: { today: 18, week: 109, month: 445 },
     payments: [
-      { label: "Transfer", pct: 62, today: 73284, week: 740000,  month: 6200000, color: "#a855f7" },
-      { label: "POS",      pct: 28, today: 33096, week: 360000,  month: 2800000, color: "#2B6FE6" },
-      { label: "Cash",     pct: 10, today: 11820, week: 130000,  month: 1200000, color: "#22c55e" },
+      { label: "Transfer", pct: 62, today: 73284, week: 740000,  month: 6200000, color: "#f59e0b" },
+      { label: "POS",      pct: 28, today: 33096, week: 360000,  month: 2800000, color: "#ffffff" },
+      { label: "Cash",     pct: 10, today: 11820, week: 130000,  month: 1200000, color: "#525252" },
     ],
     feed: [
-      { icon: "🛎", text: "Table T-02 · Grilled Fish ×1 placed",      tag: "ORDER",   tagColor: "#2B6FE6" },
-      { icon: "📦", text: "T-02 → Kitchen · Grilled Catfish ×1",        tag: "KITCHEN", tagColor: "#2B6FE6" },
-      { icon: "✅", text: "Transfer · ₦73,000 · T-02 verified",          tag: "PAID",    tagColor: "#22c55e" },
+      { icon: "🛎", text: "Table T-02 · Grilled Fish ×1 placed",      tag: "ORDER",   tagColor: "#ffffff" },
+      { icon: "📦", text: "T-02 → Kitchen · Grilled Catfish ×1",        tag: "KITCHEN", tagColor: "#a3a3a3" },
+      { icon: "✅", text: "Transfer · ₦73,000 · T-02 verified",          tag: "PAID",    tagColor: "#f59e0b" },
       { icon: "⚠️", text: "Grasscutter low · 3 portions remaining",      tag: "ALERT",   tagColor: "#f59e0b" },
-      { icon: "🛎", text: "Table T-07 · BBQ Chicken ×2 placed",         tag: "ORDER",   tagColor: "#2B6FE6" },
+      { icon: "🛎", text: "Table T-07 · BBQ Chicken ×2 placed",         tag: "ORDER",   tagColor: "#ffffff" },
     ],
     marshalls: [
       { name: "Favour", collected: "₦48,200", verified: 2 },
       { name: "Ernest", collected: "₦29,000", verified: 1 },
     ],
     shift: { cash: "₦11,820", pos: "₦33,096", transfer: "₦73,284", pending: 0 },
-    color: "#f97316",
+    color: "#a3a3a3",
   },
 };
 
@@ -233,7 +233,7 @@ export default function SharpTableHero() {
         </div>
 
         {/* ── Grid layout ── */}
-        <div style={{
+        <div className="hero-grid" style={{
           maxWidth: 1320, width: "100%", margin: "0 auto",
           display: "grid", gridTemplateColumns: "1fr 1.2fr",
           gap: "6vw", alignItems: "center",
@@ -365,7 +365,7 @@ export default function SharpTableHero() {
           </div>
 
           {/* ── RIGHT — Data panels ───────────────────────────────────────── */}
-          <div style={{
+          <div className="hero-right" style={{
             display: "flex", flexDirection: "column", gap: 11,
             transform: `translate(${(mouse.x - 0.5) * -10}px, ${(mouse.y - 0.5) * -6}px)`,
             transition: "transform 0.7s cubic-bezier(0.16,1,0.3,1)",
@@ -402,7 +402,7 @@ export default function SharpTableHero() {
                   ₦{revenue.toLocaleString()}
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 7 }}>
-                  <span style={{ color: "#22c55e", fontSize: 9, fontFamily: '"JetBrains Mono", monospace', fontWeight: 700 }}>↑ {orderCount} orders</span>
+                  <span style={{ color: "#f59e0b", fontSize: 9, fontFamily: '"JetBrains Mono", monospace', fontWeight: 700 }}>↑ {orderCount} orders</span>
                   <span style={{ color: "#252525", fontSize: 9, fontFamily: '"JetBrains Mono", monospace' }}>this {activeRange.toLowerCase()}</span>
                 </div>
 
@@ -420,7 +420,7 @@ export default function SharpTableHero() {
               </GlassCard>
 
               {/* All branches */}
-              <GlassCard accent="#22c55e" style={{ padding: "20px 20px" }}>
+              <GlassCard accent="#333" style={{ padding: "20px 20px" }}>
                 <Label>ALL BRANCHES</Label>
                 <div style={{ display: "flex", flexDirection: "column", gap: 13 }}>
                   {BRANCHES.map((b, i) => {
@@ -433,7 +433,7 @@ export default function SharpTableHero() {
                       <div key={b} onClick={() => setActiveBranch(b)} style={{ cursor: "pointer" }}>
                         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
                           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                            <span style={{ width: 6, height: 6, background: "#22c55e", borderRadius: "50%", animation: "pulse 2s infinite", animationDelay: `${i * 0.4}s`, display: "block" }} />
+                            <span style={{ width: 6, height: 6, background: isActive ? bd.color : "#333", borderRadius: "50%", animation: "pulse 2s infinite", animationDelay: `${i * 0.4}s`, display: "block" }} />
                             <span style={{ color: isActive ? "#fff" : "#555", fontSize: 10, fontWeight: isActive ? 700 : 400, transition: "color 0.3s", fontFamily: '"DM Sans", sans-serif' }}>{b}</span>
                           </div>
                           <span style={{ color: isActive ? bd.color : "#333", fontSize: 10, fontFamily: '"Montserrat", sans-serif', fontWeight: 800, transition: "color 0.3s" }}>
@@ -449,13 +449,13 @@ export default function SharpTableHero() {
                 </div>
                 <div style={{ marginTop: 16, paddingTop: 11, borderTop: "1px solid #111", display: "flex", justifyContent: "space-between" }}>
                   <span style={{ color: "#1e1e1e", fontSize: 8, fontFamily: '"JetBrains Mono", monospace' }}>3 / 3 ACTIVE</span>
-                  <span style={{ color: "#22c55e", fontSize: 8, fontFamily: '"JetBrains Mono", monospace' }}>↑ All live</span>
+                  <span style={{ color: "#f59e0b", fontSize: 8, fontFamily: '"JetBrains Mono", monospace' }}>↑ All live</span>
                 </div>
               </GlassCard>
             </div>
 
             {/* Row 2: Payment breakdown */}
-            <GlassCard accent="#a855f7" style={{ padding: "18px 24px" }}>
+            <GlassCard accent="#333" style={{ padding: "18px 24px" }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
                 <Label>PAYMENT BREAKDOWN · {activeRange.toUpperCase()}</Label>
                 <span style={{ color: "#1e1e1e", fontSize: 8, fontFamily: '"JetBrains Mono", monospace', marginBottom: 12 }}>{activeBranch}</span>
@@ -481,10 +481,10 @@ export default function SharpTableHero() {
             <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 11 }}>
 
               {/* Activity feed */}
-              <GlassCard accent="#2B6FE6" style={{ padding: "18px 20px" }}>
+              <GlassCard accent="#333" style={{ padding: "18px 20px" }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                    <span style={{ width: 7, height: 7, background: "#22c55e", borderRadius: "50%", animation: "pulse 1.5s infinite", display: "block" }} />
+                    <span style={{ width: 7, height: 7, background: "#f59e0b", borderRadius: "50%", animation: "pulse 1.5s infinite", display: "block" }} />
                     <Label>LIVE ACTIVITY</Label>
                   </div>
                   <span style={{ color: "#1a1a1a", fontSize: 8, fontFamily: '"JetBrains Mono", monospace', marginBottom: 12 }}>{activeBranch}</span>
@@ -512,26 +512,26 @@ export default function SharpTableHero() {
               </GlassCard>
 
               {/* Marshalls + shift */}
-              <GlassCard accent="#a855f7" style={{ padding: "18px 18px", display: "flex", flexDirection: "column", gap: 13 }}>
+              <GlassCard accent="#333" style={{ padding: "18px 18px", display: "flex", flexDirection: "column", gap: 13 }}>
                 <Label>MARSHALLS ON DUTY</Label>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   {data.marshalls.map((m, i) => (
                     <div key={m.name} style={{ display: "flex", alignItems: "center", gap: 8, paddingTop: i > 0 ? 10 : 0, borderTop: i > 0 ? "1px solid #0d0d0d" : "none" }}>
-                      <div style={{ width: 28, height: 28, background: `hsl(${140 + i * 110},40%,15%)`, border: `1px solid hsl(${140 + i * 110},40%,22%)`, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", color: "#bbb", fontSize: 10, fontWeight: 800, flexShrink: 0, fontFamily: '"Montserrat", sans-serif' }}>{m.name[0]}</div>
+                      <div style={{ width: 28, height: 28, background: `hsl(38, ${20 + i * 15}%, 15%)`, border: `1px solid hsl(38, ${20 + i * 15}%, 22%)`, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", color: "#bbb", fontSize: 10, fontWeight: 800, flexShrink: 0, fontFamily: '"Montserrat", sans-serif' }}>{m.name[0]}</div>
                       <div style={{ flex: 1 }}>
                         <div style={{ color: "#bbb", fontSize: 10, fontWeight: 700, fontFamily: '"DM Sans", sans-serif' }}>{m.name}</div>
-                        <div style={{ color: "#22c55e", fontSize: 8, fontFamily: '"JetBrains Mono", monospace', marginTop: 1 }}>{m.collected}</div>
+                        <div style={{ color: "#f59e0b", fontSize: 8, fontFamily: '"JetBrains Mono", monospace', marginTop: 1 }}>{m.collected}</div>
                       </div>
-                      <span style={{ width: 6, height: 6, background: "#22c55e", borderRadius: "50%", animation: "pulse 2s infinite", display: "block" }} />
+                      <span style={{ width: 6, height: 6, background: "#f59e0b", borderRadius: "50%", animation: "pulse 2s infinite", display: "block" }} />
                     </div>
                   ))}
                 </div>
                 <div style={{ borderTop: "1px solid #0d0d0d", paddingTop: 12, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
                   {[
-                    { label: "Cash",     value: data.shift.cash,     color: "#22c55e" },
-                    { label: "POS",      value: data.shift.pos,      color: "#2B6FE6" },
-                    { label: "Transfer", value: data.shift.transfer,  color: "#a855f7" },
-                    { label: "Pending",  value: String(data.shift.pending), color: data.shift.pending > 0 ? "#f97316" : "#252525" },
+                    { label: "Cash",     value: data.shift.cash,     color: "#f59e0b" },
+                    { label: "POS",      value: data.shift.pos,      color: "#ffffff" },
+                    { label: "Transfer", value: data.shift.transfer,  color: "#a3a3a3" },
+                    { label: "Pending",  value: String(data.shift.pending), color: data.shift.pending > 0 ? "#525252" : "#252525" },
                   ].map(s => (
                     <div key={s.label}>
                       <div style={{ color: "#1e1e1e", fontSize: 7, fontFamily: '"JetBrains Mono", monospace', marginBottom: 3 }}>{s.label}</div>
@@ -547,6 +547,10 @@ export default function SharpTableHero() {
         <style>{`
           @keyframes pulse  { 0%,100%{opacity:1} 50%{opacity:0.2} }
           @keyframes feedIn { from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
+          @media (max-width: 900px) {
+            .hero-grid { grid-template-columns: 1fr !important; padding: 40px 0 !important; }
+            .hero-right { transform: none !important; margin-top: 40px; }
+          }
         `}</style>
       </section>
     </>

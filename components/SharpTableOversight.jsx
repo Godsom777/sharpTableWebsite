@@ -263,10 +263,10 @@ export default function SharpTableOversight() {
       </div>
 
       {/* Phone + side stats */}
-      <div style={{ position: "relative", display: "flex", alignItems: "center", gap: 20 }}>
+      <div className="over-phone-wrap" style={{ position: "relative", display: "flex", alignItems: "center", gap: 20 }}>
 
         {/* Left callout */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 10, position: "absolute", left: -200, top: "50%", transform: "translateY(-50%)" }}>
+        <div className="over-float-left" style={{ display: "flex", flexDirection: "column", gap: 10, position: "absolute", left: -200, top: "50%", transform: "translateY(-50%)" }}>
           {[
             { icon: "🏪", label: "Victoria Island", value: "₦56.1M", color: LIME },
             { icon: "🏢", label: "Osapa London", value: "₦31.2M", color: "#fff" },
@@ -315,7 +315,7 @@ export default function SharpTableOversight() {
         </div>
 
         {/* Right callout */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 10, position: "absolute", right: -205, top: "50%", transform: "translateY(-50%)" }}>
+        <div className="over-float-right" style={{ display: "flex", flexDirection: "column", gap: 10, position: "absolute", right: -205, top: "50%", transform: "translateY(-50%)" }}>
           {[
             { icon: "⚡", label: "Real-time sync", value: "Live data", color: LIME },
             { icon: "⚠️", label: "Stock alerts", value: "3 active", color: "#f59e0b" },
@@ -366,6 +366,12 @@ export default function SharpTableOversight() {
       <style>{`
         @keyframes fadeUp { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
+        @media (max-width: 1024px) {
+          .over-float-left, .over-float-right { position: static !important; flex-direction: row !important; flex-wrap: wrap; justify-content: center; transform: none !important; left: auto !important; right: auto !important; top: auto !important; bottom: auto !important; }
+          .over-float-left { margin-bottom: 24px; }
+          .over-float-right { margin-top: 24px; }
+          .over-phone-wrap { flex-direction: column !important; }
+        }
       `}</style>
     </section>
   );
