@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 
-const FONT_LINK = "https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=JetBrains+Mono:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap";
+const FONT_LINK = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap";
 
 // ── Counter hook ──────────────────────────────────────────────────────────────
 function useCounter(target, duration = 1600, trigger = true) {
@@ -201,7 +201,7 @@ export default function SharpTableHero() {
           padding: "0 5vw",
           position: "relative",
           overflow: "hidden",
-          fontFamily: '"DM Sans", system-ui, sans-serif',
+          fontFamily: '"Inter", system-ui, sans-serif',
         }}
       >
         {/* ── Background ── */}
@@ -259,7 +259,7 @@ export default function SharpTableHero() {
             {/* Headline — Montserrat */}
             <div style={enter(80)}>
               <h1 style={{
-                fontFamily: '"Montserrat", sans-serif',
+                fontFamily: '"Inter", sans-serif',
                 fontSize: "clamp(38px, 4.4vw, 64px)",
                 fontWeight: 900,
                 color: "#fff",
@@ -296,7 +296,7 @@ export default function SharpTableHero() {
                 display: "inline-flex", alignItems: "center", gap: 9,
                 boxShadow: "0 0 30px rgba(245,158,11,0.2)",
                 transition: "all 0.25s ease",
-                fontFamily: '"Montserrat", sans-serif',
+                fontFamily: '"Inter", sans-serif',
                 letterSpacing: "-0.01em",
               }}
               onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 0 55px rgba(245,158,11,0.42)"; e.currentTarget.style.transform = "translateY(-2px) scale(1.02)"; }}
@@ -311,7 +311,7 @@ export default function SharpTableHero() {
                 display: "inline-flex", alignItems: "center", gap: 8,
                 border: "1px solid #1c1c1c",
                 transition: "all 0.25s ease",
-                fontFamily: '"DM Sans", sans-serif',
+                fontFamily: '"Inter", sans-serif',
               }}
               onMouseEnter={e => { e.currentTarget.style.color = "#ccc"; e.currentTarget.style.borderColor = "#333"; e.currentTarget.style.background = "rgba(255,255,255,0.03)"; }}
               onMouseLeave={e => { e.currentTarget.style.color = "#3a3a3a"; e.currentTarget.style.borderColor = "#1c1c1c"; e.currentTarget.style.background = "transparent"; }}
@@ -328,8 +328,8 @@ export default function SharpTableHero() {
                 { num: "₦0",    label: "slipped through"   },
               ].map((s, i) => (
                 <div key={i} style={{ flex: 1, paddingLeft: i > 0 ? 22 : 0, borderLeft: i > 0 ? "1px solid #161616" : "none" }}>
-                  <div style={{ color: "#fff", fontSize: 21, fontWeight: 800, fontFamily: '"Montserrat", sans-serif', letterSpacing: "-0.03em" }}>{s.num}</div>
-                  <div style={{ color: "#2e2e2e", fontSize: 10, marginTop: 3, fontFamily: '"DM Sans", sans-serif' }}>{s.label}</div>
+                  <div style={{ color: "#fff", fontSize: 21, fontWeight: 800, fontFamily: '"Inter", sans-serif', letterSpacing: "-0.03em" }}>{s.num}</div>
+                  <div style={{ color: "#2e2e2e", fontSize: 10, marginTop: 3, fontFamily: '"Inter", sans-serif' }}>{s.label}</div>
                 </div>
               ))}
             </div>
@@ -349,7 +349,7 @@ export default function SharpTableHero() {
                       color: active ? bc : "#383838",
                       fontSize: 11, fontWeight: 700, cursor: "pointer",
                       transition: "all 0.25s ease",
-                      fontFamily: '"DM Sans", sans-serif',
+                      fontFamily: '"Inter", sans-serif',
                       display: "flex", alignItems: "center", gap: 6,
                     }}
                     onMouseEnter={e => { if (!active) { e.currentTarget.style.borderColor = "#2e2e2e"; e.currentTarget.style.color = "#666"; }}}
@@ -398,7 +398,7 @@ export default function SharpTableHero() {
                 </div>
 
                 <Label>REVENUE · {activeBranch.toUpperCase()}</Label>
-                <div style={{ color: branchColor, fontSize: "clamp(24px, 2.6vw, 36px)", fontWeight: 800, fontFamily: '"Montserrat", sans-serif', letterSpacing: "-0.025em", lineHeight: 1, transition: "color 0.5s" }}>
+                <div style={{ color: branchColor, fontSize: "clamp(24px, 2.6vw, 36px)", fontWeight: 800, fontFamily: '"Inter", sans-serif', letterSpacing: "-0.025em", lineHeight: 1, transition: "color 0.5s" }}>
                   ₦{revenue.toLocaleString()}
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 7 }}>
@@ -434,9 +434,9 @@ export default function SharpTableHero() {
                         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
                           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                             <span style={{ width: 6, height: 6, background: isActive ? bd.color : "#333", borderRadius: "50%", animation: "pulse 2s infinite", animationDelay: `${i * 0.4}s`, display: "block" }} />
-                            <span style={{ color: isActive ? "#fff" : "#555", fontSize: 10, fontWeight: isActive ? 700 : 400, transition: "color 0.3s", fontFamily: '"DM Sans", sans-serif' }}>{b}</span>
+                            <span style={{ color: isActive ? "#fff" : "#555", fontSize: 10, fontWeight: isActive ? 700 : 400, transition: "color 0.3s", fontFamily: '"Inter", sans-serif' }}>{b}</span>
                           </div>
-                          <span style={{ color: isActive ? bd.color : "#333", fontSize: 10, fontFamily: '"Montserrat", sans-serif', fontWeight: 800, transition: "color 0.3s" }}>
+                          <span style={{ color: isActive ? bd.color : "#333", fontSize: 10, fontFamily: '"Inter", sans-serif', fontWeight: 800, transition: "color 0.3s" }}>
                             ₦{(rev / 1000000).toFixed(1)}M
                           </span>
                         </div>
@@ -469,7 +469,7 @@ export default function SharpTableHero() {
                       <div style={{ flex: 1, height: 7, background: "#0a0a0a", borderRadius: 4, overflow: "hidden", border: "1px solid #141414" }}>
                         <div style={{ height: "100%", width: `${p.pct}%`, background: `linear-gradient(90deg, ${p.color}, ${p.color}cc)`, borderRadius: 4, transition: "width 1s cubic-bezier(0.16,1,0.3,1)" }} />
                       </div>
-                      <span style={{ color: p.color, fontSize: 11, fontWeight: 700, fontFamily: '"Montserrat", sans-serif', width: 90, textAlign: "right", flexShrink: 0, letterSpacing: "-0.02em" }}>₦{val.toLocaleString()}</span>
+                      <span style={{ color: p.color, fontSize: 11, fontWeight: 700, fontFamily: '"Inter", sans-serif', width: 90, textAlign: "right", flexShrink: 0, letterSpacing: "-0.02em" }}>₦{val.toLocaleString()}</span>
                       <span style={{ color: "#1e1e1e", fontSize: 9, width: 26, textAlign: "right", flexShrink: 0, fontFamily: '"JetBrains Mono", monospace' }}>{p.pct}%</span>
                     </div>
                   );
@@ -517,9 +517,9 @@ export default function SharpTableHero() {
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   {data.marshalls.map((m, i) => (
                     <div key={m.name} style={{ display: "flex", alignItems: "center", gap: 8, paddingTop: i > 0 ? 10 : 0, borderTop: i > 0 ? "1px solid #0d0d0d" : "none" }}>
-                      <div style={{ width: 28, height: 28, background: `hsl(38, ${20 + i * 15}%, 15%)`, border: `1px solid hsl(38, ${20 + i * 15}%, 22%)`, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", color: "#bbb", fontSize: 10, fontWeight: 800, flexShrink: 0, fontFamily: '"Montserrat", sans-serif' }}>{m.name[0]}</div>
+                      <div style={{ width: 28, height: 28, background: `hsl(38, ${20 + i * 15}%, 15%)`, border: `1px solid hsl(38, ${20 + i * 15}%, 22%)`, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", color: "#bbb", fontSize: 10, fontWeight: 800, flexShrink: 0, fontFamily: '"Inter", sans-serif' }}>{m.name[0]}</div>
                       <div style={{ flex: 1 }}>
-                        <div style={{ color: "#bbb", fontSize: 10, fontWeight: 700, fontFamily: '"DM Sans", sans-serif' }}>{m.name}</div>
+                        <div style={{ color: "#bbb", fontSize: 10, fontWeight: 700, fontFamily: '"Inter", sans-serif' }}>{m.name}</div>
                         <div style={{ color: "#f59e0b", fontSize: 8, fontFamily: '"JetBrains Mono", monospace', marginTop: 1 }}>{m.collected}</div>
                       </div>
                       <span style={{ width: 6, height: 6, background: "#f59e0b", borderRadius: "50%", animation: "pulse 2s infinite", display: "block" }} />
@@ -535,7 +535,7 @@ export default function SharpTableHero() {
                   ].map(s => (
                     <div key={s.label}>
                       <div style={{ color: "#1e1e1e", fontSize: 7, fontFamily: '"JetBrains Mono", monospace', marginBottom: 3 }}>{s.label}</div>
-                      <div style={{ color: s.color, fontSize: 10, fontWeight: 700, fontFamily: '"Montserrat", sans-serif', letterSpacing: "-0.02em", transition: "color 0.3s" }}>{s.value}</div>
+                      <div style={{ color: s.color, fontSize: 10, fontWeight: 700, fontFamily: '"Inter", sans-serif', letterSpacing: "-0.02em", transition: "color 0.3s" }}>{s.value}</div>
                     </div>
                   ))}
                 </div>
