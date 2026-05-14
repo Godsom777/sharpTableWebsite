@@ -172,6 +172,18 @@ export default function SharpTableHero() {
     return () => clearInterval(id);
   }, [mounted, activeBranch]);
 
+  // Auto-rotate branch every 6 seconds
+  useEffect(() => {
+    if (!mounted) return;
+    const id = setInterval(() => {
+      setActiveBranch(curr => {
+        const idx = BRANCHES.indexOf(curr);
+        return BRANCHES[(idx + 1) % BRANCHES.length];
+      });
+    }, 6000);
+    return () => clearInterval(id);
+  }, [mounted]);
+
   // Mouse parallax
   const handleMouseMove = useCallback((e) => {
     if (!sectionRef.current) return;
@@ -270,10 +282,8 @@ export default function SharpTableHero() {
                 Every naira.<br />
                 Every branch.<br />
                 <span style={{
-                  background: `linear-gradient(100deg, ${branchColor} 0%, ${branchColor}bb 100%)`,
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  transition: "all 0.5s ease",
+                  color: branchColor,
+                  transition: "color 0.5s ease",
                 }}>
                   Every shift.
                 </span>
