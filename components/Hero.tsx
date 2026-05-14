@@ -65,7 +65,7 @@ export const Hero: React.FC = () => {
           initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.05 }}
-          sx={{ textAlign: 'center', fontSize: { xs: '2rem', sm: '2.5rem', md: '4.5rem', lg: '5.75rem' }, fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.02, color: 'white', wordBreak: 'break-word' }}
+          sx={{ textAlign: 'center', fontSize: { xs: '1.75rem', sm: '2.5rem', md: '4.5rem', lg: '5.75rem' }, fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.1, color: 'white', wordBreak: 'break-word' }}
         >
           Your restaurant, running exactly how you built it.
         </Typography>
@@ -112,9 +112,9 @@ export const Hero: React.FC = () => {
           </Button>
         </Box>
 
-        <Box sx={{ mt: 8, width: '100vw', marginLeft: 'calc(-50vw + 50%)', position: 'relative', overflow: 'hidden' }}>
-          <Box sx={{ position: 'absolute', top: 0, left: 0, w: '80px', h: '100%', background: 'linear-gradient(to right, #000, transparent)', zIndex: 1 }} />
-          <Box sx={{ position: 'absolute', top: 0, right: 0, w: '80px', h: '100%', background: 'linear-gradient(to left, #000, transparent)', zIndex: 1 }} />
+        <Box sx={{ mt: 8, mx: { xs: -2, lg: 'calc(-50vw + 50%)' }, width: { xs: 'calc(100% + 32px)', lg: '100vw' }, position: 'relative', overflow: 'hidden' }}>
+          <Box sx={{ position: 'absolute', top: 0, left: 0, width: '80px', height: '100%', background: 'linear-gradient(to right, #000, transparent)', zIndex: 1 }} />
+          <Box sx={{ position: 'absolute', top: 0, right: 0, width: '80px', height: '100%', background: 'linear-gradient(to left, #000, transparent)', zIndex: 1 }} />
 
           <Box
             component={motion.div}
@@ -167,7 +167,7 @@ export const Hero: React.FC = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 1 }}
-                sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+                sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(100%) contrast(1.1) brightness(0.8)' }}
               />
             </AnimatePresence>
             <Box sx={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent, transparent)', zIndex: 1 }} />
@@ -197,7 +197,7 @@ export const Hero: React.FC = () => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 1 }}
-                  sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+                  sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(100%) contrast(1.1) brightness(0.9)' }}
                 />
               </AnimatePresence>
             </Box>
