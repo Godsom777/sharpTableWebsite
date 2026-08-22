@@ -1,3 +1,127 @@
+/* ================================================================
+   SharpTable_ng — Editorial Design System
+   ================================================================ */
+
+/* Google Fonts: DM Serif Display (headlines) + Inter (body) */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');
+
+/* ----------------------------------------------------------------
+   Design Tokens
+   ---------------------------------------------------------------- */
+:root {
+  /* Typography */
+  --font-display: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', 'Noto Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  /* Font sizes — editorial scale */
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.875rem;     /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg: 1.125rem;     /* 18px */
+  --text-xl: 1.25rem;      /* 20px */
+  --text-2xl: 1.5rem;      /* 24px */
+  --text-3xl: 2rem;        /* 32px */
+  --text-4xl: 2.5rem;      /* 40px */
+  --text-5xl: 3.5rem;      /* 56px */
+  --text-6xl: 4.5rem;      /* 72px */
+  --text-7xl: 6rem;        /* 96px */
+
+  /* Colors */
+  --color-bg: #000000;
+  --color-bg-elevated: #0a0a0a;
+  --color-bg-card: #111111;
+  --color-bg-card-hover: #161616;
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-border-hover: rgba(255, 255, 255, 0.12);
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #9ca3af;
+  --color-text-muted: #6b7280;
+  --color-accent: #f59e0b;
+  --color-accent-hover: #d97706;
+  --color-accent-soft: rgba(245, 158, 11, 0.12);
+
+  /* Spacing — vertical rhythm for sections */
+  --section-py-mobile: 5rem;        /* 80px */
+  --section-py-desktop: 9rem;       /* 144px */
+  --section-gap: 1.5rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 0.2s;
+  --duration-normal: 0.4s;
+  --duration-slow: 0.6s;
+
+  /* Layout */
+  --max-width: 1200px;
+  --max-width-narrow: 800px;
+}
+
+/* ----------------------------------------------------------------
+   Base Styles
+   ---------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ----------------------------------------------------------------
+   Typography Utilities
+   ---------------------------------------------------------------- */
+.display-serif {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.editorial-label {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.module-number {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* ----------------------------------------------------------------
+   Section Rhythm
+   ---------------------------------------------------------------- */
+.section-padding {
+  padding-top: var(--section-py-mobile);
+  padding-bottom: var(--section-py-mobile);
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: var(--section-py-desktop);
+    padding-bottom: var(--section-py-desktop);
+  }
+}
+
+/* ----------------------------------------------------------------
+   Animations
+   ---------------------------------------------------------------- */
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -21,32 +145,23 @@
   100% { transform: translateX(-50%); }
 }
 
-/* Custom fonts */
-body {
-  font-family:
-    'Inter',
-    'Noto Sans',
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    'Segoe UI',
-    Roboto,
-    Helvetica,
-    Arial,
-    'Apple Color Emoji',
-    'Segoe UI Emoji',
-    'Segoe UI Symbol',
-    'Noto Color Emoji',
-    sans-serif;
-  background-color: #000000;
-  color: #ffffff;
-
-  /* Improve special character rendering on Windows/macOS */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+/* ----------------------------------------------------------------
+   Accessibility: Reduced Motion
+   ---------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
+/* ----------------------------------------------------------------
+   Scrollbar
+   ---------------------------------------------------------------- */
 /* Hide scrollbar for Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar {
   display: none;

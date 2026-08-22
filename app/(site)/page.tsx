@@ -1,26 +1,47 @@
 
-import SharpTableHero from '@/components/SharpTableHero';
-import { FeatureShowcase } from '@/components/FeatureShowcase';
-import { Testimonials } from '@/components/Testimonials';
-import { WhoIsThisFor } from '@/components/WhoIsThisFor';
-import { PricingAnchor } from '@/components/PricingAnchor';
-import SharpTableFlow from '@/components/SharpTableFlow';
-import SharpTableDashboard from '@/components/SharpTableDashboard';
-import SharpTableOversight from '@/components/SharpTableOversight';
-import SharpTableWhatsApp from '@/components/SharpTableWhatsApp';
+import { HeroSection } from '@/components/homepage/HeroSection';
+import { RestaurantMomentSection } from '@/components/homepage/RestaurantMomentSection';
+import { FourthSetOfEyesSection } from '@/components/homepage/FourthSetOfEyesSection';
+import { MechanismSection } from '@/components/homepage/MechanismSection';
+import { ModuleOrdersSection } from '@/components/homepage/ModuleOrdersSection';
+import { ModuleCustomersSection } from '@/components/homepage/ModuleCustomersSection';
+import { ModuleKitchenSection } from '@/components/homepage/ModuleKitchenSection';
+import { ModuleInventorySection } from '@/components/homepage/ModuleInventorySection';
+import { ModuleInsightsSection } from '@/components/homepage/ModuleInsightsSection';
+import { WhatsAppDemoSection } from '@/components/homepage/WhatsAppDemoSection';
+import { CredibilitySection } from '@/components/homepage/CredibilitySection';
+import { FinalCTASection } from '@/components/homepage/FinalCTASection';
 
 export default function HomePage() {
   return (
     <>
-      <SharpTableHero />
-      <FeatureShowcase />
-      <SharpTableWhatsApp />
-      <WhoIsThisFor />
-      <SharpTableFlow />
-      <SharpTableDashboard />
-      <SharpTableOversight />
-      <Testimonials />
-      <PricingAnchor />
+      {/* 1. Hero — "Every naira. Every branch. Every shift." */}
+      <HeroSection />
+
+      {/* 2. Restaurant Moment — "Friday. 8:17 PM." + InteractiveParticles */}
+      <RestaurantMomentSection />
+
+      {/* 3. The Fourth Set of Eyes — Accountability / Auditor */}
+      <FourthSetOfEyesSection />
+
+      {/* 4. The Mechanism — "Orders have a way of coming from everywhere." + MorphText */}
+      <MechanismSection />
+
+      {/* 5–9. Five Product Modules */}
+      <ModuleOrdersSection />
+      <ModuleCustomersSection />
+      <ModuleKitchenSection />
+      <ModuleInventorySection />
+      <ModuleInsightsSection />
+
+      {/* 10. WhatsApp Demo — phone mockup + dashboard flow */}
+      <WhatsAppDemoSection />
+
+      {/* 11. Credibility — restyled testimonials */}
+      <CredibilitySection />
+
+      {/* 12. Final CTA — "Run the restaurant. We'll keep the orders together." */}
+      <FinalCTASection />
     </>
   );
 }
