@@ -1,6 +1,5 @@
 
 import { HeroSection } from '@/components/homepage/HeroSection';
-import { RestaurantMomentSection } from '@/components/homepage/RestaurantMomentSection';
 import { FourthSetOfEyesSection } from '@/components/homepage/FourthSetOfEyesSection';
 import { MechanismSection } from '@/components/homepage/MechanismSection';
 import FeaturesCards from '@/components/ui/feature-shader-cards';
@@ -19,32 +18,29 @@ export default function HomePage() {
       {/* 1. Hero — "Every naira. Every branch. Every shift." */}
       <HeroSection />
 
-      {/* 2. Restaurant Moment — "Friday. 8:17 PM." + InteractiveParticles */}
-      <RestaurantMomentSection />
-
-      {/* 3. The Fourth Set of Eyes — Accountability / Auditor */}
+      {/* 2. The Fourth Set of Eyes — Accountability / Auditor */}
       <FourthSetOfEyesSection />
 
-      {/* 4. The Mechanism — "Orders have a way of coming from everywhere." + MorphText */}
+      {/* 3. The Mechanism — "Orders have a way of coming from everywhere." + MorphText */}
       <MechanismSection />
 
-      {/* 5. Core Platform Features with Shader Cards */}
+      {/* 4. Core Platform Features with Shader Cards */}
       <FeaturesCards />
 
-      {/* 6–10. Five Product Modules */}
+      {/* 5–9. Five Product Modules */}
       <ModuleOrdersSection />
       <ModuleCustomersSection />
       <ModuleKitchenSection />
       <ModuleInventorySection />
       <ModuleInsightsSection />
 
-      {/* 11. WhatsApp Demo — phone mockup + dashboard flow */}
+      {/* 10. WhatsApp Demo — phone mockup + dashboard flow */}
       <WhatsAppDemoSection />
 
-      {/* 12. Credibility — restyled testimonials */}
+      {/* 11. Credibility — restyled testimonials */}
       <CredibilitySection />
 
-      {/* 13. Final CTA — "Run the restaurant. We'll keep the orders together." */}
+      {/* 12. Final CTA — "Run the restaurant. We'll keep the orders together." */}
       <FinalCTASection />
     </>
   );
