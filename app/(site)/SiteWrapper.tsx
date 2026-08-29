@@ -23,7 +23,7 @@ export default function SiteWrapper({
           '& ::selection': { bgcolor: 'rgba(245, 158, 11, 0.3)' }
         }}>
           <NavBar />
-          <Box component="main">
+          <Box component="main" sx={{ position: 'relative', zIndex: 1, bgcolor: 'black' }}>
             {children}
           </Box>
           <Footer />

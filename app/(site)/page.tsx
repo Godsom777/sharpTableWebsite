@@ -1,4 +1,3 @@
-
 import { HeroSection } from '@/components/homepage/HeroSection';
 import { FourthSetOfEyesSection } from '@/components/homepage/FourthSetOfEyesSection';
 import { MechanismSection } from '@/components/homepage/MechanismSection';
@@ -6,7 +5,6 @@ import FeaturesCards from '@/components/ui/feature-shader-cards';
 import IntegrationsSection from '@/components/ui/integrations-3';
 import { WhatsAppDemoSection } from '@/components/homepage/WhatsAppDemoSection';
 import { CredibilitySection } from '@/components/homepage/CredibilitySection';
-import { FinalCTASection } from '@/components/homepage/FinalCTASection';
 
 export default function HomePage() {
   return (
@@ -31,10 +29,6 @@ export default function HomePage() {
 
       {/* 7. Credibility — restyled testimonials */}
       <CredibilitySection />
-
-      {/* 8. Final CTA — "Run the restaurant. We'll keep the orders together." */}
-      <FinalCTASection />
     </>
   );
 }
-
