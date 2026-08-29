@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { PageHeader } from '../components/PageHeader';
-import { FeatureStack } from '../components/FeatureStack';
-import { BentoGrid } from '../components/BentoGrid';
+import FeaturesCards from '../components/ui/feature-shader-cards';
 import { Intelligence } from '../components/Intelligence';
 
 // Abstract symbols subtly related to "features" / building blocks / tools
@@ -21,9 +20,9 @@ export const FeaturesPage: React.FC = () => {
         badge="Platform Capabilities"
         symbols={featureSymbols}
       />
-      <FeatureStack />
-      <BentoGrid />
+      <FeaturesCards />
       <Intelligence />
     </>
   );
 };
+

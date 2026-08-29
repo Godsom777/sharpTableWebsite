@@ -1,7 +1,6 @@
 
 import { PageHeader } from '@/components/PageHeader';
-import { FeatureStack } from '@/components/FeatureStack';
-import { BentoGrid } from '@/components/BentoGrid';
+import FeaturesCards from '@/components/ui/feature-shader-cards';
 import { Intelligence } from '@/components/Intelligence';
 
 // Abstract symbols subtly related to "features" / building blocks / tools
@@ -19,9 +18,9 @@ export default function FeaturesPage() {
         badge="Platform Capabilities"
         symbols={featureSymbols}
       />
-      <FeatureStack />
-      <BentoGrid />
+      <FeaturesCards />
       <Intelligence />
     </>
   );
 }
+
