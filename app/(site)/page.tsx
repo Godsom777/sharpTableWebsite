@@ -3,6 +3,7 @@ import { HeroSection } from '@/components/homepage/HeroSection';
 import { RestaurantMomentSection } from '@/components/homepage/RestaurantMomentSection';
 import { FourthSetOfEyesSection } from '@/components/homepage/FourthSetOfEyesSection';
 import { MechanismSection } from '@/components/homepage/MechanismSection';
+import FeaturesCards from '@/components/ui/feature-shader-cards';
 import { ModuleOrdersSection } from '@/components/homepage/ModuleOrdersSection';
 import { ModuleCustomersSection } from '@/components/homepage/ModuleCustomersSection';
 import { ModuleKitchenSection } from '@/components/homepage/ModuleKitchenSection';
@@ -27,21 +28,25 @@ export default function HomePage() {
       {/* 4. The Mechanism — "Orders have a way of coming from everywhere." + MorphText */}
       <MechanismSection />
 
-      {/* 5–9. Five Product Modules */}
+      {/* 5. Core Platform Features with Shader Cards */}
+      <FeaturesCards />
+
+      {/* 6–10. Five Product Modules */}
       <ModuleOrdersSection />
       <ModuleCustomersSection />
       <ModuleKitchenSection />
       <ModuleInventorySection />
       <ModuleInsightsSection />
 
-      {/* 10. WhatsApp Demo — phone mockup + dashboard flow */}
+      {/* 11. WhatsApp Demo — phone mockup + dashboard flow */}
       <WhatsAppDemoSection />
 
-      {/* 11. Credibility — restyled testimonials */}
+      {/* 12. Credibility — restyled testimonials */}
       <CredibilitySection />
 
-      {/* 12. Final CTA — "Run the restaurant. We'll keep the orders together." */}
+      {/* 13. Final CTA — "Run the restaurant. We'll keep the orders together." */}
       <FinalCTASection />
     </>
   );
 }
+

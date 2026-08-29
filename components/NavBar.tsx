@@ -24,6 +24,7 @@ const productLinks = [
 
 const navLinks = [
   { label: 'Product', href: '#', hasDropdown: true },
+  { label: 'Features', href: '/features' },
   { label: 'Solutions', href: '/for-hotels' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Resources', href: '/faq' },
