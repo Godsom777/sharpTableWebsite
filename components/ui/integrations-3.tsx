@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  LogoIcon,
   OrdersIcon,
   KitchenIcon,
   InventoryIcon,
@@ -137,14 +137,19 @@ export default function IntegrationsSection() {
               {/* Center SharpTable Core Hub */}
               <div
                 className={cn(
-                  'relative flex size-20 md:size-24 rounded-2xl p-0.5 transition-all duration-300',
-                  'bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 shadow-[0_0_35px_rgba(245,158,11,0.35)]',
-                  'hover:shadow-[0_0_45px_rgba(245,158,11,0.5)] hover:scale-105'
+                  'relative flex size-20 md:size-24 items-center justify-center transition-all duration-300',
+                  'drop-shadow-[0_0_35px_rgba(245,158,11,0.35)]',
+                  'hover:drop-shadow-[0_0_45px_rgba(245,158,11,0.5)] hover:scale-105'
                 )}
               >
-                <div className="flex h-full w-full items-center justify-center rounded-[14px] bg-[#0c0c0c]/90 backdrop-blur-md">
-                  <LogoIcon className="size-9 md:size-10 text-amber-400 animate-pulse" />
-                </div>
+                <Image
+                  src="/sharptable-logo.png"
+                  alt="SharpTable"
+                  width={96}
+                  height={96}
+                  className="size-20 md:size-24 object-contain animate-pulse"
+                  priority
+                />
               </div>
 
               <IntegrationCard
