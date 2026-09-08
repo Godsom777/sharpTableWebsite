@@ -6,9 +6,8 @@ import '@fontsource/noto-sans/600.css';
 import '@/app/globals.css';
 
 export const metadata: Metadata = {
-  title: 'SharpTable — Restaurant Operating System for Nigerian Restaurants',
-  description: 'SharpTable is a restaurant OS for multi-branch Nigerian restaurants. Manage QR ordering, kitchen sync, split payments, staff oversight, and inventory — from one platform.',
-  keywords: ['restaurant management software Nigeria', 'restaurant POS Nigeria', 'QR ordering Nigeria', 'hospitality software Lagos'],
+  title: 'SharpTable — Operating System for Nigerian Restaurants & Hotels',
+  description: 'SharpTable is an operating system for multi-branch Nigerian restaurants and hotels. Manage omnichannel ordering, kitchen sync, split payments, staff oversight, room ledgers, and recipe inventory.',
   icons: {
     icon: '/assets/logos/favIcon.png',
   },

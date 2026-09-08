@@ -1,12 +1,18 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import { Warp } from "@paper-design/shaders-react"
+import { motion, AnimatePresence } from "framer-motion"
+import Link from "next/link"
 
 export interface Feature {
   title: string
   description: string
   icon: React.ReactNode
+  subtitle?: string
+  highlights?: string[]
+  metric?: string
+  metricLabel?: string
 }
 
 const defaultFeatures: Feature[] = [
@@ -14,6 +20,15 @@ const defaultFeatures: Feature[] = [
     title: "Strict Void & Fraud Tracking",
     description:
       "Every cancellation, discount, and table void is recorded in an immutable ledger so backroom theft and suspicious cashier trends are exposed immediately.",
+    subtitle: "Eradicate cashier slippage and unauthorized table cancellations.",
+    highlights: [
+      "Manager PIN or supervisor sign-off required for post-print voids",
+      "Real-time alerts triggered when cancellation or discount thresholds are crossed",
+      "Tamper-proof audit ledger with permanent timestamps and staff IDs",
+      "Automatic shift reconciliation comparing kitchen prints against payments captured",
+    ],
+    metric: "100% Traceable",
+    metricLabel: "Every cancellation carries operator ID & timestamp",
     icon: (
       <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
@@ -29,6 +44,15 @@ const defaultFeatures: Feature[] = [
     title: "Live Mobile Command & KDS",
     description:
       "Update 86'd items, adjust pricing on the fly, and route tickets cleanly to kitchen display screens in real time straight from your phone.",
+    subtitle: "Synchronize floor servers, bartenders, and kitchen line in milliseconds.",
+    highlights: [
+      "Instant 86-item toggle immediately reflects across all POS and digital menus",
+      "Color-coded kitchen ticket timers (green < 10m, yellow 10-15m, red > 20m)",
+      "Smart split-routing: grill, hot line, pantry, and bar receive segregated orders",
+      "Offline cache preserves kitchen sync during network hiccups",
+    ],
+    metric: "< 2.5s Sync",
+    metricLabel: "From server tap to kitchen display screen",
     icon: (
       <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
@@ -44,6 +68,15 @@ const defaultFeatures: Feature[] = [
     title: "Direct WhatsApp Ordering",
     description:
       "Provide guests with an instant WhatsApp menu and ordering flow that delivers direct kitchen tickets while cutting out 3rd-party aggregator commissions.",
+    subtitle: "Turn customer WhatsApp chats into paid kitchen orders.",
+    highlights: [
+      "Automated interactive catalog delivered directly in customer chat thread",
+      "Direct Paystack integration with automated receipt and confirmation ping",
+      "Tickets route cleanly into kitchen display with delivery/table metadata",
+      "0% 3rd-party platform commission — keep 100% of customer spend",
+    ],
+    metric: "0% Commission",
+    metricLabel: "Direct customer relationship with zero aggregator cut",
     icon: (
       <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
@@ -59,6 +92,15 @@ const defaultFeatures: Feature[] = [
     title: "Dynamic Inventory Velocity",
     description:
       "Recipe-level ingredient tracking synchronizes automatic stock deductions with incoming orders to highlight portion bleeding before shift end.",
+    subtitle: "Portion control and real-time stock depletion by recipe.",
+    highlights: [
+      "Automatic gram/milliliter ingredient deduction with each menu order sold",
+      "Low-stock alerts before prime cuts, seafood, or premium spirits run out",
+      "Variance report compares physical closing stock against theoretical consumption",
+      "Supplier cost tracking highlights margin erosion as commodity prices fluctuate",
+    ],
+    metric: "Gram-Level",
+    metricLabel: "Recipe ingredient depletion tied to bill settlements",
     icon: (
       <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
@@ -74,6 +116,15 @@ const defaultFeatures: Feature[] = [
     title: "Cross-Branch Multi-Location",
     description:
       "Monitor sales velocity, food costs, and shift profitability across all locations from a single unified executive dashboard.",
+    subtitle: "Executive command of 2 to 20+ venues from a single screen.",
+    highlights: [
+      "Live consolidated sales, revenue run-rates, and profit margins by location",
+      "Central menu control with customizable branch-level pricing and tax rules",
+      "Stock transfer logs between venues with sender/receiver sign-off",
+      "Standardized operational reporting without manual spreadsheet consolidation",
+    ],
+    metric: "Unified View",
+    metricLabel: "All branches compared side-by-side in real time",
     icon: (
       <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
@@ -89,6 +140,15 @@ const defaultFeatures: Feature[] = [
     title: "Granular Role Architecture",
     description:
       "Give managers, floor staff, cashiers, and accountants exact scoped permissions without ever exposing core financial figures or master settings.",
+    subtitle: "Protect financial secrets and eliminate operational vulnerability.",
+    highlights: [
+      "Cashiers access only active guest tabs and payment settlement screens",
+      "Floor captains can transfer tables and combine bills with audit records",
+      "Inventory staff log deliveries and waste without viewing executive revenue",
+      "Owners retain complete master authority, bank payout routing, and audit logs",
+    ],
+    metric: "Scoped Access",
+    metricLabel: "Zero unnecessary financial exposure to floor staff",
     icon: (
       <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
@@ -115,6 +175,8 @@ export default function FeaturesCards({
   subtitle = "Every capability is designed to stop revenue leaks, streamline service flow, and give restaurant owners total operational certainty.",
   badge = "Core Capabilities",
 }: FeaturesCardsProps) {
+  const [selectedFeature, setSelectedFeature] = useState<Feature | null>(null)
+
   const getShaderConfig = (index: number) => {
     const configs = [
       {
@@ -141,61 +203,60 @@ export default function FeaturesCards({
         proportion: 0.35,
         softness: 0.9,
         distortion: 0.18,
-        swirl: 0.7,
+        swirl: 0.75,
         swirlIterations: 10,
-        shape: "checks" as const,
+        shape: "edge" as const,
         shapeScale: 0.1,
-        colors: ["hsl(120, 100%, 25%)", "hsl(140, 100%, 60%)", "hsl(100, 90%, 30%)", "hsl(130, 100%, 70%)"],
+        colors: ["hsl(45, 100%, 35%)", "hsl(35, 100%, 55%)", "hsl(25, 95%, 45%)", "hsl(50, 100%, 65%)"],
       },
       {
         proportion: 0.45,
         softness: 1.1,
         distortion: 0.22,
-        swirl: 0.8,
-        swirlIterations: 15,
-        shape: "edge" as const,
-        shapeScale: 0.09,
-        colors: ["hsl(30, 100%, 35%)", "hsl(50, 100%, 65%)", "hsl(40, 90%, 40%)", "hsl(45, 100%, 75%)"],
-      },
-      {
-        proportion: 0.38,
-        softness: 0.95,
-        distortion: 0.16,
         swirl: 0.85,
         swirlIterations: 11,
-        shape: "checks" as const,
-        shapeScale: 0.11,
-        colors: ["hsl(250, 100%, 30%)", "hsl(270, 100%, 65%)", "hsl(260, 90%, 35%)", "hsl(265, 100%, 70%)"],
+        shape: "stripes" as const,
+        shapeScale: 0.09,
+        colors: ["hsl(140, 100%, 25%)", "hsl(160, 100%, 50%)", "hsl(120, 90%, 35%)", "hsl(150, 100%, 65%)"],
       },
       {
-        proportion: 0.42,
+        proportion: 0.3,
+        softness: 0.85,
+        distortion: 0.16,
+        swirl: 0.65,
+        swirlIterations: 9,
+        shape: "checks" as const,
+        shapeScale: 0.11,
+        colors: ["hsl(260, 100%, 35%)", "hsl(280, 100%, 60%)", "hsl(240, 90%, 45%)", "hsl(270, 100%, 70%)"],
+      },
+      {
+        proportion: 0.4,
         softness: 1.0,
         distortion: 0.19,
-        swirl: 0.75,
-        swirlIterations: 9,
+        swirl: 0.8,
+        swirlIterations: 10,
         shape: "stripes" as const,
-        shapeScale: 0.13,
-        colors: ["hsl(330, 100%, 30%)", "hsl(350, 100%, 60%)", "hsl(340, 90%, 35%)", "hsl(345, 100%, 75%)"],
+        shapeScale: 0.09,
+        colors: ["hsl(10, 100%, 35%)", "hsl(30, 100%, 60%)", "hsl(350, 90%, 45%)", "hsl(20, 100%, 65%)"],
       },
     ]
     return configs[index % configs.length]
   }
 
   return (
-    <section className="relative py-24 px-4 sm:px-6 lg:px-8 bg-black overflow-hidden">
-      {/* Background ambient gradient glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[300px] bg-purple-500/10 rounded-full blur-[140px] pointer-events-none" />
+    <section className="relative py-24 md:py-32 bg-black overflow-hidden border-t border-white/5">
+      {/* Background ambient lighting */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-amber-500/5 rounded-full blur-[140px]" />
+      </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-16 md:mb-20">
-          {badge && (
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-medium tracking-wide text-zinc-300 mb-6 backdrop-blur-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              {badge}
-            </div>
-          )}
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight mb-6">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16 md:mb-24">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-300 text-xs font-bold uppercase tracking-widest mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+            {badge}
+          </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
             {title}
           </h2>
           <p className="text-lg sm:text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
@@ -209,7 +270,16 @@ export default function FeaturesCards({
             return (
               <div
                 key={index}
-                className="group relative h-[380px] rounded-3xl overflow-hidden border border-white/10 hover:border-white/25 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.8)]"
+                onClick={() => setSelectedFeature(feature)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault()
+                    setSelectedFeature(feature)
+                  }
+                }}
+                className="group relative h-[380px] rounded-3xl overflow-hidden border border-white/10 hover:border-amber-400/40 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.8)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-400/50"
               >
                 {/* Background WebGL Shader */}
                 <div className="absolute inset-0 rounded-3xl overflow-hidden opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
@@ -245,7 +315,7 @@ export default function FeaturesCards({
                     </p>
                   </div>
 
-                  <div className="pt-4 flex items-center text-sm font-semibold text-zinc-300 group-hover:text-white transition-colors">
+                  <div className="pt-4 flex items-center text-sm font-semibold text-amber-300 group-hover:text-white transition-colors">
                     <span className="mr-2">Explore capability</span>
                     <svg
                       className="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform duration-300"
@@ -262,6 +332,109 @@ export default function FeaturesCards({
           })}
         </div>
       </div>
+
+      {/* Interactive Feature Deep-Dive Modal */}
+      <AnimatePresence>
+        {selectedFeature && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedFeature(null)}
+              className="fixed inset-0 bg-black/85 backdrop-blur-md"
+            />
+
+            {/* Modal Card */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="relative w-full max-w-2xl bg-[#0d0d0d] border border-white/15 rounded-3xl p-6 sm:p-8 shadow-2xl z-10 text-white"
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedFeature(null)}
+                className="absolute top-6 right-6 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-neutral-300 hover:text-white transition-colors"
+                aria-label="Close modal"
+              >
+                ✕
+              </button>
+
+              {/* Header */}
+              <div className="flex items-start gap-4 mb-5">
+                <div className="p-3 rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-400">
+                  {selectedFeature.icon}
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold tracking-tight text-white">
+                    {selectedFeature.title}
+                  </h3>
+                  {selectedFeature.subtitle && (
+                    <p className="text-sm text-amber-300/90 font-medium mt-1">
+                      {selectedFeature.subtitle}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* Description */}
+              <p className="text-neutral-300 text-sm sm:text-base leading-relaxed mb-6">
+                {selectedFeature.description}
+              </p>
+
+              {/* Operational Highlights */}
+              {selectedFeature.highlights && selectedFeature.highlights.length > 0 && (
+                <div className="mb-6 bg-white/[0.03] border border-white/10 rounded-2xl p-4 sm:p-5">
+                  <div className="text-xs font-bold uppercase tracking-widest text-neutral-400 mb-3">
+                    Operational Controls & Architecture
+                  </div>
+                  <ul className="space-y-2.5">
+                    {selectedFeature.highlights.map((point, idx) => (
+                      <li key={idx} className="flex items-start gap-2.5 text-sm text-neutral-200">
+                        <span className="text-amber-400 font-bold mt-0.5">✓</span>
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Metric Tag */}
+              {selectedFeature.metric && (
+                <div className="flex items-center justify-between p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 mb-6">
+                  <div>
+                    <div className="text-xs text-neutral-400 font-medium">{selectedFeature.metricLabel}</div>
+                    <div className="text-lg font-extrabold text-amber-300">{selectedFeature.metric}</div>
+                  </div>
+                  <div className="text-xs uppercase tracking-wider text-amber-400 font-bold bg-amber-500/20 px-2.5 py-1 rounded-full">
+                    Active Control
+                  </div>
+                </div>
+              )}
+
+              {/* Modal CTAs */}
+              <div className="flex flex-wrap items-center justify-end gap-3 pt-2 border-t border-white/10">
+                <button
+                  onClick={() => setSelectedFeature(null)}
+                  className="px-5 py-2.5 rounded-full text-sm font-semibold text-neutral-400 hover:text-white transition-colors"
+                >
+                  Close
+                </button>
+                <Link
+                  href="/pricing"
+                  onClick={() => setSelectedFeature(null)}
+                  className="px-6 py-2.5 rounded-full text-sm font-bold bg-white text-black hover:bg-neutral-200 transition-colors"
+                >
+                  See Pricing & Plans
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }

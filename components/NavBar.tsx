@@ -25,9 +25,9 @@ const productLinks = [
 const navLinks = [
   { label: 'Product', href: '#', hasDropdown: true },
   { label: 'Features', href: '/features' },
-  { label: 'Solutions', href: '/for-hotels' },
+  { label: 'Hotels', href: '/for-hotels' },
   { label: 'Pricing', href: '/pricing' },
-  { label: 'Resources', href: '/faq' },
+  { label: 'FAQ', href: '/faq' },
 ];
 
 export const NavBar: React.FC = () => {

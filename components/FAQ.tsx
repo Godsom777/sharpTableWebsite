@@ -68,8 +68,8 @@ const faqs: FAQItem[] = [
   {
     category: 'pricing',
     icon: faCreditCard,
-    question: "How does the pricing work? I see USD but I'm not in the US.",
-    answer: "Prices are displayed in USD for global clarity, but you're billed in your local currency (Nigerian Naira via Paystack). The USD amount converts to the equivalent in Naira at current exchange rates when you subscribe. For example, the Pro plan is approximately N150,000/month and Enterprise is approximately N199,999/month. Enterprise includes up to 4 branches, and each branch above 4 adds N50,000. No surprise charges, no hidden fees - what you see on the pricing page is what you'll pay, converted to Naira at checkout.",
+    question: 'What currency is billed, and how does subscription payment work?',
+    answer: "All plans are billed transparently in Nigerian Naira (NGN) via Paystack: Lite at ₦50,000/month, Pro at ₦99,999/month, and Enterprise at ₦199,999/month (with discounted rates on annual billing). Enterprise includes up to 4 branches, with each branch above 4 adding ₦50,000/month. International and diaspora cards are fully accepted by Paystack with seamless currency conversion. What you see is what you pay — no hidden fees or surprise markups.",
   },
   {
     category: 'pricing',

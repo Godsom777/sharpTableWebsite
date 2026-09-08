@@ -239,9 +239,12 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
           sx={{ mt: 2.5, fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' }, color: 'grey.400', maxWidth: 'md', mx: 'auto', lineHeight: 1.625, fontWeight: 300 }}
         >
           {words.map((word, i) => (
-            <Box component={motion.span} key={i} variants={wordVariants} sx={{ display: 'inline-block', mr: '0.3em' }}>
-              {word}
-            </Box>
+            <React.Fragment key={i}>
+              <Box component={motion.span} variants={wordVariants} sx={{ display: 'inline-block' }}>
+                {word}
+              </Box>
+              {i < words.length - 1 ? ' ' : ''}
+            </React.Fragment>
           ))}
         </Typography>
 

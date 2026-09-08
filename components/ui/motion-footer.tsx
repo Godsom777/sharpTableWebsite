@@ -6,6 +6,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { LegalModal, useLegalModal } from "@/components/LegalModal";
 
 // Register ScrollTrigger safely for React
@@ -264,6 +265,8 @@ export function CinematicFooter({
   const giantTextRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  const isHotelsPage = pathname === '/for-hotels';
 
   // Fallback internal Legal Modal state if handlers are not supplied
   const legalModal = useLegalModal();
@@ -366,10 +369,12 @@ export function CinematicFooter({
                 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-serif footer-text-glow tracking-tight leading-[1.08]"
                 style={{ fontFamily: "var(--font-display, 'DM Serif Display', serif)" }}
               >
-                Run the restaurant.
+                {isHotelsPage ? "Run the hotel." : "Run the restaurant."}
               </h2>
               <p className="text-base sm:text-xl md:text-2xl text-neutral-400 max-w-2xl mx-auto font-normal">
-                We&apos;ll keep the orders together.
+                {isHotelsPage
+                  ? "We'll keep the revenue and operations together."
+                  : "We'll keep the orders together."}
               </p>
             </div>
 
@@ -395,7 +400,7 @@ export function CinematicFooter({
                 
                 <MagneticButton
                   as={Link}
-                  href="#mechanism"
+                  href="/#mechanism"
                   className="footer-glass-pill px-8 md:px-10 py-4 md:py-4.5 rounded-full text-white font-semibold text-sm md:text-base flex items-center gap-3 group"
                 >
                   See how it works

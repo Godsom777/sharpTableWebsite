@@ -312,7 +312,7 @@ export default function SharpTableHero() {
               onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 0 55px rgba(245,158,11,0.42)"; e.currentTarget.style.transform = "translateY(-2px) scale(1.02)"; }}
               onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 30px rgba(245,158,11,0.2)"; e.currentTarget.style.transform = "translateY(0) scale(1)"; }}
               >
-                Start Free Trial
+                Get Started
                 <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M7.5 2.5l4 4-4 4" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </a>
               <a href="https://sharptable.com.ng" style={{

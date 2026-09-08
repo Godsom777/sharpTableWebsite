@@ -207,7 +207,7 @@ const TermsOfServiceContent: React.FC = () => (
       <Typography sx={{ mt: 1.5 }}><Box component="strong" sx={{ color: 'white' }}>Billing Terms:</Box></Typography>
       <Box component="ul" sx={{ listStyleType: 'disc', pl: 3, m: 0, display: 'flex', flexDirection: 'column', gap: 0.5, mt: 1 }}>
         <Box component="li">Subscriptions are billed monthly or annually in advance</Box>
-        <Box component="li">Prices are displayed in USD and processed securely via Paystack</Box>
+        <Box component="li">Prices are displayed in Nigerian Naira (NGN) and processed securely via Paystack</Box>
         <Box component="li">Payment processing is handled securely by Paystack</Box>
         <Box component="li">Annual plans offer up to 35% savings</Box>
         <Box component="li">All payments are non-refundable unless required by law</Box>

@@ -132,7 +132,7 @@ export const FinalCTASection: React.FC = () => {
               component={motion.a}
               whileHover={{ scale: 1.04, borderColor: 'rgba(255,255,255,0.4)' }}
               whileTap={{ scale: 0.97 }}
-              href="#mechanism"
+              href="/#mechanism"
               sx={{
                 color: 'white',
                 px: 5,

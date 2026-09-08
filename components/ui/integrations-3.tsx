@@ -226,7 +226,7 @@ export default function IntegrationsSection() {
                 className="rounded-full px-6 py-5 font-semibold text-white border-white/20 hover:border-white/40 hover:bg-white/5 cursor-pointer"
                 asChild
               >
-                <Link href="#mechanism">See How It Works</Link>
+                <Link href="/#mechanism">See How It Works</Link>
               </Button>
             </div>
           </div>

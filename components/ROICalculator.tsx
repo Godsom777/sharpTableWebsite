@@ -152,8 +152,11 @@ export const ROICalculator: React.FC = () => {
             </Box>
 
             <Box sx={{ textAlign: 'center', p: 4, borderRadius: '1.5rem', bgcolor: '#1a1a1a', border: '1px solid rgba(255,255,255,0.1)', mb: 6 }}>
-              <Typography sx={{ color: 'grey.500', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700, mb: 1 }}>Guaranteed ROI</Typography>
+              <Typography sx={{ color: 'grey.500', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700, mb: 1 }}>Projected ROI</Typography>
               <Typography sx={{ fontSize: '4rem', fontWeight: 900, color: 'white', lineHeight: 1 }}>{calculations.roi}%</Typography>
+              <Typography sx={{ color: 'grey.500', fontSize: '0.75rem', mt: 1.5, lineHeight: 1.4 }}>
+                * Based on your inputs — actual results depend on your operation and policy enforcement.
+              </Typography>
             </Box>
 
             <Box

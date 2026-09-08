@@ -1,6 +1,12 @@
 
+import type { Metadata } from 'next';
 import { PageHeader } from '@/components/PageHeader';
 import { FAQ } from '@/components/FAQ';
+
+export const metadata: Metadata = {
+  title: 'FAQ — SharpTable Restaurant & Hotel Operations',
+  description: 'Answers to common questions about SharpTable: offline support, billing in Naira, multi-branch setup, hardware compatibility, and operational security.',
+};
 
 // Abstract symbols subtly related to "questions" / answers / knowledge / clarity
 const faqSymbols = [

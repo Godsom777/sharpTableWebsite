@@ -61,7 +61,7 @@ export const PricingAnchor: React.FC = () => {
               }
             }}
           >
-            Start Free Trial
+            See Pricing & Plans
             <Box sx={{ bgcolor: 'black', color: '#C9A84C', width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <FontAwesomeIcon icon={faArrowRight} style={{ width: 12, height: 12 }} />
             </Box>

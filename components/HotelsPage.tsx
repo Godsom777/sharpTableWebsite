@@ -172,7 +172,7 @@ export const HotelsPage: React.FC = () => {
                   sx={{ bgcolor: 'white', color: 'black', borderRadius: '999px', px: 3, py: 1.4, fontWeight: 800, textTransform: 'none', '&:hover': { bgcolor: 'grey.200' } }}
                   endIcon={<FontAwesomeIcon icon={faArrowRight} style={{ width: 14, height: 14 }} />}
                 >
-                  Start Free Trial
+                  See Pricing
                 </Button>
                 <Button
                   href="mailto:info@sharptable.com.ng"
