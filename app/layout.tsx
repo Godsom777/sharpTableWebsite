@@ -14,6 +14,10 @@ export const metadata: Metadata = {
   other: {
     'facebook-domain-verification': '486kokhn3pbbbp9fwp9fxo8jin5ff5',
   },
+
+  verification: {
+    google: 'google9fba54373eea274e',
+  },
 };
 
 export default function RootLayout({
@@ -33,7 +37,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
         <meta name="theme-color" content="#000000" />
-        
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
