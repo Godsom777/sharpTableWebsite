@@ -20,54 +20,19 @@ interface Testimonial {
   tag?: string;
 }
 
+// Single featured, client-approved customer story.
+// NOTE: the "+42% weekend revenue" stat is intentionally left out until the
+// client confirms it can be published.
 const testimonialsData: Testimonial[] = [
-  {
-    quote: "With five locations running simultaneously, stopping staff theft and stabilizing our supply chain used to be exhausting. SharpTable handed us total visibility in weeks.",
-    author: "David O.",
-    role: "CEO",
-    restaurant: "Grill House",
-    location: "Lekki, Lagos",
-    rating: 5,
-    metric: "₦3.2M",
-    metricLabel: "saved & recovered in first 3 months",
-    verified: false,
-    tag: "Shared with permission · Anonymized"
-  },
-  {
-    quote: "Slow turnarounds and messy handoffs were destroying our dinner service. This system changed our entire kitchen rhythm overnight, making everything feel effortless.",
-    author: "Amara K.",
-    role: "Operations Director",
-    restaurant: "Big Joe's Diner",
-    location: "Victoria Island, Lagos",
-    rating: 5,
-    metric: "10 min",
-    metricLabel: "to streamline table service",
-    verified: false,
-    tag: "Shared with permission · Anonymized"
-  },
-  {
-    quote: "No guessing on inventory, no wondering about voids. It gives us the exact confidence we require to elegantly manage and scale our operations.",
-    author: "Michael T.",
-    role: "Owner",
-    restaurant: "Urban Kitchen Group",
-    location: "Ikeja, Lagos",
-    rating: 5,
-    metric: "3",
-    metricLabel: "branches optimized on one screen",
-    verified: false,
-    tag: "Shared with permission · Anonymized"
-  },
   {
     quote: "Since we integrated SharpTable, our bar and grill operations have transformed. The direct-to-kitchen routing practically eliminated order errors, and the turnaround time keeps customers ordering more.",
     author: "Mr. Uzochukwu",
     role: "Owner",
     restaurant: "Old English Bar and Grills",
-    location: "Owerri, Imo State",
+    location: "Owerri",
     rating: 5,
-    metric: "+42%",
-    metricLabel: "increase in weekend revenue",
     verified: true,
-    tag: "Verified Client Partner"
+    tag: "Verified customer"
   }
 ];
 
@@ -163,7 +128,7 @@ export const Testimonials: React.FC = () => {
           <Box sx={{ maxWidth: '3xl' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'grey.300', fontSize: '0.875rem', mb: 2 }}>
               <Box sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: 'white' }} />
-              Feedback
+              Customer story
             </Box>
             <Typography variant="h2" sx={{ fontSize: { xs: '2.5rem', md: '4.5rem', lg: '5.5rem' }, fontWeight: 900, color: 'white', letterSpacing: '-0.04em', lineHeight: 1 }}>
               Real restaurants.
@@ -175,15 +140,12 @@ export const Testimonials: React.FC = () => {
           </Typography>
         </Box>
 
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: { xs: 3, lg: 4 } }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: '1fr', maxWidth: 760 }}>
           {testimonials.map((testimonial, index) => (
             <TestimonialCard key={index} testimonial={testimonial} delay={index * 0.1} />
           ))}
         </Box>
 
-        <Typography sx={{ textAlign: 'center', color: 'grey.600', fontSize: '0.8rem', mt: 6 }}>
-          * Deployment performance verified via SharpTable ledger records. Selected venue brands anonymized upon client request.
-        </Typography>
       </Container>
     </Box>
   );

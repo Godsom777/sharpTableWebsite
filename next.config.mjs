@@ -5,7 +5,7 @@ const nextConfig = {
     unoptimized: true,
   },
   // Transpile MUI packages for App Router compatibility
-  transpilePackages: ['@mui/material', '@mui/icons-material', '@mui/system'],
+  transpilePackages: ['@mui/material', '@mui/system'],
   experimental: {
     optimizeCss: false, // Stops CSS from being inlined into one minified line
   },

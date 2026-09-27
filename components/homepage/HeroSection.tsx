@@ -43,7 +43,7 @@ const branches = [
    ---------------------------------------------------------------- */
 const BranchCard: React.FC<{ branch: (typeof branches)[0]; index: number }> = ({ branch, index }) => (
   <motion.div
-    initial={{ opacity: 0, y: 15 }}
+    initial={{ opacity: 1, y: 8 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay: 0.4 + index * 0.1, ease: [0.22, 1, 0.36, 1] }}
   >
@@ -147,7 +147,7 @@ const DashboardContent: React.FC = () => (
    ---------------------------------------------------------------- */
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 1, y: 12 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
@@ -159,7 +159,7 @@ export const HeroSection: React.FC = () => {
   return (
     <section
       id="hero"
-      className="relative overflow-hidden"
+      className="relative overflow-hidden pt-16 md:pt-0"
       style={{ background: 'var(--color-bg)' }}
     >
       {/* Subtle warm gradient wash */}
@@ -185,7 +185,7 @@ export const HeroSection: React.FC = () => {
                 className="editorial-label mb-4 inline-block"
                 style={{ color: 'var(--color-accent)' }}
               >
-                Restaurant Operating System
+                For restaurants, bars, lounges and hotels
               </span>
             </motion.div>
 
@@ -219,13 +219,13 @@ export const HeroSection: React.FC = () => {
               animate="visible"
             >
               <p
-                className="text-lg md:text-xl mx-auto mb-8 max-w-md"
+                className="text-lg md:text-xl mx-auto mb-8 max-w-2xl"
                 style={{
                   color: 'var(--color-text-secondary)',
                   lineHeight: 1.6,
                 }}
               >
-                You can&apos;t be everywhere. SharpTable can.
+                Guests order and pay from their table. Your kitchen only cooks paid orders. You see every sale, void and discount from your phone, at every branch.
               </p>
             </motion.div>
 
@@ -240,21 +240,21 @@ export const HeroSection: React.FC = () => {
                 <motion.a
                   whileHover={{ scale: 1.03, boxShadow: '0 8px 24px rgba(245,158,11,0.25)' }}
                   whileTap={{ scale: 0.97 }}
-                  href="#mechanism"
+                  href="/pricing"
                   className="inline-flex items-center px-7 py-3.5 rounded-full font-bold text-sm text-black cursor-pointer transition-colors"
                   style={{
                     backgroundColor: 'var(--color-accent)',
                   }}
                 >
-                  See how it works
+                  Get started
                 </motion.a>
                 <motion.a
                   whileHover={{ scale: 1.03, borderColor: 'rgba(255,255,255,0.4)' }}
                   whileTap={{ scale: 0.97 }}
-                  href="/pricing"
+                  href="#mechanism"
                   className="inline-flex items-center px-7 py-3.5 rounded-full font-semibold text-sm text-white border border-white/20 cursor-pointer transition-colors hover:border-white/40 hover:bg-white/[0.04]"
                 >
-                  Get started
+                  See how it works
                 </motion.a>
               </div>
             </motion.div>

@@ -5,30 +5,37 @@ import FeaturesCards from '@/components/ui/feature-shader-cards';
 import IntegrationsSection from '@/components/ui/integrations-3';
 import { WhatsAppDemoSection } from '@/components/homepage/WhatsAppDemoSection';
 import { CredibilitySection } from '@/components/homepage/CredibilitySection';
+import { PricingAnchor } from '@/components/PricingAnchor';
 
+// Section order follows the UI/UX copy doc (sharptable-copy-v1.md, section 1):
+// problem -> fix -> proof -> price, with integrations as a detail after pricing.
+// The closing call to action lives in the site footer (components/ui/motion-footer.tsx).
 export default function HomePage() {
   return (
     <>
       {/* 1. Hero — "Every naira. Every branch. Every shift." */}
       <HeroSection />
 
-      {/* 2. The Fourth Set of Eyes — Accountability / Auditor */}
+      {/* 2. Accountability — "a fourth set of eyes" */}
       <FourthSetOfEyesSection />
 
-      {/* 3. The Mechanism — "Orders have a way of coming from everywhere." + MorphText */}
+      {/* 3. How orders come in (Mechanism) */}
       <MechanismSection />
 
-      {/* 4. Core Platform Features with Shader Cards */}
+      {/* 4. Features (six cards) */}
       <FeaturesCards />
 
-      {/* 5. Connected Operations Hub (Integrations) */}
-      <IntegrationsSection />
-
-      {/* 6. WhatsApp Demo — phone mockup + dashboard flow */}
+      {/* 5. WhatsApp ordering demo */}
       <WhatsAppDemoSection />
 
-      {/* 7. Credibility — restyled testimonials */}
+      {/* 6. Proof — Old English Bar and Grills */}
       <CredibilitySection />
+
+      {/* 7. Pricing */}
+      <PricingAnchor />
+
+      {/* 8. Integrations */}
+      <IntegrationsSection />
     </>
   );
 }

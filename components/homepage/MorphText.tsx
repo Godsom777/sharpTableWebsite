@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { motion, AnimatePresence, useInView, useReducedMotion } from 'framer-motion';
 import { Box } from '@mui/material';
 
 interface MorphTextProps {
@@ -37,9 +37,18 @@ export const MorphText: React.FC<MorphTextProps> = ({
   const [hasStarted, setHasStarted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const prefersReducedMotion = useReducedMotion();
 
   const allWords = [...words, finalWord];
   const isLastWord = currentIndex === allWords.length - 1;
+
+  // Reduced motion: skip the cycling and show the final word straight away
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setCurrentIndex(allWords.length - 1);
+      setHasFinished(true);
+    }
+  }, [prefersReducedMotion, allWords.length]);
 
   // Start the sequence when the element scrolls into view
   useEffect(() => {
@@ -74,7 +83,8 @@ export const MorphText: React.FC<MorphTextProps> = ({
         ...sx,
       }}
     >
-      <AnimatePresence mode="wait">
+      {/* initial={false}: the first word is visible in the server HTML, no blank gap before JS runs */}
+      <AnimatePresence mode="wait" initial={false}>
         <motion.span
           key={allWords[currentIndex]}
           initial={{ opacity: 0, y: 16, filter: 'blur(3px)' }}

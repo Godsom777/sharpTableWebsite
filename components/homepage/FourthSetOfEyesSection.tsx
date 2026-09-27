@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Box, Container, Typography } from '@mui/material';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 1, y: 12 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
@@ -18,10 +18,10 @@ const fadeUp = {
    ---------------------------------------------------------------- */
 
 const auditEntries = [
-  { time: '8:42 PM', action: 'Void override', staff: 'Chidera M.', branch: 'Lekki', type: 'alert' },
-  { time: '8:38 PM', action: 'Comp order #1094', staff: 'Amara K.', branch: 'V/Island', type: 'comp' },
-  { time: '8:31 PM', action: 'Price edit: Chicken & Chips', staff: 'David O.', branch: 'Ikeja', type: 'edit' },
-  { time: '8:24 PM', action: 'Stock adjustment: Cooking Oil', staff: 'Michael T.', branch: 'Lekki', type: 'edit' },
+  { time: '8:42 PM', action: 'Void override', staff: 'Tunde A.', branch: 'Lekki', type: 'alert' },
+  { time: '8:38 PM', action: 'Comp order #1094', staff: 'Ngozi E.', branch: 'V/Island', type: 'comp' },
+  { time: '8:31 PM', action: 'Price edit: Chicken & Chips', staff: 'Samuel B.', branch: 'Ikeja', type: 'edit' },
+  { time: '8:24 PM', action: 'Stock adjustment: Cooking Oil', staff: 'Bola F.', branch: 'Lekki', type: 'edit' },
 ];
 
 const AuditDashboard: React.FC = () => (
@@ -84,7 +84,7 @@ const AuditDashboard: React.FC = () => (
     {auditEntries.map((entry, i) => (
       <motion.div
         key={i}
-        initial={{ opacity: 0, x: -10 }}
+        initial={{ opacity: 1, x: -6 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.2 + i * 0.1, duration: 0.4 }}
@@ -202,7 +202,7 @@ export const FourthSetOfEyesSection: React.FC = () => {
                   mb: 3,
                 }}
               >
-                Every branch has a Marshall, a Chef, a manager.
+                Every branch has a marshal, a chef and a manager.
               </Typography>
             </motion.div>
 
@@ -222,7 +222,7 @@ export const FourthSetOfEyesSection: React.FC = () => {
                   lineHeight: 1.2,
                 }}
               >
-                SharpTable adds a fourth — one that answers only to the numbers.
+                SharpTable is the fourth person in the room, and it only answers to the numbers.
               </Typography>
             </motion.div>
 
@@ -241,9 +241,7 @@ export const FourthSetOfEyesSection: React.FC = () => {
                   letterSpacing: '-0.01em',
                 }}
               >
-                Every edit. Every comp. Every void.
-                <br />
-                Logged automatically, by branch.
+                Every edit, free item and cancelled order is recorded automatically, with the staff name, the table and the time.
               </Typography>
             </motion.div>
           </Box>

@@ -1,73 +1,66 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Box, Container, Typography, Button } from '@mui/material';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { BASE_PRICES_NGN } from '../contexts/PaymentContext';
 
+const formatNaira = (amount: number) =>
+  new Intl.NumberFormat('en-NG', {
+    style: 'currency',
+    currency: 'NGN',
+    maximumFractionDigits: 0,
+  }).format(amount);
+
+/**
+ * Homepage pricing block.
+ * The "from" price is read from BASE_PRICES_NGN so it can never disagree with checkout.
+ */
 export const PricingAnchor: React.FC = () => {
+  const fromPrice = formatNaira(Math.min(BASE_PRICES_NGN.lite, BASE_PRICES_NGN.pro, BASE_PRICES_NGN.enterprise));
+
   return (
-    <Box component="section" sx={{ py: { xs: 12, md: 24 }, bgcolor: '#000000', position: 'relative', overflow: 'hidden', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-      {/* Dramatic background gradient */}
-      <Box sx={{ position: 'absolute', top: '50%', left: '50%', width: '150%', height: '150%', transform: 'translate(-50%, -50%)', background: 'radial-gradient(circle, rgba(201,168,76,0.08) 0%, rgba(0,0,0,1) 60%)', zIndex: 0, pointerEvents: 'none' }} />
-      
-      <Container maxWidth="md" sx={{ textAlign: 'center', px: { xs: 3, md: 4 }, position: 'relative', zIndex: 1 }}>
-        <Box
-          component={motion.div}
-          initial={{ opacity: 0, y: 40, scale: 0.95 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+    <section
+      id="pricing-anchor"
+      className="section-padding relative overflow-hidden"
+      style={{ borderTop: '1px solid var(--color-border)' }}
+    >
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(245,158,11,0.06) 0%, transparent 60%)' }}
+      />
+      <motion.div
+        initial={{ opacity: 1, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="relative z-10 max-w-3xl mx-auto px-6 text-center"
+      >
+        <span className="editorial-label mb-4 inline-block" style={{ color: 'var(--color-accent)' }}>
+          Pricing
+        </span>
+        <h2
+          className="display-serif text-white mb-6"
+          style={{ fontSize: 'clamp(2.25rem, 5vw, 4rem)', lineHeight: 1.1 }}
         >
-          <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, borderRadius: '9999px', border: '1px solid rgba(201,168,76,0.3)', bgcolor: 'rgba(201,168,76,0.05)', px: 2, py: 1, color: '#C9A84C', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', mb: 4 }}>
-            <Box sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: '#C9A84C' }} />
-            One Simple Plan
-          </Box>
-
-          <Typography variant="h2" sx={{ fontSize: { xs: '3rem', md: '5.5rem' }, fontWeight: 900, color: 'white', letterSpacing: '-0.04em', mb: 2, lineHeight: 1 }}>
-            Transparent pricing.<br />
-            <Box component="span" sx={{ color: '#C9A84C' }}>No surprises.</Box>
-          </Typography>
-
-          <Typography sx={{ color: 'white', fontSize: { xs: '1.5rem', md: '2.5rem' }, fontWeight: 900, mb: 4, letterSpacing: '-0.02em', mt: 4 }}>
-            Starting at ₦49,999 <Box component="span" sx={{ fontSize: '1.25rem', color: 'grey.500', fontWeight: 600 }}>/ month</Box>
-          </Typography>
-
-          <Typography sx={{ color: 'grey.400', fontSize: { xs: '1rem', md: '1.125rem' }, lineHeight: 1.6, mb: 8, mx: 'auto', maxWidth: '500px' }}>
-            For a single branch. Includes QR ordering, kitchen sync, split payments, and staff oversight. No hidden fees. Cancel anytime.
-          </Typography>
-
-          <Button
-            component={motion.button}
-            onClick={() => window.location.href = '/pricing'}
-            whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(201,168,76,0.3)' }}
-            whileTap={{ scale: 0.95 }}
-            sx={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 2,
-              borderRadius: '9999px',
-              background: 'linear-gradient(135deg, #C9A84C 0%, #A68A3D 100%)',
-              color: 'black',
-              px: 6,
-              py: 2.5,
-              fontWeight: 800,
-              fontSize: '1.125rem',
-              border: 'none',
-              textTransform: 'none',
-              '&:hover': {
-                background: 'linear-gradient(135deg, #D4B661 0%, #C9A84C 100%)',
-              }
-            }}
-          >
-            See Pricing & Plans
-            <Box sx={{ bgcolor: 'black', color: '#C9A84C', width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <FontAwesomeIcon icon={faArrowRight} style={{ width: 12, height: 12 }} />
-            </Box>
-          </Button>
-        </Box>
-      </Container>
-    </Box>
+          Simple monthly plans
+        </h2>
+        <p className="text-white font-extrabold tracking-tight mb-4" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.25rem)' }}>
+          Plans from {fromPrice}/month
+        </p>
+        <p className="mx-auto mb-10 max-w-xl text-base md:text-lg" style={{ color: 'var(--color-text-secondary)', lineHeight: 1.6 }}>
+          One flat price, whatever your sales. No commission on orders, no hidden fees, cancel anytime.
+        </p>
+        <Link
+          href="/pricing"
+          className="inline-flex items-center px-7 py-3.5 rounded-full font-bold text-sm text-black transition-transform hover:scale-[1.03]"
+          style={{ backgroundColor: 'var(--color-accent)' }}
+        >
+          See all plans
+        </Link>
+      </motion.div>
+    </section>
   );
 };
+
+export default PricingAnchor;

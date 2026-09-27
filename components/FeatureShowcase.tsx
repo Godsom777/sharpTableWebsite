@@ -5,7 +5,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { Box, Container, Typography } from '@mui/material';
-import Lottie from 'lottie-react';
+import dynamic from 'next/dynamic';
+
+// Lottie is heavy and decorative: load it on the client after first paint.
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 import ChatBubblesAnimation from '../public/assets/3d_services/Chat Bubbles.json';
 import StatsGoingUpAnimation from '../public/assets/3d_services/Stats Going Up.json';
 import QrCodeAnimation from '../public/assets/3d_services/qrcode.json';

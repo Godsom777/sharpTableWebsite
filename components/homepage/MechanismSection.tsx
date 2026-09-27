@@ -6,7 +6,7 @@ import { Box, Container, Typography } from '@mui/material';
 import { MorphText } from './MorphText';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 1, y: 12 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
@@ -100,7 +100,7 @@ const OrderDashboard: React.FC = () => (
     {orders.map((order, i) => (
       <motion.div
         key={order.id}
-        initial={{ opacity: 0, x: 10 }}
+        initial={{ opacity: 1, x: 6 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.15 + i * 0.08, duration: 0.4 }}
@@ -229,7 +229,7 @@ export const MechanismSection: React.FC = () => {
                 className="editorial-label"
                 sx={{ mb: 2.5, color: 'var(--color-accent)' }}
               >
-                The Mechanism
+                How it works
               </Typography>
             </motion.div>
 
@@ -249,7 +249,7 @@ export const MechanismSection: React.FC = () => {
                   lineHeight: 1.15,
                 }}
               >
-                Orders have a way of coming from everywhere.
+                Orders come from tables, WhatsApp and walk-ins.
               </Typography>
             </motion.div>
 
@@ -289,7 +289,7 @@ export const MechanismSection: React.FC = () => {
                   lineHeight: 1.6,
                 }}
               >
-                SharpTable brings them back to one table — at every branch.
+                SharpTable puts them all on one screen for your kitchen, at every branch.
               </Typography>
             </motion.div>
           </Box>

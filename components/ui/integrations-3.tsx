@@ -186,7 +186,7 @@ export default function IntegrationsSection() {
 
           {/* Right: Dynamic Info Panel */}
           <div className="mx-auto max-w-lg space-y-6 text-center lg:text-left">
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={currentDetail.id}
                 initial={{ opacity: 0, y: 8 }}

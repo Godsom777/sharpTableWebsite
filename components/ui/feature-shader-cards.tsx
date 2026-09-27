@@ -1,9 +1,21 @@
 "use client"
 
 import React, { useState } from "react"
-import { Warp } from "@paper-design/shaders-react"
-import { motion, AnimatePresence } from "framer-motion"
+import dynamic from "next/dynamic"
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
 import Link from "next/link"
+
+// The WebGL shader is purely decorative, so load it after first paint and only in the browser.
+// Until it arrives the card shows a static dark gradient, and the text is readable either way.
+const Warp = dynamic(
+  () => import("@paper-design/shaders-react").then((m) => m.Warp),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-full w-full bg-gradient-to-br from-zinc-800 via-zinc-900 to-black" />
+    ),
+  }
+)
 
 export interface Feature {
   title: string
@@ -17,10 +29,10 @@ export interface Feature {
 
 const defaultFeatures: Feature[] = [
   {
-    title: "Strict Void & Fraud Tracking",
+    title: "Stop cancelled-bill theft",
     description:
-      "Every cancellation, discount, and table void is recorded in an immutable ledger so backroom theft and suspicious cashier trends are exposed immediately.",
-    subtitle: "Eradicate cashier slippage and unauthorized table cancellations.",
+      "Every cancelled bill, discount and voided table is recorded with who did it and when. Voids after printing need a manager's PIN.",
+    subtitle: "Stop cashier slippage and unauthorised table cancellations.",
     highlights: [
       "Manager PIN or supervisor sign-off required for post-print voids",
       "Real-time alerts triggered when cancellation or discount thresholds are crossed",
@@ -41,12 +53,12 @@ const defaultFeatures: Feature[] = [
     ),
   },
   {
-    title: "Live Mobile Command & KDS",
+    title: "Run the kitchen from your phone",
     description:
-      "Update 86'd items, adjust pricing on the fly, and route tickets cleanly to kitchen display screens in real time straight from your phone.",
-    subtitle: "Synchronize floor servers, bartenders, and kitchen line in milliseconds.",
+      "Mark dishes as sold out, change prices and send orders to the right kitchen screen instantly, from your phone.",
+    subtitle: "Keep floor staff, bartenders and the kitchen line in sync.",
     highlights: [
-      "Instant 86-item toggle immediately reflects across all POS and digital menus",
+      "Mark a dish sold out and it disappears from every menu instantly",
       "Color-coded kitchen ticket timers (green < 10m, yellow 10-15m, red > 20m)",
       "Smart split-routing: grill, hot line, pantry, and bar receive segregated orders",
       "Offline cache preserves kitchen sync during network hiccups",
@@ -65,9 +77,9 @@ const defaultFeatures: Feature[] = [
     ),
   },
   {
-    title: "Direct WhatsApp Ordering",
+    title: "Take paid orders on WhatsApp",
     description:
-      "Provide guests with an instant WhatsApp menu and ordering flow that delivers direct kitchen tickets while cutting out 3rd-party aggregator commissions.",
+      "Customers order and pay inside WhatsApp, and the order goes straight to your kitchen. No delivery-app commission.",
     subtitle: "Turn customer WhatsApp chats into paid kitchen orders.",
     highlights: [
       "Automated interactive catalog delivered directly in customer chat thread",
@@ -89,9 +101,9 @@ const defaultFeatures: Feature[] = [
     ),
   },
   {
-    title: "Dynamic Inventory Velocity",
+    title: "Know where your stock goes",
     description:
-      "Recipe-level ingredient tracking synchronizes automatic stock deductions with incoming orders to highlight portion bleeding before shift end.",
+      "Ingredients are deducted as each dish sells, so you see low stock before it runs out and spot over-portioning before the shift ends.",
     subtitle: "Portion control and real-time stock depletion by recipe.",
     highlights: [
       "Automatic gram/milliliter ingredient deduction with each menu order sold",
@@ -113,10 +125,10 @@ const defaultFeatures: Feature[] = [
     ),
   },
   {
-    title: "Cross-Branch Multi-Location",
+    title: "See every branch at once",
     description:
-      "Monitor sales velocity, food costs, and shift profitability across all locations from a single unified executive dashboard.",
-    subtitle: "Executive command of 2 to 20+ venues from a single screen.",
+      "Compare sales, costs and profit across all your branches on one screen, without waiting for anyone's report.",
+    subtitle: "Every branch on one screen",
     highlights: [
       "Live consolidated sales, revenue run-rates, and profit margins by location",
       "Central menu control with customizable branch-level pricing and tax rules",
@@ -137,9 +149,9 @@ const defaultFeatures: Feature[] = [
     ),
   },
   {
-    title: "Granular Role Architecture",
+    title: "Give each staff member the right access",
     description:
-      "Give managers, floor staff, cashiers, and accountants exact scoped permissions without ever exposing core financial figures or master settings.",
+      "Cashiers, waiters, managers and accountants each see only what they need. Only you see revenue, payouts and settings.",
     subtitle: "Protect financial secrets and eliminate operational vulnerability.",
     highlights: [
       "Cashiers access only active guest tabs and payment settlement screens",
@@ -171,11 +183,12 @@ interface FeaturesCardsProps {
 
 export default function FeaturesCards({
   features = defaultFeatures,
-  title = "Engineered For Absolute Hospitality Control",
-  subtitle = "Every capability is designed to stop revenue leaks, streamline service flow, and give restaurant owners total operational certainty.",
+  title = "Everything you need to run the floor, the kitchen and the till",
+  subtitle = "Built to stop money going missing, keep service moving, and show you exactly what happened on every shift.",
   badge = "Core Capabilities",
 }: FeaturesCardsProps) {
   const [selectedFeature, setSelectedFeature] = useState<Feature | null>(null)
+  const prefersReducedMotion = useReducedMotion()
 
   const getShaderConfig = (index: number) => {
     const configs = [
@@ -294,7 +307,7 @@ export default function FeaturesCards({
                     shapeScale={shaderConfig.shapeScale}
                     scale={1}
                     rotation={0}
-                    speed={0.8}
+                    speed={prefersReducedMotion ? 0 : 0.8}
                     colors={shaderConfig.colors}
                   />
                 </div>

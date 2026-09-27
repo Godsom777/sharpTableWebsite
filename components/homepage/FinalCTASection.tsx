@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Box, Container, Typography, Button } from '@mui/material';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 1, y: 12 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
@@ -15,7 +15,7 @@ const fadeUp = {
 
 /**
  * Final CTA Section
- * "Run the restaurant. We'll keep the orders together."
+ * "See what's really happening at your branches."
  */
 export const FinalCTASection: React.FC = () => {
   return (
@@ -77,7 +77,7 @@ export const FinalCTASection: React.FC = () => {
               lineHeight: 1.1,
             }}
           >
-            Run the restaurant.
+            See what&apos;s really happening at your branches.
           </Typography>
         </motion.div>
 
@@ -96,7 +96,7 @@ export const FinalCTASection: React.FC = () => {
               lineHeight: 1.6,
             }}
           >
-            We&apos;ll keep the orders together.
+            Set up takes about 30 minutes. Your customers don&apos;t need to download anything.
           </Typography>
         </motion.div>
 
@@ -132,7 +132,7 @@ export const FinalCTASection: React.FC = () => {
               component={motion.a}
               whileHover={{ scale: 1.04, borderColor: 'rgba(255,255,255,0.4)' }}
               whileTap={{ scale: 0.97 }}
-              href="/#mechanism"
+              href="mailto:info@sharptable.com.ng"
               sx={{
                 color: 'white',
                 px: 5,
@@ -146,30 +146,11 @@ export const FinalCTASection: React.FC = () => {
                 '&:hover': { borderColor: 'rgba(255,255,255,0.4)', bgcolor: 'rgba(255,255,255,0.04)' },
               }}
             >
-              See how it works
+              Email us: info@sharptable.com.ng
             </Button>
           </Box>
         </motion.div>
 
-        {/* Trust signal */}
-        <motion.div
-          custom={3}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <Typography
-            sx={{
-              fontSize: 'var(--text-sm)',
-              color: 'var(--color-text-muted)',
-              mt: 6,
-              letterSpacing: '0.02em',
-            }}
-          >
-            No setup fees · Cancel anytime · Live in under 24 hours
-          </Typography>
-        </motion.div>
       </Container>
     </Box>
   );

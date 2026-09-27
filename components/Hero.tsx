@@ -56,7 +56,7 @@ export const Hero: React.FC = () => {
         >
           <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, borderRadius: '9999px', border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', px: 2, py: 1, color: 'grey.300', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
             <Box sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: 'white' }} />
-            <Box component="span">Trusted by 50+ restaurants across Nigeria</Box>
+            <Box component="span">For restaurants, bars, lounges and hotels</Box>
           </Box>
         </Box>
 
