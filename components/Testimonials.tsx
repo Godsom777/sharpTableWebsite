@@ -20,9 +20,7 @@ interface Testimonial {
   tag?: string;
 }
 
-// Single featured, client-approved customer story.
-// NOTE: the "+42% weekend revenue" stat is intentionally left out until the
-// client confirms it can be published.
+// Single featured, client-approved customer story (+42% confirmed by Okoro, 27 Sep 2026).
 const testimonialsData: Testimonial[] = [
   {
     quote: "Since we integrated SharpTable, our bar and grill operations have transformed. The direct-to-kitchen routing practically eliminated order errors, and the turnaround time keeps customers ordering more.",
@@ -31,6 +29,8 @@ const testimonialsData: Testimonial[] = [
     restaurant: "Old English Bar and Grills",
     location: "Owerri",
     rating: 5,
+    metric: "+42%",
+    metricLabel: "weekend revenue",
     verified: true,
     tag: "Verified customer"
   }
