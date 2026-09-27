@@ -19,22 +19,53 @@ export const PaymentCallback: React.FC = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const reference = urlParams.get('reference') || urlParams.get('trxref');
-    const storedData = localStorage.getItem('sharptable_pending_subscription');
-    
-    if (storedData) {
-      const data: SubscriptionData = JSON.parse(storedData);
-      setSubscriptionData(data);
-      if (reference) {
-        data.status = 'completed'; data.completedAt = new Date().toISOString(); data.paystackReference = reference;
-        localStorage.setItem('sharptable_subscription', JSON.stringify(data));
-        localStorage.removeItem('sharptable_pending_subscription');
-        setStatus('success');
-      } else {
+    if (!reference) { setStatus('failed'); return; }
+
+    let cancelled = false;
+    let attempts = 0;
+
+    // Only our server can confirm a payment with Paystack. The URL and local
+    // storage are never treated as proof that someone paid.
+    const verify = async () => {
+      attempts += 1;
+      try {
+        const res = await fetch(`/api/payment/verify?reference=${encodeURIComponent(reference)}`, { cache: 'no-store' });
+        const result = await res.json().catch(() => ({ status: 'pending' }));
+        if (cancelled) return;
+
+        if (result.status === 'success') {
+          const stored = localStorage.getItem('sharptable_pending_subscription');
+          const pending: Partial<SubscriptionData> = stored ? JSON.parse(stored) : {};
+          const data: SubscriptionData = {
+            email: pending.email || '',
+            businessName: pending.businessName || '',
+            plan: result.plan || pending.plan || '',
+            planCode: pending.planCode || '',
+            initiatedAt: pending.initiatedAt || '',
+            status: 'completed',
+            completedAt: result.paidAt || new Date().toISOString(),
+            paystackReference: result.reference || reference,
+          };
+          localStorage.removeItem('sharptable_pending_subscription');
+          setSubscriptionData(data);
+          setStatus('success');
+          return;
+        }
+
+        if (result.status === 'pending' && attempts < 6) {
+          setTimeout(verify, 3000);
+          return;
+        }
         setStatus('failed');
+      } catch {
+        if (cancelled) return;
+        if (attempts < 6) setTimeout(verify, 3000);
+        else setStatus('failed');
       }
-    } else {
-      setStatus(reference ? 'success' : 'failed');
-    }
+    };
+
+    verify();
+    return () => { cancelled = true; };
   }, []);
 
   return (
