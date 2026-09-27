@@ -1,43 +1,44 @@
--- check_subscription_status runs as SECURITY DEFINER, so it bypasses row-level
--- security. It was callable by the anon role with any email, which let anyone
--- look up another customer's plan, status and country.
+-- check_subscription_status(user_email text) runs as SECURITY DEFINER, so it
+-- bypasses row-level security. It was callable by the anon role with any email,
+-- which let anyone look up another customer's plan and status.
 --
--- Keep the same signature (other apps on this project may call it), but only
--- return a row for the signed-in user's own email, and remove anon access.
+-- This database is shared with app.sharptable.com.ng and other projects, so the
+-- signature, return columns and query below are kept exactly as they are live
+-- (checked 27 Sep 2026). The only changes are:
+--   1. a caller can only look up their own email (service role can look up any),
+--   2. anon and PUBLIC lose EXECUTE; authenticated and service_role keep it,
+--   3. search_path is pinned, as recommended for SECURITY DEFINER functions.
+-- The separate check_subscription_status(p_tenant_id uuid) is not touched.
 
-CREATE OR REPLACE FUNCTION check_subscription_status(user_email TEXT)
-RETURNS TABLE (
-  has_active_subscription BOOLEAN,
-  plan_type TEXT,
-  status TEXT,
-  country TEXT,
-  next_payment_date TIMESTAMPTZ
-)
-LANGUAGE plpgsql
-SECURITY DEFINER
-SET search_path = public
-AS $$
+BEGIN;
+
+CREATE OR REPLACE FUNCTION public.check_subscription_status(user_email text)
+ RETURNS TABLE(has_active_subscription boolean, plan_type text, status text, next_payment_date timestamp with time zone)
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path = public
+AS $function$
 BEGIN
-  -- The service role (server-side code) may look up any email.
-  IF auth.role() <> 'service_role'
+  IF auth.role() IS DISTINCT FROM 'service_role'
      AND LOWER(COALESCE(auth.jwt() ->> 'email', '')) <> LOWER(COALESCE(user_email, '')) THEN
     RETURN;
   END IF;
 
   RETURN QUERY
   SELECT
-    s.status IN ('active', 'non_renewing') AS has_active_subscription,
+    s.status = 'active' AS has_active_subscription,
     s.plan_type,
     s.status,
-    s.country,
     s.next_payment_date
   FROM subscriptions s
-  WHERE s.email = LOWER(user_email)
+  WHERE LOWER(s.email) = LOWER(user_email)
   LIMIT 1;
 END;
-$$;
+$function$;
 
-REVOKE ALL ON FUNCTION check_subscription_status(TEXT) FROM PUBLIC;
-REVOKE ALL ON FUNCTION check_subscription_status(TEXT) FROM anon;
-GRANT EXECUTE ON FUNCTION check_subscription_status(TEXT) TO authenticated;
-GRANT EXECUTE ON FUNCTION check_subscription_status(TEXT) TO service_role;
+REVOKE ALL ON FUNCTION public.check_subscription_status(text) FROM PUBLIC;
+REVOKE ALL ON FUNCTION public.check_subscription_status(text) FROM anon;
+GRANT EXECUTE ON FUNCTION public.check_subscription_status(text) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.check_subscription_status(text) TO service_role;
+
+COMMIT;
