@@ -9,9 +9,8 @@ const pressable =
   'bg-white/[0.03] border border-white/[0.06] rounded-xl p-4 text-left w-full transition-all duration-300 hover:border-white/[0.12] hover:bg-white/[0.05] hover:-translate-y-0.5 active:border-amber-400/70 active:bg-white/[0.08] active:scale-[0.99]';
 
 function stepFromProgress(value: number) {
-  if (value >= 0.75) return 3;
-  if (value >= 0.5) return 2;
-  if (value >= 0.25) return 1;
+  if (value >= 2 / 3) return 2;
+  if (value >= 1 / 3) return 1;
   return 0;
 }
 
@@ -35,30 +34,19 @@ const BranchRows: React.FC = () => (
 const screens = [
   function WhatsAppOrder() {
     return (
-      <div>
-        <div className="text-[0.7rem] font-semibold text-gray-500 tracking-[0.1em] uppercase mb-3">
-          WhatsApp order
+      <div className="flex h-full min-h-[22rem] flex-col overflow-hidden">
+        <div className="flex items-center bg-[#075E54] px-5 py-4 text-white">
+          <div className="text-xl font-semibold tracking-tight">SharpTable</div>
         </div>
-        <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-4">
-          <div className="flex justify-between items-center gap-3 mb-3">
-            <span className="font-semibold text-sm text-white tracking-tight">1 order</span>
-            <span className="text-[0.7rem] font-bold text-black bg-amber-500 px-2 py-0.5 rounded tracking-wider uppercase">
-              Paid
-            </span>
+        <div className="flex flex-1 flex-col justify-end gap-3 bg-[#efeae2] p-4 md:p-6">
+          <div className="max-w-[85%] self-end rounded-lg bg-[#d9fdd3] px-4 py-3 text-lg leading-snug text-[#111b21]">
+            Beans and Plantain
           </div>
-          <div className="grid gap-2">
-            <button type="button" className={pressable}>
-              <span className="flex justify-between text-sm text-white">
-                <span>Jollof rice</span>
-                <span className="text-gray-400">1</span>
-              </span>
-            </button>
-            <button type="button" className={pressable}>
-              <span className="flex justify-between text-sm text-white">
-                <span>Grilled chicken</span>
-                <span className="text-gray-400">1</span>
-              </span>
-            </button>
+          <div className="max-w-[92%] self-start rounded-lg bg-white px-4 py-3 text-lg leading-snug text-[#111b21] shadow-sm">
+            <div className="text-xl font-semibold">Table T-30</div>
+            <div className="mt-1">Beans and Plantain</div>
+            <div className="mt-1 text-xl font-semibold">₦7,000</div>
+            <div className="mt-1 text-base text-[#667781]">Queued</div>
           </div>
         </div>
       </div>
@@ -66,43 +54,45 @@ const screens = [
   },
   function MarshalScreen() {
     return (
-      <div>
-        <div className="text-[0.7rem] font-semibold text-gray-500 tracking-[0.1em] uppercase mb-3">
-          Marshal
+      <div className="flex h-full min-h-[22rem] flex-col bg-[#0a0a0a] p-5 text-white md:p-8">
+        <div className="mb-6 flex items-center justify-between">
+          <h3 className="text-2xl font-bold tracking-tight">Marshall</h3>
+          <span className="text-base font-semibold text-green-500">Live</span>
         </div>
-        <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-4">
-          <div className="text-base font-bold text-white tracking-tight mb-1">Table 4</div>
-          <p className="text-sm text-white/80 mb-4">1 jollof rice, 1 grilled chicken</p>
-          <button
-            type="button"
-            className="inline-flex items-center px-5 py-2 rounded-full font-bold text-sm text-black bg-amber-500 transition-all duration-300 hover:bg-amber-400 hover:-translate-y-0.5 active:bg-amber-300 active:scale-[0.98]"
-          >
-            Confirm
-          </button>
+        <div className="mb-3 text-base font-semibold uppercase tracking-[0.08em] text-gray-400">
+          Approved Open Bills
         </div>
+        <button type="button" className={pressable}>
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <div className="text-xl font-bold">T-30</div>
+              <div className="mt-0.5 text-base text-white/70">Guest</div>
+            </div>
+            <span className="rounded bg-amber-500 px-2 py-1 text-sm font-bold tracking-wider text-black">
+              QUEUED
+            </span>
+          </div>
+          <div className="mt-3 flex items-baseline justify-between text-lg">
+            <span>Beans and Plantain</span>
+            <span className="font-semibold">₦7,000</span>
+          </div>
+        </button>
+        <button
+          type="button"
+          className="mt-4 inline-flex items-center rounded-full bg-amber-500 px-5 py-2.5 text-base font-bold text-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-400 active:scale-[0.98] active:bg-amber-300"
+        >
+          Edit Order Items
+        </button>
       </div>
     );
   },
   function ManagerWide() {
     return (
-      <div>
-        <div className="text-[0.7rem] font-semibold text-gray-500 tracking-[0.1em] uppercase mb-3">
+      <div className="mx-auto w-full max-w-xl p-4 md:p-6">
+        <div className="mb-3 text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-gray-500">
           Manager
         </div>
         <BranchRows />
-      </div>
-    );
-  },
-  function ManagerPhone() {
-    return (
-      <div>
-        <div className="text-[0.7rem] font-semibold text-gray-500 tracking-[0.1em] uppercase mb-3">
-          Manager
-        </div>
-        <div className="mx-auto w-full max-w-[280px] rounded-[2rem] border border-white/15 bg-black p-4 shadow-[0_0_0_8px_rgba(255,255,255,0.04)]">
-          <div className="mx-auto mb-4 h-1.5 w-16 rounded-full bg-white/15" />
-          <BranchRows />
-        </div>
       </div>
     );
   },
@@ -124,10 +114,8 @@ const TabletScreens: React.FC = () => {
   const Screen = screens[step];
 
   return (
-    <div className="h-full w-full bg-[#0a0a0a] text-white p-4 md:p-6 overflow-y-auto font-body flex items-center">
-      <div className="w-full max-w-xl mx-auto">
-        <Screen />
-      </div>
+    <div className="h-full w-full overflow-hidden bg-[#0a0a0a] font-body text-white">
+      <Screen />
     </div>
   );
 };
