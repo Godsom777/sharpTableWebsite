@@ -26,6 +26,7 @@ import { PageHeader } from '../components/PageHeader';
 import { useAuth } from '../contexts/AuthContext';
 import { BASE_PRICES_NGN, PLAN_CONFIG, type PlanType } from '../contexts/PaymentContext';
 import { useSubscription } from '../hooks/useSubscription';
+import { startSubscriptionCheckout } from '../lib/paystackCheckout';
 
 const accountSymbols = ['<>', '[]', '{}', '##', '//', '||', '==', '**'];
 
@@ -128,6 +129,22 @@ export const AccountPage: React.FC = () => {
   const [actionError, setActionError] = useState<string | null>(null);
   const [actionMessage, setActionMessage] = useState<string | null>(null);
   const [activeAction, setActiveAction] = useState<'cancel' | PlanType | null>(null);
+
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
+  const pendingPlan = (user?.user_metadata?.plan_type as PlanType | undefined) ?? null;
+
+  // Lets someone who signed up but closed the Paystack popup finish paying.
+  const handleCompleteCheckout = (plan: PlanType) => {
+    if (!user?.email) return;
+    setCheckoutError(null);
+    const opened = startSubscriptionCheckout({
+      email: user.email,
+      plan,
+      businessName: (user.user_metadata?.business_name as string | undefined) ?? '',
+      country: (user.user_metadata?.country as string | undefined) ?? '',
+    });
+    if (!opened) setCheckoutError('Checkout could not be started. Please refresh the page and try again.');
+  };
 
   const normalizedCurrentPlan = subscription?.planType ?? null;
   const normalizedScheduledPlan = subscription?.scheduledPlanType ?? null;
@@ -443,9 +460,25 @@ export const AccountPage: React.FC = () => {
                   <CircularProgress sx={{ color: 'white' }} />
                 </Box>
               ) : !subscription?.planType ? (
-                <Alert severity="warning">
-                  We could not find an active subscription for this account yet.
-                </Alert>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                  <Alert severity="warning">
+                    We could not find an active subscription for this account yet. If you created your account but didn&apos;t finish paying, choose a plan below to complete checkout.
+                  </Alert>
+                  {checkoutError && <Alert severity="error">{checkoutError}</Alert>}
+                  <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' }, gap: 2 }}>
+                    {availablePlans.map((plan) => (
+                      <Button
+                        key={plan.key}
+                        variant={plan.key === pendingPlan ? 'contained' : 'outlined'}
+                        onClick={() => handleCompleteCheckout(plan.key)}
+                        sx={{ py: 2, borderRadius: '1rem', textTransform: 'none', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 0.5, ...(plan.key === pendingPlan ? { bgcolor: 'white', color: 'black', '&:hover': { bgcolor: 'grey.200' } } : { color: 'white', borderColor: 'rgba(255,255,255,0.2)' }) }}
+                      >
+                        <Box component="span" sx={{ fontWeight: 800 }}>{plan.title}</Box>
+                        <Box component="span" sx={{ fontSize: '0.9rem', opacity: 0.8 }}>{plan.displayPrice}{plan.period}</Box>
+                      </Button>
+                    ))}
+                  </Box>
+                </Box>
               ) : (
                 <>
                   <Box

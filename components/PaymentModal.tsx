@@ -13,6 +13,7 @@ import { usePayment, PLAN_CONFIG } from '../contexts/PaymentContext';
 import { LegalModal, useLegalModal } from './LegalModal';
 import { useGeoLocation } from '../hooks/useGeoLocation';
 import { getAppSupabaseClient } from '../lib/supabase';
+import { startSubscriptionCheckout } from '../lib/paystackCheckout';
 
 const SUPPORTED_COUNTRIES = [
   { code: 'NG', name: 'Nigeria', flag: '🇳🇬' }, { code: 'GH', name: 'Ghana', flag: '🇬🇭' },
@@ -21,8 +22,6 @@ const SUPPORTED_COUNTRIES = [
   { code: 'OTHER', name: 'Other', flag: '🌍' },
 ] as const;
 
-const PAYSTACK_PUBLIC_KEY = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY;
-declare global { interface Window { PaystackPop: { setup: (options: any) => { openIframe: () => void } }; } }
 
 export const PaymentModal: React.FC = () => {
   const { isModalOpen, selectedPlan, closePaymentModal } = usePayment();
@@ -78,29 +77,24 @@ export const PaymentModal: React.FC = () => {
 
   const initiatePaystackPayment = useCallback(() => {
     if (!planDetails || !selectedPlan) return;
-    const urlParams = new URLSearchParams(window.location.search);
-    const referralCode = urlParams.get('ref') || '';
-    const subscriptionData = { email: formData.email.toLowerCase().trim(), businessName: formData.businessName.trim(), country: formData.country, plan: selectedPlan, planCode: planDetails.planCode, referralCode, initiatedAt: new Date().toISOString(), status: 'pending' };
-    localStorage.setItem('sharptable_pending_subscription', JSON.stringify(subscriptionData));
-
-    const customFields = [
-      { display_name: 'Business Name', variable_name: 'business_name', value: formData.businessName.trim() },
-      { display_name: 'Plan', variable_name: 'plan_type', value: selectedPlan },
-      { display_name: 'Country', variable_name: 'country', value: formData.country },
-    ];
-    if (referralCode) customFields.push({ display_name: 'Partner Referral', variable_name: 'referral_code', value: referralCode });
-
-    const paystackConfig = {
-      key: PAYSTACK_PUBLIC_KEY, email: formData.email.toLowerCase().trim(), plan: planDetails.planCode, channels: ['card'], metadata: { custom_fields: customFields },
-      callback: (response: any) => {
-        const completedData = { ...subscriptionData, status: 'completed', completedAt: new Date().toISOString(), paystackReference: response.reference };
-        localStorage.setItem('sharptable_subscription', JSON.stringify(completedData));
-        localStorage.removeItem('sharptable_pending_subscription');
-        window.location.href = `/payment/callback?reference=${response.reference}`;
+    const referralCode = new URLSearchParams(window.location.search).get('ref') || '';
+    const opened = startSubscriptionCheckout({
+      email: formData.email,
+      plan: selectedPlan,
+      businessName: formData.businessName.trim(),
+      country: formData.country,
+      referralCode,
+      onClose: () => {
+        setIsSubmitting(false);
+        setRegistrationStep('form');
+        setErrors({ auth: 'Payment was not completed. Your account is created, so you can log in at /account to finish paying.' });
       },
-      onClose: () => setIsSubmitting(false),
-    };
-    window.PaystackPop.setup(paystackConfig).openIframe();
+    });
+    if (!opened) {
+      setIsSubmitting(false);
+      setRegistrationStep('form');
+      setErrors({ auth: 'Payment could not be started. Your account is created, so you can log in at /account to finish paying.' });
+    }
   }, [formData, planDetails, selectedPlan]);
 
   const handleSubmit = async (e: React.FormEvent) => {
