@@ -276,13 +276,15 @@ export function CinematicFooter({
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (!wrapperRef.current) return;
+    // Respect reduced-motion: leave everything in its final, visible state.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     // React strict mode compatible GSAP context cleanup
     const ctx = gsap.context(() => {
       // Background Parallax
       gsap.fromTo(
         giantTextRef.current,
-        { y: "12vh", scale: 0.82, opacity: 0 },
+        { y: "12vh", scale: 0.82, opacity: 0.35 },
         {
           y: "0vh",
           scale: 1,
@@ -300,7 +302,8 @@ export function CinematicFooter({
       // Staggered Content Reveal
       gsap.fromTo(
         [headingRef.current, linksRef.current],
-        { y: 40, opacity: 0 },
+        // Start visible so the CTA is never blank if the scroll trigger is slow to fire
+        { y: 24, opacity: 1 },
         {
           y: 0,
           opacity: 1,
@@ -362,19 +365,19 @@ export function CinematicFooter({
             </div>
           </div>
 
-          {/* 2. Main Center Content: "Run the restaurant. We'll keep the orders together." */}
+          {/* 2. Main Center Content: closing call to action */}
           <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 mt-24 md:mt-20 w-full max-w-5xl mx-auto text-center">
             <div ref={headingRef} className="space-y-3 md:space-y-4 mb-8 md:mb-10">
               <h2
                 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-serif footer-text-glow tracking-tight leading-[1.08]"
                 style={{ fontFamily: "var(--font-display, 'DM Serif Display', serif)" }}
               >
-                {isHotelsPage ? "Run the hotel." : "Run the restaurant."}
+                {isHotelsPage ? "Run the hotel." : "See what's really happening at your branches."}
               </h2>
               <p className="text-base sm:text-xl md:text-2xl text-neutral-400 max-w-2xl mx-auto font-normal">
                 {isHotelsPage
                   ? "We'll keep the revenue and operations together."
-                  : "We'll keep the orders together."}
+                  : "Set up takes about 30 minutes. Your customers don't need to download anything."}
               </p>
             </div>
 
@@ -399,11 +402,12 @@ export function CinematicFooter({
                 </MagneticButton>
                 
                 <MagneticButton
-                  as={Link}
-                  href="/#mechanism"
+                  as={isHotelsPage ? Link : "a"}
+                  href={isHotelsPage ? "/#mechanism" : "mailto:info@sharptable.com.ng"}
                   className="footer-glass-pill px-8 md:px-10 py-4 md:py-4.5 rounded-full text-white font-semibold text-sm md:text-base flex items-center gap-3 group"
                 >
-                  See how it works
+                  {isHotelsPage ? "See how it works" : "Talk to us: info@sharptable.com.ng"}
+                  {isHotelsPage && (
                   <svg
                     className="w-4 h-4 text-neutral-400 group-hover:text-white transition-colors"
                     fill="none"
@@ -412,12 +416,13 @@ export function CinematicFooter({
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                   </svg>
+                  )}
                 </MagneticButton>
               </div>
 
               {/* Trust Signal Line */}
               <p className="text-xs md:text-sm text-neutral-500 tracking-wide font-medium">
-                No setup fees · Cancel anytime · Live in under 24 hours
+                No setup fees · Cancel anytime
               </p>
 
               {/* Secondary Navigation & Legal Links */}

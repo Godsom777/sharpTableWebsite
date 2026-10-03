@@ -39,12 +39,12 @@ const steps: Step[] = [
   {
     id: 2,
     title: 'Revenue Secured',
-    description: 'Marshall secures the transaction. The amount, precise methodology, and executor identity are rigidly logged into the audit ledger.',
+    description: 'Marshal secures the transaction. The amount, precise methodology, and executor identity are rigidly logged into the audit ledger.',
     icon: <FontAwesomeIcon icon={faReceipt} style={{ width: 20, height: 20 }} />,
     color: '#ffffff',
     view: {
       title: 'Transaction Logged',
-      description: 'Marshall "ALEX" secured funds via secure terminal. Time: 7:32 PM. Awaiting protocol verification.',
+      description: 'Marshal "ALEX" secured funds via secure terminal. Time: 7:32 PM. Awaiting protocol verification.',
       bgColor: '#111111',
       borderColor: 'rgba(255,255,255,0.1)',
       iconColor: '#ffffff'
@@ -53,12 +53,12 @@ const steps: Step[] = [
   {
     id: 3,
     title: 'Protocol Verified',
-    description: 'Marshall validates the ledger. The strict operational gate officially opens. The queue is systematically unlocked.',
+    description: 'Marshal validates the ledger. The strict operational gate officially opens. The queue is systematically unlocked.',
     icon: <FontAwesomeIcon icon={faUsers} style={{ width: 20, height: 20 }} />,
     color: '#ffffff',
     view: {
       title: 'Protocol Verified ✓',
-      description: 'Marshall "ALEX" cleared ledgers. Status: SECURED. Ready for flawless execution.',
+      description: 'Marshal "ALEX" cleared ledgers. Status: SECURED. Ready for flawless execution.',
       bgColor: '#111111',
       borderColor: 'rgba(255,255,255,0.1)',
       iconColor: '#ffffff'

@@ -78,7 +78,7 @@ const PrivacyPolicyContent: React.FC = () => (
       <Box component="ul" sx={{ listStyleType: 'disc', pl: 3, m: 0, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
         <Box component="li">Order history and transaction records</Box>
         <Box component="li">Table management and QR code scan data</Box>
-        <Box component="li">Payment verification logs (Marshall dashboard)</Box>
+        <Box component="li">Payment verification logs (Marshal dashboard)</Box>
         <Box component="li">Staff activity and audit trails</Box>
         <Box component="li">Menu items and pricing information</Box>
       </Box>
@@ -188,7 +188,7 @@ const TermsOfServiceContent: React.FC = () => (
       <Typography>SharpTable provides:</Typography>
       <Box component="ul" sx={{ listStyleType: 'disc', pl: 3, m: 0, display: 'flex', flexDirection: 'column', gap: 0.5, mt: 1 }}>
         <Box component="li"><Box component="strong" sx={{ color: 'white' }}>QR-based Ordering:</Box> Digital menu and ordering system for restaurant guests</Box>
-        <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Payment Gate System:</Box> Order verification workflow with Marshall dashboard</Box>
+        <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Payment Gate System:</Box> Order verification workflow with marshal dashboard</Box>
         <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Kitchen Display System (KDS):</Box> Real-time order management for kitchen staff</Box>
         <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Admin Dashboard:</Box> Staff management, menu control, and business analytics</Box>
         <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Audit Trail:</Box> Complete transaction logging for financial accountability</Box>
@@ -223,7 +223,7 @@ const TermsOfServiceContent: React.FC = () => (
         <Box component="li">Provide accurate business and contact information</Box>
         <Box component="li">Maintain the security of your account credentials</Box>
         <Box component="li">Not share login credentials across unauthorized users</Box>
-        <Box component="li">Assign appropriate roles (Admin, Marshall, Chef) to authorized staff only</Box>
+        <Box component="li">Assign appropriate roles (Admin, Marshal, Chef) to authorized staff only</Box>
         <Box component="li">Ensure your use complies with local food service and business regulations</Box>
         <Box component="li">Notify us immediately of any unauthorized access</Box>
       </Box>
@@ -234,7 +234,7 @@ const TermsOfServiceContent: React.FC = () => (
       <Box component="ul" sx={{ listStyleType: 'disc', pl: 3, m: 0, display: 'flex', flexDirection: 'column', gap: 0.5, mt: 1 }}>
         <Box component="li">Process payments for illegal goods or services</Box>
         <Box component="li">Manipulate or falsify transaction records</Box>
-        <Box component="li">Attempt to bypass payment verification (Marshall gate)</Box>
+        <Box component="li">Attempt to bypass payment verification (Marshal gate)</Box>
         <Box component="li">Harvest guest data for unauthorized marketing</Box>
         <Box component="li">Resell or sublicense the service without permission</Box>
         <Box component="li">Interfere with or disrupt the platform's operation</Box>

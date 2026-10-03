@@ -264,7 +264,7 @@ export default function SharpTableHero() {
                 borderRadius: 24, padding: "6px 15px",
               }}>
                 <span style={{ width: 7, height: 7, background: "#f59e0b", borderRadius: "50%", animation: "pulse 2s infinite", display: "block" }} />
-                <span style={{ color: "#f59e0b", fontSize: 10, fontWeight: 700, letterSpacing: "0.13em", fontFamily: '"JetBrains Mono", monospace' }}>LIVE · 50+ RESTAURANTS</span>
+                <span style={{ color: "#f59e0b", fontSize: 10, fontWeight: 700, letterSpacing: "0.13em", fontFamily: '"JetBrains Mono", monospace' }}>LIVE</span>
               </span>
             </div>
 
@@ -334,7 +334,6 @@ export default function SharpTableHero() {
             <div style={{ display: "flex", ...enter(340) }}>
               {[
                 { num: "₦56M+", label: "tracked monthly"  },
-                { num: "50+",   label: "restaurants live"  },
                 { num: "₦0",    label: "slipped through"   },
               ].map((s, i) => (
                 <div key={i} style={{ flex: 1, paddingLeft: i > 0 ? 22 : 0, borderLeft: i > 0 ? "1px solid #161616" : "none" }}>
@@ -487,7 +486,7 @@ export default function SharpTableHero() {
               </div>
             </GlassCard>
 
-            {/* Row 3: Live feed + Marshalls */}
+            {/* Row 3: Live feed + Marshals */}
             <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 11 }}>
 
               {/* Activity feed */}
@@ -521,7 +520,7 @@ export default function SharpTableHero() {
                 </div>
               </GlassCard>
 
-              {/* Marshalls + shift */}
+              {/* Marshals + shift */}
               <GlassCard accent="#333" style={{ padding: "18px 18px", display: "flex", flexDirection: "column", gap: 13 }}>
                 <Label>MARSHALLS ON DUTY</Label>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>

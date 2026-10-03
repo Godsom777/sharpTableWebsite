@@ -7,6 +7,9 @@ import { faCheck, faLock } from '@fortawesome/free-solid-svg-icons';
 import { usePayment, PlanType, BillingCycle, BASE_PRICES_NGN } from '../contexts/PaymentContext';
 import { Box, Container, Typography } from '@mui/material';
 
+// Enterprise includes 4 locations; each extra location is billed at the Lite monthly price (₦50,000).
+const EXTRA_LOCATION_PRICE_NGN = BASE_PRICES_NGN.lite;
+
 const PricingTiers: React.FC = () => {
   const { openPaymentModal } = usePayment();
   const [billingCycle, setBillingCycle] = useState<BillingCycle>('monthly');
@@ -27,11 +30,11 @@ const PricingTiers: React.FC = () => {
         name: 'Lite Plan',
         periodDelay: periodLabel,
         price: formatPrice(billingCycle === 'monthly' ? BASE_PRICES_NGN.lite : BASE_PRICES_NGN['lite-yearly']),
-        description: 'QR code order viewing, perfect for single locations getting started.',
+        description: 'For a single location getting started with QR ordering.',
         features: [
-          '1 Location Included',
-          'QR Code Digital Menus',
-          'Real-time KDS Access'
+          '1 location',
+          'QR code menus',
+          'Kitchen display'
         ],
         active: false,
         key: (billingCycle === 'monthly' ? 'lite' : 'lite-yearly') as PlanType
@@ -40,13 +43,13 @@ const PricingTiers: React.FC = () => {
         name: 'Pro Plan',
         periodDelay: periodLabel,
         price: formatPrice(billingCycle === 'monthly' ? BASE_PRICES_NGN.pro : BASE_PRICES_NGN['pro-yearly']),
-        description: 'Unrivaled control and inventory tools for growing hospitality brands.',
+        description: 'For growing venues that need staff control and stock tracking.',
         features: [
           'Everything in Lite, plus:',
-          'Up to 5 Locations',
-          'Guest Ordering & Room Service',
-          'Staff & Role Management',
-          'Basic Food Inventory'
+          'Up to 2 locations',
+          'Guest ordering and room service',
+          'Staff roles and permissions',
+          'Basic stock tracking'
         ],
         active: true,
         key: (billingCycle === 'monthly' ? 'pro' : 'pro-yearly') as PlanType
@@ -55,13 +58,13 @@ const PricingTiers: React.FC = () => {
         name: 'Enterprise Plan',
         periodDelay: periodLabel,
         price: formatPrice(billingCycle === 'monthly' ? BASE_PRICES_NGN.enterprise : BASE_PRICES_NGN['enterprise-yearly']),
-        description: 'Built for serious operators with multiple branches.',
+        description: 'For operators running several branches.',
         features: [
           'Everything in Pro, plus:',
-          'Unlimited Locations Max',
-          'Enterprise WhatsApp Ordering',
-          'Hotel Visitor Tracking Suite',
-          'Advanced Inventory & Waste Tracking'
+          `4 locations included, then ${formatPrice(EXTRA_LOCATION_PRICE_NGN)}/month per extra location`,
+          'WhatsApp ordering',
+          'Hotel guest tracking',
+          'Advanced stock and waste tracking'
         ],
         active: false,
         key: (billingCycle === 'monthly' ? 'enterprise' : 'enterprise-yearly') as PlanType

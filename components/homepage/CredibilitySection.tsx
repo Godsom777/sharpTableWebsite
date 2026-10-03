@@ -7,7 +7,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { Box, Container, Typography } from '@mui/material';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 1, y: 12 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
@@ -32,54 +32,19 @@ interface Testimonial {
   tag?: string;
 }
 
+// Single featured, client-approved customer story (+42% confirmed by Okoro, 27 Sep 2026).
 const testimonialsData: Testimonial[] = [
-  {
-    quote: "With five locations running simultaneously, stopping staff theft and stabilizing our supply chain used to be exhausting. SharpTable handed us total visibility in weeks.",
-    author: "David O.",
-    role: "CEO",
-    restaurant: "Grill House",
-    location: "Lekki, Lagos",
-    rating: 5,
-    metric: "₦3.2M",
-    metricLabel: "saved & recovered in first 3 months",
-    verified: false,
-    tag: "Shared with permission · Anonymized"
-  },
-  {
-    quote: "Slow turnarounds and messy handoffs were destroying our dinner service. This system changed our entire kitchen rhythm overnight, making everything feel effortless.",
-    author: "Amara K.",
-    role: "Operations Director",
-    restaurant: "Big Joe's Diner",
-    location: "Victoria Island, Lagos",
-    rating: 5,
-    metric: "10 min",
-    metricLabel: "to streamline table service",
-    verified: false,
-    tag: "Shared with permission · Anonymized"
-  },
-  {
-    quote: "No guessing on inventory, no wondering about voids. It gives us the exact confidence we require to elegantly manage and scale our operations.",
-    author: "Michael T.",
-    role: "Owner",
-    restaurant: "Urban Kitchen Group",
-    location: "Ikeja, Lagos",
-    rating: 5,
-    metric: "3",
-    metricLabel: "branches optimized on one screen",
-    verified: false,
-    tag: "Shared with permission · Anonymized"
-  },
   {
     quote: "Since we integrated SharpTable, our bar and grill operations have transformed. The direct-to-kitchen routing practically eliminated order errors, and the turnaround time keeps customers ordering more.",
     author: "Mr. Uzochukwu",
     role: "Owner",
     restaurant: "Old English Bar and Grills",
-    location: "Owerri, Imo State",
+    location: "Owerri",
     rating: 5,
     metric: "+42%",
-    metricLabel: "increase in weekend revenue",
+    metricLabel: "weekend revenue",
     verified: true,
-    tag: "Verified Client Partner"
+    tag: "Verified customer"
   }
 ];
 
@@ -235,7 +200,7 @@ const TestimonialCard: React.FC<{ testimonial: Testimonial; index: number }> = (
                 fontWeight: 500,
               }}
             >
-              {testimonial.role}, {testimonial.restaurant} · {testimonial.location}
+              {testimonial.role}, {testimonial.restaurant}, {testimonial.location}
             </Typography>
           </Box>
         </Box>
@@ -258,7 +223,7 @@ export const CredibilitySection: React.FC = () => {
     >
       <Container maxWidth="lg" sx={{ px: { xs: 3, md: 4 } }}>
         {/* Section header */}
-        <Box sx={{ mb: { xs: 6, md: 10 }, maxWidth: 'var(--max-width-narrow)' }}>
+        <Box sx={{ mb: { xs: 3, md: 4 }, maxWidth: 'var(--max-width-narrow)' }}>
           <motion.div
             custom={0}
             variants={fadeUp}
@@ -270,27 +235,7 @@ export const CredibilitySection: React.FC = () => {
               className="editorial-label"
               sx={{ mb: 2, color: 'var(--color-accent)' }}
             >
-              Built around real restaurant workflows
-            </Typography>
-          </motion.div>
-
-          <motion.div
-            custom={1}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-          >
-            <Typography
-              className="display-serif"
-              sx={{
-                fontSize: { xs: 'var(--text-3xl)', md: 'var(--text-4xl)', lg: 'var(--text-5xl)' },
-                color: 'white',
-              }}
-            >
-              Real restaurants.
-              <br />
-              Real numbers.
+              Customer story
             </Typography>
           </motion.div>
         </Box>
@@ -299,18 +244,14 @@ export const CredibilitySection: React.FC = () => {
         <Box
           sx={{
             display: 'grid',
-            gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
-            gap: { xs: 3, md: 4 },
+            gridTemplateColumns: '1fr',
+            maxWidth: 760,
           }}
         >
           {testimonialsData.map((testimonial, index) => (
             <TestimonialCard key={index} testimonial={testimonial} index={index} />
           ))}
         </Box>
-
-        <Typography sx={{ textAlign: 'center', color: 'grey.600', fontSize: '0.8rem', mt: 6 }}>
-          * Deployment performance verified via SharpTable ledger records. Selected venue brands anonymized upon client request.
-        </Typography>
       </Container>
     </Box>
   );

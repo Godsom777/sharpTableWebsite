@@ -35,12 +35,12 @@ const roles = [
   },
   {
     id: 'marshall',
-    title: 'Marshall Protocol',
+    title: 'Marshal Protocol',
     icon: <FontAwesomeIcon icon={faUsers} />,
     subtitle: 'A strict gatekeeper who holds all accountability on the floor.',
     content: [
       'Execute payments and release tickets leaving an uncompromising, permanent trace.',
-      'Every interaction binds to the Marshall identity, the table, and the exact timestamp.',
+      'Every interaction binds to the marshal identity, the table, and the exact timestamp.',
       'Eradicate operational obscurity when shift closing registers show irregular gaps.',
       'Maintain an unbroken chain of custody over every single generated ticket.',
     ],

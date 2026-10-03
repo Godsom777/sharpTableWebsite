@@ -8,9 +8,9 @@ const PHASES = [
   'item_added',     // Customer: Smoked Fish added to cart
   'cart',           // Customer: cart + Pay Later visible
   'order_sent',     // ORDER FIRES — sync pulse lights up
-  'marshall_sees',  // Marshall: pending order appears live
-  'void_open',      // Marshall: void dialog opens (empty)
-  'void_blocked',   // Marshall: void requires PIN — system blocks
+  'marshall_sees',  // Marshal: pending order appears live
+  'void_open',      // Marshal: void dialog opens (empty)
+  'void_blocked',   // Marshal: void requires PIN — system blocks
 ];
 
 const PHASE_LABELS = [
@@ -19,7 +19,7 @@ const PHASE_LABELS = [
   'Smoked Fish added to cart',
   'Reviewing order',
   'Order sent to kitchen ⚡',
-  'Marshall sees it live',
+  'Marshal sees it live',
   'Void attempt triggered',
   'System requires admin PIN',
 ];
@@ -261,7 +261,7 @@ function MarshallHeader({ collected, pending, verified }) {
       <div style={{ padding: '8px 10px', background: '#111', display: 'flex', alignItems: 'center', gap: 7, borderBottom: '1px solid #1e1e1e' }}>
         <div style={{ width: 32, height: 32, background: '#ef4444', borderRadius: 9, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 14 }}>☰</div>
         <div style={{ flex: 1 }}>
-          <div style={{ color: '#fff', fontSize: 11, fontWeight: 700 }}>Marshall</div>
+          <div style={{ color: '#fff', fontSize: 11, fontWeight: 700 }}>Marshal</div>
           <div style={{ color: '#22c55e', fontSize: 8, fontWeight: 700 }}>Tunde</div>
         </div>
         <div style={{ display: 'flex', gap: 4 }}>
@@ -512,7 +512,7 @@ export default function SharpTableFlow() {
           <span style={{ color: '#f59e0b' }}>Nothing slips.</span>
         </h2>
         <p style={{ color: '#4a4a4a', fontSize: 13, lineHeight: 1.65, margin: 0 }}>
-          Watch a real order move from QR scan to Marshall verification — and see exactly what happens when someone tries to void without authorization.
+          Watch a real order move from QR scan to marshal verification — and see exactly what happens when someone tries to void without authorization.
         </p>
       </div>
 
@@ -523,7 +523,7 @@ export default function SharpTableFlow() {
         </div>
         <div style={{ width: 46 }} />
         <div style={{ width: 252, textAlign: 'center' }}>
-          <div style={{ color: '#22c55e', fontSize: 9, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase' }}>● Marshall View</div>
+          <div style={{ color: '#22c55e', fontSize: 9, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase' }}>● Marshal View</div>
         </div>
       </div>
 

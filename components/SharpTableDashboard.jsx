@@ -325,14 +325,14 @@ export default function SharpTableDashboard() {
                   </div>
                 </div>
 
-                {/* Marshall Collections */}
+                {/* Marshal Collections */}
                 <div style={{ background: "#161616", borderRadius: 12, padding: 10 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 8 }}>
                     <div style={{
                       width: 26, height: 26, background: "#2B6FE6", borderRadius: 7,
                       display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12,
                     }}>👥</div>
-                    <span style={{ color: "#fff", fontSize: 11, fontWeight: 700 }}>Marshall Collections</span>
+                    <span style={{ color: "#fff", fontSize: 11, fontWeight: 700 }}>Marshal Collections</span>
                   </div>
                   {[
                     { name: "Favor Ogochukwu", verif: 70, amount: "₦3,704,000", avatar: "#2B6FE6" },

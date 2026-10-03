@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Box, Container, Typography } from '@mui/material';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 1, y: 12 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
@@ -85,7 +85,7 @@ const WhatsAppPhoneMock: React.FC = () => (
       {chatMessages.map((msg, i) => (
         <motion.div
           key={i}
-          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+          initial={{ opacity: 1, y: 6, scale: 0.98 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 + i * 0.15, duration: 0.4 }}
@@ -187,7 +187,7 @@ const DashboardStrip: React.FC = () => (
     ].map((item, i) => (
       <motion.div
         key={item.step}
-        initial={{ opacity: 0, x: -10 }}
+        initial={{ opacity: 1, x: -6 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.3 + i * 0.1, duration: 0.4 }}
