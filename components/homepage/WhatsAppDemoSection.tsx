@@ -15,9 +15,9 @@ function stepFromProgress(value: number) {
 }
 
 const branches = [
-  { line: 'Old English · Open', dot: 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.6)]' },
-  { line: 'Site 2 · Quiet', dot: 'bg-white/40' },
-  { line: 'Site 3 · Busy', dot: 'bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.6)]' },
+  { line: 'Victoria Island · Active', dot: 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.6)]' },
+  { line: 'Lekki · Active', dot: 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.6)]' },
+  { line: 'Ogun · Active', dot: 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.6)]' },
 ];
 
 const BranchRows: React.FC = () => (
