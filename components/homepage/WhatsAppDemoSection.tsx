@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
-import { motion, useMotionValueEvent, useScroll, useTransform } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Box, Typography } from '@mui/material';
 
 /** Scroll distance owned by each screen while the tablet is pinned. */
@@ -11,9 +11,9 @@ const pressable =
   'bg-white/[0.03] border border-white/[0.06] rounded-xl p-4 text-left w-full transition-all duration-300 hover:border-white/[0.12] hover:bg-white/[0.05] hover:-translate-y-0.5 active:border-amber-400/70 active:bg-white/[0.08] active:scale-[0.99]';
 
 const branches = [
-  { line: 'Victoria Island · Active', dot: 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.6)]' },
-  { line: 'Lekki · Active', dot: 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.6)]' },
-  { line: 'Ogun · Active', dot: 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.6)]' },
+  { name: 'Victoria Island', week: '₦4,200,000', lead: true },
+  { name: 'Lekki', week: '₦2,800,000', lead: false },
+  { name: 'Ogun', week: '₦1,600,000', lead: false },
 ];
 
 const captions = [
@@ -25,9 +25,29 @@ const captions = [
 const BranchRows: React.FC = () => (
   <div className="grid gap-2">
     {branches.map((branch) => (
-      <button key={branch.line} type="button" className={`${pressable} flex items-center gap-2.5`}>
-        <span className={`w-2 h-2 rounded-full shrink-0 ${branch.dot}`} />
-        <span className="font-semibold text-sm text-white tracking-tight">{branch.line}</span>
+      <button
+        key={branch.name}
+        type="button"
+        className={`${pressable} flex items-start gap-2.5 ${branch.lead ? 'border-amber-400/40 bg-white/[0.05]' : ''}`}
+      >
+        <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.6)]" />
+        <span className="flex min-w-0 flex-1 items-start justify-between gap-3">
+          <span className="min-w-0">
+            <span className="block font-semibold text-sm tracking-tight text-white">{branch.name}</span>
+            <span className="mt-1 flex flex-wrap items-center gap-1.5">
+              <span className="text-xs text-white/60">Active</span>
+              {branch.lead ? (
+                <span className="rounded-full bg-amber-500 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-black">
+                  Highest sales
+                </span>
+              ) : null}
+            </span>
+          </span>
+          <span className="shrink-0 text-right">
+            <span className="block text-sm font-semibold tabular-nums text-white">{branch.week}</span>
+            <span className="mt-0.5 block text-[10px] uppercase tracking-wide text-white/45">this week</span>
+          </span>
+        </span>
       </button>
     ))}
   </div>
@@ -162,49 +182,59 @@ function PinnedScreens() {
     offset: ['start start', 'end end'],
   });
 
-  // Fade across the second half of each chapter, so the first pixels of a chapter do not swap the screen.
+  // Each chapter is a long hold, then a short push in the last 30%.
+  // The first pixels of a chapter keep the current screen in place.
   const chapter = 1 / 3;
-  const opacity0 = useTransform(scrollYProgress, [0, 0.5 * chapter, chapter, 1], [1, 1, 0, 0]);
-  const opacity1 = useTransform(
-    scrollYProgress,
-    [0, 0.5 * chapter, chapter, 1.5 * chapter, 2 * chapter, 1],
-    [0, 0, 1, 1, 0, 0]
-  );
-  const opacity2 = useTransform(scrollYProgress, [0, 1.5 * chapter, 2 * chapter, 1], [0, 0, 1, 1]);
-  const opacities = [opacity0, opacity1, opacity2];
+  const holdEnd0 = 0.7 * chapter;
+  const slideEnd0 = chapter;
+  const holdEnd1 = chapter + 0.7 * chapter;
+  const slideEnd1 = 2 * chapter;
 
-  const [active, setActive] = useState(0);
-  useMotionValueEvent(scrollYProgress, 'change', (value) => {
-    // Hand the pointer to the incoming screen at the midpoint of each crossfade.
-    const next = value < 0.25 ? 0 : value < 0.583 ? 1 : 2;
-    setActive((current) => (current === next ? current : next));
-  });
+  const stackY = useTransform(
+    scrollYProgress,
+    [0, holdEnd0, slideEnd0, holdEnd1, slideEnd1, 1],
+    ['0%', '0%', '-100%', '-100%', '-200%', '-200%']
+  );
+
+  // Parallax inside the glass so the hold is not a frozen frame. Clipped per screen,
+  // so the next UI does not peek in until the push.
+  const drift0 = useTransform(scrollYProgress, [0, holdEnd0, 1], [0, -40, -40]);
+  const drift1 = useTransform(scrollYProgress, [0, slideEnd0, holdEnd1, 1], [0, 0, -40, -40]);
+  const drift2 = useTransform(scrollYProgress, [0, slideEnd1, 1], [0, 0, -40]);
+  const drifts = [drift0, drift1, drift2];
+  const shells = ['bg-[#efeae2]', 'bg-[#0a0a0a]', 'bg-[#0a0a0a]'];
 
   return (
     <div ref={trackRef} style={{ height: `calc(${CHAPTER_VH * 3}vh + 100vh)` }}>
       <div className="sticky top-16 flex h-[calc(100vh-4rem)] items-center">
         <div className="mx-auto grid w-full max-w-6xl grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] items-center gap-8 px-6 lg:gap-14">
-          <div className="relative min-h-[8.5rem]">
-            {captions.map((caption, index) => (
-              <motion.p
-                key={caption}
-                style={{ opacity: opacities[index] }}
-                className="absolute inset-0 text-2xl leading-snug text-white lg:text-3xl"
-              >
-                {caption}
-              </motion.p>
-            ))}
+          <div className="relative h-40 overflow-hidden">
+            <motion.div style={{ y: stackY }} className="absolute inset-0">
+              {captions.map((caption, index) => (
+                <p
+                  key={caption}
+                  className="absolute inset-x-0 flex h-full items-center text-2xl leading-snug text-white lg:text-3xl"
+                  style={{ top: `${index * 100}%` }}
+                >
+                  {caption}
+                </p>
+              ))}
+            </motion.div>
           </div>
           <TabletFrame>
-            {screenBodies.map((Screen, index) => (
-              <motion.div
-                key={captions[index]}
-                className="absolute inset-0"
-                style={{ opacity: opacities[index], pointerEvents: active === index ? 'auto' : 'none' }}
-              >
-                <Screen />
-              </motion.div>
-            ))}
+            <motion.div style={{ y: stackY }} className="absolute inset-0">
+              {screenBodies.map((Screen, index) => (
+                <div
+                  key={captions[index]}
+                  className={`absolute inset-x-0 h-full overflow-hidden ${shells[index]}`}
+                  style={{ top: `${index * 100}%` }}
+                >
+                  <motion.div className="h-full" style={{ y: drifts[index] }}>
+                    <Screen />
+                  </motion.div>
+                </div>
+              ))}
+            </motion.div>
           </TabletFrame>
         </div>
       </div>
