@@ -269,7 +269,7 @@ export default function FeaturesCards({
             <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
             {badge}
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
+          <h2 className="display-serif text-3xl sm:text-4xl md:text-5xl text-white mb-4">
             {title}
           </h2>
           <p className="text-lg sm:text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
