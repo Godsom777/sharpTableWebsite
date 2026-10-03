@@ -1,244 +1,254 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Box, Container, Typography } from '@mui/material';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Box, Typography } from '@mui/material';
 
-const fadeUp = {
-  hidden: { opacity: 1, y: 12 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
-  }),
-};
+/** Scroll distance owned by each screen while the tablet is pinned. */
+const CHAPTER_VH = 160;
 
-/* ----------------------------------------------------------------
-   WhatsApp Flow Demo — phone mockup
-   ---------------------------------------------------------------- */
+const pressable =
+  'bg-white/[0.03] border border-white/[0.06] rounded-xl p-4 text-left w-full transition-all duration-300 hover:border-white/[0.12] hover:bg-white/[0.05] hover:-translate-y-0.5 active:border-amber-400/70 active:bg-white/[0.08] active:scale-[0.99]';
 
-const chatMessages = [
-  { from: 'customer', text: 'Hi! Can I order 2 Chicken Shawarma and 1 Coke please?', time: '8:14 PM' },
-  { from: 'system', text: '🧾 Order received!\n\nChicken Shawarma × 2\nCoke × 1\n\nTotal: ₦8,500\n\nReply YES to confirm.', time: '8:14 PM' },
-  { from: 'customer', text: 'YES', time: '8:15 PM' },
-  { from: 'system', text: '✅ Order #1082 confirmed!\nEstimated ready: 15 mins\n\nYour kitchen is preparing your order now.', time: '8:15 PM' },
+const branches = [
+  { name: 'Victoria Island', week: '₦4,200,000', lead: true },
+  { name: 'Lekki', week: '₦2,800,000', lead: false },
+  { name: 'Ogun', week: '₦1,600,000', lead: false },
 ];
 
-const WhatsAppPhoneMock: React.FC = () => (
-  <Box
-    sx={{
-      maxWidth: 320,
-      width: '100%',
-      mx: 'auto',
-      borderRadius: '2rem',
-      border: '2px solid rgba(255,255,255,0.15)',
-      bgcolor: '#0b141a', // WhatsApp dark bg
-      overflow: 'hidden',
-      boxShadow: '0 25px 60px rgba(0,0,0,0.7)',
-    }}
-  >
-    {/* Phone notch */}
-    <Box sx={{ display: 'flex', justifyContent: 'center', py: 1.25, bgcolor: '#1f2c34' }}>
-      <Box sx={{ width: 70, height: 4, borderRadius: '2px', bgcolor: 'rgba(255,255,255,0.2)' }} />
-    </Box>
+const captions = [
+  'The order lands in a chat they already have.',
+  "The marshal sees the bill while it's still queued.",
+  'Victoria Island, Lekki and Ogun, on one screen.',
+];
 
-    {/* WhatsApp header */}
-    <Box
-      sx={{
-        px: 2,
-        py: 1.5,
-        bgcolor: '#1f2c34',
-        borderBottom: '1px solid rgba(255,255,255,0.06)',
-        display: 'flex',
-        alignItems: 'center',
-        gap: 1.5,
-      }}
-    >
-      <Box
-        sx={{
-          width: 34,
-          height: 34,
-          borderRadius: '50%',
-          background: 'linear-gradient(135deg, #f59e0b, #d97706)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '0.75rem',
-          fontWeight: 800,
-          color: '#000',
-        }}
+const BranchRows: React.FC = () => (
+  <div className="grid gap-2">
+    {branches.map((branch) => (
+      <button
+        key={branch.name}
+        type="button"
+        className={`${pressable} flex items-start gap-2.5 ${branch.lead ? 'border-amber-400/40 bg-white/[0.05]' : ''}`}
       >
-        ST
-      </Box>
-      <Box>
-        <Typography sx={{ fontSize: '0.85rem', fontWeight: 600, color: 'white' }}>
-          SharpTable Orders
-        </Typography>
-        <Typography sx={{ fontSize: '0.65rem', color: '#25d366', fontWeight: 500 }}>
-          Online · Official
-        </Typography>
-      </Box>
-    </Box>
-
-    {/* Chat messages */}
-    <Box sx={{ px: 2, py: 2.5, minHeight: 320, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-      {chatMessages.map((msg, i) => (
-        <motion.div
-          key={i}
-          initial={{ opacity: 1, y: 6, scale: 0.98 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 + i * 0.15, duration: 0.4 }}
-          style={{
-            alignSelf: msg.from === 'customer' ? 'flex-end' : 'flex-start',
-            maxWidth: '88%',
-          }}
-        >
-          <Box
-            sx={{
-              bgcolor: msg.from === 'customer' ? '#005c4b' : '#1f2c34',
-              borderRadius:
-                msg.from === 'customer'
-                  ? '0.85rem 0.85rem 0 0.85rem'
-                  : '0.85rem 0.85rem 0.85rem 0',
-              px: 1.75,
-              py: 1.25,
-              boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: '0.78rem',
-                color: '#e9edef',
-                whiteSpace: 'pre-line',
-                lineHeight: 1.5,
-              }}
-            >
-              {msg.text}
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: '0.6rem',
-                color: '#8696a0',
-                textAlign: 'right',
-                mt: 0.5,
-              }}
-            >
-              {msg.time}
-            </Typography>
-          </Box>
-        </motion.div>
-      ))}
-    </Box>
-  </Box>
+        <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.6)]" />
+        <span className="flex min-w-0 flex-1 items-start justify-between gap-3">
+          <span className="min-w-0">
+            <span className="block font-semibold text-sm tracking-tight text-white">{branch.name}</span>
+            <span className="mt-1 flex flex-wrap items-center gap-1.5">
+              <span className="text-xs text-white/60">Active</span>
+              {branch.lead ? (
+                <span className="rounded-full bg-amber-500 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-black">
+                  Highest sales
+                </span>
+              ) : null}
+            </span>
+          </span>
+          <span className="shrink-0 text-right">
+            <span className="block text-sm font-semibold tabular-nums text-white">{branch.week}</span>
+            <span className="mt-0.5 block text-[10px] uppercase tracking-wide text-white/45">this week</span>
+          </span>
+        </span>
+      </button>
+    ))}
+  </div>
 );
 
-/* ----------------------------------------------------------------
-   Dashboard Transition Strip
-   ---------------------------------------------------------------- */
+function WhatsAppOrder() {
+  return (
+    <div className="flex h-full flex-col overflow-hidden">
+      <div className="flex items-center bg-[#075E54] px-5 py-4 text-white">
+        <div className="text-xl font-semibold tracking-tight">SharpTable</div>
+      </div>
+      <div className="flex flex-1 flex-col justify-end gap-3 bg-[#efeae2] p-4 md:p-6">
+        <div className="max-w-[85%] self-end rounded-lg bg-[#d9fdd3] px-4 py-3 text-lg leading-snug text-[#111b21]">
+          Beans and Plantain
+        </div>
+        <div className="max-w-[92%] self-start rounded-lg bg-white px-4 py-3 text-lg leading-snug text-[#111b21] shadow-sm">
+          <div className="text-xl font-semibold">Table T-30</div>
+          <div className="mt-1">Beans and Plantain</div>
+          <div className="mt-1 text-xl font-semibold">₦7,000</div>
+          <div className="mt-1 text-base text-[#667781]">Queued</div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-const DashboardStrip: React.FC = () => (
-  <Box
-    sx={{
-      bgcolor: 'rgba(15,15,15,0.85)',
-      border: '1px solid var(--color-border)',
-      borderRadius: '1rem',
-      p: 2.5,
-      maxWidth: 320,
-      width: '100%',
-      mx: 'auto',
-      boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
-      backdropFilter: 'blur(20px)',
-    }}
-  >
-    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+function MarshalScreen() {
+  return (
+    <div className="flex h-full flex-col bg-[#0a0a0a] p-5 text-white md:p-8">
+      <div className="mb-6 flex items-center justify-between">
+        <h3 className="text-2xl font-bold tracking-tight">Marshall</h3>
+        <span className="text-base font-semibold text-green-500">Live</span>
+      </div>
+      <div className="mb-3 text-base font-semibold uppercase tracking-[0.08em] text-gray-400">
+        Approved Open Bills
+      </div>
+      <button type="button" className={pressable}>
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <div className="text-xl font-bold">T-30</div>
+            <div className="mt-0.5 text-base text-white/70">Guest</div>
+          </div>
+          <span className="rounded bg-amber-500 px-2 py-1 text-sm font-bold tracking-wider text-black">
+            QUEUED
+          </span>
+        </div>
+        <div className="mt-3 flex items-baseline justify-between text-lg">
+          <span>Beans and Plantain</span>
+          <span className="font-semibold">₦7,000</span>
+        </div>
+      </button>
+      <button
+        type="button"
+        className="mt-4 inline-flex items-center rounded-full bg-amber-500 px-5 py-2.5 text-base font-bold text-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-400 active:scale-[0.98] active:bg-amber-300"
+      >
+        Edit Order Items
+      </button>
+    </div>
+  );
+}
+
+function ManagerWide() {
+  return (
+    <div className="flex h-full flex-col justify-center p-4 md:p-6">
+      <div className="mb-3 text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-gray-500">
+        Manager
+      </div>
+      <BranchRows />
+    </div>
+  );
+}
+
+const screenBodies = [WhatsAppOrder, MarshalScreen, ManagerWide];
+
+function TabletFrame({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mx-auto w-full max-w-[440px] overflow-hidden rounded-[28px] border-4 border-[#6C6C6C] bg-[#222222] p-2 shadow-2xl">
+      <div className="relative h-[min(68vh,560px)] overflow-hidden rounded-2xl bg-[#0a0a0a]">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function Heading() {
+  return (
+    <div className="relative z-10 mx-auto max-w-3xl px-4 pt-16 text-center md:pt-24">
+      <Typography
+        className="display-serif"
+        sx={{
+          fontSize: { xs: 'var(--text-2xl)', md: 'var(--text-3xl)', lg: 'var(--text-4xl)' },
+          color: 'white',
+          mb: 2.5,
+        }}
+      >
+        Your customers already know how to reach you.
+      </Typography>
       <Typography
         sx={{
-          fontSize: '0.7rem',
-          fontWeight: 700,
-          color: 'var(--color-text-muted)',
-          letterSpacing: '0.1em',
-          textTransform: 'uppercase',
+          fontSize: { xs: 'var(--text-base)', md: 'var(--text-lg)' },
+          color: 'var(--color-text-secondary)',
+          lineHeight: 1.7,
         }}
       >
-        Staff Dashboard
+        SharpTable makes sure the restaurant knows what to do next.
       </Typography>
-      <Box
-        sx={{
-          fontSize: '0.65rem',
-          fontWeight: 700,
-          color: '#22c55e',
-          bgcolor: 'rgba(34,197,94,0.1)',
-          px: 1,
-          py: 0.25,
-          borderRadius: '4px',
-        }}
-      >
-        ORDER #1082
-      </Box>
-    </Box>
+    </div>
+  );
+}
 
-    {/* Order status flow */}
-    {[
-      { step: 'Order received', status: '✓', color: '#25d366' },
-      { step: 'Staff confirmed', status: '✓', color: '#3b82f6' },
-      { step: 'Kitchen preparing', status: '●', color: '#8b5cf6' },
-      { step: 'Ready for pickup', status: '○', color: 'var(--color-text-muted)' },
-    ].map((item, i) => (
-      <motion.div
-        key={item.step}
-        initial={{ opacity: 1, x: -6 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.3 + i * 0.1, duration: 0.4 }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 1.5,
-            py: 1,
-            borderBottom: i < 3 ? '1px solid rgba(255,255,255,0.04)' : 'none',
-          }}
-        >
-          <Typography
-            sx={{
-              fontSize: '0.85rem',
-              color: item.color,
-              width: 20,
-              textAlign: 'center',
-              fontWeight: 700,
-            }}
-          >
-            {item.status}
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: '0.8rem',
-              color: i < 3 ? 'white' : 'var(--color-text-muted)',
-              fontWeight: i < 3 ? 600 : 400,
-            }}
-          >
-            {item.step}
-          </Typography>
-        </Box>
-      </motion.div>
-    ))}
-  </Box>
-);
+function StackedScreens() {
+  return (
+    <div className="mx-auto flex max-w-lg flex-col gap-16 px-4 py-12">
+      {screenBodies.map((Screen, index) => (
+        <div key={captions[index]}>
+          <p className="mb-4 text-center text-xl leading-snug text-white md:text-left md:text-2xl">
+            {captions[index]}
+          </p>
+          <TabletFrame>
+            <Screen />
+          </TabletFrame>
+        </div>
+      ))}
+    </div>
+  );
+}
 
-/* ----------------------------------------------------------------
-   WhatsApp Demo Section
-   ---------------------------------------------------------------- */
+function PinnedScreens() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: trackRef,
+    offset: ['start start', 'end end'],
+  });
+
+  // Each chapter is a long hold, then a short push in the last 30%.
+  // The first pixels of a chapter keep the current screen in place.
+  const chapter = 1 / 3;
+  const holdEnd0 = 0.7 * chapter;
+  const slideEnd0 = chapter;
+  const holdEnd1 = chapter + 0.7 * chapter;
+  const slideEnd1 = 2 * chapter;
+
+  const stackY = useTransform(
+    scrollYProgress,
+    [0, holdEnd0, slideEnd0, holdEnd1, slideEnd1, 1],
+    ['0%', '0%', '-100%', '-100%', '-200%', '-200%']
+  );
+
+  // Parallax inside the glass so the hold is not a frozen frame. Clipped per screen,
+  // so the next UI does not peek in until the push.
+  const drift0 = useTransform(scrollYProgress, [0, holdEnd0, 1], [0, -40, -40]);
+  const drift1 = useTransform(scrollYProgress, [0, slideEnd0, holdEnd1, 1], [0, 0, -40, -40]);
+  const drift2 = useTransform(scrollYProgress, [0, slideEnd1, 1], [0, 0, -40]);
+  const drifts = [drift0, drift1, drift2];
+  const shells = ['bg-[#efeae2]', 'bg-[#0a0a0a]', 'bg-[#0a0a0a]'];
+
+  return (
+    <div ref={trackRef} style={{ height: `calc(${CHAPTER_VH * 3}vh + 100vh)` }}>
+      <div className="sticky top-16 flex h-[calc(100vh-4rem)] items-center">
+        <div className="mx-auto grid w-full max-w-6xl grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] items-center gap-8 px-6 lg:gap-14">
+          <div className="relative h-40 overflow-hidden">
+            <motion.div style={{ y: stackY }} className="absolute inset-0">
+              {captions.map((caption, index) => (
+                <p
+                  key={caption}
+                  className="absolute inset-x-0 flex h-full items-center text-2xl leading-snug text-white lg:text-3xl"
+                  style={{ top: `${index * 100}%` }}
+                >
+                  {caption}
+                </p>
+              ))}
+            </motion.div>
+          </div>
+          <TabletFrame>
+            <motion.div style={{ y: stackY }} className="absolute inset-0">
+              {screenBodies.map((Screen, index) => (
+                <div
+                  key={captions[index]}
+                  className={`absolute inset-x-0 h-full overflow-hidden ${shells[index]}`}
+                  style={{ top: `${index * 100}%` }}
+                >
+                  <motion.div className="h-full" style={{ y: drifts[index] }}>
+                    <Screen />
+                  </motion.div>
+                </div>
+              ))}
+            </motion.div>
+          </TabletFrame>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export const WhatsAppDemoSection: React.FC = () => {
   return (
     <Box
       component="section"
       id="whatsapp-demo"
-      className="section-padding"
+      className="whatsapp-pin-section relative overflow-x-hidden"
       sx={{
-        position: 'relative',
         '&::before': {
           content: '""',
           position: 'absolute',
@@ -251,112 +261,25 @@ export const WhatsAppDemoSection: React.FC = () => {
         },
       }}
     >
-      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, px: { xs: 3, md: 4 } }}>
-        {/* Section copy */}
-        <Box sx={{ textAlign: 'center', mb: { xs: 6, md: 10 }, maxWidth: 'var(--max-width-narrow)', mx: 'auto' }}>
-          <motion.div
-            custom={0}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-          >
-            <Typography
-              className="display-serif"
-              sx={{
-                fontSize: { xs: 'var(--text-2xl)', md: 'var(--text-3xl)', lg: 'var(--text-4xl)' },
-                color: 'white',
-                mb: 2.5,
-              }}
-            >
-              Your customers already know how to reach you.
-            </Typography>
-          </motion.div>
-
-          <motion.div
-            custom={1}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-          >
-            <Typography
-              sx={{
-                fontSize: { xs: 'var(--text-base)', md: 'var(--text-lg)' },
-                color: 'var(--color-text-secondary)',
-                lineHeight: 1.7,
-              }}
-            >
-              SharpTable makes sure the restaurant knows what to do next.
-            </Typography>
-          </motion.div>
-        </Box>
-
-        {/* Phone + Dashboard side by side */}
-        <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: { xs: '1fr', md: '1fr auto 1fr' },
-            gap: { xs: 4, md: 6 },
-            alignItems: 'center',
-            justifyItems: 'center',
-          }}
-        >
-          <motion.div
-            custom={2}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            style={{ width: '100%' }}
-          >
-            <WhatsAppPhoneMock />
-          </motion.div>
-
-          {/* Arrow connector */}
-          <motion.div
-            custom={3}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-          >
-            <Box
-              sx={{
-                display: { xs: 'none', md: 'flex' },
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: 1.5,
-              }}
-            >
-              <Box sx={{ width: 48, height: 1, bgcolor: 'var(--color-border)' }} />
-              <Typography
-                sx={{
-                  fontSize: '0.75rem',
-                  color: 'var(--color-accent)',
-                  fontWeight: 700,
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase',
-                }}
-              >
-                Instant Sync
-              </Typography>
-              <Box sx={{ width: 48, height: 1, bgcolor: 'var(--color-border)' }} />
-            </Box>
-          </motion.div>
-
-          <motion.div
-            custom={4}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            style={{ width: '100%' }}
-          >
-            <DashboardStrip />
-          </motion.div>
-        </Box>
-      </Container>
+      <style>{`
+        .whatsapp-pin-track { display: none; }
+        .whatsapp-pin-stack { display: block; }
+        @media (min-width: 768px) {
+          .whatsapp-pin-track { display: block; }
+          .whatsapp-pin-stack { display: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .whatsapp-pin-track { display: none !important; }
+          .whatsapp-pin-stack { display: block !important; }
+        }
+      `}</style>
+      <Heading />
+      <div className="whatsapp-pin-track">
+        <PinnedScreens />
+      </div>
+      <div className="whatsapp-pin-stack">
+        <StackedScreens />
+      </div>
     </Box>
   );
 };
