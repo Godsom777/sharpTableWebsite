@@ -17,10 +17,8 @@ const formatPrice = (amount: number) =>
   new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(amount);
 
 // Display prices for the by-branch model.
-// TODO(Back-end Developer): checkout still uses the legacy plan keys ('lite' / 'pro' / 'enterprise' and their
-// '-yearly' variants) and the amounts/Paystack plan codes in contexts/PaymentContext.tsx and the billing API.
-// Solo -> lite, Growth -> pro, Group -> enterprise. Yearly amounts there (999,999 / 2,000,000) do not yet match
-// the 999,990 / 1,999,990 shown here. Update Paystack plans + app before merging; this file does not touch them.
+// Checkout uses the legacy plan keys ('lite' / 'pro' / 'enterprise' and '-yearly' variants) with the Paystack plan
+// codes and amounts in contexts/PaymentContext.tsx (Solo -> lite, Growth -> pro, Group -> enterprise); amounts match.
 const PLANS: {
   name: string;
   description: string;

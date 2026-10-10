@@ -80,12 +80,13 @@ export const PaymentModal: React.FC = () => {
     if (!planDetails || !selectedPlan) return;
     const urlParams = new URLSearchParams(window.location.search);
     const referralCode = urlParams.get('ref') || '';
-    const subscriptionData = { email: formData.email.toLowerCase().trim(), businessName: formData.businessName.trim(), country: formData.country, plan: selectedPlan, planCode: planDetails.planCode, referralCode, initiatedAt: new Date().toISOString(), status: 'pending' };
+    const subscriptionData = { email: formData.email.toLowerCase().trim(), businessName: formData.businessName.trim(), country: formData.country, plan: selectedPlan, planName: `${planDetails.name}${planDetails.billingCycle === 'yearly' ? ' (yearly)' : ''}`, planCode: planDetails.planCode, referralCode, initiatedAt: new Date().toISOString(), status: 'pending' };
     localStorage.setItem('sharptable_pending_subscription', JSON.stringify(subscriptionData));
 
     const customFields = [
       { display_name: 'Business Name', variable_name: 'business_name', value: formData.businessName.trim() },
       { display_name: 'Plan', variable_name: 'plan_type', value: selectedPlan },
+      { display_name: 'Plan Name', variable_name: 'plan_name', value: `${planDetails.name}${planDetails.billingCycle === 'yearly' ? ' (yearly)' : ''}` },
       { display_name: 'Country', variable_name: 'country', value: formData.country },
     ];
     if (referralCode) customFields.push({ display_name: 'Partner Referral', variable_name: 'referral_code', value: referralCode });
