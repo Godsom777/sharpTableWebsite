@@ -38,40 +38,41 @@ const statusLabels: Record<string, string> = {
   payment_failed: 'Payment failed',
 };
 
+// TODO(Back-end Developer): keys are legacy plan codes (lite=Solo, pro=Growth, enterprise=Group); left unchanged.
 const planGroups: Array<{
   title: string;
   key: PlanType;
   description: string;
 }> = [
   {
-    title: 'Lite Monthly',
+    title: 'Solo Monthly',
     key: 'lite',
-    description: 'Single-location starter plan billed monthly.',
+    description: 'For one branch, billed monthly.',
   },
   {
-    title: 'Pro Monthly',
+    title: 'Growth Monthly',
     key: 'pro',
-    description: 'Direct ordering and staff management billed monthly.',
+    description: 'For 2 to 5 branches, billed monthly.',
   },
   {
-    title: 'Enterprise Monthly',
+    title: 'Group Monthly',
     key: 'enterprise',
-    description: 'Multi-branch operations billed monthly.',
+    description: 'For 6 to 10 branches, billed monthly.',
   },
   {
-    title: 'Lite Yearly',
+    title: 'Solo Yearly',
     key: 'lite-yearly',
-    description: 'Annual starter plan with lower effective monthly cost.',
+    description: 'For one branch, billed yearly (2 months free).',
   },
   {
-    title: 'Pro Yearly',
+    title: 'Growth Yearly',
     key: 'pro-yearly',
-    description: 'Annual Pro billing with reduced churn and savings.',
+    description: 'For 2 to 5 branches, billed yearly (2 months free).',
   },
   {
-    title: 'Enterprise Yearly',
+    title: 'Group Yearly',
     key: 'enterprise-yearly',
-    description: 'Annual enterprise billing for operators with scale.',
+    description: 'For 6 to 10 branches, billed yearly (2 months free).',
   },
 ];
 

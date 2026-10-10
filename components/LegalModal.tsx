@@ -98,7 +98,7 @@ const PrivacyPolicyContent: React.FC = () => (
         <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Audit & Accountability:</Box> To maintain transaction logs and audit trails for financial transparency</Box>
         <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Analytics:</Box> To generate daily summaries, revenue reports, and operational insights</Box>
         <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Customer Intelligence:</Box> To help restaurants identify and serve repeat guests better</Box>
-        <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Multi-location Management:</Box> To provide unified views across restaurant branches (Enterprise plan)</Box>
+        <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Multi-location Management:</Box> To provide unified views across restaurant branches</Box>
         <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Support:</Box> To respond to inquiries and provide technical assistance</Box>
       </Box>
     </AccordionItem>
@@ -113,7 +113,7 @@ const PrivacyPolicyContent: React.FC = () => (
         <Box component="li">Payment data handled exclusively by Paystack (PCI-DSS compliant)</Box>
       </Box>
       <Typography sx={{ mt: 1.5 }}>
-        <Box component="strong" sx={{ color: 'white' }}>Data Retention:</Box> Order history is retained based on your subscription plan (90 days for Pro, unlimited for Enterprise). You may request data deletion at any time.
+        <Box component="strong" sx={{ color: 'white' }}>Data Retention:</Box> Order history is retained for the duration of your subscription. You may request data deletion at any time.
       </Typography>
     </AccordionItem>
 
@@ -192,7 +192,7 @@ const TermsOfServiceContent: React.FC = () => (
         <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Kitchen Display System (KDS):</Box> Real-time order management for kitchen staff</Box>
         <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Admin Dashboard:</Box> Staff management, menu control, and business analytics</Box>
         <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Audit Trail:</Box> Complete transaction logging for financial accountability</Box>
-        <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Multi-location Management:</Box> Unified control across branches (Enterprise plan)</Box>
+        <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Multi-location Management:</Box> Unified control across branches</Box>
         <Box component="li"><Box component="strong" sx={{ color: 'white' }}>Customer Intelligence:</Box> Guest recognition and spending insights</Box>
       </Box>
     </AccordionItem>
@@ -200,8 +200,12 @@ const TermsOfServiceContent: React.FC = () => (
     <AccordionItem title="2. Subscription Plans & Billing">
       <Typography><Box component="strong" sx={{ color: 'white' }}>Plans Offered:</Box></Typography>
       <Box component="ul" sx={{ listStyleType: 'disc', pl: 3, m: 0, display: 'flex', flexDirection: 'column', gap: 0.5, mt: 1 }}>
-        <Box component="li"><Box component="strong" sx={{ color: '#fbbf24' }}>Pro Plan:</Box> Up to 50 tables, 15 staff, 1 branch, 90-day order history. WhatsApp ordering, food inventory, and food tracker are excluded.</Box>
-        <Box component="li"><Box component="strong" sx={{ color: '#c084fc' }}>Enterprise Plan:</Box> Unlimited tables, staff, and order history with 4 branches included. Each branch above 4 adds 50,000 naira. WhatsApp ordering, food inventory, and food tracker are included.</Box>
+        <Box component="li"><Box component="strong" sx={{ color: '#fbbf24' }}>Solo:</Box> 1 branch, ₦50,000/month.</Box>
+        <Box component="li"><Box component="strong" sx={{ color: '#fbbf24' }}>Growth:</Box> 2 to 5 branches, ₦99,999/month.</Box>
+        <Box component="li"><Box component="strong" sx={{ color: '#fbbf24' }}>Group:</Box> 6 to 10 branches, ₦199,999/month.</Box>
+        <Box component="li"><Box component="strong" sx={{ color: '#fbbf24' }}>11+ branches:</Box> Custom pricing.</Box>
+        <Box component="li"><Box component="strong" sx={{ color: '#fbbf24' }}>Hotels:</Box> ₦3,000 per room per month, minimum ₦75,000.</Box>
+        <Box component="li">Every plan includes every feature.</Box>
       </Box>
 
       <Typography sx={{ mt: 1.5 }}><Box component="strong" sx={{ color: 'white' }}>Billing Terms:</Box></Typography>
@@ -209,7 +213,7 @@ const TermsOfServiceContent: React.FC = () => (
         <Box component="li">Subscriptions are billed monthly or annually in advance</Box>
         <Box component="li">Prices are displayed in Nigerian Naira (NGN) and processed securely via Paystack</Box>
         <Box component="li">Payment processing is handled securely by Paystack</Box>
-        <Box component="li">Annual plans offer up to 35% savings</Box>
+        <Box component="li">Yearly billing gives you 2 months free</Box>
         <Box component="li">All payments are non-refundable unless required by law</Box>
       </Box>
 
