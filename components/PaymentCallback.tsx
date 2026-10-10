@@ -9,7 +9,7 @@ import { Box, Typography } from '@mui/material';
 type PaymentStatus = 'loading' | 'success' | 'failed';
 
 interface SubscriptionData {
-  email: string; businessName: string; plan: string; planCode: string; initiatedAt: string; status: string; completedAt?: string; paystackReference?: string;
+  email: string; businessName: string; plan: string; planName?: string; planCode: string; initiatedAt: string; status: string; completedAt?: string; paystackReference?: string;
 }
 
 export const PaymentCallback: React.FC = () => {
@@ -69,7 +69,7 @@ export const PaymentCallback: React.FC = () => {
                   <Typography sx={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 800, color: 'grey.600', mb: 2 }}>Audit Trail</Typography>
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, fontSize: '0.95rem' }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}><Typography sx={{ color: 'grey.500' }}>Admin Email</Typography><Typography sx={{ color: 'white', fontWeight: 600 }}>{subscriptionData.email}</Typography></Box>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}><Typography sx={{ color: 'grey.500' }}>Security Plan</Typography><Typography sx={{ color: 'white', fontWeight: 700, textTransform: 'capitalize' }}>{subscriptionData.plan}</Typography></Box>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}><Typography sx={{ color: 'grey.500' }}>Security Plan</Typography><Typography sx={{ color: 'white', fontWeight: 700, textTransform: 'capitalize' }}>{subscriptionData.planName || ({ lite: 'Solo', pro: 'Growth', enterprise: 'Group' } as Record<string, string>)[subscriptionData.plan.replace(/-yearly$/, '')] || subscriptionData.plan}</Typography></Box>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}><Typography sx={{ color: 'grey.500' }}>Clearance Reference</Typography><Typography sx={{ color: 'grey.500', fontFamily: 'monospace', fontSize: '0.85rem' }}>{subscriptionData.paystackReference || '—'}</Typography></Box>
                   </Box>
                 </Box>

@@ -30,7 +30,7 @@ const items: ShowcaseItem[] = [
     title: 'QR Ordering',
     tags: ['QR Menus', 'Fast Service'],
     description: 'Guests scan, select, and order without waiting for staff. Orders land directly in the kitchen — no miscommunication, no delay.',
-    plan: 'Pro',
+    plan: 'Every plan',
     lottie: QrCodeAnimation
   },
   {
@@ -38,7 +38,7 @@ const items: ShowcaseItem[] = [
     title: 'Split Payments',
     tags: ['Split Payment', 'Group Dining'],
     description: "Group tables pay separately without restarting the bill. Every guest's portion is tracked cleanly and confirmed before anyone leaves.",
-    plan: 'Pro',
+    plan: 'Every plan',
     lottie: MoneyAnalysisAnimation
   },
   {
@@ -46,7 +46,7 @@ const items: ShowcaseItem[] = [
     title: 'Kitchen Sync',
     tags: ['Live Alerts', 'Peak Sync'],
     description: 'Front of house and kitchen stay connected in real time. No shouting, no missing tickets. Every dish drops when it should.',
-    plan: 'Pro',
+    plan: 'Every plan',
     lottie: ChefAnimation
   },
   {
@@ -54,7 +54,7 @@ const items: ShowcaseItem[] = [
     title: 'WhatsApp Orders',
     tags: ['WhatsApp', 'Omnichannel'],
     description: 'Accept orders directly from WhatsApp without adding complexity. Your off-premise channel, fully integrated into your kitchen flow.',
-    plan: 'Enterprise',
+    plan: 'Every plan',
     lottie: ChatBubblesAnimation
   },
   {
@@ -62,7 +62,7 @@ const items: ShowcaseItem[] = [
     title: 'Multi-Branch Control',
     tags: ['Multi-branch', 'Live Audit'],
     description: 'Watch every location from one screen. Live sales, cashier activity, and inventory — consolidated across all branches, in real time.',
-    plan: 'Enterprise',
+    plan: 'Every plan',
     lottie: StatsGoingUpAnimation
   },
   {
@@ -70,7 +70,7 @@ const items: ShowcaseItem[] = [
     title: 'Hotel & Room Service',
     tags: ['Guest Logs', 'Room Service'],
     description: 'Visitor tracking, booking flows, and digital room service built for hospitality — without overcomplicating your front desk.',
-    plan: 'Enterprise',
+    plan: 'Every plan',
     lottie: ChatBubblesAnimation
   }
 ];

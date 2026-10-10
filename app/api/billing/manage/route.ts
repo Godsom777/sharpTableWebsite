@@ -8,27 +8,27 @@ const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
 
 const PLAN_CONFIG = {
   lite: {
-    name: 'Lite',
+    name: 'Solo',
     planCode: 'PLN_mquahijhgi8tzux',
   },
   pro: {
-    name: 'Pro',
+    name: 'Growth',
     planCode: 'PLN_rknt3upbuue6dmh',
   },
   enterprise: {
-    name: 'Enterprise',
+    name: 'Group',
     planCode: 'PLN_b36ulzsdy6d418n',
   },
   'lite-yearly': {
-    name: 'Lite',
+    name: 'Solo',
     planCode: 'PLN_2a41260dnw7z99x',
   },
   'pro-yearly': {
-    name: 'Pro',
+    name: 'Growth',
     planCode: 'PLN_lu2vu0x7b0z4esc',
   },
   'enterprise-yearly': {
-    name: 'Enterprise',
+    name: 'Group',
     planCode: 'PLN_geld4bet9hwqca0',
   },
 } as const;

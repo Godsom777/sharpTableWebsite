@@ -35,15 +35,15 @@ const commissions = [
 ];
 
 const earnings = [
-  { plan: 'Lite · Monthly', price: '₦50,000/mo', upfront: '₦25,000', recurring: '₦10,000 × 6', total: '₦85,000' },
-  { plan: 'Pro · Monthly', price: '₦150,000/mo', upfront: '₦75,000', recurring: '₦30,000 × 6', total: '₦255,000' },
-  { plan: 'Enterprise · Monthly', price: '₦200,000/mo', upfront: '₦100,000', recurring: '₦40,000 × 6', total: '₦340,000' },
-  { plan: 'Enterprise · Yearly', price: '₦2,400,000/yr', upfront: '₦720,000', recurring: '-', total: '₦720,000' },
+  { plan: 'Solo · Monthly', price: '₦50,000/mo', upfront: '₦25,000', recurring: '₦10,000 × 6', total: '₦85,000' },
+  { plan: 'Growth · Monthly', price: '₦99,999/mo', upfront: '₦50,000', recurring: '₦20,000 × 6', total: '₦170,000' },
+  { plan: 'Group · Monthly', price: '₦199,999/mo', upfront: '₦100,000', recurring: '₦40,000 × 6', total: '₦340,000' },
+  { plan: 'Group · Yearly', price: '₦1,999,990/yr', upfront: '₦600,000', recurring: '-', total: '₦600,000' },
 ];
 
 const faqs = [
-  { q: 'How much can I earn?', a: 'There is zero ceiling. 10 Enterprise Monthly referrals nets you ₦3.4 million over 6 months.', icon: faWallet },
-  { q: 'Yearly Plan Impact?', a: 'Yearly subscriptions execute an immediate 30% flush payment with no recurring delay. Sell an Enterprise Yearly and secure ₦720,000 at once.', icon: faCalendarCheck },
+  { q: 'How much can I earn?', a: 'There is zero ceiling. 10 Group Monthly referrals nets you ₦3.4 million over 6 months.', icon: faWallet },
+  { q: 'Yearly Plan Impact?', a: 'Yearly subscriptions execute an immediate 30% flush payment with no recurring delay. Sell a Group Yearly and secure about ₦600,000 at once.', icon: faCalendarCheck },
   { q: 'Payout Logistics?', a: 'Funds clear within 7 business days following every successful client charge.', icon: faClock },
   { q: 'Dashboard Tracking?', a: 'Full real-time visibility over your converted venues and inbound streams.', icon: faChartLine },
   { q: 'Are there thresholds?', a: 'No minimums. Earn immediately on execution.', icon: faCalculator },

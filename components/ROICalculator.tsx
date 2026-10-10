@@ -14,7 +14,7 @@ export const ROICalculator: React.FC = () => {
     const annualRevenue = monthlyRevenue * 12;
     const currentLeakage = (annualRevenue * estimatedLeakage) / 100;
     const recoveredWithSharpTable = currentLeakage * 0.90; // 90% strict recovery
-    const annualCost = 200000 * 12; // Enterprise tier (200k/mo)
+    const annualCost = 199999 * 12; // Group plan (₦199,999/mo)
     const netSavings = recoveredWithSharpTable - annualCost;
     const roi = ((netSavings / annualCost) * 100).toFixed(0);
 
@@ -142,7 +142,7 @@ export const ROICalculator: React.FC = () => {
                 <Typography sx={{ color: 'white', fontWeight: 800, fontSize: '1.125rem' }}>{formatCurrency(calculations.recoveredWithSharpTable)}</Typography>
               </Box>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 3, borderRadius: '1rem', bgcolor: 'transparent', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                <Typography sx={{ color: 'grey.500', fontSize: '0.95rem' }}>Technology Allocation (Enterprise Plan)</Typography>
+                <Typography sx={{ color: 'grey.500', fontSize: '0.95rem' }}>Technology Allocation (Group Plan)</Typography>
                 <Typography sx={{ color: 'grey.300', fontWeight: 600 }}>-{formatCurrency(calculations.annualCost)}</Typography>
               </Box>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 3, borderRadius: '1rem', bgcolor: '#0a0a0a', border: '1px solid rgba(255,255,255,0.1)' }}>
