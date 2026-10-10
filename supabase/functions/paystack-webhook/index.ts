@@ -70,6 +70,51 @@ async function fetchPaystackSubscription(subscriptionCode: string) {
   return data.data;
 }
 
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const APP_URL = (Deno.env.get('APP_PUBLIC_URL') || 'https://app.sharptable.com.ng').replace(/\/$/, '');
+
+// Best effort: link the subscription to the auth user id from Paystack metadata. Never overwrites an
+// existing link and never fails the webhook (column may not exist until migration 20261010g).
+async function linkSubscriptionUser(supabase: any, email: string, userId: string | null) {
+  if (!email || !userId || !UUID_RE.test(userId)) return;
+  try {
+    const { error } = await supabase
+      .from('subscriptions')
+      .update({ user_id: userId })
+      .eq('email', email)
+      .is('user_id', null);
+    if (error) console.warn('[paystack-webhook] user_id link skipped:', error.message);
+  } catch (err) {
+    console.warn('[paystack-webhook] user_id link skipped:', (err as Error)?.message);
+  }
+}
+
+// Best effort welcome email on the first successful charge (no passwords). Uses the app
+// project's send-email function (Resend). Never fails the webhook.
+async function sendWelcomeEmail(email: string, businessName: string | null) {
+  if (!email || !APP_SUPABASE_URL || !APP_SUPABASE_SERVICE_KEY) return;
+  const setupUrl = `${APP_URL}/setup`;
+  const safeName = (businessName || '').replace(/[<>&"]/g, '');
+  const html = `<div style="font-family:Arial,Helvetica,sans-serif;max-width:560px;margin:0 auto;color:#111">
+  <h2 style="margin:0 0 12px">Set up your restaurant on SharpTable</h2>
+  <p>Thanks for your payment${safeName ? `, ${safeName}` : ''}. Your plan is active.</p>
+  <p>Sign in with the email and password you chose on our website, then follow the three short steps to set up your restaurant.</p>
+  <p style="margin:24px 0"><a href="${setupUrl}" style="background:#FF5E14;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:bold">Continue setup</a></p>
+  <p style="font-size:13px;color:#555">Or open ${setupUrl}. Forgot your password? Use "Forgot password" on the sign-in screen.</p>
+</div>`;
+  try {
+    const response = await fetch(`${APP_SUPABASE_URL}/functions/v1/send-email`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${APP_SUPABASE_SERVICE_KEY}` },
+      body: JSON.stringify({ to: email, subject: 'Set up your restaurant on SharpTable', html }),
+    });
+    if (!response.ok) console.warn('[paystack-webhook] welcome email not sent:', response.status, await response.text());
+  } catch (err) {
+    console.warn('[paystack-webhook] welcome email not sent:', (err as Error)?.message);
+  }
+}
+
 async function getExistingSubscription(supabase: any, email: string) {
   const { data, error } = await supabase
     .from('subscriptions')
@@ -373,6 +418,8 @@ serve(async (request) => {
           });
         }
 
+        await linkSubscriptionUser(supabase, email, extractCustomField(customFields, 'user_id'));
+
         break;
       }
 
@@ -385,6 +432,15 @@ serve(async (request) => {
         const customer = data.customer || {};
         const email = normalizeEmail(customer.email);
         const existing = await getExistingSubscription(supabase, email);
+        const chargeFields = data.metadata?.custom_fields || [];
+
+        // First successful charge for this email? (a retried webhook for the same reference is not "first")
+        const { count: priorPayments } = await supabase
+          .from('subscription_payments')
+          .select('reference', { count: 'exact', head: true })
+          .eq('email', email)
+          .eq('status', 'success');
+        const isFirstCharge = (priorPayments ?? 1) === 0;
 
         await logPayment(supabase, {
           email,
@@ -448,6 +504,11 @@ serve(async (request) => {
             last_payment_reference: data.reference,
             updated_at: now,
           });
+        }
+
+        await linkSubscriptionUser(supabase, email, extractCustomField(chargeFields, 'user_id'));
+        if (isFirstCharge) {
+          await sendWelcomeEmail(email, existing?.business_name || extractCustomField(chargeFields, 'business_name'));
         }
 
         await processPartnerRecurringCommission({
