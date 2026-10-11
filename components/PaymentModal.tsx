@@ -76,7 +76,7 @@ export const PaymentModal: React.FC = () => {
     if (errors[field]) setErrors((prev: any) => ({ ...prev, [field]: undefined }));
   };
 
-  const initiatePaystackPayment = useCallback(() => {
+  const initiatePaystackPayment = useCallback((userId?: string) => {
     if (!planDetails || !selectedPlan) return;
     const urlParams = new URLSearchParams(window.location.search);
     const referralCode = urlParams.get('ref') || '';
@@ -90,6 +90,8 @@ export const PaymentModal: React.FC = () => {
       { display_name: 'Country', variable_name: 'country', value: formData.country },
     ];
     if (referralCode) customFields.push({ display_name: 'Partner Referral', variable_name: 'referral_code', value: referralCode });
+    // Links the payment to the SharpTable account by user id (webhook stores it; email stays the fallback)
+    if (userId) customFields.push({ display_name: 'Account ID', variable_name: 'user_id', value: userId });
 
     const paystackConfig = {
       key: PAYSTACK_PUBLIC_KEY, email: formData.email.toLowerCase().trim(), plan: planDetails.planCode, channels: ['card'], metadata: { custom_fields: customFields },
@@ -128,7 +130,7 @@ export const PaymentModal: React.FC = () => {
       if (!authData.user) { setErrors({ auth: 'Registration failed.' }); setIsSubmitting(false); setRegistrationStep('form'); return; }
       setRegistrationStep('payment');
       await new Promise(res => setTimeout(res, 300));
-      initiatePaystackPayment();
+      initiatePaystackPayment(authData.user.id);
     } catch {
       setErrors({ auth: 'Unexpected error occurred.' }); setIsSubmitting(false); setRegistrationStep('form');
     }
