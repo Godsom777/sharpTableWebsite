@@ -2,73 +2,17 @@
 
 import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 
-export type PlanType = 'lite' | 'pro' | 'enterprise' | 'lite-yearly' | 'pro-yearly' | 'enterprise-yearly';
-export type BillingCycle = 'monthly' | 'yearly';
+import {
+  PLAN_CONFIG,
+  BASE_PRICES_NGN,
+  type PlanType,
+  type BillingCycle,
+  type PlanDetails,
+} from '@godsom777/sharptable-backend';
 
-export interface PlanDetails {
-  name: string;
-  planCode: string;
-  price: string;
-  period: string;
-  billingCycle: BillingCycle;
-  savings?: string;
-}
-
-// Base prices in Naira — backend source of truth (Paystack charges in NGN)
-// Frontend displays converted USD prices via useCurrency hook
-export const BASE_PRICES_NGN = {
-  'lite': 50_000,
-  'pro': 99_999,
-  'enterprise': 199_999,
-  'lite-yearly': 500_000,
-  'pro-yearly': 999_990,
-  'enterprise-yearly': 1_999_990,
-};
-
-export const PLAN_CONFIG: Record<PlanType, PlanDetails> = {
-  lite: {
-    name: 'Solo',
-    planCode: 'PLN_mquahijhgi8tzux',
-    price: '50000',
-    period: '/month',
-    billingCycle: 'monthly',
-  },
-  pro: {
-    name: 'Growth',
-    planCode: 'PLN_rknt3upbuue6dmh',
-    price: '99999',
-    period: '/month',
-    billingCycle: 'monthly',
-  },
-  enterprise: {
-    name: 'Group',
-    planCode: 'PLN_b36ulzsdy6d418n',
-    price: '199999',
-    period: '/month',
-    billingCycle: 'monthly',
-  },
-  'lite-yearly': {
-    name: 'Solo',
-    planCode: 'PLN_2a41260dnw7z99x',
-    price: '500000',
-    period: '/year',
-    billingCycle: 'yearly',
-  },
-  'pro-yearly': {
-    name: 'Growth',
-    planCode: 'PLN_lu2vu0x7b0z4esc',
-    price: '999990',
-    period: '/year',
-    billingCycle: 'yearly',
-  },
-  'enterprise-yearly': {
-    name: 'Group',
-    planCode: 'PLN_geld4bet9hwqca0',
-    price: '1999990',
-    period: '/year',
-    billingCycle: 'yearly',
-  },
-};
+// Re-export for consumers that import from this file
+export { PLAN_CONFIG, BASE_PRICES_NGN };
+export type { PlanType, BillingCycle, PlanDetails };
 
 interface PaymentContextType {
   isModalOpen: boolean;

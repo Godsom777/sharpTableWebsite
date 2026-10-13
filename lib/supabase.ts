@@ -1,50 +1,33 @@
-import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+/**
+ * Supabase client for the website frontend.
+ *
+ * Types and the client factory come from the shared backend package.
+ * This file provides a pre-configured singleton using the website's env vars.
+ */
 
-const appSupabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-const appSupabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+import { createAppSupabaseClient, isAppSupabaseConfigured as _isConfigured } from '@godsom777/sharptable-backend';
+import type { SupabaseClient } from '@supabase/supabase-js';
 
-let appSupabaseClient: SupabaseClient | null = null;
+// Re-export types from the shared package so existing imports keep working.
+export type {
+  SubscriptionPlanType,
+  SubscriptionLifecycleStatus,
+  ManagedSubscriptionStatus,
+} from '@godsom777/sharptable-backend';
 
-export type SubscriptionPlanType =
-  | 'lite'
-  | 'pro'
-  | 'enterprise'
-  | 'lite-yearly'
-  | 'pro-yearly'
-  | 'enterprise-yearly';
-
-export type SubscriptionLifecycleStatus =
-  | 'active'
-  | 'inactive'
-  | 'cancelled'
-  | 'payment_failed'
-  | 'pending'
-  | 'non_renewing';
-
-export interface ManagedSubscriptionStatus {
-  hasActiveSubscription: boolean;
-  planType: SubscriptionPlanType | null;
-  status: SubscriptionLifecycleStatus | null;
-  nextPaymentDate: string | null;
-  businessName: string | null;
-  cancelAtPeriodEnd: boolean;
-  scheduledPlanType: SubscriptionPlanType | null;
-  scheduledChangeEffectiveAt: string | null;
-}
+const config = {
+  supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+  supabaseAnonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
+};
 
 export function isAppSupabaseConfigured(): boolean {
-  return Boolean(appSupabaseUrl && appSupabaseAnonKey);
+  return _isConfigured(config);
 }
 
+let cachedClient: SupabaseClient | null = null;
+
 export function getAppSupabaseClient(): SupabaseClient | null {
-  if (!isAppSupabaseConfigured()) {
-    console.warn('App Supabase credentials not configured');
-    return null;
-  }
-
-  if (!appSupabaseClient) {
-    appSupabaseClient = createClient(appSupabaseUrl, appSupabaseAnonKey);
-  }
-
-  return appSupabaseClient;
+  if (cachedClient) return cachedClient;
+  cachedClient = createAppSupabaseClient(config);
+  return cachedClient;
 }
