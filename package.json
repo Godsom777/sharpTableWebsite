@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@godsom777/sharptable-backend": "^0.1.1",
+    "@godsom777/sharptable-backend": "^0.1.2",
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
