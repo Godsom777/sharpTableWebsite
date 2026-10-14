@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 packages/
+pwa-sharptable/
 
 # Next.js
 .next/
