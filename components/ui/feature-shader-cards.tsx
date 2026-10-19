@@ -79,16 +79,13 @@ const defaultFeatures: Feature[] = [
   {
     title: "Take paid orders on WhatsApp",
     description:
-      "Customers order and pay inside WhatsApp, and the order goes straight to your kitchen. No delivery-app commission.",
+      "Customers order and pay inside WhatsApp, and the order goes straight to your kitchen.",
     subtitle: "Turn customer WhatsApp chats into paid kitchen orders.",
     highlights: [
       "Automated interactive catalog delivered directly in customer chat thread",
       "Direct Paystack integration with automated receipt and confirmation ping",
       "Tickets route cleanly into kitchen display with delivery/table metadata",
-      "0% 3rd-party platform commission — keep 100% of customer spend",
     ],
-    metric: "0% Commission",
-    metricLabel: "Direct customer relationship with zero aggregator cut",
     icon: (
       <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path

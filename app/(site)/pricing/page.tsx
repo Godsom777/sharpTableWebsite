@@ -21,7 +21,7 @@ export default function PricingPage() {
     <>
       <PageHeader
         title="Simple, Honest Pricing"
-        subtitle="No commission on orders. No setup fees. Pick the plan that fits your number of branches."
+        subtitle="No setup fees. Pick the plan that fits your number of branches."
         badge="Plans & Pricing"
         symbols={pricingSymbols}
       />

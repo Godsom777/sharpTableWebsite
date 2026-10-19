@@ -49,7 +49,7 @@ export const PricingAnchor: React.FC = () => {
           Plans from {fromPrice}/month
         </p>
         <p className="mx-auto mb-10 max-w-xl text-base md:text-lg" style={{ color: 'var(--color-text-secondary)', lineHeight: 1.6 }}>
-          One flat price, whatever your sales. No commission on orders, no hidden fees, cancel anytime.
+          One flat price, whatever your sales. No hidden fees, cancel anytime.
         </p>
         <Link
           href="/pricing"
