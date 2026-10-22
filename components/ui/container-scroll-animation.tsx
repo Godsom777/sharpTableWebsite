@@ -2,6 +2,17 @@
 import React, { useRef } from "react";
 import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
 
+// Same scroll progress the tilt already uses. Children can read it; the tilt itself is unchanged.
+const ContainerScrollProgress = React.createContext<MotionValue<number> | null>(null);
+
+export function useContainerScrollProgress() {
+  const progress = React.useContext(ContainerScrollProgress);
+  if (!progress) {
+    throw new Error("useContainerScrollProgress must be used inside ContainerScroll");
+  }
+  return progress;
+}
+
 export const ContainerScroll = ({
   titleComponent,
   children,
@@ -35,6 +46,7 @@ export const ContainerScroll = ({
   const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   return (
+    <ContainerScrollProgress.Provider value={scrollYProgress}>
     <div
       className="h-[60rem] md:h-[80rem] flex items-center justify-center relative p-2 md:p-20"
       ref={containerRef}
@@ -51,6 +63,7 @@ export const ContainerScroll = ({
         </Card>
       </div>
     </div>
+    </ContainerScrollProgress.Provider>
   );
 };
 
