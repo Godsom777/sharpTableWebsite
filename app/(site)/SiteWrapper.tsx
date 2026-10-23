@@ -9,6 +9,8 @@ import { MotionConfig } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import React from 'react';
 
+import { usePathname } from 'next/navigation';
+
 // The sign-up/payment modal is closed on first paint, so load its code after hydration
 // instead of shipping it in every page's first-load bundle. Behaviour is unchanged.
 const PaymentModal = dynamic(
@@ -21,24 +23,35 @@ export default function SiteWrapper({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const modernPages = ['/', '/features', '/for-hotels', '/pricing', '/faq', '/partnership', '/partnership/apply'];
+  const isModern = modernPages.includes(pathname);
+
   return (
     <AuthProvider>
       <PaymentProvider>
         {/* reducedMotion="user": visitors with prefers-reduced-motion get no movement animations */}
         <MotionConfig reducedMotion="user">
-        <Box sx={{
-          bgcolor: 'black',
-          minHeight: '100vh',
-          color: 'white',
-          '& ::selection': { bgcolor: 'rgba(245, 158, 11, 0.3)' }
-        }}>
-          <NavBar />
-          <Box component="main" sx={{ position: 'relative', zIndex: 1, bgcolor: 'black' }}>
-            {children}
-          </Box>
-          <Footer />
-          <PaymentModal />
-        </Box>
+          {isModern ? (
+            <div style={{ minHeight: '100vh', width: '100%' }}>
+              {children}
+              <PaymentModal />
+            </div>
+          ) : (
+            <Box sx={{
+              bgcolor: 'black',
+              minHeight: '100vh',
+              color: 'white',
+              '& ::selection': { bgcolor: 'rgba(245, 158, 11, 0.3)' }
+            }}>
+              <NavBar />
+              <Box component="main" sx={{ position: 'relative', zIndex: 1, bgcolor: 'black' }}>
+                {children}
+              </Box>
+              <Footer />
+              <PaymentModal />
+            </Box>
+          )}
         </MotionConfig>
       </PaymentProvider>
     </AuthProvider>

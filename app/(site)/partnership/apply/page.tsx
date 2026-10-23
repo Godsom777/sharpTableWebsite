@@ -1,22 +1,20 @@
+import type { Metadata } from 'next';
+import '@/app/homepage.css';
+import { HomeNav } from '@/components/homepage/HomeNav';
+import { HomeFooter } from '@/components/homepage/HomeFooter';
+import { PartnerApplyContent } from '@/components/homepage/PartnerApplyContent';
 
-import { PageHeader } from '@/components/PageHeader';
-import { PartnerApplyForm } from '@/components/PartnerApplyForm';
-
-const applySymbols = [
-  '✦', '◈', '⊹', '⟡', '⊕', '◇', '⟐', '⊛',
-  '△', '⬡', '✧', '⬥', '⊙', '◉', '⟠', '⊗',
-];
+export const metadata: Metadata = {
+  title: 'Apply to Partner Program — SharpTable',
+  description: 'Apply to become a SharpTable referral partner. Earn 50% upfront and 20% recurring monthly commissions.',
+};
 
 export default function PartnershipApplyPage() {
   return (
-    <>
-      <PageHeader
-        title="Become a Partner"
-        subtitle="Fill out the quick application form below and start earning commissions within 24 hours."
-        badge="Apply Now"
-        symbols={applySymbols}
-      />
-      <PartnerApplyForm />
-    </>
+    <div className="st-home">
+      <HomeNav />
+      <PartnerApplyContent />
+      <HomeFooter />
+    </div>
   );
 }

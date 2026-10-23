@@ -28,6 +28,6 @@ let cachedClient: SupabaseClient | null = null;
 
 export function getAppSupabaseClient(): SupabaseClient | null {
   if (cachedClient) return cachedClient;
-  cachedClient = createAppSupabaseClient(config);
+  cachedClient = createAppSupabaseClient(config) as unknown as SupabaseClient;
   return cachedClient;
 }
