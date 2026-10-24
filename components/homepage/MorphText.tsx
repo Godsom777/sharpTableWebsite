@@ -99,7 +99,7 @@ export const MorphText: React.FC<MorphTextProps> = ({
           style={{
             display: 'inline-block',
             fontWeight: isLastWord ? 800 : 600,
-            textShadow: isLastWord ? '0 0 20px rgba(245,158,11,0.4)' : 'none',
+            textShadow: isLastWord ? '0 0 20px rgba(245,197,24,0.4)' : 'none',
           }}
         >
           {allWords[currentIndex]}

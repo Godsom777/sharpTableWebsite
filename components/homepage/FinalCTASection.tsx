@@ -34,8 +34,8 @@ export const FinalCTASection: React.FC = () => {
           position: 'absolute',
           inset: 0,
           background:
-            'radial-gradient(ellipse at 50% 80%, rgba(245,158,11,0.08) 0%, transparent 60%), ' +
-            'radial-gradient(ellipse at 20% 20%, rgba(245,158,11,0.04) 0%, transparent 50%)',
+            'radial-gradient(ellipse at 50% 80%, rgba(245,197,24,0.08) 0%, transparent 60%), ' +
+            'radial-gradient(ellipse at 20% 20%, rgba(245,197,24,0.04) 0%, transparent 50%)',
           pointerEvents: 'none',
         }}
       />
@@ -48,7 +48,7 @@ export const FinalCTASection: React.FC = () => {
           left: '10%',
           right: '10%',
           height: 1,
-          background: 'linear-gradient(90deg, transparent, rgba(245,158,11,0.3), transparent)',
+          background: 'linear-gradient(90deg, transparent, rgba(245,197,24,0.3), transparent)',
         }}
       />
 
@@ -110,7 +110,7 @@ export const FinalCTASection: React.FC = () => {
           <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Button
               component={motion.a}
-              whileHover={{ scale: 1.04, boxShadow: '0 10px 30px rgba(245,158,11,0.35)' }}
+              whileHover={{ scale: 1.04, boxShadow: '0 10px 30px rgba(245,197,24,0.35)' }}
               whileTap={{ scale: 0.97 }}
               href="/pricing"
               sx={{

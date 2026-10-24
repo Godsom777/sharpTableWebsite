@@ -2,26 +2,13 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faArrowRight,
-  faBed,
-  faCashRegister,
-  faClipboardCheck,
-  faCreditCard,
-  faFileInvoice,
-  faMagnifyingGlassChart,
-  faMoneyBillTransfer,
-  faReceipt,
-  faShieldHalved,
-  faUserTie,
-  faWifi,
-} from '@fortawesome/free-solid-svg-icons';
-import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { Icon } from '@/components/ui/icon';
+import { ArrowLeftRightIcon, ArrowRightIcon, BedDoubleIcon, CalculatorIcon, ClipboardCheckIcon, CreditCardIcon, FileSpreadsheetIcon, ReceiptIcon, SearchCheckIcon, ShieldCheckIcon, UserRoundIcon, WifiIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { Box, Button, Container, Typography } from '@mui/material';
 
 type HotelCard = {
-  icon: IconDefinition;
+  icon: LucideIcon;
   title: string;
   body: string;
 };
@@ -34,17 +21,17 @@ const heroStats = [
 
 const heroWorkflows: HotelCard[] = [
   {
-    icon: faMoneyBillTransfer,
+    icon: ArrowLeftRightIcon,
     title: 'Capture outlet revenue before it leaks',
     body: 'Restaurant, bar, poolside, room service, laundry, minibar, and spa charges post into the guest ledger with outlet, item, staff, and timestamp records.',
   },
   {
-    icon: faReceipt,
+    icon: ReceiptIcon,
     title: 'Reduce checkout arguments',
     body: 'Front desk can show exactly what was charged, where it came from, who posted it, and which folio should carry it.',
   },
   {
-    icon: faClipboardCheck,
+    icon: ClipboardCheckIcon,
     title: 'Give the GM a day-end truth file',
     body: 'EOD captures revenue, collections, balances, outlet charges, housekeeping readiness, voids, discounts, overrides, and control flags.',
   },
@@ -70,17 +57,17 @@ const operatingLayers = [
 
 const roleCards: HotelCard[] = [
   {
-    icon: faBed,
+    icon: BedDoubleIcon,
     title: 'Housekeeping',
     body: 'Mobile-first room lists, dirty-to-cleaning-to-inspected flow, maintenance flags, and supervisor-only ready status.',
   },
   {
-    icon: faCashRegister,
+    icon: CalculatorIcon,
     title: 'Restaurant Staff',
     body: 'POS-optimized active orders, kitchen sync, split payment, bar tabs, and charge-to-room confirmation before every post.',
   },
   {
-    icon: faUserTie,
+    icon: UserRoundIcon,
     title: 'Manager',
     body: 'Three focused dashboards for today overview, risk control, and operations, with drill-downs only when needed.',
   },
@@ -88,22 +75,22 @@ const roleCards: HotelCard[] = [
 
 const trustControls: HotelCard[] = [
   {
-    icon: faShieldHalved,
+    icon: ShieldCheckIcon,
     title: 'Approval-backed exceptions',
     body: 'Voids, discounts, rate overrides, charge moves, and dispute resolutions carry reason logs and manager visibility.',
   },
   {
-    icon: faWifi,
+    icon: WifiIcon,
     title: 'Offline-safe operations',
     body: 'Room status updates, outlet charges, payments, and guest requests queue locally and sync when connectivity returns.',
   },
   {
-    icon: faFileInvoice,
+    icon: FileSpreadsheetIcon,
     title: 'Audit-ready exports',
     body: 'Daily closure, tax summary, staff activity, room readiness, and outlet charge logs can be viewed, printed, or exported.',
   },
   {
-    icon: faCreditCard,
+    icon: CreditCardIcon,
     title: 'Live folio control',
     body: 'Room rates, restaurant charges, adjustments, payments, and split folios stay tied to one stay record.',
   },
@@ -114,7 +101,7 @@ const MotionBox = motion(Box);
 const SectionIntro = ({ label, title, body }: { label: string; title: string; body: string }) => (
   <Box sx={{ mb: { xs: 6, md: 8 }, maxWidth: 820 }}>
     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'grey.300', fontSize: '0.875rem', mb: 2, fontWeight: 700 }}>
-      <Box sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: '#C9A84C' }} />
+      <Box sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: '#F5C518' }} />
       {label}
     </Box>
     <Typography sx={{ fontSize: { xs: '2.25rem', md: '4rem' }, fontWeight: 900, color: 'white', lineHeight: 1.02, letterSpacing: '-0.04em' }}>
@@ -140,8 +127,8 @@ const IconCard = ({ card, index }: { card: HotelCard; index: number }) => (
       minHeight: '100%',
     }}
   >
-    <Box sx={{ width: 44, height: 44, borderRadius: '50%', border: '1px solid rgba(201,168,76,0.35)', color: '#fcd34d', display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 3 }}>
-      <FontAwesomeIcon icon={card.icon} style={{ width: 18, height: 18 }} />
+    <Box sx={{ width: 44, height: 44, borderRadius: '50%', border: '1px solid rgba(245,197,24,0.35)', color: '#F5C518', display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 3 }}>
+      <Icon icon={card.icon} style={{ width: 18, height: 18 }} />
     </Box>
     <Typography sx={{ color: 'white', fontSize: '1.25rem', fontWeight: 850, lineHeight: 1.25, mb: 1.5 }}>
       {card.title}
@@ -155,8 +142,8 @@ const IconCard = ({ card, index }: { card: HotelCard; index: number }) => (
 export const HotelsPage: React.FC = () => {
   return (
     <>
-      <Box component="section" sx={{ position: 'relative', overflow: 'hidden', bgcolor: 'black', pt: { xs: 14, md: 18 }, pb: { xs: 10, md: 16 } }}>
-        <Box sx={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 20% 10%, rgba(201,168,76,0.15), transparent 34%), radial-gradient(ellipse at 80% 40%, rgba(255,255,255,0.06), transparent 32%)' }} />
+      <Box component="section" sx={{ position: 'relative', overflow: 'hidden', bgcolor: '#050B1F', pt: { xs: 14, md: 18 }, pb: { xs: 10, md: 16 } }}>
+        <Box sx={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 20% 10%, rgba(245,197,24,0.15), transparent 34%), radial-gradient(ellipse at 80% 40%, rgba(255,255,255,0.06), transparent 32%)' }} />
         <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, px: 3 }}>
           <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1.02fr 0.98fr' }, gap: { xs: 7, md: 8 }, alignItems: 'center' }}>
             <Box>
@@ -170,7 +157,7 @@ export const HotelsPage: React.FC = () => {
                 <Button
                   href="/pricing"
                   sx={{ bgcolor: 'white', color: 'black', borderRadius: '999px', px: 3, py: 1.4, fontWeight: 800, textTransform: 'none', '&:hover': { bgcolor: 'grey.200' } }}
-                  endIcon={<FontAwesomeIcon icon={faArrowRight} style={{ width: 14, height: 14 }} />}
+                  endIcon={<Icon icon={ArrowRightIcon} style={{ width: 14, height: 14 }} />}
                 >
                   See Pricing
                 </Button>
@@ -183,10 +170,10 @@ export const HotelsPage: React.FC = () => {
               </Box>
             </Box>
 
-            <Box sx={{ border: '1px solid rgba(255,255,255,0.08)', bgcolor: '#0b0b0b', borderRadius: { xs: '1.5rem', md: '2.25rem' }, p: { xs: 3, md: 4 }, boxShadow: '0 30px 90px rgba(0,0,0,0.5)' }}>
+            <Box sx={{ border: '1px solid rgba(255,255,255,0.08)', bgcolor: '#0A1433', borderRadius: { xs: '1.5rem', md: '2.25rem' }, p: { xs: 3, md: 4 }, boxShadow: '0 30px 90px rgba(0,0,0,0.5)' }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
                 <Typography sx={{ color: 'white', fontWeight: 850, fontSize: '1.2rem' }}>Today at a glance</Typography>
-                <Box sx={{ color: '#fcd34d', fontSize: '0.78rem', fontWeight: 800 }}>LIVE</Box>
+                <Box sx={{ color: '#F5C518', fontSize: '0.78rem', fontWeight: 800 }}>LIVE</Box>
               </Box>
               <Box sx={{ display: 'grid', gap: 1.5 }}>
                 {heroStats.map((stat) => (
@@ -196,9 +183,9 @@ export const HotelsPage: React.FC = () => {
                   </Box>
                 ))}
               </Box>
-              <Box sx={{ mt: 3, p: 3, borderRadius: '1.25rem', bgcolor: 'rgba(201,168,76,0.1)', border: '1px solid rgba(201,168,76,0.18)' }}>
+              <Box sx={{ mt: 3, p: 3, borderRadius: '1.25rem', bgcolor: 'rgba(245,197,24,0.1)', border: '1px solid rgba(245,197,24,0.18)' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
-                  <FontAwesomeIcon icon={faMagnifyingGlassChart} style={{ color: '#fcd34d', width: 18, height: 18 }} />
+                  <Icon icon={SearchCheckIcon} style={{ color: '#F5C518', width: 18, height: 18 }} />
                   <Typography sx={{ color: 'white', fontWeight: 850 }}>Hotel operations command center</Typography>
                 </Box>
                 <Typography sx={{ color: 'grey.400', lineHeight: 1.6, fontSize: '0.95rem' }}>
@@ -210,7 +197,7 @@ export const HotelsPage: React.FC = () => {
         </Container>
       </Box>
 
-      <Box component="section" sx={{ py: { xs: 10, md: 18 }, bgcolor: '#000' }}>
+      <Box component="section" sx={{ py: { xs: 10, md: 18 }, bgcolor: '#050B1F' }}>
         <Container maxWidth="lg" sx={{ px: 3 }}>
           <SectionIntro
             label="Hero workflows"
@@ -232,9 +219,9 @@ export const HotelsPage: React.FC = () => {
           />
           <Box sx={{ display: 'grid', gap: 2.5 }}>
             {operatingLayers.map((layer, index) => (
-              <Box key={layer.label} sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '0.8fr 1.2fr' }, gap: { xs: 2, md: 4 }, alignItems: 'center', p: { xs: 3, md: 4 }, borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.07)', bgcolor: index === 1 ? 'rgba(201,168,76,0.08)' : '#0d0d0d' }}>
+              <Box key={layer.label} sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '0.8fr 1.2fr' }, gap: { xs: 2, md: 4 }, alignItems: 'center', p: { xs: 3, md: 4 }, borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.07)', bgcolor: index === 1 ? 'rgba(245,197,24,0.08)' : '#0d0d0d' }}>
                 <Box>
-                  <Typography sx={{ color: '#fcd34d', fontWeight: 800, fontSize: '0.82rem', mb: 1 }}>{layer.label}</Typography>
+                  <Typography sx={{ color: '#F5C518', fontWeight: 800, fontSize: '0.82rem', mb: 1 }}>{layer.label}</Typography>
                   <Typography sx={{ color: 'white', fontWeight: 850, fontSize: { xs: '1.35rem', md: '1.65rem' }, lineHeight: 1.2 }}>{layer.title}</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
@@ -250,7 +237,7 @@ export const HotelsPage: React.FC = () => {
         </Container>
       </Box>
 
-      <Box component="section" sx={{ py: { xs: 10, md: 18 }, bgcolor: '#000' }}>
+      <Box component="section" sx={{ py: { xs: 10, md: 18 }, bgcolor: '#050B1F' }}>
         <Container maxWidth="lg" sx={{ px: 3 }}>
           <SectionIntro
             label="Role views"
@@ -273,7 +260,7 @@ export const HotelsPage: React.FC = () => {
           <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: 3 }}>
             {trustControls.map((card, index) => <IconCard key={card.title} card={card} index={index} />)}
           </Box>
-          <Box sx={{ mt: { xs: 8, md: 10 }, p: { xs: 3, md: 5 }, borderRadius: '2rem', border: '1px solid rgba(201,168,76,0.2)', bgcolor: 'rgba(201,168,76,0.08)', display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr auto' }, gap: 3, alignItems: 'center' }}>
+          <Box sx={{ mt: { xs: 8, md: 10 }, p: { xs: 3, md: 5 }, borderRadius: '2rem', border: '1px solid rgba(245,197,24,0.2)', bgcolor: 'rgba(245,197,24,0.08)', display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr auto' }, gap: 3, alignItems: 'center' }}>
             <Box>
               <Typography sx={{ color: 'white', fontWeight: 900, fontSize: { xs: '1.6rem', md: '2rem' }, letterSpacing: '-0.03em', mb: 1 }}>
                 Start with the workflows that protect revenue first.

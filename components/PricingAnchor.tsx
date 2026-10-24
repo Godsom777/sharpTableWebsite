@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
 import { BASE_PRICES_NGN } from '../contexts/PaymentContext';
 
 const formatNaira = (amount: number) =>
@@ -27,7 +28,7 @@ export const PricingAnchor: React.FC = () => {
     >
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(245,158,11,0.06) 0%, transparent 60%)' }}
+        style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(245,197,24,0.07) 0%, transparent 60%)' }}
       />
       <motion.div
         initial={{ opacity: 1, y: 12 }}
@@ -51,13 +52,9 @@ export const PricingAnchor: React.FC = () => {
         <p className="mx-auto mb-10 max-w-xl text-base md:text-lg" style={{ color: 'var(--color-text-secondary)', lineHeight: 1.6 }}>
           One flat price, whatever your sales. No hidden fees, cancel anytime.
         </p>
-        <Link
-          href="/pricing"
-          className="inline-flex items-center px-7 py-3.5 rounded-full font-bold text-sm text-black transition-transform hover:scale-[1.03]"
-          style={{ backgroundColor: 'var(--color-accent)' }}
-        >
-          See all plans
-        </Link>
+        <Button asChild size="lg">
+          <Link href="/pricing">See all plans</Link>
+        </Button>
       </motion.div>
     </section>
   );

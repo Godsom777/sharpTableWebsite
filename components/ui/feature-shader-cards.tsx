@@ -39,8 +39,6 @@ const defaultFeatures: Feature[] = [
       "Tamper-proof audit ledger with permanent timestamps and staff IDs",
       "Automatic shift reconciliation comparing kitchen prints against payments captured",
     ],
-    metric: "100% Traceable",
-    metricLabel: "Every cancellation carries operator ID & timestamp",
     icon: (
       <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
@@ -63,8 +61,6 @@ const defaultFeatures: Feature[] = [
       "Smart split-routing: grill, hot line, pantry, and bar receive segregated orders",
       "Offline cache preserves kitchen sync during network hiccups",
     ],
-    metric: "< 2.5s Sync",
-    metricLabel: "From server tap to kitchen display screen",
     icon: (
       <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
@@ -254,16 +250,16 @@ export default function FeaturesCards({
   }
 
   return (
-    <section className="relative py-24 md:py-32 bg-black overflow-hidden border-t border-white/5">
+    <section className="relative py-24 md:py-32 bg-navy-950 overflow-hidden border-t border-white/5">
       {/* Background ambient lighting */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-amber-500/5 rounded-full blur-[140px]" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brand-yellow/5 rounded-full blur-[140px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 md:mb-24">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-300 text-xs font-bold uppercase tracking-widest mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-brand-yellow/30 bg-brand-yellow/10 text-brand-yellow text-xs font-bold uppercase tracking-widest mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
             {badge}
           </div>
           <h2 className="display-serif text-3xl sm:text-4xl md:text-5xl text-white mb-4">
@@ -289,7 +285,7 @@ export default function FeaturesCards({
                     setSelectedFeature(feature)
                   }
                 }}
-                className="group relative h-[380px] rounded-3xl overflow-hidden border border-white/10 hover:border-amber-400/40 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.8)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-400/50"
+                className="group relative h-[380px] rounded-3xl overflow-hidden border border-white/10 hover:border-brand-yellow/40 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.8)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-yellow/50"
               >
                 {/* Background WebGL Shader */}
                 <div className="absolute inset-0 rounded-3xl overflow-hidden opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
@@ -310,7 +306,7 @@ export default function FeaturesCards({
                 </div>
 
                 {/* Dark Luxury Overlay */}
-                <div className="relative z-10 p-7 sm:p-8 rounded-3xl h-full flex flex-col justify-between bg-black/75 backdrop-blur-[2px] border border-white/10 group-hover:bg-black/65 transition-colors duration-500">
+                <div className="relative z-10 p-7 sm:p-8 rounded-3xl h-full flex flex-col justify-between bg-navy-950/75 backdrop-blur-[2px] border border-white/10 group-hover:bg-navy-950/65 transition-colors duration-500">
                   <div>
                     <div className="mb-6 p-3.5 rounded-2xl bg-white/10 w-fit border border-white/15 backdrop-blur-md filter drop-shadow-md group-hover:scale-110 group-hover:bg-white/15 transition-all duration-300">
                       {feature.icon}
@@ -325,7 +321,7 @@ export default function FeaturesCards({
                     </p>
                   </div>
 
-                  <div className="pt-4 flex items-center text-sm font-semibold text-amber-300 group-hover:text-white transition-colors">
+                  <div className="pt-4 flex items-center text-sm font-semibold text-brand-yellow group-hover:text-white transition-colors">
                     <span className="mr-2">Explore capability</span>
                     <svg
                       className="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform duration-300"
@@ -353,7 +349,7 @@ export default function FeaturesCards({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedFeature(null)}
-              className="fixed inset-0 bg-black/85 backdrop-blur-md"
+              className="fixed inset-0 bg-navy-950/85 backdrop-blur-md"
             />
 
             {/* Modal Card */}
@@ -375,7 +371,7 @@ export default function FeaturesCards({
 
               {/* Header */}
               <div className="flex items-start gap-4 mb-5">
-                <div className="p-3 rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-400">
+                <div className="p-3 rounded-2xl bg-brand-yellow/15 border border-brand-yellow/30 text-brand-yellow">
                   {selectedFeature.icon}
                 </div>
                 <div>
@@ -383,7 +379,7 @@ export default function FeaturesCards({
                     {selectedFeature.title}
                   </h3>
                   {selectedFeature.subtitle && (
-                    <p className="text-sm text-amber-300/90 font-medium mt-1">
+                    <p className="text-sm text-brand-yellow/90 font-medium mt-1">
                       {selectedFeature.subtitle}
                     </p>
                   )}
@@ -404,7 +400,7 @@ export default function FeaturesCards({
                   <ul className="space-y-2.5">
                     {selectedFeature.highlights.map((point, idx) => (
                       <li key={idx} className="flex items-start gap-2.5 text-sm text-neutral-200">
-                        <span className="text-amber-400 font-bold mt-0.5">✓</span>
+                        <span className="text-brand-yellow font-bold mt-0.5">✓</span>
                         <span>{point}</span>
                       </li>
                     ))}
@@ -414,12 +410,12 @@ export default function FeaturesCards({
 
               {/* Metric Tag */}
               {selectedFeature.metric && (
-                <div className="flex items-center justify-between p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 mb-6">
+                <div className="flex items-center justify-between p-3.5 rounded-xl bg-brand-yellow/10 border border-brand-yellow/20 mb-6">
                   <div>
                     <div className="text-xs text-neutral-400 font-medium">{selectedFeature.metricLabel}</div>
-                    <div className="text-lg font-extrabold text-amber-300">{selectedFeature.metric}</div>
+                    <div className="text-lg font-extrabold text-brand-yellow">{selectedFeature.metric}</div>
                   </div>
-                  <div className="text-xs uppercase tracking-wider text-amber-400 font-bold bg-amber-500/20 px-2.5 py-1 rounded-full">
+                  <div className="text-xs uppercase tracking-wider text-brand-yellow font-bold bg-brand-yellow/20 px-2.5 py-1 rounded-full">
                     Active Control
                   </div>
                 </div>

@@ -30,8 +30,8 @@ export const LogoIcon: React.FC<{ className?: string }> = ({ className = "size-8
         y2="40"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#fbbf24" />
-        <stop offset="0.5" stopColor="#f59e0b" />
+        <stop stopColor="#F5C518" />
+        <stop offset="0.5" stopColor="#F5C518" />
         <stop offset="1" stopColor="#d97706" />
       </linearGradient>
     </defs>

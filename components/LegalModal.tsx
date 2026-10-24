@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark, faShield, faFileLines, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { Icon } from '@/components/ui/icon';
+import { ChevronDownIcon, ChevronUpIcon, FileTextIcon, ShieldIcon, XIcon } from 'lucide-react';
 import { Box, Typography, IconButton } from '@mui/material';
 
 type LegalType = 'privacy' | 'terms' | null;
@@ -28,11 +28,11 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ title, children, defaultO
       <Box
         component="button"
         onClick={() => setIsOpen(!isOpen)}
-        sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', py: 2, textAlign: 'left', bgcolor: 'transparent', border: 'none', cursor: 'pointer', transition: 'color 0.2s', '&:hover': { color: '#fbbf24' } }}
+        sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', py: 2, textAlign: 'left', bgcolor: 'transparent', border: 'none', cursor: 'pointer', transition: 'color 0.2s', '&:hover': { color: '#F5C518' } }}
       >
-        <Typography component="span" sx={{ fontWeight: 600, color: 'white', fontSize: '1rem', '.MuiBox-root:hover &': { color: '#fbbf24' } }}>{title}</Typography>
-        <FontAwesomeIcon 
-          icon={isOpen ? faChevronUp : faChevronDown} 
+        <Typography component="span" sx={{ fontWeight: 600, color: 'white', fontSize: '1rem', '.MuiBox-root:hover &': { color: '#F5C518' } }}>{title}</Typography>
+        <Icon 
+          icon={isOpen ? ChevronUpIcon : ChevronDownIcon} 
           style={{ width: 16, height: 16, color: '#6b7280' }} 
         />
       </Box>
@@ -138,7 +138,7 @@ const PrivacyPolicyContent: React.FC = () => (
         <Box component="li">Lodge a complaint with relevant data protection authorities</Box>
       </Box>
       <Typography sx={{ mt: 1.5 }}>
-        To exercise these rights, contact us at <Box component="a" href="mailto:info@sharptable.com.ng" sx={{ color: '#fbbf24', textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}>info@sharptable.com.ng</Box>
+        To exercise these rights, contact us at <Box component="a" href="mailto:info@sharptable.com.ng" sx={{ color: '#F5C518', textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}>info@sharptable.com.ng</Box>
       </Typography>
     </AccordionItem>
 
@@ -168,7 +168,7 @@ const PrivacyPolicyContent: React.FC = () => (
       <Typography>For privacy-related inquiries:</Typography>
       <Typography sx={{ mt: 1 }}>
         <Box component="strong" sx={{ color: 'white' }}>SharpTable Tech</Box><br />
-        Email: <Box component="a" href="mailto:info@sharptable.com.ng" sx={{ color: '#fbbf24', textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}>info@sharptable.com.ng</Box><br />
+        Email: <Box component="a" href="mailto:info@sharptable.com.ng" sx={{ color: '#F5C518', textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}>info@sharptable.com.ng</Box><br />
         Nigeria
       </Typography>
     </AccordionItem>
@@ -200,11 +200,11 @@ const TermsOfServiceContent: React.FC = () => (
     <AccordionItem title="2. Subscription Plans & Billing">
       <Typography><Box component="strong" sx={{ color: 'white' }}>Plans Offered:</Box></Typography>
       <Box component="ul" sx={{ listStyleType: 'disc', pl: 3, m: 0, display: 'flex', flexDirection: 'column', gap: 0.5, mt: 1 }}>
-        <Box component="li"><Box component="strong" sx={{ color: '#fbbf24' }}>Solo:</Box> 1 branch, ₦50,000/month.</Box>
-        <Box component="li"><Box component="strong" sx={{ color: '#fbbf24' }}>Growth:</Box> 2 to 5 branches, ₦99,999/month.</Box>
-        <Box component="li"><Box component="strong" sx={{ color: '#fbbf24' }}>Group:</Box> 6 to 10 branches, ₦199,999/month.</Box>
-        <Box component="li"><Box component="strong" sx={{ color: '#fbbf24' }}>11+ branches:</Box> Custom pricing.</Box>
-        <Box component="li"><Box component="strong" sx={{ color: '#fbbf24' }}>Hotels:</Box> ₦3,000 per room per month, minimum ₦75,000.</Box>
+        <Box component="li"><Box component="strong" sx={{ color: '#F5C518' }}>Solo:</Box> 1 branch, ₦50,000/month.</Box>
+        <Box component="li"><Box component="strong" sx={{ color: '#F5C518' }}>Growth:</Box> 2 to 5 branches, ₦99,999/month.</Box>
+        <Box component="li"><Box component="strong" sx={{ color: '#F5C518' }}>Group:</Box> 6 to 10 branches, ₦199,999/month.</Box>
+        <Box component="li"><Box component="strong" sx={{ color: '#F5C518' }}>11+ branches:</Box> Custom pricing.</Box>
+        <Box component="li"><Box component="strong" sx={{ color: '#F5C518' }}>Hotels:</Box> ₦3,000 per room per month, minimum ₦75,000.</Box>
         <Box component="li">Every plan includes every feature.</Box>
       </Box>
 
@@ -319,7 +319,7 @@ const TermsOfServiceContent: React.FC = () => (
       <Typography>For questions about these Terms:</Typography>
       <Typography sx={{ mt: 1 }}>
         <Box component="strong" sx={{ color: 'white' }}>SharpTable Tech</Box><br />
-        Email: <Box component="a" href="mailto:info@sharptable.com.ng" sx={{ color: '#fbbf24', textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}>info@sharptable.com.ng</Box><br />
+        Email: <Box component="a" href="mailto:info@sharptable.com.ng" sx={{ color: '#F5C518', textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}>info@sharptable.com.ng</Box><br />
         Nigeria
       </Typography>
     </AccordionItem>
@@ -330,7 +330,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({ isOpen, onClose, type })
   if (!isOpen || !type) return null;
 
   const title = type === 'privacy' ? 'Privacy Policy' : 'Terms of Service';
-  const icon = type === 'privacy' ? faShield : faFileLines;
+  const icon = type === 'privacy' ? ShieldIcon : FileTextIcon;
 
   return (
     <AnimatePresence>
@@ -358,13 +358,13 @@ export const LegalModal: React.FC<LegalModalProps> = ({ isOpen, onClose, type })
             {/* Header */}
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 3, borderBottom: '1px solid', borderColor: 'grey.800', bgcolor: 'rgba(24,24,27,0.9)', backdropFilter: 'blur(4px)', position: 'sticky', top: 0 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                <Box sx={{ width: 40, height: 40, borderRadius: '0.75rem', background: 'linear-gradient(to bottom right, #f59e0b, #f97316)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <FontAwesomeIcon icon={icon} style={{ color: 'white', width: 20, height: 20 }} />
+                <Box sx={{ width: 40, height: 40, borderRadius: '0.75rem', background: 'linear-gradient(to bottom right, #F5C518, #f97316)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Icon icon={icon} style={{ color: 'white', width: 20, height: 20 }} />
                 </Box>
                 <Typography variant="h2" sx={{ fontSize: { xs: '1.25rem', md: '1.5rem' }, fontWeight: 700, color: 'white' }}>{title}</Typography>
               </Box>
               <IconButton onClick={onClose} size="small" sx={{ width: 40, height: 40, borderRadius: '0.75rem', bgcolor: 'grey.800', '&:hover': { bgcolor: 'grey.700' }, transition: 'background-color 0.2s', color: 'grey.400' }}>
-                <FontAwesomeIcon icon={faXmark} style={{ width: 20, height: 20 }} />
+                <Icon icon={XIcon} style={{ width: 20, height: 20 }} />
               </IconButton>
             </Box>
 
@@ -384,7 +384,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({ isOpen, onClose, type })
                 <Box
                   component="button"
                   onClick={onClose}
-                  sx={{ px: 3, py: 1, background: 'linear-gradient(to right, #f59e0b, #f97316)', color: 'white', fontWeight: 600, borderRadius: '0.75rem', border: 'none', cursor: 'pointer', '&:hover': { boxShadow: '0 10px 15px -3px rgba(245,158,11,0.25)' }, transition: 'all 0.2s', fontFamily: 'inherit' }}
+                  sx={{ px: 3, py: 1, background: 'linear-gradient(to right, #F5C518, #f97316)', color: 'white', fontWeight: 600, borderRadius: '0.75rem', border: 'none', cursor: 'pointer', '&:hover': { boxShadow: '0 10px 15px -3px rgba(245,197,24,0.25)' }, transition: 'all 0.2s', fontFamily: 'inherit' }}
                 >
                   Close
                 </Box>

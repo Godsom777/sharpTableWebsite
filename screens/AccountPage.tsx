@@ -2,16 +2,8 @@
 
 import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faArrowRotateRight,
-  faBan,
-  faCalendarDay,
-  faKey,
-  faRightFromBracket,
-  faShieldHalved,
-  faTriangleExclamation,
-} from '@fortawesome/free-solid-svg-icons';
+import { Icon } from '@/components/ui/icon';
+import { BanIcon, CalendarDaysIcon, KeyRoundIcon, LogOutIcon, RotateCwIcon, ShieldCheckIcon, TriangleAlertIcon } from 'lucide-react';
 import {
   Alert,
   Box,
@@ -256,7 +248,7 @@ export const AccountPage: React.FC = () => {
         symbols={accountSymbols}
       />
 
-      <Box component="section" sx={{ bgcolor: 'black', pb: { xs: 10, md: 16 } }}>
+      <Box component="section" sx={{ bgcolor: '#050B1F', pb: { xs: 10, md: 16 } }}>
         <Container maxWidth="lg">
           {!isConfigured && (
             <Alert severity="error" sx={{ mb: 4 }}>
@@ -278,7 +270,7 @@ export const AccountPage: React.FC = () => {
               sx={{
                 maxWidth: 560,
                 mx: 'auto',
-                bgcolor: '#111111',
+                bgcolor: '#111E47',
                 border: '1px solid rgba(255,255,255,0.08)',
                 borderRadius: '1.5rem',
                 p: { xs: 3, md: 5 },
@@ -373,7 +365,7 @@ export const AccountPage: React.FC = () => {
                     isSendingRecovery ? (
                       <CircularProgress size={16} sx={{ color: 'inherit' }} />
                     ) : (
-                      <FontAwesomeIcon icon={faKey} />
+                      <Icon icon={KeyRoundIcon} />
                     )
                   }
                 >
@@ -385,7 +377,7 @@ export const AccountPage: React.FC = () => {
             <Box sx={{ display: 'grid', gap: 4 }}>
               <Box
                 sx={{
-                  bgcolor: '#111111',
+                  bgcolor: '#111E47',
                   border: '1px solid rgba(255,255,255,0.08)',
                   borderRadius: '1.5rem',
                   p: { xs: 3, md: 4 },
@@ -414,7 +406,7 @@ export const AccountPage: React.FC = () => {
                       borderRadius: '999px',
                       px: 2.5,
                     }}
-                    startIcon={<FontAwesomeIcon icon={faArrowRotateRight} />}
+                    startIcon={<Icon icon={RotateCwIcon} />}
                   >
                     Refresh
                   </Button>
@@ -426,7 +418,7 @@ export const AccountPage: React.FC = () => {
                       borderRadius: '999px',
                       px: 2.5,
                     }}
-                    startIcon={<FontAwesomeIcon icon={faRightFromBracket} />}
+                    startIcon={<Icon icon={LogOutIcon} />}
                   >
                     Log Out
                   </Button>
@@ -451,7 +443,7 @@ export const AccountPage: React.FC = () => {
                 <>
                   <Box
                     sx={{
-                      bgcolor: '#111111',
+                      bgcolor: '#111E47',
                       border: '1px solid rgba(255,255,255,0.08)',
                       borderRadius: '1.5rem',
                       p: { xs: 3, md: 4 },
@@ -497,8 +489,8 @@ export const AccountPage: React.FC = () => {
                     <Alert
                       severity={subscription.scheduledPlanType ? 'info' : 'warning'}
                       icon={
-                        <FontAwesomeIcon
-                          icon={subscription.scheduledPlanType ? faCalendarDay : faTriangleExclamation}
+                        <Icon
+                          icon={subscription.scheduledPlanType ? CalendarDaysIcon : TriangleAlertIcon}
                         />
                       }
                     >
@@ -510,7 +502,7 @@ export const AccountPage: React.FC = () => {
 
                   <Box
                     sx={{
-                      bgcolor: '#111111',
+                      bgcolor: '#111E47',
                       border: '1px solid rgba(255,255,255,0.08)',
                       borderRadius: '1.5rem',
                       p: { xs: 3, md: 4 },
@@ -535,9 +527,9 @@ export const AccountPage: React.FC = () => {
                             sx={{
                               borderRadius: '1.2rem',
                               p: 2.5,
-                              bgcolor: isCurrent ? 'rgba(201,168,76,0.12)' : '#070707',
+                              bgcolor: isCurrent ? 'rgba(245,197,24,0.12)' : '#070707',
                               border: isCurrent
-                                ? '1px solid rgba(201,168,76,0.45)'
+                                ? '1px solid rgba(245,197,24,0.45)'
                                 : '1px solid rgba(255,255,255,0.08)',
                             }}
                           >
@@ -557,9 +549,9 @@ export const AccountPage: React.FC = () => {
                                 borderRadius: '999px',
                                 py: 1.3,
                                 fontWeight: 800,
-                                bgcolor: isCurrent ? 'rgba(201,168,76,0.2)' : 'white',
+                                bgcolor: isCurrent ? 'rgba(245,197,24,0.2)' : 'white',
                                 color: isCurrent ? '#f1d38b' : 'black',
-                                '&:hover': { bgcolor: isCurrent ? 'rgba(201,168,76,0.24)' : 'grey.200' },
+                                '&:hover': { bgcolor: isCurrent ? 'rgba(245,197,24,0.24)' : 'grey.200' },
                               }}
                             >
                               {isBusy ? (
@@ -580,7 +572,7 @@ export const AccountPage: React.FC = () => {
 
                   <Box
                     sx={{
-                      bgcolor: '#111111',
+                      bgcolor: '#111E47',
                       border: '1px solid rgba(255,255,255,0.08)',
                       borderRadius: '1.5rem',
                       p: { xs: 3, md: 4 },
@@ -597,7 +589,7 @@ export const AccountPage: React.FC = () => {
 
                     <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 2, alignItems: { xs: 'stretch', md: 'center' }, justifyContent: 'space-between' }}>
                       <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
-                        <FontAwesomeIcon icon={faShieldHalved} style={{ marginTop: 4, color: '#fbbf24' }} />
+                        <Icon icon={ShieldCheckIcon} style={{ marginTop: 4, color: '#F5C518' }} />
                         <Typography sx={{ color: 'grey.400', lineHeight: 1.7 }}>
                           Cancelling here stops the next renewal. Your current plan stays active until the end of the billing period.
                         </Typography>
@@ -620,7 +612,7 @@ export const AccountPage: React.FC = () => {
                           activeAction === 'cancel' ? (
                             <CircularProgress size={16} sx={{ color: 'inherit' }} />
                           ) : (
-                            <FontAwesomeIcon icon={faBan} />
+                            <Icon icon={BanIcon} />
                           )
                         }
                       >

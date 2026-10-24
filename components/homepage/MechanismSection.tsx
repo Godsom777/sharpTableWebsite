@@ -29,11 +29,11 @@ const sourceColors: Record<string, string> = {
   'WhatsApp': '#25d366',
   'Walk-in': '#8b5cf6',
   'Website': '#3b82f6',
-  'Phone': '#f59e0b',
+  'Phone': '#F5C518',
 };
 
 const statusColors: Record<string, string> = {
-  'New': '#f59e0b',
+  'New': '#F5C518',
   'Confirmed': '#3b82f6',
   'Preparing': '#8b5cf6',
 };
@@ -202,7 +202,7 @@ export const MechanismSection: React.FC = () => {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'radial-gradient(ellipse at 70% 50%, rgba(245,158,11,0.04) 0%, transparent 65%)',
+          background: 'radial-gradient(ellipse at 70% 50%, rgba(245,197,24,0.04) 0%, transparent 65%)',
           pointerEvents: 'none',
         },
       }}

@@ -2,12 +2,10 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faXmark, faEnvelope, faBuilding, faSpinner, faShieldHalved, faLock,
-  faCrown, faArrowRight, faCheck, faKey, faEye, faEyeSlash, faUserPlus, faGlobe
-} from '@fortawesome/free-solid-svg-icons';
-import { faCcVisa, faCcMastercard, faCcAmex, faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
+import { FcGoogle } from 'react-icons/fc';
+import { SiFacebook } from 'react-icons/si';
+import { Icon } from '@/components/ui/icon';
+import { CheckIcon, CreditCardIcon, CrownIcon, EyeIcon, EyeOffIcon, LockIcon, ShieldCheckIcon, UserPlusIcon, XIcon } from 'lucide-react';
 import { Box, Typography, IconButton, InputBase, MenuItem, Select, Checkbox, CircularProgress, Divider } from '@mui/material';
 import { usePayment, PLAN_CONFIG } from '../contexts/PaymentContext';
 import { LegalModal, useLegalModal } from './LegalModal';
@@ -183,11 +181,11 @@ export const PaymentModal: React.FC = () => {
       <AnimatePresence>
         {isModalOpen && planDetails && (
           <Box component={motion.div} initial={false} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} onClick={(e) => { if (e.target === e.currentTarget) closePaymentModal() }} sx={{ position: 'fixed', inset: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', p: 2, bgcolor: 'rgba(0,0,0,0.9)', backdropFilter: 'blur(10px)' }}>
-            <Box component={motion.div} initial={false} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} transition={{ duration: 0.3 }} sx={{ position: 'relative', width: '100%', maxWidth: '28rem', bgcolor: '#111111', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)', overflow: 'hidden' }}>
+            <Box component={motion.div} initial={false} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} transition={{ duration: 0.3 }} sx={{ position: 'relative', width: '100%', maxWidth: '28rem', bgcolor: '#111E47', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)', overflow: 'hidden' }}>
               <Box sx={{ position: 'relative', px: 4, pt: 4, pb: 3, borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                <IconButton onClick={closePaymentModal} sx={{ position: 'absolute', top: 16, right: 16, width: 32, height: 32, color: 'grey.500', '&:hover': { color: 'white' } }}><FontAwesomeIcon icon={faXmark} style={{ width: 16, height: 16 }} /></IconButton>
+                <IconButton onClick={closePaymentModal} sx={{ position: 'absolute', top: 16, right: 16, width: 32, height: 32, color: 'grey.500', '&:hover': { color: 'white' } }}><Icon icon={XIcon} style={{ width: 16, height: 16 }} /></IconButton>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                  <Box sx={{ width: 48, height: 48, borderRadius: '50%', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.2)' }}><FontAwesomeIcon icon={faCrown} style={{ width: 20, height: 20 }} /></Box>
+                  <Box sx={{ width: 48, height: 48, borderRadius: '50%', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.2)' }}><Icon icon={CrownIcon} style={{ width: 20, height: 20 }} /></Box>
                   <Box>
                     <Typography variant="h2" sx={{ fontSize: '1.25rem', fontWeight: 800, color: 'white' }}>{planDetails.name} Plan</Typography>
                     <Typography sx={{ fontSize: '0.875rem', color: 'grey.400', fontWeight: 500 }}>{planDetails.price} {planDetails.period}</Typography>
@@ -197,9 +195,9 @@ export const PaymentModal: React.FC = () => {
 
               <Box component="form" onSubmit={handleSubmit} sx={{ p: 4, display: 'flex', flexDirection: 'column', gap: 3, maxHeight: '65vh', overflowY: 'auto' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 2, py: 0.5, borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', ...(registrationStep === 'form' ? { bgcolor: 'white', color: 'black' } : { bgcolor: '#22c55e', color: 'white' }) }}><FontAwesomeIcon icon={registrationStep === 'form' ? faUserPlus : faCheck} /> Register</Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 2, py: 0.5, borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', ...(registrationStep === 'form' ? { bgcolor: 'white', color: 'black' } : { bgcolor: '#22c55e', color: 'white' }) }}><Icon icon={registrationStep === 'form' ? UserPlusIcon : CheckIcon} /> Register</Box>
                   <Box sx={{ width: 24, height: 1, bgcolor: 'rgba(255,255,255,0.2)' }} />
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 2, py: 0.5, borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', ...(registrationStep === 'payment' ? { bgcolor: 'white', color: 'black' } : { border: '1px solid rgba(255,255,255,0.2)', color: 'grey.500' }) }}><FontAwesomeIcon icon={faLock} /> Pay</Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 2, py: 0.5, borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', ...(registrationStep === 'payment' ? { bgcolor: 'white', color: 'black' } : { border: '1px solid rgba(255,255,255,0.2)', color: 'grey.500' }) }}><Icon icon={LockIcon} /> Pay</Box>
                 </Box>
 
 
@@ -207,29 +205,29 @@ export const PaymentModal: React.FC = () => {
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
                   <Box>
                     <Typography sx={{ fontSize: '0.8rem', fontWeight: 700, color: 'grey.400', textTransform: 'uppercase', mb: 1, letterSpacing: '0.05em' }}>Email</Typography>
-                    <InputBase type="email" value={formData.email} onChange={handleInputChange('email')} disabled={isSubmitting} sx={{ width: '100%', bgcolor: '#0a0a0a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '0.5rem', color: 'white', '&.Mui-focused': { borderColor: 'white' }, 'input': { py: 1.5, px: 2 } }} />
+                    <InputBase type="email" value={formData.email} onChange={handleInputChange('email')} disabled={isSubmitting} sx={{ width: '100%', bgcolor: '#0A1433', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '0.5rem', color: 'white', '&.Mui-focused': { borderColor: 'white' }, 'input': { py: 1.5, px: 2 } }} />
                     {errors.email && <Typography sx={{ mt: 0.5, fontSize: '0.75rem', color: '#f87171' }}>{errors.email}</Typography>}
                   </Box>
                   <Box>
                     <Typography sx={{ fontSize: '0.8rem', fontWeight: 700, color: 'grey.400', textTransform: 'uppercase', mb: 1, letterSpacing: '0.05em' }}>Business Name</Typography>
-                    <InputBase type="text" value={formData.businessName} onChange={handleInputChange('businessName')} disabled={isSubmitting} sx={{ width: '100%', bgcolor: '#0a0a0a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '0.5rem', color: 'white', '&.Mui-focused': { borderColor: 'white' }, 'input': { py: 1.5, px: 2 } }} />
+                    <InputBase type="text" value={formData.businessName} onChange={handleInputChange('businessName')} disabled={isSubmitting} sx={{ width: '100%', bgcolor: '#0A1433', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '0.5rem', color: 'white', '&.Mui-focused': { borderColor: 'white' }, 'input': { py: 1.5, px: 2 } }} />
                     {errors.businessName && <Typography sx={{ mt: 0.5, fontSize: '0.75rem', color: '#f87171' }}>{errors.businessName}</Typography>}
                   </Box>
                   <Box>
                     <Typography sx={{ fontSize: '0.8rem', fontWeight: 700, color: 'grey.400', textTransform: 'uppercase', mb: 1, letterSpacing: '0.05em' }}>Country</Typography>
-                    <Select value={formData.country} onChange={handleInputChange('country')} displayEmpty disabled={isSubmitting} sx={{ width: '100%', bgcolor: '#0a0a0a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '0.5rem', color: 'white', '&.Mui-focused': { borderColor: 'white' }, '& .MuiOutlinedInput-notchedOutline': { border: 'none' }, py: 0, '& .MuiSelect-icon': { color: 'white' } }}>
+                    <Select value={formData.country} onChange={handleInputChange('country')} displayEmpty disabled={isSubmitting} sx={{ width: '100%', bgcolor: '#0A1433', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '0.5rem', color: 'white', '&.Mui-focused': { borderColor: 'white' }, '& .MuiOutlinedInput-notchedOutline': { border: 'none' }, py: 0, '& .MuiSelect-icon': { color: 'white' } }}>
                       <MenuItem value="" disabled>Select your country</MenuItem>
                       {SUPPORTED_COUNTRIES.map(c => <MenuItem key={c.code} value={c.code}>{c.flag} {c.name}</MenuItem>)}
                     </Select>
                   </Box>
                   <Box>
                     <Typography sx={{ fontSize: '0.8rem', fontWeight: 700, color: 'grey.400', textTransform: 'uppercase', mb: 1, letterSpacing: '0.05em' }}>Password</Typography>
-                    <InputBase type={showPassword ? 'text' : 'password'} value={formData.password} onChange={handleInputChange('password')} disabled={isSubmitting} endAdornment={<IconButton onClick={() => setShowPassword(!showPassword)} sx={{ color: 'grey.500' }}><FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} style={{ width: 14, height: 14 }} /></IconButton>} sx={{ width: '100%', bgcolor: '#0a0a0a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '0.5rem', color: 'white', '&.Mui-focused': { borderColor: 'white' }, 'input': { py: 1.5, px: 2 } }} />
+                    <InputBase type={showPassword ? 'text' : 'password'} value={formData.password} onChange={handleInputChange('password')} disabled={isSubmitting} endAdornment={<IconButton onClick={() => setShowPassword(!showPassword)} sx={{ color: 'grey.500' }}><Icon icon={showPassword ? EyeOffIcon : EyeIcon} style={{ width: 14, height: 14 }} /></IconButton>} sx={{ width: '100%', bgcolor: '#0A1433', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '0.5rem', color: 'white', '&.Mui-focused': { borderColor: 'white' }, 'input': { py: 1.5, px: 2 } }} />
                     {errors.password && <Typography sx={{ mt: 0.5, fontSize: '0.75rem', color: '#f87171' }}>{errors.password}</Typography>}
                   </Box>
                   <Box>
                     <Typography sx={{ fontSize: '0.8rem', fontWeight: 700, color: 'grey.400', textTransform: 'uppercase', mb: 1, letterSpacing: '0.05em' }}>Confirm Password</Typography>
-                    <InputBase type={showConfirmPassword ? 'text' : 'password'} value={formData.confirmPassword} onChange={handleInputChange('confirmPassword')} disabled={isSubmitting} endAdornment={<IconButton onClick={() => setShowConfirmPassword(!showConfirmPassword)} sx={{ color: 'grey.500' }}><FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} style={{ width: 14, height: 14 }} /></IconButton>} sx={{ width: '100%', bgcolor: '#0a0a0a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '0.5rem', color: 'white', '&.Mui-focused': { borderColor: 'white' }, 'input': { py: 1.5, px: 2 } }} />
+                    <InputBase type={showConfirmPassword ? 'text' : 'password'} value={formData.confirmPassword} onChange={handleInputChange('confirmPassword')} disabled={isSubmitting} endAdornment={<IconButton onClick={() => setShowConfirmPassword(!showConfirmPassword)} sx={{ color: 'grey.500' }}><Icon icon={showConfirmPassword ? EyeOffIcon : EyeIcon} style={{ width: 14, height: 14 }} /></IconButton>} sx={{ width: '100%', bgcolor: '#0A1433', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '0.5rem', color: 'white', '&.Mui-focused': { borderColor: 'white' }, 'input': { py: 1.5, px: 2 } }} />
                     {errors.confirmPassword && <Typography sx={{ mt: 0.5, fontSize: '0.75rem', color: '#f87171' }}>{errors.confirmPassword}</Typography>}
                   </Box>
                 </Box>
@@ -240,7 +238,7 @@ export const PaymentModal: React.FC = () => {
                 </Box>
 
                 <Box component="button" type="submit" disabled={isSubmitting} sx={{ width: '100%', py: 2, borderRadius: '9999px', fontWeight: 800, fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, cursor: isSubmitting ? 'not-allowed' : 'pointer', border: 'none', transition: 'all 0.2s', bgcolor: isSubmitting ? 'grey.800' : 'white', color: isSubmitting ? 'grey.500' : 'black', fontFamily: 'inherit', '&:hover:not(:disabled)': { bgcolor: 'grey.200' } }}>
-                  {isSubmitting && registrationStep !== 'form' ? <><CircularProgress size={16} sx={{ color: 'inherit' }} />{registrationStep === 'registering' ? 'Registering...' : 'Securing...'}</> : <><FontAwesomeIcon icon={faLock} /> Complete Subscription</>}
+                  {isSubmitting && registrationStep !== 'form' ? <><CircularProgress size={16} sx={{ color: 'inherit' }} />{registrationStep === 'registering' ? 'Registering...' : 'Securing...'}</> : <><Icon icon={LockIcon} /> Complete Subscription</>}
                 </Box>
 
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, my: 1 }}>
@@ -251,11 +249,11 @@ export const PaymentModal: React.FC = () => {
 
                 <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
                   <Box component="button" type="button" onClick={() => handleOAuth('google')} disabled={isSubmitting} sx={{ flex: 1, py: 2, borderRadius: '9999px', fontWeight: 700, fontSize: '0.9rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, cursor: isSubmitting ? 'not-allowed' : 'pointer', border: '1px solid rgba(255,255,255,0.2)', transition: 'all 0.2s', bgcolor: 'transparent', color: isSubmitting ? 'grey.600' : 'white', fontFamily: 'inherit', '&:hover:not(:disabled)': { bgcolor: 'rgba(255,255,255,0.05)' } }}>
-                    {isSubmitting && registrationStep === 'form' ? <CircularProgress size={16} sx={{ color: 'inherit' }} /> : <FontAwesomeIcon icon={faGoogle} />}
+                    {isSubmitting && registrationStep === 'form' ? <CircularProgress size={16} sx={{ color: 'inherit' }} /> : <FcGoogle aria-hidden />}
                     Google
                   </Box>
                   <Box component="button" type="button" onClick={() => handleOAuth('facebook')} disabled={isSubmitting} sx={{ flex: 1, py: 2, borderRadius: '9999px', fontWeight: 700, fontSize: '0.9rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, cursor: isSubmitting ? 'not-allowed' : 'pointer', border: '1px solid rgba(13,110,253,0.5)', transition: 'all 0.2s', bgcolor: 'rgba(13,110,253,0.05)', color: isSubmitting ? 'grey.600' : '#3b5998', fontFamily: 'inherit', '&:hover:not(:disabled)': { bgcolor: 'rgba(13,110,253,0.1)' } }}>
-                    {isSubmitting && registrationStep === 'form' ? <CircularProgress size={16} sx={{ color: 'inherit' }} /> : <FontAwesomeIcon icon={faFacebook} />}
+                    {isSubmitting && registrationStep === 'form' ? <CircularProgress size={16} sx={{ color: 'inherit' }} /> : <SiFacebook aria-hidden />}
                     Facebook
                   </Box>
                 </Box>
@@ -265,9 +263,9 @@ export const PaymentModal: React.FC = () => {
 
               <Box sx={{ px: 4, pb: 4, pt: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, pt: 3, borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-                  <FontAwesomeIcon icon={faCcVisa} style={{ width: 24, height: 24, color: 'grey' }} />
-                  <FontAwesomeIcon icon={faCcMastercard} style={{ width: 24, height: 24, color: 'grey' }} />
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, fontSize: '0.75rem', color: 'grey.500', fontWeight: 600, ml: 2 }}><FontAwesomeIcon icon={faShieldHalved} /> Secured by Paystack</Box>
+                  <Icon icon={CreditCardIcon} style={{ width: 24, height: 24, color: 'grey' }} />
+                  <Icon icon={CreditCardIcon} style={{ width: 24, height: 24, color: 'grey' }} />
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, fontSize: '0.75rem', color: 'grey.500', fontWeight: 600, ml: 2 }}><Icon icon={ShieldCheckIcon} /> Secured by Paystack</Box>
                 </Box>
               </Box>
             </Box>

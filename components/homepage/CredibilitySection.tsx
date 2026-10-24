@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { Icon } from '@/components/ui/icon';
+import { StarIcon } from 'lucide-react';
 import { Box, Container, Typography } from '@mui/material';
 
 const fadeUp = {
@@ -32,7 +32,7 @@ interface Testimonial {
   tag?: string;
 }
 
-// Single featured, client-approved customer story (+42% confirmed by Okoro, 27 Sep 2026).
+// Single featured, client-approved customer story. Performance figure removed until a source is published.
 const testimonialsData: Testimonial[] = [
   {
     quote: "Since we integrated SharpTable, our bar and grill operations have transformed. The direct-to-kitchen routing practically eliminated order errors, and the turnaround time keeps customers ordering more.",
@@ -41,8 +41,6 @@ const testimonialsData: Testimonial[] = [
     restaurant: "Old English Bar and Grills",
     location: "Owerri",
     rating: 5,
-    metric: "+42%",
-    metricLabel: "weekend revenue",
     verified: true,
     tag: "Verified customer"
   }
@@ -84,10 +82,10 @@ const TestimonialCard: React.FC<{ testimonial: Testimonial; index: number }> = (
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
           <Box sx={{ display: 'flex', gap: 0.75 }}>
             {[...Array(testimonial.rating)].map((_, i) => (
-              <FontAwesomeIcon
+              <Icon
                 key={i}
-                icon={faStar}
-                style={{ width: 14, height: 14, color: '#f59e0b' }}
+                icon={StarIcon}
+                style={{ width: 14, height: 14, color: '#F5C518' }}
               />
             ))}
           </Box>
@@ -100,9 +98,9 @@ const TestimonialCard: React.FC<{ testimonial: Testimonial; index: number }> = (
                 px: 1.5,
                 py: 0.4,
                 borderRadius: '999px',
-                bgcolor: testimonial.verified ? 'rgba(245, 158, 11, 0.12)' : 'rgba(255, 255, 255, 0.05)',
-                color: testimonial.verified ? '#fcd34d' : 'grey.400',
-                border: testimonial.verified ? '1px solid rgba(245, 158, 11, 0.3)' : '1px solid rgba(255, 255, 255, 0.1)',
+                bgcolor: testimonial.verified ? 'rgba(245,197,24, 0.12)' : 'rgba(255, 255, 255, 0.05)',
+                color: testimonial.verified ? '#F5C518' : 'grey.400',
+                border: testimonial.verified ? '1px solid rgba(245,197,24, 0.3)' : '1px solid rgba(255, 255, 255, 0.1)',
                 letterSpacing: '0.02em',
               }}
             >
@@ -170,14 +168,14 @@ const TestimonialCard: React.FC<{ testimonial: Testimonial; index: number }> = (
               width: 44,
               height: 44,
               borderRadius: '50%',
-              background: 'linear-gradient(135deg, #f59e0b, #d97706)',
+              background: 'linear-gradient(135deg, #F5C518, #d97706)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               color: '#000',
               fontWeight: 800,
               fontSize: '1.1rem',
-              boxShadow: '0 0 15px rgba(245,158,11,0.3)',
+              boxShadow: '0 0 15px rgba(245,197,24,0.3)',
             }}
           >
             {testimonial.author.charAt(0)}

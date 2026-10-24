@@ -1,37 +1,25 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faHandshake,
-  faMoneyBillTrendUp,
-  faLink,
-  faRepeat,
-  faUser,
-  faGift,
-  faChartLine,
-  faArrowRight,
-  faChevronDown,
-  faClock,
-  faWallet,
-  faShieldHalved,
-  faCalendarCheck,
-  faCalculator,
-} from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
 import Link from 'next/link';
-import { Box, Container, Typography } from '@mui/material';
+import {
+  ArrowRight, Banknote, CalendarCheck, Calculator, Clock, Gift, Handshake, LineChart, Link2, Repeat, ShieldCheck, User, Wallet,
+} from 'lucide-react';
+import { Reveal } from '@/components/motion/Reveal';
+import { Button } from '@/components/ui/button';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 
 const steps = [
-  { icon: faUser, title: 'Apply', desc: 'Secure your partner node instantly without arbitrary waiting periods.' },
-  { icon: faLink, title: 'Get Your Link', desc: 'Acquire your traceable link to track performance securely.' },
-  { icon: faHandshake, title: 'They Subscribe', desc: 'When franchises lock down via your link, the ledger attributes them to you.' },
-  { icon: faMoneyBillTrendUp, title: 'You Get Paid', desc: 'Earn aggressive upfront and recurring capital for securing operations.' },
+  { icon: User, title: 'Apply', desc: 'Secure your partner node instantly without arbitrary waiting periods.' },
+  { icon: Link2, title: 'Get Your Link', desc: 'Acquire your traceable link to track performance securely.' },
+  { icon: Handshake, title: 'They Subscribe', desc: 'When franchises lock down via your link, the ledger attributes them to you.' },
+  { icon: Banknote, title: 'You Get Paid', desc: 'Earn aggressive upfront and recurring capital for securing operations.' },
 ];
 
 const commissions = [
-  { rate: '50%', label: 'Upfront Capital', desc: "Monthly plans: 50% of the first month's payment.", icon: faGift },
-  { rate: '20%', label: 'Recurring Royalty', desc: 'Monthly plans: 20% recurring for 6 consecutive months. Yearly plans earn 30% flat upfront immediately.', icon: faRepeat },
+  { rate: '50%', label: 'Upfront Capital', desc: "Monthly plans: 50% of the first month's payment.", icon: Gift },
+  { rate: '20%', label: 'Recurring Royalty', desc: 'Monthly plans: 20% recurring for 6 consecutive months. Yearly plans earn 30% flat upfront immediately.', icon: Repeat },
 ];
 
 const earnings = [
@@ -42,197 +30,139 @@ const earnings = [
 ];
 
 const faqs = [
-  { q: 'How much can I earn?', a: 'There is zero ceiling. 10 Group Monthly referrals nets you ₦3.4 million over 6 months.', icon: faWallet },
-  { q: 'Yearly Plan Impact?', a: 'Yearly subscriptions execute an immediate 30% flush payment with no recurring delay. Sell a Group Yearly and secure about ₦600,000 at once.', icon: faCalendarCheck },
-  { q: 'Payout Logistics?', a: 'Funds clear within 7 business days following every successful client charge.', icon: faClock },
-  { q: 'Dashboard Tracking?', a: 'Full real-time visibility over your converted venues and inbound streams.', icon: faChartLine },
-  { q: 'Are there thresholds?', a: 'No minimums. Earn immediately on execution.', icon: faCalculator },
-  { q: 'Is technical capacity required?', a: 'No. Just operational influence over restaurant chains.', icon: faUser },
-  { q: 'Cancellation Policy?', a: 'You keep all acquired upfront capital. No clawbacks on what you successfully hunt.', icon: faShieldHalved },
+  { q: 'How much can I earn?', a: 'There is zero ceiling. 10 Group Monthly referrals nets you ₦3.4 million over 6 months.', icon: Wallet },
+  { q: 'Yearly Plan Impact?', a: 'Yearly subscriptions execute an immediate 30% flush payment with no recurring delay. Sell a Group Yearly and secure about ₦600,000 at once.', icon: CalendarCheck },
+  { q: 'Payout Logistics?', a: 'Funds clear within 7 business days following every successful client charge.', icon: Clock },
+  { q: 'Dashboard Tracking?', a: 'Full real-time visibility over your converted venues and inbound streams.', icon: LineChart },
+  { q: 'Are there thresholds?', a: 'No minimums. Earn immediately on execution.', icon: Calculator },
+  { q: 'Is technical capacity required?', a: 'No. Just operational influence over restaurant chains.', icon: User },
+  { q: 'Cancellation Policy?', a: 'You keep all acquired upfront capital. No clawbacks on what you successfully hunt.', icon: ShieldCheck },
 ];
 
-const FAQItem: React.FC<{ item: typeof faqs[0]; index: number }> = ({ item, index }) => {
-  const [open, setOpen] = useState(false);
+const h2 = 'display-serif mb-3 text-4xl leading-[1.05] text-white md:text-6xl';
+const lead = 'mx-auto max-w-xl text-lg leading-relaxed text-muted-foreground';
 
-  return (
-    <Box
-      component={motion.div}
-      initial={false}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.05 }}
-      sx={{ border: '1px solid rgba(255,255,255,0.05)', borderRadius: '1rem', overflow: 'hidden', bgcolor: '#111111' }}
-    >
-      <Box
-        component="button"
-        onClick={() => setOpen(!open)}
-        sx={{
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 2,
-          px: 3,
-          py: 2.5,
-          textAlign: 'left',
-          bgcolor: 'transparent',
-          border: 'none',
-          cursor: 'pointer',
-          fontFamily: 'inherit',
-          '&:hover span': { color: 'white' },
-        }}
-      >
-        <Box sx={{ width: 36, height: 36, flexShrink: 0, borderRadius: '0.75rem', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <FontAwesomeIcon icon={item.icon} style={{ width: 14, height: 14, color: 'white' }} />
-        </Box>
-        <Typography component="span" sx={{ flex: 1, fontSize: '0.95rem', fontWeight: 600, color: 'grey.300', transition: 'color 0.2s', letterSpacing: '-0.02em' }}>
-          {item.q}
-        </Typography>
-        <Box component={motion.div} animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.25 }}>
-          <FontAwesomeIcon icon={faChevronDown} style={{ width: 14, height: 14, color: 'grey.600' }} />
-        </Box>
-      </Box>
-      <AnimatePresence initial={false}>
-        {open && (
-          <Box
-            component={motion.div}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            sx={{ overflow: 'hidden' }}
-          >
-            <Typography sx={{ px: 3, pb: 3, pl: '4.5rem', fontSize: '0.95rem', color: 'grey.500', lineHeight: 1.6 }}>
-              {item.a}
-            </Typography>
-          </Box>
-        )}
-      </AnimatePresence>
-    </Box>
-  );
-};
+export const PartnershipInfo: React.FC = () => (
+  <section className="relative bg-navy-950">
+    <div className="container max-w-5xl py-14 md:py-24">
+      <Reveal className="mb-10 text-center">
+        <h2 className={h2}>Capital Protocol</h2>
+        <p className={lead}>Expand the network. Capitalize on the operational gap.</p>
+      </Reveal>
+      <ol className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {steps.map((step, i) => (
+          <Reveal key={step.title} delay={i * 0.05} className="relative rounded-3xl border border-white/10 bg-navy-900 p-6">
+            <span aria-hidden className="absolute right-5 top-4 text-3xl font-black text-white/10">{i + 1}</span>
+            <span className="mb-4 flex size-12 items-center justify-center rounded-full bg-brand-yellow/15 text-brand-yellow"><step.icon className="size-5" aria-hidden /></span>
+            <h3 className="mb-1 text-lg font-extrabold text-white">{step.title}</h3>
+            <p className="text-[0.95rem] leading-relaxed text-muted-foreground">{step.desc}</p>
+          </Reveal>
+        ))}
+      </ol>
+    </div>
 
-export const PartnershipInfo: React.FC = () => {
-  return (
-    <Box component="section" sx={{ position: 'relative', bgcolor: '#000000' }}>
-      <Container maxWidth="md" sx={{ pt: { xs: 12, md: 16 }, pb: { xs: 10, md: 16 }, px: 3 }}>
-        <Box component={motion.div} initial={false} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} sx={{ textAlign: 'center', mb: 8 }}>
-          <Typography variant="h2" sx={{ fontSize: { xs: '2.5rem', md: '3.5rem' }, fontWeight: 900, color: 'white', mb: 2, letterSpacing: '-0.04em' }}>
-            Capital Protocol
-          </Typography>
-          <Typography sx={{ color: 'grey.500', maxWidth: 500, mx: 'auto', fontSize: '1.25rem', lineHeight: 1.6 }}>
-            Expand the network. Capitalize on the operational gap.
-          </Typography>
-        </Box>
-
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', lg: 'repeat(4, 1fr)' }, gap: 3 }}>
-          {steps.map((step, i) => (
-            <Box component={motion.div} key={step.title} initial={false} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} sx={{ position: 'relative', borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', p: 4, textAlign: 'center' }}>
-              <Box sx={{ position: 'absolute', top: 12, right: 16, color: 'grey.800', fontSize: '2rem', fontWeight: 900, userSelect: 'none' }}>{i + 1}</Box>
-              <Box sx={{ width: 48, height: 48, mx: 'auto', mb: 3, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <FontAwesomeIcon icon={step.icon} style={{ width: 16, height: 16, color: 'white' }} />
-              </Box>
-              <Typography variant="h3" sx={{ color: 'white', fontWeight: 800, mb: 1, fontSize: '1.125rem' }}>{step.title}</Typography>
-              <Typography sx={{ color: 'grey.500', fontSize: '0.95rem', lineHeight: 1.6 }}>{step.desc}</Typography>
-            </Box>
+    <div className="border-y border-white/10 bg-navy-900/60">
+      <div className="container max-w-5xl py-14 md:py-24">
+        <Reveal className="mb-10 text-center">
+          <h2 className={h2}>The Returns</h2>
+          <p className={lead}>Aggressive compounding on recurring monthly execution, and heavy flat-fee payouts for yearly commitments.</p>
+        </Reveal>
+        <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2">
+          {commissions.map((c) => (
+            <Reveal key={c.label} className="rounded-3xl border border-white/10 bg-navy-900 p-7 text-center md:p-10">
+              <span className="mx-auto mb-5 flex size-14 items-center justify-center rounded-full bg-brand-blue/15 text-brand-blue"><c.icon className="size-6" aria-hidden /></span>
+              <p className="mb-1 text-6xl font-black leading-none text-brand-yellow">{c.rate}</p>
+              <h3 className="mb-2 text-xl font-extrabold text-white">{c.label}</h3>
+              <p className="text-muted-foreground">{c.desc}</p>
+            </Reveal>
           ))}
-        </Box>
-      </Container>
+        </div>
 
-      <Box sx={{ bgcolor: '#0a0a0a', borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-        <Container maxWidth="md" sx={{ py: { xs: 12, md: 16 }, px: 3 }}>
-          <Box component={motion.div} initial={false} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} sx={{ textAlign: 'center', mb: 8 }}>
-            <Typography variant="h2" sx={{ fontSize: { xs: '2rem', md: '3rem' }, fontWeight: 900, letterSpacing: '-0.04em', color: 'white', mb: 2 }}>
-              The Returns
-            </Typography>
-            <Typography sx={{ color: 'grey.500', maxWidth: 600, mx: 'auto', fontSize: '1.125rem', lineHeight: 1.6 }}>
-              Aggressive compounding on recurring monthly execution, and heavy flat-fee payouts for yearly commitments.
-            </Typography>
-          </Box>
+        <Reveal className="overflow-hidden rounded-3xl border border-white/10">
+          <h3 className="flex items-center gap-3 bg-navy-900 px-5 py-4 text-lg font-extrabold text-white md:px-8">
+            <LineChart className="size-5 text-brand-yellow" aria-hidden /> Revenue Projections
+          </h3>
+          {/* Phones: swipeable cards */}
+          <div className="bg-navy-950 py-5 md:hidden">
+            <Carousel opts={{ align: 'start' }} aria-label="Revenue projections">
+              <CarouselContent className="-ml-3 px-5">
+                {earnings.map((e) => (
+                  <CarouselItem key={e.plan} className="basis-[85%] pl-3">
+                    <dl className="h-full rounded-2xl border border-white/10 bg-navy-900 p-5 text-sm">
+                      <dt className="sr-only">Plan Format</dt>
+                      <dd className="mb-4 text-base font-bold text-white">{e.plan}</dd>
+                      {([['Client Price', e.price], ['Upfront', e.upfront], ['Recurring', e.recurring]] as const).map(([k, v]) => (
+                        <div key={k} className="flex justify-between border-t border-white/10 py-2">
+                          <dt className="text-muted-foreground">{k}</dt><dd className="font-semibold text-white/90">{v}</dd>
+                        </div>
+                      ))}
+                      <div className="flex justify-between border-t border-white/10 pt-3">
+                        <dt className="font-bold text-white">Total Return</dt><dd className="text-lg font-black text-brand-yellow">{e.total}</dd>
+                      </div>
+                    </dl>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+            <p className="mt-3 px-5 text-xs text-muted-foreground">Swipe to see each plan.</p>
+          </div>
+          {/* Tablet/desktop: table */}
+          <div className="hidden bg-navy-950 md:block">
+            <table className="w-full border-collapse text-[0.95rem]">
+              <thead>
+                <tr className="border-b border-white/10 text-xs uppercase tracking-wider text-muted-foreground">
+                  <th className="px-8 py-4 text-left font-bold">Plan Format</th>
+                  <th className="px-6 py-4 text-right font-bold">Client Price</th>
+                  <th className="px-6 py-4 text-right font-bold">Upfront</th>
+                  <th className="px-6 py-4 text-right font-bold">Recurring</th>
+                  <th className="px-8 py-4 text-right font-extrabold text-white">Total Return</th>
+                </tr>
+              </thead>
+              <tbody>
+                {earnings.map((e) => (
+                  <tr key={e.plan} className="border-b border-white/10 last:border-0 hover:bg-navy-900">
+                    <td className="px-8 py-4 font-semibold text-white">{e.plan}</td>
+                    <td className="px-6 py-4 text-right text-muted-foreground">{e.price}</td>
+                    <td className="px-6 py-4 text-right font-semibold text-white/85">{e.upfront}</td>
+                    <td className="px-6 py-4 text-right font-semibold text-white/85">{e.recurring}</td>
+                    <td className="px-8 py-4 text-right font-black text-brand-yellow">{e.total}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Reveal>
+      </div>
+    </div>
 
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: 4, mb: 6 }}>
-            {commissions.map((commission, i) => (
-              <Box component={motion.div} key={commission.label} initial={false} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} sx={{ borderRadius: '2rem', border: '1px solid rgba(255,255,255,0.05)', bgcolor: '#111111', p: { xs: 4, md: 6 }, textAlign: 'center' }}>
-                <Box sx={{ width: 64, height: 64, mx: 'auto', mb: 4, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <FontAwesomeIcon icon={commission.icon} style={{ width: 24, height: 24, color: 'white' }} />
-                </Box>
-                <Typography sx={{ fontSize: '4rem', fontWeight: 900, mb: 1, color: 'white', lineHeight: 1 }}>{commission.rate}</Typography>
-                <Typography variant="h3" sx={{ color: 'white', fontWeight: 800, fontSize: '1.25rem', mb: 1.5 }}>{commission.label}</Typography>
-                <Typography sx={{ color: 'grey.500', fontSize: '1rem', lineHeight: 1.6 }}>{commission.desc}</Typography>
-              </Box>
-            ))}
-          </Box>
+    <div className="container max-w-3xl py-14 text-center md:py-24">
+      <Reveal>
+        <span className="mx-auto mb-6 flex size-20 items-center justify-center rounded-full bg-brand-yellow/15 text-brand-yellow"><Handshake className="size-8" aria-hidden /></span>
+        <h2 className={h2}>Infiltrate the market.</h2>
+        <p className={`${lead} mb-8`}>The process takes two minutes. Secure massive multi-branch clients and secure the upside.</p>
+        <Button asChild size="lg">
+          <Link href="/partnership/apply">Initiate Application <ArrowRight aria-hidden /></Link>
+        </Button>
+      </Reveal>
+    </div>
 
-          <Box component={motion.div} initial={false} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} sx={{ borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden' }}>
-            <Box sx={{ bgcolor: '#111111', px: 4, py: 3, borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-              <Typography sx={{ color: 'white', fontWeight: 800, display: 'flex', alignItems: 'center', gap: 1.5, fontSize: '1.125rem' }}>
-                <FontAwesomeIcon icon={faChartLine} style={{ width: 18, height: 18, color: 'white' }} /> Revenue Projections
-              </Typography>
-            </Box>
-            <Box sx={{ overflowX: 'auto', bgcolor: '#000000' }}>
-              <Box component="table" sx={{ width: '100%', fontSize: '0.95rem', borderCollapse: 'collapse' }}>
-                <Box component="thead">
-                  <Box component="tr" sx={{ color: 'grey.600', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                    <Box component="th" sx={{ textAlign: 'left', px: 4, py: 3, fontWeight: 700 }}>Plan Format</Box>
-                    <Box component="th" sx={{ textAlign: 'right', px: 4, py: 3, fontWeight: 700 }}>Client Price</Box>
-                    <Box component="th" sx={{ textAlign: 'right', px: 4, py: 3, fontWeight: 700 }}>Upfront</Box>
-                    <Box component="th" sx={{ textAlign: 'right', px: 4, py: 3, fontWeight: 700 }}>Recurring</Box>
-                    <Box component="th" sx={{ textAlign: 'right', px: 4, py: 3, fontWeight: 800, color: 'white' }}>Total Return</Box>
-                  </Box>
-                </Box>
-                <Box component="tbody">
-                  {earnings.map((earning, index) => (
-                    <Box component="tr" key={earning.plan} sx={{ borderBottom: index < earnings.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none', '&:hover': { bgcolor: '#111111' } }}>
-                      <Box component="td" sx={{ px: 4, py: 3 }}>
-                        <Typography component="span" sx={{ color: 'white', fontWeight: 600 }}>{earning.plan}</Typography>
-                      </Box>
-                      <Box component="td" sx={{ px: 4, py: 3, color: 'grey.500', textAlign: 'right' }}>{earning.price}</Box>
-                      <Box component="td" sx={{ px: 4, py: 3, color: 'grey.300', textAlign: 'right', fontWeight: 600 }}>{earning.upfront}</Box>
-                      <Box component="td" sx={{ px: 4, py: 3, color: 'grey.300', textAlign: 'right', fontWeight: 600 }}>{earning.recurring}</Box>
-                      <Box component="td" sx={{ px: 4, py: 3, color: 'white', textAlign: 'right', fontWeight: 900 }}>{earning.total}</Box>
-                    </Box>
-                  ))}
-                </Box>
-              </Box>
-            </Box>
-          </Box>
-        </Container>
-      </Box>
-
-      <Container maxWidth="md" sx={{ px: 3, py: { xs: 12, md: 16 }, textAlign: 'center' }}>
-        <Box component={motion.div} initial={false} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <Box sx={{ width: 80, height: 80, mx: 'auto', mb: 4, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <FontAwesomeIcon icon={faHandshake} style={{ width: 32, height: 32, color: 'white' }} />
-          </Box>
-          <Typography variant="h2" sx={{ fontSize: { xs: '2rem', md: '3.5rem' }, fontWeight: 900, letterSpacing: '-0.04em', color: 'white', mb: 2 }}>
-            Infiltrate the market.
-          </Typography>
-          <Typography sx={{ color: 'grey.500', maxWidth: 500, mx: 'auto', fontSize: '1.25rem', lineHeight: 1.6, mb: 6 }}>
-            The process takes two minutes. Secure massive multi-branch clients and secure the upside.
-          </Typography>
-          <Link href="/partnership/apply" style={{ textDecoration: 'none' }}>
-            <Box component="button" sx={{ display: 'inline-flex', alignItems: 'center', gap: 1.5, bgcolor: 'white', color: 'black', px: 5, py: 2.5, borderRadius: '9999px', fontWeight: 900, fontSize: '1.125rem', cursor: 'pointer', border: 'none', transition: 'all 0.2s', '&:hover': { bgcolor: 'grey.300' }, fontFamily: 'inherit' }}>
-              Initiate Application
-              <FontAwesomeIcon icon={faArrowRight} style={{ width: 16, height: 16 }} />
-            </Box>
-          </Link>
-        </Box>
-      </Container>
-
-      <Box sx={{ borderTop: '1px solid rgba(255,255,255,0.05)', bgcolor: '#000000' }}>
-        <Container maxWidth="md" sx={{ px: 3, py: { xs: 12, md: 16 } }}>
-          <Box component={motion.div} initial={false} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} sx={{ textAlign: 'center', mb: 8 }}>
-            <Typography variant="h2" sx={{ fontSize: { xs: '1.5rem', md: '2rem' }, fontWeight: 900, letterSpacing: '-0.02em', color: 'white', mb: 2 }}>
-              Directives
-            </Typography>
-          </Box>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            {faqs.map((faq, i) => (
-              <FAQItem key={i} item={faq} index={i} />
-            ))}
-          </Box>
-        </Container>
-      </Box>
-    </Box>
-  );
-};
-
+    <div className="border-t border-white/10">
+      <div className="container max-w-3xl py-14 md:py-24">
+        <h2 className="mb-8 text-center text-2xl font-black text-white md:text-3xl">Directives</h2>
+        <Accordion type="single" collapsible className="flex flex-col gap-3">
+          {faqs.map((f) => (
+            <AccordionItem key={f.q} value={f.q} className="rounded-2xl border border-white/10 bg-navy-900 px-4">
+              <AccordionTrigger className="min-h-14 gap-3 text-left text-[0.95rem] font-semibold text-white hover:no-underline">
+                <span className="flex flex-1 items-center gap-3">
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-xl border border-white/10"><f.icon className="size-4" aria-hidden /></span>
+                  {f.q}
+                </span>
+              </AccordionTrigger>
+              <AccordionContent className="pl-12 text-[0.95rem] leading-relaxed text-muted-foreground">{f.a}</AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
+    </div>
+  </section>
+);

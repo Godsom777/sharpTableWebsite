@@ -59,7 +59,7 @@ const WhatsAppPhoneMock: React.FC = () => (
           width: 34,
           height: 34,
           borderRadius: '50%',
-          background: 'linear-gradient(135deg, #f59e0b, #d97706)',
+          background: 'linear-gradient(135deg, #F5C518, #d97706)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

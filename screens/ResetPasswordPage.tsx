@@ -60,14 +60,14 @@ export const ResetPasswordPage: React.FC = () => {
         symbols={resetSymbols}
       />
 
-      <Box component="section" sx={{ bgcolor: 'black', pb: { xs: 10, md: 16 } }}>
+      <Box component="section" sx={{ bgcolor: '#050B1F', pb: { xs: 10, md: 16 } }}>
         <Container maxWidth="sm">
           {!isConfigured && <Alert severity="error">App Supabase is not configured on this website.</Alert>}
 
           <Box
             sx={{
               mt: 2,
-              bgcolor: '#111111',
+              bgcolor: '#111E47',
               border: '1px solid rgba(255,255,255,0.08)',
               borderRadius: '1.5rem',
               p: { xs: 3, md: 4 },

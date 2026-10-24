@@ -68,8 +68,8 @@ const AuditDashboard: React.FC = () => (
         sx={{
           fontSize: '0.65rem',
           fontWeight: 700,
-          color: '#f59e0b',
-          bgcolor: 'rgba(245,158,11,0.15)',
+          color: '#F5C518',
+          bgcolor: 'rgba(245,197,24,0.15)',
           px: 1.25,
           py: 0.5,
           borderRadius: '4px',
@@ -108,11 +108,11 @@ const AuditDashboard: React.FC = () => (
               borderRadius: '50%',
               bgcolor:
                 entry.type === 'alert' ? '#ef4444' :
-                entry.type === 'comp' ? '#f59e0b' :
+                entry.type === 'comp' ? '#F5C518' :
                 'rgba(255,255,255,0.25)',
               boxShadow:
                 entry.type === 'alert' ? '0 0 8px rgba(239,68,68,0.6)' :
-                entry.type === 'comp' ? '0 0 8px rgba(245,158,11,0.5)' :
+                entry.type === 'comp' ? '0 0 8px rgba(245,197,24,0.5)' :
                 'none',
               flexShrink: 0,
             }}

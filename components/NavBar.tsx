@@ -1,522 +1,128 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faXmark, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Box, Container, IconButton, Button, Typography } from '@mui/material';
+import { Menu, X } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useSubscription } from '../hooks/useSubscription';
-
-/* ----------------------------------------------------------------
-   Navigation Structure (Section 19)
-   ---------------------------------------------------------------- */
-
-const productLinks = [
-  { label: 'Orders', href: '#module-orders' },
-  { label: 'Customers', href: '#module-customers' },
-  { label: 'Kitchen', href: '#module-kitchen' },
-  { label: 'Inventory', href: '#module-inventory' },
-  { label: 'Insights', href: '#module-insights' },
-];
+import { Button } from '@/components/ui/button';
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/components/ui/drawer';
+import { cn } from '@/lib/utils';
 
 const navLinks = [
-  { label: 'Product', href: '#', hasDropdown: true },
   { label: 'Features', href: '/features' },
   { label: 'Hotels', href: '/for-hotels' },
   { label: 'Pricing', href: '/pricing' },
+  { label: 'Partnership', href: '/partnership' },
   { label: 'FAQ', href: '/faq' },
 ];
 
 export const NavBar: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
-  const [isMobileProductOpen, setIsMobileProductOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const dropdownTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const { user } = useAuth();
   const { subscription } = useSubscription(user?.email);
-  const isActive = (path: string) => pathname === path;
+  const accountLabel = user ? subscription?.businessName || user.email || 'Account' : 'Log in';
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setIsProductDropdownOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  const handleGetStarted = () => {
-    window.location.href = '/pricing';
-  };
-
-  const handleManageAccount = () => {
-    window.location.href = '/account';
-  };
-
-  const handleDropdownEnter = () => {
-    if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
-    setIsProductDropdownOpen(true);
-  };
-
-  const handleDropdownLeave = () => {
-    dropdownTimeoutRef.current = setTimeout(() => {
-      setIsProductDropdownOpen(false);
-    }, 150);
-  };
 
   return (
-    <Box
-      component="nav"
-      sx={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 50,
-        transition: 'all 0.3s ease',
-        backgroundColor: isScrolled ? 'rgba(0,0,0,0.92)' : 'rgba(0,0,0,0.65)',
-        backdropFilter: 'blur(16px)',
-        borderBottom: isScrolled ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(255, 255, 255, 0.04)',
-      }}
+    <header
+      className={cn(
+        'sticky top-0 z-50 border-b backdrop-blur-md transition-colors',
+        scrolled ? 'border-border bg-navy-950/95' : 'border-transparent bg-navy-950/70'
+      )}
     >
-      <Container
-        maxWidth="lg"
-        sx={{
-          height: 72,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          px: { xs: 3, md: 3 },
-        }}
-      >
-        {/* Logo */}
-        <motion.div
-          initial={false}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          onClick={() => { window.location.href = '/'; }}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
-        >
-          <Box
-            component="img"
-            src="/assets/logos/logo-white.png"
-            alt="SharpTable"
-            sx={{ height: { xs: 24, md: 28 }, width: 'auto' }}
-          />
-          <Typography
-            variant="h6"
-            component="span"
-            sx={{
-              fontWeight: 800,
-              letterSpacing: '-0.03em',
-              color: 'white',
-              fontSize: '1.15rem',
-              fontFamily: 'var(--font-body)',
-            }}
-          >
-            SharpTable
-          </Typography>
-        </motion.div>
+      <nav aria-label="Main" className="container flex h-16 items-center justify-between gap-3">
+        <Link href="/" className="flex min-h-11 items-center gap-2" aria-label="SharpTable home">
+          <img src="/assets/logos/logo-white.png" alt="" className="h-6 w-auto md:h-7" />
+          <span className="text-lg font-extrabold tracking-tight text-white">SharpTable</span>
+        </Link>
 
-        {/* Desktop Nav */}
-        <Box
-          sx={{
-            display: { xs: 'none', md: 'flex' },
-            alignItems: 'center',
-            gap: 3.5,
-          }}
-        >
-          {navLinks.map((link) => (
-            <Box
-              key={link.label}
-              ref={link.hasDropdown ? dropdownRef : undefined}
-              onMouseEnter={link.hasDropdown ? handleDropdownEnter : undefined}
-              onMouseLeave={link.hasDropdown ? handleDropdownLeave : undefined}
-              sx={{ position: 'relative' }}
-            >
-              {link.hasDropdown ? (
-                <Box
-                  component="button"
-                  onClick={() => setIsProductDropdownOpen(!isProductDropdownOpen)}
-                  sx={{
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 0.5,
-                    color: 'var(--color-text-secondary)',
-                    fontSize: '0.875rem',
-                    fontWeight: 500,
-                    fontFamily: 'var(--font-body)',
-                    padding: '4px 0',
-                    transition: 'color 0.2s',
-                    '&:hover': { color: 'white' },
-                  }}
-                >
-                  {link.label}
-                  <FontAwesomeIcon
-                    icon={faChevronDown}
-                    style={{
-                      width: 10,
-                      height: 10,
-                      transition: 'transform 0.2s',
-                      transform: isProductDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                    }}
-                  />
-                </Box>
-              ) : (
-                <Box
-                  component={Link}
-                  href={link.href}
-                  sx={{
-                    textDecoration: 'none',
-                    color: isActive(link.href) ? 'white' : 'var(--color-text-secondary)',
-                    fontSize: '0.875rem',
-                    fontWeight: 500,
-                    transition: 'color 0.2s',
-                    '&:hover': { color: 'white' },
-                  }}
-                >
-                  {link.label}
-                </Box>
-              )}
-
-              {/* Product Dropdown */}
-              {link.hasDropdown && (
-                <AnimatePresence>
-                  {isProductDropdownOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 8 }}
-                      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                      style={{
-                        position: 'absolute',
-                        top: '100%',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        paddingTop: '12px',
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          bgcolor: 'rgba(10,10,10,0.95)',
-                          backdropFilter: 'blur(16px)',
-                          border: '1px solid var(--color-border)',
-                          borderRadius: '0.75rem',
-                          py: 1,
-                          minWidth: 180,
-                          boxShadow: '0 12px 40px rgba(0,0,0,0.4)',
-                        }}
-                      >
-                        {productLinks.map((product, i) => (
-                          <Box
-                            key={product.label}
-                            component="a"
-                            href={product.href}
-                            onClick={() => setIsProductDropdownOpen(false)}
-                            sx={{
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: 1.5,
-                              px: 2.5,
-                              py: 1.25,
-                              textDecoration: 'none',
-                              color: 'var(--color-text-secondary)',
-                              fontSize: '0.85rem',
-                              fontWeight: 500,
-                              transition: 'all 0.15s',
-                              '&:hover': {
-                                color: 'white',
-                                bgcolor: 'rgba(255,255,255,0.04)',
-                              },
-                            }}
-                          >
-                            <Typography
-                              sx={{
-                                fontSize: '0.6rem',
-                                fontWeight: 700,
-                                color: 'var(--color-accent)',
-                                letterSpacing: '0.05em',
-                                width: 16,
-                              }}
-                            >
-                              0{i + 1}
-                            </Typography>
-                            {product.label}
-                          </Box>
-                        ))}
-                      </Box>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              )}
-            </Box>
-          ))}
-
-          {/* CTA Buttons */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, ml: 2 }}>
-            <Button
-              component={motion.button}
-              onClick={handleManageAccount}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              sx={{
-                color: 'var(--color-text-secondary)',
-                px: 2,
-                py: 1,
-                borderRadius: '9999px',
-                textTransform: 'none',
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                minWidth: 'auto',
-                transition: 'color 0.2s',
-                '&:hover': { color: 'white' },
-              }}
-            >
-              {user ? (subscription?.businessName || user.email) : 'Login'}
-            </Button>
-
-            <Button
-              component={motion.button}
-              onClick={handleGetStarted}
-              whileHover={{ scale: 1.03, boxShadow: '0 4px 20px rgba(245,158,11,0.3)' }}
-              whileTap={{ scale: 0.97 }}
-              sx={{
-                bgcolor: 'var(--color-accent)',
-                color: '#000',
-                px: 2.5,
-                py: 1,
-                borderRadius: '9999px',
-                textTransform: 'none',
-                fontSize: '0.8rem',
-                fontWeight: 700,
-                minWidth: 'auto',
-                '&:hover': { bgcolor: 'var(--color-accent-hover)' },
-              }}
-            >
-              Get Started
-            </Button>
-          </Box>
-        </Box>
-
-        {/* Mobile hamburger */}
-        <IconButton
-          component={motion.button}
-          initial={false}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          sx={{ display: { xs: 'inline-flex', md: 'none' }, color: 'white', p: 0 }}
-        >
-          <FontAwesomeIcon icon={isMobileMenuOpen ? faXmark : faBars} style={{ width: 24, height: 24 }} />
-        </IconButton>
-      </Container>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <Box
-            component={motion.div}
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            sx={{
-              position: 'absolute',
-              top: 72,
-              left: 0,
-              right: 0,
-              bgcolor: 'rgba(0,0,0,0.95)',
-              backdropFilter: 'blur(16px)',
-              borderBottom: '1px solid rgba(255,255,255,0.1)',
-              p: 3,
-              display: { xs: 'flex', md: 'none' },
-              flexDirection: 'column',
-              gap: 1,
-              overflow: 'hidden',
-            }}
-          >
-            {navLinks.map((link, idx) => (
-              <Box key={link.label}>
-                {link.hasDropdown ? (
-                  <>
-                    <Box
-                      component={motion.div}
-                      initial={{ x: -20, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      transition={{ delay: 0.1 + idx * 0.05 }}
-                    >
-                      <Box
-                        component="button"
-                        onClick={() => setIsMobileProductOpen(!isMobileProductOpen)}
-                        sx={{
-                          background: 'none',
-                          border: 'none',
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: 1,
-                          color: 'var(--color-text-secondary)',
-                          fontSize: '1rem',
-                          fontWeight: 500,
-                          fontFamily: 'var(--font-body)',
-                          py: 1,
-                          width: '100%',
-                          textAlign: 'left',
-                          '&:hover': { color: 'white' },
-                        }}
-                      >
-                        {link.label}
-                        <FontAwesomeIcon
-                          icon={faChevronDown}
-                          style={{
-                            width: 10,
-                            height: 10,
-                            transition: 'transform 0.2s',
-                            transform: isMobileProductOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                          }}
-                        />
-                      </Box>
-                    </Box>
-                    <AnimatePresence>
-                      {isMobileProductOpen && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.2 }}
-                          style={{ overflow: 'hidden' }}
-                        >
-                          <Box sx={{ pl: 2, py: 1, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                            {productLinks.map((product) => (
-                              <Box
-                                key={product.label}
-                                component="a"
-                                href={product.href}
-                                onClick={() => {
-                                  setIsMobileMenuOpen(false);
-                                  setIsMobileProductOpen(false);
-                                }}
-                                sx={{
-                                  display: 'block',
-                                  textDecoration: 'none',
-                                  color: 'var(--color-text-muted)',
-                                  fontSize: '0.9rem',
-                                  py: 0.75,
-                                  '&:hover': { color: 'white' },
-                                }}
-                              >
-                                {product.label}
-                              </Box>
-                            ))}
-                          </Box>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </>
-                ) : (
-                  <Box
-                    component={motion.div}
-                    initial={{ x: -20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: 0.1 + idx * 0.05 }}
-                  >
-                    <Box
-                      component={Link}
-                      href={link.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      sx={{
-                        display: 'block',
-                        textDecoration: 'none',
-                        color: isActive(link.href) ? 'white' : 'var(--color-text-secondary)',
-                        fontSize: '1rem',
-                        fontWeight: 500,
-                        py: 1,
-                        '&:hover': { color: 'white' },
-                      }}
-                    >
-                      {link.label}
-                    </Box>
-                  </Box>
+        <ul className="hidden items-center gap-1 md:flex">
+          {navLinks.map((l) => (
+            <li key={l.href}>
+              <Link
+                href={l.href}
+                className={cn(
+                  'inline-flex min-h-11 items-center rounded-full px-3 text-sm font-medium transition-colors hover:text-white',
+                  pathname === l.href ? 'text-white' : 'text-muted-foreground'
                 )}
-              </Box>
-            ))}
-
-            {/* Mobile CTA buttons */}
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, mt: 2 }}>
-              <Button
-                component={motion.button}
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.35 }}
-                onClick={() => {
-                  handleGetStarted();
-                  setIsMobileMenuOpen(false);
-                }}
-                sx={{
-                  bgcolor: 'var(--color-accent)',
-                  color: '#000',
-                  px: 2,
-                  py: 1.5,
-                  borderRadius: '9999px',
-                  textTransform: 'none',
-                  fontSize: '0.9rem',
-                  fontWeight: 700,
-                  width: '100%',
-                  '&:hover': { bgcolor: 'var(--color-accent-hover)' },
-                }}
               >
-                Get Started
-              </Button>
+                {l.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
 
-              <Button
-                component={motion.button}
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                onClick={() => {
-                  handleManageAccount();
-                  setIsMobileMenuOpen(false);
-                }}
-                sx={{
-                  color: 'white',
-                  px: 2,
-                  py: 1.5,
-                  borderRadius: '9999px',
-                  textTransform: 'none',
-                  fontSize: '0.9rem',
-                  fontWeight: 600,
-                  width: '100%',
-                  border: '1px solid rgba(255,255,255,0.16)',
-                }}
-              >
-                {user ? (subscription?.businessName || user.email) : 'Login'}
+        <div className="hidden items-center gap-2 md:flex">
+          <Button asChild variant="ghost" className="max-w-[200px] truncate text-muted-foreground hover:bg-white/5 hover:text-white">
+            <Link href="/account">{accountLabel}</Link>
+          </Button>
+          <Button asChild>
+            <Link href="/pricing">Get started</Link>
+          </Button>
+        </div>
+
+        <Drawer open={open} onOpenChange={setOpen} shouldScaleBackground={false}>
+          <DrawerTrigger asChild>
+            <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 md:hidden" aria-label="Open menu">
+              <Menu className="!size-6" />
+            </Button>
+          </DrawerTrigger>
+          <DrawerContent className="border-border bg-navy-900 pb-[max(1.5rem,env(safe-area-inset-bottom))]" data-testid="menu-sheet">
+            <div className="flex items-center justify-between px-5 pt-2">
+              <DrawerTitle className="text-base font-semibold text-white">Menu</DrawerTitle>
+              <DrawerDescription className="sr-only">Site navigation</DrawerDescription>
+              <DrawerClose asChild>
+                <Button variant="ghost" size="icon" className="text-white hover:bg-white/10" aria-label="Close menu">
+                  <X className="!size-6" />
+                </Button>
+              </DrawerClose>
+            </div>
+            <ul className="flex flex-col px-3 py-2">
+              {[{ label: 'Home', href: '/' }, ...navLinks].map((l) => (
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
+                    onClick={() => setOpen(false)}
+                    className={cn(
+                      'flex min-h-12 items-center rounded-xl px-3 text-lg font-medium hover:bg-white/5',
+                      pathname === l.href ? 'text-brand-yellow' : 'text-white'
+                    )}
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div className="flex flex-col gap-3 px-5 pt-2">
+              <Button asChild size="lg" className="w-full">
+                <Link href="/pricing" onClick={() => setOpen(false)}>Get started</Link>
               </Button>
-            </Box>
-          </Box>
-        )}
-      </AnimatePresence>
-    </Box>
+              <Button asChild size="lg" variant="outline" className="w-full border-white/20 bg-transparent text-white hover:bg-white/5 hover:text-white">
+                <Link href="/account" onClick={() => setOpen(false)}>
+                  {user ? accountLabel : 'Existing customer? Log in'}
+                </Link>
+              </Button>
+            </div>
+          </DrawerContent>
+        </Drawer>
+      </nav>
+    </header>
   );
 };

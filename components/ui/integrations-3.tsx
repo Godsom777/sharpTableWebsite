@@ -82,13 +82,13 @@ export default function IntegrationsSection() {
   const currentDetail = activeModuleId ? MODULES[activeModuleId] || DEFAULT_OVERVIEW : DEFAULT_OVERVIEW;
 
   return (
-    <section className="relative overflow-hidden py-20 md:py-28 bg-[#080808]">
+    <section className="relative overflow-hidden py-20 md:py-28 bg-navy-900">
       {/* Background ambient radial glow */}
       <div
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            'radial-gradient(ellipse at 50% 50%, rgba(245,158,11,0.05) 0%, transparent 70%)',
+            'radial-gradient(ellipse at 50% 50%, rgba(245,197,24,0.05) 0%, transparent 70%)',
         }}
       />
 
@@ -99,7 +99,7 @@ export default function IntegrationsSection() {
             {/* Radial mask overlay for depth */}
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-0 z-10 bg-radial from-transparent via-transparent to-[#080808] to-85%"
+              className="pointer-events-none absolute inset-0 z-10 bg-radial from-transparent via-transparent to-navy-950 to-85%"
             />
 
             {/* Row 1 (Top 2) */}
@@ -110,7 +110,7 @@ export default function IntegrationsSection() {
                 onLeave={() => setActiveModuleId(null)}
                 title="WhatsApp & Orders"
               >
-                <OrdersIcon className="size-7 text-amber-400 group-hover:scale-110 transition-transform duration-200" />
+                <OrdersIcon className="size-7 text-brand-yellow group-hover:scale-110 transition-transform duration-200" />
               </IntegrationCard>
 
               <IntegrationCard
@@ -119,7 +119,7 @@ export default function IntegrationsSection() {
                 onLeave={() => setActiveModuleId(null)}
                 title="Kitchen Display"
               >
-                <KitchenIcon className="size-7 text-amber-400 group-hover:scale-110 transition-transform duration-200" />
+                <KitchenIcon className="size-7 text-brand-yellow group-hover:scale-110 transition-transform duration-200" />
               </IntegrationCard>
             </div>
 
@@ -131,15 +131,15 @@ export default function IntegrationsSection() {
                 onLeave={() => setActiveModuleId(null)}
                 title="Smart Inventory"
               >
-                <InventoryIcon className="size-7 text-amber-400 group-hover:scale-110 transition-transform duration-200" />
+                <InventoryIcon className="size-7 text-brand-yellow group-hover:scale-110 transition-transform duration-200" />
               </IntegrationCard>
 
               {/* Center SharpTable Core Hub */}
               <div
                 className={cn(
                   'relative flex size-20 md:size-24 items-center justify-center transition-all duration-300',
-                  'drop-shadow-[0_0_35px_rgba(245,158,11,0.35)]',
-                  'hover:drop-shadow-[0_0_45px_rgba(245,158,11,0.5)] hover:scale-105'
+                  'drop-shadow-[0_0_35px_rgba(245,197,24,0.35)]',
+                  'hover:drop-shadow-[0_0_45px_rgba(245,197,24,0.5)] hover:scale-105'
                 )}
               >
                 <Image
@@ -158,7 +158,7 @@ export default function IntegrationsSection() {
                 onLeave={() => setActiveModuleId(null)}
                 title="Customer CRM"
               >
-                <CustomersIcon className="size-7 text-amber-400 group-hover:scale-110 transition-transform duration-200" />
+                <CustomersIcon className="size-7 text-brand-yellow group-hover:scale-110 transition-transform duration-200" />
               </IntegrationCard>
             </div>
 
@@ -170,7 +170,7 @@ export default function IntegrationsSection() {
                 onLeave={() => setActiveModuleId(null)}
                 title="Financial Insights"
               >
-                <InsightsIcon className="size-7 text-amber-400 group-hover:scale-110 transition-transform duration-200" />
+                <InsightsIcon className="size-7 text-brand-yellow group-hover:scale-110 transition-transform duration-200" />
               </IntegrationCard>
 
               <IntegrationCard
@@ -179,7 +179,7 @@ export default function IntegrationsSection() {
                 onLeave={() => setActiveModuleId(null)}
                 title="POS & Payments"
               >
-                <PaymentsIcon className="size-7 text-amber-400 group-hover:scale-110 transition-transform duration-200" />
+                <PaymentsIcon className="size-7 text-brand-yellow group-hover:scale-110 transition-transform duration-200" />
               </IntegrationCard>
             </div>
           </div>
@@ -195,8 +195,8 @@ export default function IntegrationsSection() {
                 transition={{ duration: 0.25, ease: 'easeOut' }}
                 className="space-y-4"
               >
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                  <span className="size-1.5 rounded-full bg-amber-400 animate-ping" />
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-brand-yellow/10 text-brand-yellow border border-brand-yellow/20">
+                  <span className="size-1.5 rounded-full bg-brand-yellow animate-ping" />
                   {currentDetail.badge}
                 </div>
 
@@ -214,7 +214,7 @@ export default function IntegrationsSection() {
               <Button
                 variant="accent"
                 size="default"
-                className="rounded-full px-6 py-5 font-bold text-black bg-amber-500 hover:bg-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.25)] cursor-pointer"
+                className="rounded-full px-6 py-5 font-bold text-black bg-brand-yellow hover:bg-brand-yellow shadow-[0_0_20px_rgba(245,197,24,0.25)] cursor-pointer"
                 asChild
               >
                 <Link href="/pricing">Get Started</Link>
@@ -263,8 +263,8 @@ const IntegrationCard = ({
         'group relative flex size-20 md:size-24 cursor-pointer rounded-2xl transition-all duration-300',
         'bg-[#121212] hover:bg-[#181818]',
         isActive
-          ? 'scale-105 shadow-[0_0_25px_rgba(245,158,11,0.35)] -translate-y-1'
-          : 'hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(245,158,11,0.15)]',
+          ? 'scale-105 shadow-[0_0_25px_rgba(245,197,24,0.35)] -translate-y-1'
+          : 'hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(245,197,24,0.15)]',
         className
       )}
     >
@@ -273,8 +273,8 @@ const IntegrationCard = ({
         className={cn(
           'absolute inset-0 rounded-2xl border transition-colors duration-300',
           isActive
-            ? 'border-amber-500/80 ring-1 ring-amber-500/30'
-            : 'border-white/10 group-hover:border-amber-500/40',
+            ? 'border-brand-yellow/80 ring-1 ring-brand-yellow/30'
+            : 'border-white/10 group-hover:border-brand-yellow/40',
           borderClassName
         )}
       />

@@ -31,18 +31,46 @@
   --text-7xl: 6rem;        /* 96px */
 
   /* Colors */
-  --color-bg: #000000;
-  --color-bg-elevated: #0a0a0a;
-  --color-bg-card: #111111;
-  --color-bg-card-hover: #161616;
-  --color-border: rgba(255, 255, 255, 0.06);
-  --color-border-hover: rgba(255, 255, 255, 0.12);
+  /* Brand: navy + yellow + light blue */
+  --navy-950: #050B1F;
+  --navy-900: #0A1433;
+  --navy-800: #111E47;
+  --brand-yellow: #F5C518;
+  --brand-blue: #8EC5FF;
+  --color-bg: var(--navy-950);
+  --color-bg-elevated: var(--navy-900);
+  --color-bg-card: var(--navy-800);
+  --color-bg-card-hover: #1A2A5C;
+  --color-border: rgba(201, 226, 255, 0.10);
+  --color-border-hover: rgba(201, 226, 255, 0.20);
   --color-text-primary: #ffffff;
-  --color-text-secondary: #9ca3af;
-  --color-text-muted: #6b7280;
-  --color-accent: #f59e0b;
-  --color-accent-hover: #d97706;
-  --color-accent-soft: rgba(245, 158, 11, 0.12);
+  --color-text-secondary: #C3CFE6;
+  --color-text-muted: #94A3C4;
+  --color-accent: var(--brand-yellow);
+  --color-accent-hover: #E0B10F;
+  --color-accent-soft: rgba(245, 197, 24, 0.12);
+
+  /* shadcn tokens (HSL) */
+  --background: 226 72% 7%;
+  --foreground: 0 0% 100%;
+  --card: 226 61% 17%;
+  --card-foreground: 0 0% 100%;
+  --popover: 226 67% 12%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 47 91% 53%;
+  --primary-foreground: 226 72% 7%;
+  --secondary: 226 55% 23%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 226 55% 20%;
+  --muted-foreground: 219 33% 78%;
+  --accent: 212 100% 78%;
+  --accent-foreground: 226 72% 7%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 213 100% 89% / 0.12;
+  --input: 213 100% 89% / 0.2;
+  --ring: 47 91% 53%;
+  --radius: 0.875rem;
 
   /* Spacing — vertical rhythm for sections */
   --section-py-mobile: 5rem;        /* 80px */
@@ -78,7 +106,9 @@ body {
   text-rendering: optimizeLegibility;
   line-height: 1.6;
   margin: 0;
+  overflow-x: clip;
 }
+html { overflow-x: clip; }
 
 /* ----------------------------------------------------------------
    Typography Utilities
@@ -153,6 +183,7 @@ body {
    Accessibility: Reduced Motion
    ---------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
   *,
   *::before,
   *::after {

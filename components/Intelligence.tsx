@@ -24,7 +24,7 @@ const itemData = [
 
 export const Intelligence: React.FC = () => {
   return (
-    <Box component="section" id="analytics" sx={{ py: { xs: 12, md: 24 }, bgcolor: '#000000', borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+    <Box component="section" id="analytics" sx={{ py: { xs: 12, md: 24 }, bgcolor: '#050B1F', borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
       <Container maxWidth="lg" sx={{ px: 3 }}>
         <Box
           component={motion.div}
@@ -49,7 +49,7 @@ export const Intelligence: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.3 }}
-            sx={{ bgcolor: '#111111', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '2rem', p: { xs: 4, md: 6 } }}
+            sx={{ bgcolor: '#111E47', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '2rem', p: { xs: 4, md: 6 } }}
           >
             <Box sx={{ mb: 6 }}>
               <Typography variant="h3" sx={{ fontSize: '1.5rem', fontWeight: 800, color: 'white', letterSpacing: '-0.02em', mb: 1 }}>Revenue by Day</Typography>
@@ -78,7 +78,7 @@ export const Intelligence: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            sx={{ bgcolor: '#111111', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '2rem', p: { xs: 4, md: 6 } }}
+            sx={{ bgcolor: '#111E47', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '2rem', p: { xs: 4, md: 6 } }}
           >
             <Box sx={{ mb: 6 }}>
               <Typography variant="h3" sx={{ fontSize: '1.5rem', fontWeight: 800, color: 'white', letterSpacing: '-0.02em', mb: 1 }}>Premium Item Depletion</Typography>
@@ -107,7 +107,7 @@ export const Intelligence: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 0.6 }}
-          sx={{ mt: 10, p: { xs: 4, md: 6 }, border: '1px solid', borderColor: 'rgba(255,255,255,0.05)', borderRadius: '2rem', bgcolor: '#0a0a0a', textAlign: 'center' }}
+          sx={{ mt: 10, p: { xs: 4, md: 6 }, border: '1px solid', borderColor: 'rgba(255,255,255,0.05)', borderRadius: '2rem', bgcolor: '#0A1433', textAlign: 'center' }}
         >
           <Box component="span" sx={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'grey.600', fontWeight: 800 }}>Permanent Action Ledger</Box>
           <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: 3, mt: 4, fontSize: { xs: '0.875rem', md: '1rem' }, color: 'white', fontWeight: 700 }}>
@@ -115,7 +115,7 @@ export const Intelligence: React.FC = () => {
               <React.Fragment key={index}>
                 <Box
                   component={motion.span}
-                  sx={{ px: 3, py: 1.5, borderRadius: '9999px', bgcolor: '#111111', border: '1px solid rgba(255,255,255,0.1)' }}
+                  sx={{ px: 3, py: 1.5, borderRadius: '9999px', bgcolor: '#111E47', border: '1px solid rgba(255,255,255,0.1)' }}
                 >
                   {step}
                 </Box>

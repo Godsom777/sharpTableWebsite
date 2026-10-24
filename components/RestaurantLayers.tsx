@@ -2,26 +2,13 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCashRegister,
-  faUtensils,
-  faShieldHalved,
-  faChartLine,
-  faWifi,
-  faBuildingColumns,
-  faArrowRight,
-  faCheck,
-  faXmark,
-  faReceipt,
-  faClockRotateLeft,
-  faLayerGroup,
-} from '@fortawesome/free-solid-svg-icons';
-import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { Icon } from '@/components/ui/icon';
+import { ArrowRightIcon, CheckIcon, HistoryIcon, LandmarkIcon, LayersIcon, LineChartIcon, ShieldCheckIcon, UtensilsIcon, WifiIcon, XIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { Box, Button, Container, Typography } from '@mui/material';
 
 type OperationalCard = {
-  icon: IconDefinition;
+  icon: LucideIcon;
   title: string;
   body: string;
   badge?: string;
@@ -71,37 +58,37 @@ const restaurantOperatingLayers = [
 
 const operationalCards: OperationalCard[] = [
   {
-    icon: faShieldHalved,
+    icon: ShieldCheckIcon,
     title: 'Tamper-Proof Void & Discount Engine',
     body: 'Cashiers cannot void bills or delete items after kitchen printing without manager authorization. Every exception is stamped with operator ID, reason, and time.',
     badge: 'Zero Leakage',
   },
   {
-    icon: faUtensils,
+    icon: UtensilsIcon,
     title: 'Recipe-Level Inventory Tracking',
     body: 'Automatic gram-by-gram stock deductions happen as orders settle. Stop guessing why 10kg of prime steak or 5 bottles of Hennessy disappeared between Friday and Sunday.',
     badge: 'Portion Control',
   },
   {
-    icon: faWifi,
+    icon: WifiIcon,
     title: 'Offline-Resilient Local Network',
     body: 'When Nigerian fiber or mobile network drops, local printers, kitchen display screens, and POS terminals keep running seamlessly and sync back automatically.',
     badge: 'Offline-First',
   },
   {
-    icon: faBuildingColumns,
+    icon: LandmarkIcon,
     title: 'Native Nigerian Payment Rails',
     body: 'Deeply integrated with Paystack for instantaneous POS settlements, bank transfers, USSD, and card payments without reconciliation confusion.',
     badge: 'Instant Settlement',
   },
   {
-    icon: faClockRotateLeft,
+    icon: HistoryIcon,
     title: 'Immutable Shift Ledger',
     body: 'Every single click, tender settlement, cash drop, and ticket reprint is logged permanently into a non-alterable audit trail.',
     badge: 'Accountability',
   },
   {
-    icon: faChartLine,
+    icon: LineChartIcon,
     title: 'Multi-Branch Consolidation',
     body: 'Monitor 2 to 20+ venues side-by-side from your phone. Compare branch revenue, inventory leakage, and labor cost efficiency in real time.',
     badge: 'Executive Command',
@@ -155,8 +142,8 @@ export const RestaurantLayers: React.FC = () => {
       <Container maxWidth="lg" sx={{ px: { xs: 3, md: 4 } }}>
         {/* Section Header */}
         <Box sx={{ maxWidth: 840, mb: { xs: 8, md: 12 } }}>
-          <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, color: '#fcd34d', fontSize: '0.85rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.15em', mb: 2 }}>
-            <FontAwesomeIcon icon={faLayerGroup} style={{ width: 14, height: 14 }} />
+          <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, color: '#F5C518', fontSize: '0.85rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.15em', mb: 2 }}>
+            <Icon icon={LayersIcon} style={{ width: 14, height: 14 }} />
             The 3-Layer Restaurant OS
           </Box>
           <Typography variant="h2" sx={{ fontSize: { xs: '2.25rem', md: '3.75rem' }, fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.05, color: 'white', mb: 3 }}>
@@ -177,7 +164,7 @@ export const RestaurantLayers: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               sx={{
-                bgcolor: '#0a0a0a',
+                bgcolor: '#0A1433',
                 border: '1px solid rgba(255,255,255,0.08)',
                 borderRadius: '1.75rem',
                 p: { xs: 3.5, md: 4.5 },
@@ -186,13 +173,13 @@ export const RestaurantLayers: React.FC = () => {
                 position: 'relative',
                 overflow: 'hidden',
                 '&:hover': {
-                  borderColor: 'rgba(245, 158, 11, 0.4)',
+                  borderColor: 'rgba(245,197,24, 0.4)',
                   boxShadow: '0 20px 50px rgba(0,0,0,0.6)',
                 },
               }}
             >
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                <Typography sx={{ color: '#fcd34d', fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.1em' }}>
+                <Typography sx={{ color: '#F5C518', fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.1em' }}>
                   {layer.layer}
                 </Typography>
                 <Box sx={{ px: 1.5, py: 0.5, borderRadius: '999px', bgcolor: 'rgba(255,255,255,0.05)', color: 'grey.400', fontSize: '0.725rem', fontWeight: 700 }}>
@@ -207,8 +194,8 @@ export const RestaurantLayers: React.FC = () => {
               <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0, mt: 'auto', display: 'flex', flexDirection: 'column', gap: 1.5 }}>
                 {layer.items.map((item, i) => (
                   <Box component="li" key={i} sx={{ display: 'flex', alignItems: 'center', gap: 1.5, color: 'grey.300', fontSize: '0.925rem' }}>
-                    <Box sx={{ width: 18, height: 18, borderRadius: '50%', bgcolor: 'rgba(245, 158, 11, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                      <FontAwesomeIcon icon={faCheck} style={{ width: 10, height: 10, color: '#fcd34d' }} />
+                    <Box sx={{ width: 18, height: 18, borderRadius: '50%', bgcolor: 'rgba(245,197,24, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <Icon icon={CheckIcon} style={{ width: 10, height: 10, color: '#F5C518' }} />
                     </Box>
                     <span>{item}</span>
                   </Box>
@@ -221,7 +208,7 @@ export const RestaurantLayers: React.FC = () => {
         {/* Operational Capabilities Grid */}
         <Box sx={{ mb: { xs: 12, md: 20 } }}>
           <Box sx={{ maxWidth: 700, mb: 6 }}>
-            <Typography sx={{ color: '#fcd34d', fontSize: '0.85rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.15em', mb: 1.5 }}>
+            <Typography sx={{ color: '#F5C518', fontSize: '0.85rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.15em', mb: 1.5 }}>
               Defensive Architecture
             </Typography>
             <Typography variant="h3" sx={{ fontSize: { xs: '1.8rem', md: '2.5rem' }, fontWeight: 850, color: 'white', letterSpacing: '-0.03em' }}>
@@ -252,8 +239,8 @@ export const RestaurantLayers: React.FC = () => {
                 }}
               >
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 3 }}>
-                  <Box sx={{ width: 44, height: 44, borderRadius: '12px', bgcolor: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fcd34d' }}>
-                    <FontAwesomeIcon icon={card.icon} style={{ width: 20, height: 20 }} />
+                  <Box sx={{ width: 44, height: 44, borderRadius: '12px', bgcolor: 'rgba(245,197,24,0.1)', border: '1px solid rgba(245,197,24,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#F5C518' }}>
+                    <Icon icon={card.icon} style={{ width: 20, height: 20 }} />
                   </Box>
                   {card.badge && (
                     <Box sx={{ px: 1.5, py: 0.4, borderRadius: '999px', bgcolor: 'rgba(255,255,255,0.06)', color: 'grey.300', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.05em' }}>
@@ -276,7 +263,7 @@ export const RestaurantLayers: React.FC = () => {
         {/* Direct Competitive Comparison Matrix */}
         <Box sx={{ mb: { xs: 10, md: 16 } }}>
           <Box sx={{ maxWidth: 760, mb: 6 }}>
-            <Typography sx={{ color: '#fcd34d', fontSize: '0.85rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.15em', mb: 1.5 }}>
+            <Typography sx={{ color: '#F5C518', fontSize: '0.85rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.15em', mb: 1.5 }}>
               Direct Comparison
             </Typography>
             <Typography variant="h3" sx={{ fontSize: { xs: '1.8rem', md: '2.5rem' }, fontWeight: 850, color: 'white', letterSpacing: '-0.03em', mb: 2 }}>
@@ -287,12 +274,12 @@ export const RestaurantLayers: React.FC = () => {
             </Typography>
           </Box>
 
-          <Box sx={{ overflowX: 'auto', borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.1)', bgcolor: '#0a0a0a' }}>
+          <Box sx={{ overflowX: 'auto', borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.1)', bgcolor: '#0A1433' }}>
             <Box component="table" sx={{ width: '100%', minWidth: 700, borderCollapse: 'collapse', textAlign: 'left' }}>
               <Box component="thead">
                 <Box component="tr" sx={{ borderBottom: '1px solid rgba(255,255,255,0.1)', bgcolor: 'rgba(255,255,255,0.03)' }}>
                   <Box component="th" sx={{ p: 3, color: 'grey.400', fontWeight: 700, fontSize: '0.85rem', width: '30%' }}>Operational Capability</Box>
-                  <Box component="th" sx={{ p: 3, color: '#fcd34d', fontWeight: 900, fontSize: '0.95rem', width: '32%', bgcolor: 'rgba(245,158,11,0.05)' }}>
+                  <Box component="th" sx={{ p: 3, color: '#F5C518', fontWeight: 900, fontSize: '0.95rem', width: '32%', bgcolor: 'rgba(245,197,24,0.05)' }}>
                     SharpTable
                   </Box>
                   <Box component="th" sx={{ p: 3, color: 'grey.400', fontWeight: 700, fontSize: '0.85rem', width: '19%' }}>SambaPOS / Legacy</Box>
@@ -305,21 +292,21 @@ export const RestaurantLayers: React.FC = () => {
                     <Box component="td" sx={{ p: 3, color: 'white', fontWeight: 700, fontSize: '0.9rem' }}>
                       {row.feature}
                     </Box>
-                    <Box component="td" sx={{ p: 3, color: 'grey.200', fontSize: '0.875rem', bgcolor: 'rgba(245,158,11,0.03)', fontWeight: 500 }}>
+                    <Box component="td" sx={{ p: 3, color: 'grey.200', fontSize: '0.875rem', bgcolor: 'rgba(245,197,24,0.03)', fontWeight: 500 }}>
                       <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
-                        <FontAwesomeIcon icon={faCheck} style={{ width: 14, height: 14, color: '#fcd34d', marginTop: 3, flexShrink: 0 }} />
+                        <Icon icon={CheckIcon} style={{ width: 14, height: 14, color: '#F5C518', marginTop: 3, flexShrink: 0 }} />
                         <span>{row.sharptable}</span>
                       </Box>
                     </Box>
                     <Box component="td" sx={{ p: 3, color: 'grey.400', fontSize: '0.85rem' }}>
                       <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
-                        <FontAwesomeIcon icon={faXmark} style={{ width: 14, height: 14, color: '#ef4444', marginTop: 3, flexShrink: 0 }} />
+                        <Icon icon={XIcon} style={{ width: 14, height: 14, color: '#ef4444', marginTop: 3, flexShrink: 0 }} />
                         <span>{row.samba}</span>
                       </Box>
                     </Box>
                     <Box component="td" sx={{ p: 3, color: 'grey.400', fontSize: '0.85rem' }}>
                       <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
-                        <FontAwesomeIcon icon={faXmark} style={{ width: 14, height: 14, color: '#ef4444', marginTop: 3, flexShrink: 0 }} />
+                        <Icon icon={XIcon} style={{ width: 14, height: 14, color: '#ef4444', marginTop: 3, flexShrink: 0 }} />
                         <span>{row.square}</span>
                       </Box>
                     </Box>
@@ -335,8 +322,8 @@ export const RestaurantLayers: React.FC = () => {
           sx={{
             p: { xs: 4, md: 6 },
             borderRadius: '2rem',
-            border: '1px solid rgba(245,158,11,0.3)',
-            bgcolor: 'rgba(245,158,11,0.06)',
+            border: '1px solid rgba(245,197,24,0.3)',
+            bgcolor: 'rgba(245,197,24,0.06)',
             display: 'grid',
             gridTemplateColumns: { xs: '1fr', md: '1fr auto' },
             gap: 4,
@@ -365,7 +352,7 @@ export const RestaurantLayers: React.FC = () => {
                 textTransform: 'none',
                 '&:hover': { bgcolor: 'grey.200' },
               }}
-              endIcon={<FontAwesomeIcon icon={faArrowRight} style={{ width: 14, height: 14 }} />}
+              endIcon={<Icon icon={ArrowRightIcon} style={{ width: 14, height: 14 }} />}
             >
               See Pricing & Plans
             </Button>

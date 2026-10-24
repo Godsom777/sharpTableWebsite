@@ -2,8 +2,8 @@
 
 import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalculator, faArrowRight, faChartLine, faUtensils, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { Icon } from '@/components/ui/icon';
+import { ArrowRightIcon, LineChartIcon, TriangleAlertIcon, UtensilsIcon } from 'lucide-react';
 import { Box, Container, Typography } from '@mui/material';
 
 export const ROICalculator: React.FC = () => {
@@ -26,7 +26,7 @@ export const ROICalculator: React.FC = () => {
   };
 
   return (
-    <Box component="section" sx={{ py: { xs: 16, md: 24 }, bgcolor: '#000000', borderTop: '1px solid rgba(255,255,255,0.05)', position: 'relative', overflow: 'hidden' }}>
+    <Box component="section" sx={{ py: { xs: 16, md: 24 }, bgcolor: '#050B1F', borderTop: '1px solid rgba(255,255,255,0.05)', position: 'relative', overflow: 'hidden' }}>
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 10, px: 3 }}>
         <Box
           component={motion.div}
@@ -36,7 +36,7 @@ export const ROICalculator: React.FC = () => {
           transition={{ duration: 0.6 }}
           sx={{ textAlign: 'center', mb: { xs: 10, md: 16 } }}
         >
-          <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, bgcolor: '#111111', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '9999px', px: 2, py: 1, mb: 4 }}>
+          <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, bgcolor: '#111E47', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '9999px', px: 2, py: 1, mb: 4 }}>
             <Box sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: 'white' }} />
             <Box component="span" sx={{ color: 'grey.300', fontWeight: 700, fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Projection Model</Box>
           </Box>
@@ -56,10 +56,10 @@ export const ROICalculator: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            sx={{ bgcolor: '#0a0a0a', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '2rem', p: { xs: 4, md: 6 } }}
+            sx={{ bgcolor: '#0A1433', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '2rem', p: { xs: 4, md: 6 } }}
           >
             <Typography variant="h3" sx={{ fontSize: '1.25rem', fontWeight: 800, color: 'white', display: 'flex', alignItems: 'center', gap: 1.5, mb: 6 }}>
-              <FontAwesomeIcon icon={faUtensils} style={{ width: 20, height: 20, color: 'white' }} />
+              <Icon icon={UtensilsIcon} style={{ width: 20, height: 20, color: 'white' }} />
               Operational Parameters
             </Typography>
 
@@ -111,9 +111,9 @@ export const ROICalculator: React.FC = () => {
               </Box>
             </Box>
 
-            <Box sx={{ p: 4, borderRadius: '1.5rem', bgcolor: '#111111', border: '1px solid rgba(255,255,255,0.1)' }}>
+            <Box sx={{ p: 4, borderRadius: '1.5rem', bgcolor: '#111E47', border: '1px solid rgba(255,255,255,0.1)' }}>
               <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
-                <FontAwesomeIcon icon={faExclamationTriangle} style={{ width: 24, height: 24, color: 'grey', marginTop: 4 }} />
+                <Icon icon={TriangleAlertIcon} style={{ width: 24, height: 24, color: 'grey', marginTop: 4 }} />
                 <Box>
                   <Typography sx={{ color: 'grey.400', fontWeight: 600, fontSize: '0.85rem', mb: 1, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Projected Capital Hemorrhage</Typography>
                   <Typography sx={{ color: 'white', fontSize: { xs: '1.5rem', md: '2rem' }, fontWeight: 900 }}>{formatCurrency(calculations.currentLeakage)}<Box component="span" sx={{ fontSize: '1.25rem', fontWeight: 600, color: 'grey.600' }}>/year</Box></Typography>
@@ -129,10 +129,10 @@ export const ROICalculator: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            sx={{ bgcolor: '#111111', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '2rem', p: { xs: 4, md: 6 } }}
+            sx={{ bgcolor: '#111E47', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '2rem', p: { xs: 4, md: 6 } }}
           >
             <Typography variant="h3" sx={{ fontSize: '1.25rem', fontWeight: 800, color: 'white', display: 'flex', alignItems: 'center', gap: 1.5, mb: 6 }}>
-              <FontAwesomeIcon icon={faChartLine} style={{ width: 20, height: 20, color: 'white' }} />
+              <Icon icon={LineChartIcon} style={{ width: 20, height: 20, color: 'white' }} />
               Executive Recovery Strategy
             </Typography>
 
@@ -145,13 +145,13 @@ export const ROICalculator: React.FC = () => {
                 <Typography sx={{ color: 'grey.500', fontSize: '0.95rem' }}>Technology Allocation (Group Plan)</Typography>
                 <Typography sx={{ color: 'grey.300', fontWeight: 600 }}>-{formatCurrency(calculations.annualCost)}</Typography>
               </Box>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 3, borderRadius: '1rem', bgcolor: '#0a0a0a', border: '1px solid rgba(255,255,255,0.1)' }}>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 3, borderRadius: '1rem', bgcolor: '#0A1433', border: '1px solid rgba(255,255,255,0.1)' }}>
                 <Typography sx={{ color: 'white', fontWeight: 800 }}>Net Capital Preserved</Typography>
                 <Typography sx={{ color: 'white', fontWeight: 900, fontSize: '1.75rem' }}>{formatCurrency(calculations.netSavings)}</Typography>
               </Box>
             </Box>
 
-            <Box sx={{ textAlign: 'center', p: 4, borderRadius: '1.5rem', bgcolor: '#1a1a1a', border: '1px solid rgba(255,255,255,0.1)', mb: 6 }}>
+            <Box sx={{ textAlign: 'center', p: 4, borderRadius: '1.5rem', bgcolor: '#1A2A5C', border: '1px solid rgba(255,255,255,0.1)', mb: 6 }}>
               <Typography sx={{ color: 'grey.500', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700, mb: 1 }}>Projected ROI</Typography>
               <Typography sx={{ fontSize: '4rem', fontWeight: 900, color: 'white', lineHeight: 1 }}>{calculations.roi}%</Typography>
               <Typography sx={{ color: 'grey.500', fontSize: '0.75rem', mt: 1.5, lineHeight: 1.4 }}>
@@ -165,7 +165,7 @@ export const ROICalculator: React.FC = () => {
               sx={{ width: '100%', py: 3, borderRadius: '9999px', bgcolor: 'white', color: 'black', fontWeight: 800, fontSize: '1.125rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, cursor: 'pointer', border: 'none', '&:hover': { bgcolor: 'grey.200' } }}
             >
               Seal the Leakage Today
-              <FontAwesomeIcon icon={faArrowRight} style={{ width: 16, height: 16 }} />
+              <Icon icon={ArrowRightIcon} style={{ width: 16, height: 16 }} />
             </Box>
           </Box>
         </Box>

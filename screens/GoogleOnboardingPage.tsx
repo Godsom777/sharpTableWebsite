@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner, faLock, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { Icon } from '@/components/ui/icon';
+import { Loader2Icon, LockIcon, TriangleAlertIcon } from 'lucide-react';
 import { Box, Typography } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
 import { getAppSupabaseClient } from '../lib/supabase';
@@ -105,9 +105,9 @@ export const GoogleOnboardingPage: React.FC = () => {
 
   if (status === 'error') {
     return (
-      <Box sx={{ minHeight: '100vh', bgcolor: '#000000', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 3 }}>
+      <Box sx={{ minHeight: '100vh', bgcolor: '#050B1F', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 3 }}>
         <Box sx={{ width: 64, height: 64, borderRadius: '50%', bgcolor: 'rgba(239,68,68,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 3 }}>
-          <FontAwesomeIcon icon={faExclamationTriangle} style={{ color: '#ef4444', width: 24, height: 24 }} />
+          <Icon icon={TriangleAlertIcon} style={{ color: '#ef4444', width: 24, height: 24 }} />
         </Box>
         <Typography sx={{ color: 'white', fontWeight: 800, fontSize: '1.5rem', mb: 1 }}>Setup Interrupted</Typography>
         <Typography sx={{ color: 'grey.500', mb: 4 }}>{errorMessage}</Typography>
@@ -119,10 +119,10 @@ export const GoogleOnboardingPage: React.FC = () => {
   }
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: '#000000', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 3 }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: '#050B1F', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 3 }}>
       <Box component={motion.div} initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.4 }} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Box sx={{ width: 64, height: 64, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 4 }}>
-          <FontAwesomeIcon icon={status === 'securing_payment' ? faLock : faSpinner} className={status === 'securing_payment' ? '' : 'animate-spin'} style={{ color: 'white', width: 24, height: 24 }} />
+          <Icon icon={status === 'securing_payment' ? LockIcon : Loader2Icon} className={status === 'securing_payment' ? '' : 'animate-spin'} style={{ color: 'white', width: 24, height: 24 }} />
         </Box>
         <Typography sx={{ color: 'white', fontWeight: 800, fontSize: '1.5rem', mb: 1 }}>
           {status === 'initializing' && 'Authenticating Session...'}
@@ -137,7 +137,7 @@ export const GoogleOnboardingPage: React.FC = () => {
 
         {status === 'securing_payment' && (
           <Box component="button" onClick={triggerPaystack} sx={{ py: 1.5, px: 4, borderRadius: '9999px', bgcolor: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)', fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s', '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' } }}>
-            <FontAwesomeIcon icon={faLock} style={{ marginRight: 8 }} /> Retry Secure Payment
+            <Icon icon={LockIcon} style={{ marginRight: 8 }} /> Retry Secure Payment
           </Box>
         )}
       </Box>

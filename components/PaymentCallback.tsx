@@ -2,8 +2,8 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle, faTimesCircle, faSpinner, faHome, faEnvelope, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import { Icon } from '@/components/ui/icon';
+import { CheckCircle2Icon, HomeIcon, Loader2Icon, LogInIcon, MailIcon, XCircleIcon } from 'lucide-react';
 import { Box, Typography } from '@mui/material';
 import { getAppSupabaseClient } from '../lib/supabase';
 
@@ -109,14 +109,14 @@ export const PaymentCallback: React.FC = () => {
   }, []);
 
   return (
-    <Box component="section" sx={{ minHeight: '100vh', bgcolor: '#000000', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 2 }}>
+    <Box component="section" sx={{ minHeight: '100vh', bgcolor: '#050B1F', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 2 }}>
       <AnimatePresence mode="wait">
-        <Box component={motion.div} initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} sx={{ maxWidth: 'sm', width: '100%', bgcolor: '#111111', borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.05)', p: { xs: 4, md: 6 }, textAlign: 'center' }}>
+        <Box component={motion.div} initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} sx={{ maxWidth: 'sm', width: '100%', bgcolor: '#111E47', borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.05)', p: { xs: 4, md: 6 }, textAlign: 'center' }}>
           
           {status === 'loading' && (
             <>
               <Box sx={{ width: 64, height: 64, mx: 'auto', mb: 3, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <FontAwesomeIcon icon={faSpinner} className="animate-spin" style={{ color: 'white', width: 24, height: 24 }} />
+                <Icon icon={Loader2Icon} className="animate-spin" style={{ color: 'white', width: 24, height: 24 }} />
               </Box>
               <Typography variant="h1" sx={{ fontSize: '1.5rem', fontWeight: 800, color: 'white', mb: 1 }}>Securing Registration</Typography>
               <Typography sx={{ color: 'grey.500', fontSize: '1rem' }}>Verifying payment layers...</Typography>
@@ -126,7 +126,7 @@ export const PaymentCallback: React.FC = () => {
           {status === 'success' && (
             <>
               <Box sx={{ width: 64, height: 64, mx: 'auto', mb: 3, borderRadius: '50%', bgcolor: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <FontAwesomeIcon icon={faCheckCircle} style={{ color: 'white', width: 24, height: 24 }} />
+                <Icon icon={CheckCircle2Icon} style={{ color: 'white', width: 24, height: 24 }} />
               </Box>
               <Typography variant="h1" sx={{ fontSize: '1.75rem', fontWeight: 900, letterSpacing: '-0.02em', color: 'white', mb: 1 }}>Subscription Active.</Typography>
               <Typography sx={{ color: 'grey.400', mb: 4, lineHeight: 1.6 }}>
@@ -136,7 +136,7 @@ export const PaymentCallback: React.FC = () => {
               </Typography>
 
               {subscriptionData && (
-                <Box sx={{ bgcolor: '#0a0a0a', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '1rem', p: 3, mb: 4, textAlign: 'left' }}>
+                <Box sx={{ bgcolor: '#0A1433', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '1rem', p: 3, mb: 4, textAlign: 'left' }}>
                   <Typography sx={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 800, color: 'grey.600', mb: 2 }}>Audit Trail</Typography>
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, fontSize: '0.95rem' }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}><Typography sx={{ color: 'grey.500' }}>Admin Email</Typography><Typography sx={{ color: 'white', fontWeight: 600 }}>{subscriptionData.email}</Typography></Box>
@@ -151,13 +151,13 @@ export const PaymentCallback: React.FC = () => {
                   <Typography sx={{ color: 'grey.400', fontSize: '0.95rem' }}>Taking you to setup…</Typography>
                 )}
                 <Box component="button" disabled={handoff === 'pending'} onClick={goToSetup} sx={{ width: '100%', py: 2, borderRadius: '9999px', bgcolor: 'white', color: 'black', fontWeight: 800, fontSize: '1rem', border: 'none', cursor: 'pointer', transition: 'all 0.2s', '&:hover': { bgcolor: 'grey.200' }, '&:disabled': { opacity: 0.6, cursor: 'wait' }, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
-                  <FontAwesomeIcon icon={handoff === 'pending' ? faSpinner : faArrowRightToBracket} className={handoff === 'pending' ? 'animate-spin' : undefined} /> Set up your restaurant
+                  <Icon icon={handoff === 'pending' ? Loader2Icon : LogInIcon} className={handoff === 'pending' ? 'animate-spin' : undefined} /> Set up your restaurant
                 </Box>
                 {handoff === 'fallback' && (
                   <Typography sx={{ color: 'grey.400', fontSize: '0.9rem' }}>Sign in with the email and password you just used.</Typography>
                 )}
-                <Box component="button" onClick={() => window.location.href = '/'} sx={{ width: '100%', py: 2, borderRadius: '9999px', bgcolor: '#0a0a0a', border: '1px solid rgba(255,255,255,0.1)', color: 'white', fontWeight: 600, fontSize: '1rem', cursor: 'pointer', transition: 'all 0.2s', '&:hover': { bgcolor: '#1a1a1a' }, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
-                  <FontAwesomeIcon icon={faHome} /> Retrn to Surface
+                <Box component="button" onClick={() => window.location.href = '/'} sx={{ width: '100%', py: 2, borderRadius: '9999px', bgcolor: '#0A1433', border: '1px solid rgba(255,255,255,0.1)', color: 'white', fontWeight: 600, fontSize: '1rem', cursor: 'pointer', transition: 'all 0.2s', '&:hover': { bgcolor: '#1A2A5C' }, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
+                  <Icon icon={HomeIcon} /> Retrn to Surface
                 </Box>
               </Box>
             </>
@@ -166,17 +166,17 @@ export const PaymentCallback: React.FC = () => {
           {status === 'failed' && (
             <>
               <Box sx={{ width: 64, height: 64, mx: 'auto', mb: 3, borderRadius: '50%', bgcolor: 'rgba(239,68,68,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <FontAwesomeIcon icon={faTimesCircle} style={{ color: '#ef4444', width: 24, height: 24 }} />
+                <Icon icon={XCircleIcon} style={{ color: '#ef4444', width: 24, height: 24 }} />
               </Box>
               <Typography variant="h1" sx={{ fontSize: '1.75rem', fontWeight: 900, color: 'white', mb: 1, letterSpacing: '-0.02em' }}>Transaction Invalid</Typography>
               <Typography sx={{ color: 'grey.400', mb: 4, lineHeight: 1.6 }}>The gate remained locked. Your payment was not processed successfully.</Typography>
 
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                 <Box component="button" onClick={() => window.location.href = '/'} sx={{ width: '100%', py: 2, borderRadius: '9999px', bgcolor: 'white', color: 'black', fontWeight: 800, fontSize: '1rem', border: 'none', cursor: 'pointer', '&:hover': { bgcolor: 'grey.200' }, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
-                  <FontAwesomeIcon icon={faHome} /> Return Home
+                  <Icon icon={HomeIcon} /> Return Home
                 </Box>
                 <Box component="button" onClick={() => window.location.href = 'mailto:support@sharptable.com.ng'} sx={{ width: '100%', py: 2, borderRadius: '9999px', bgcolor: 'transparent', border: '1px solid rgba(255,255,255,0.2)', color: 'white', fontWeight: 700, fontSize: '1rem', cursor: 'pointer', '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' }, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
-                  <FontAwesomeIcon icon={faEnvelope} /> Contact Operations
+                  <Icon icon={MailIcon} /> Contact Operations
                 </Box>
               </Box>
             </>
