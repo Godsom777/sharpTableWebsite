@@ -2,56 +2,32 @@
 
 import { AuthProvider } from '@/contexts/AuthContext';
 import { PaymentProvider } from '@/contexts/PaymentContext';
-import { NavBar } from '@/components/NavBar';
-import { Footer } from '@/components/Footer';
-import { Box } from '@mui/material';
+import { Nav } from '@/components/apple/Nav';
+import { Foot } from '@/components/apple/Foot';
+import { Motion } from '@/components/apple/Motion';
 import { MotionConfig } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import React from 'react';
+import '@/components/apple/apple.css';
 
-import { usePathname } from 'next/navigation';
-
-// The sign-up/payment modal is closed on first paint, so load its code after hydration
-// instead of shipping it in every page's first-load bundle. Behaviour is unchanged.
+// The sign-up/payment modal is closed on first paint, so load its code after hydration.
 const PaymentModal = dynamic(
   () => import('@/components/PaymentModal').then((m) => m.PaymentModal),
   { ssr: false }
 );
 
-export default function SiteWrapper({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const pathname = usePathname();
-  const modernPages = ['/', '/features', '/for-hotels', '/pricing', '/faq', '/partnership', '/partnership/apply'];
-  const isModern = modernPages.includes(pathname);
-
+export default function SiteWrapper({ children }: { children: React.ReactNode }) {
   return (
     <AuthProvider>
       <PaymentProvider>
-        {/* reducedMotion="user": visitors with prefers-reduced-motion get no movement animations */}
         <MotionConfig reducedMotion="user">
-          {isModern ? (
-            <div style={{ minHeight: '100vh', width: '100%' }}>
-              {children}
-              <PaymentModal />
-            </div>
-          ) : (
-            <Box sx={{
-              bgcolor: 'black',
-              minHeight: '100vh',
-              color: 'white',
-              '& ::selection': { bgcolor: 'rgba(245, 158, 11, 0.3)' }
-            }}>
-              <NavBar />
-              <Box component="main" sx={{ position: 'relative', zIndex: 1, bgcolor: 'black' }}>
-                {children}
-              </Box>
-              <Footer />
-              <PaymentModal />
-            </Box>
-          )}
+          <div className="ap">
+            <Nav />
+            <main>{children}</main>
+            <Foot />
+            <Motion />
+          </div>
+          <PaymentModal />
         </MotionConfig>
       </PaymentProvider>
     </AuthProvider>

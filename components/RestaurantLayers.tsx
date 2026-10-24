@@ -128,7 +128,7 @@ const comparisonRows = [
     square: 'Basic reporting without fraud-focused cashier tracking',
   },
   {
-    feature: 'Direct WhatsApp Ordering (0% Commission)',
+    feature: 'Direct WhatsApp Ordering',
     sharptable: 'Integrated automated menu bot and direct kitchen injection',
     samba: 'No native WhatsApp ordering capability',
     square: 'No native WhatsApp ordering capability',

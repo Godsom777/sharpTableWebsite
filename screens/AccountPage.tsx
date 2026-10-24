@@ -22,12 +22,10 @@ import {
   InputBase,
   Typography,
 } from '@mui/material';
-import { PageHeader } from '../components/PageHeader';
 import { useAuth } from '../contexts/AuthContext';
 import { BASE_PRICES_NGN, PLAN_CONFIG, type PlanType } from '../contexts/PaymentContext';
 import { useSubscription } from '../hooks/useSubscription';
 
-const accountSymbols = ['<>', '[]', '{}', '##', '//', '||', '==', '**'];
 
 const statusLabels: Record<string, string> = {
   active: 'Active',
@@ -249,14 +247,14 @@ export const AccountPage: React.FC = () => {
 
   return (
     <>
-      <PageHeader
-        title="Account & Billing"
-        subtitle="Log in to review your current plan and schedule upgrades, downgrades, or cancellation without changing access before renewal."
-        badge="Customer Access"
-        symbols={accountSymbols}
-      />
+      <section className="tile pale pb">
+        <div className="head">
+          <h1>Account.</h1>
+          <p className="sub">Manage your plan and billing.</p>
+        </div>
+      </section>
 
-      <Box component="section" sx={{ bgcolor: 'black', pb: { xs: 10, md: 16 } }}>
+      <Box component="section" sx={{ bgcolor: '#fff', pt: { xs: 6, md: 10 }, pb: { xs: 10, md: 16 } }}>
         <Container maxWidth="lg">
           {!isConfigured && (
             <Alert severity="error" sx={{ mb: 4 }}>
@@ -266,7 +264,7 @@ export const AccountPage: React.FC = () => {
 
           {isLoading ? (
             <Box sx={{ display: 'grid', placeItems: 'center', minHeight: 320 }}>
-              <CircularProgress sx={{ color: 'white' }} />
+              <CircularProgress sx={{ color: '#0b1b33' }} />
             </Box>
           ) : !user ? (
             <Box
@@ -278,16 +276,16 @@ export const AccountPage: React.FC = () => {
               sx={{
                 maxWidth: 560,
                 mx: 'auto',
-                bgcolor: '#111111',
-                border: '1px solid rgba(255,255,255,0.08)',
+                bgcolor: '#eef4fb',
+                border: '1px solid rgba(11,27,51,0.08)',
                 borderRadius: '1.5rem',
                 p: { xs: 3, md: 5 },
               }}
             >
-              <Typography sx={{ color: 'white', fontWeight: 900, fontSize: { xs: '1.5rem', md: '2rem' }, mb: 1 }}>
+              <Typography sx={{ color: '#0b1b33', fontWeight: 600, fontSize: { xs: '1.5rem', md: '2rem' }, mb: 1 }}>
                 Existing customer login
               </Typography>
-              <Typography sx={{ color: 'grey.400', mb: 4, lineHeight: 1.7 }}>
+              <Typography sx={{ color: '#5b6476', mb: 4, lineHeight: 1.7 }}>
                 Log in to manage your subscription, update your plan, or cancel renewal.
               </Typography>
 
@@ -305,7 +303,7 @@ export const AccountPage: React.FC = () => {
 
               <Box component="form" onSubmit={handleSignIn} sx={{ display: 'grid', gap: 2.5 }}>
                 <Box>
-                  <Typography sx={{ color: 'grey.400', fontSize: '0.8rem', fontWeight: 700, mb: 1 }}>
+                  <Typography sx={{ color: '#5b6476', fontSize: '0.8rem', fontWeight: 700, mb: 1 }}>
                     Email
                   </Typography>
                   <InputBase
@@ -314,17 +312,17 @@ export const AccountPage: React.FC = () => {
                     type="email"
                     sx={{
                       width: '100%',
-                      bgcolor: '#050505',
-                      border: '1px solid rgba(255,255,255,0.12)',
+                      bgcolor: '#fff',
+                      border: '1px solid rgba(11,27,51,0.12)',
                       borderRadius: '0.85rem',
-                      color: 'white',
+                      color: '#0b1b33',
                       input: { px: 2, py: 1.6 },
                     }}
                   />
                 </Box>
 
                 <Box>
-                  <Typography sx={{ color: 'grey.400', fontSize: '0.8rem', fontWeight: 700, mb: 1 }}>
+                  <Typography sx={{ color: '#5b6476', fontSize: '0.8rem', fontWeight: 700, mb: 1 }}>
                     Password
                   </Typography>
                   <InputBase
@@ -333,10 +331,10 @@ export const AccountPage: React.FC = () => {
                     type="password"
                     sx={{
                       width: '100%',
-                      bgcolor: '#050505',
-                      border: '1px solid rgba(255,255,255,0.12)',
+                      bgcolor: '#fff',
+                      border: '1px solid rgba(11,27,51,0.12)',
                       borderRadius: '0.85rem',
-                      color: 'white',
+                      color: '#0b1b33',
                       input: { px: 2, py: 1.6 },
                     }}
                   />
@@ -347,12 +345,12 @@ export const AccountPage: React.FC = () => {
                   disabled={isSigningIn || !isConfigured}
                   sx={{
                     mt: 1,
-                    bgcolor: 'white',
-                    color: 'black',
+                    bgcolor: '#F5C518',
+                    color: '#1d1d1f',
                     borderRadius: '999px',
                     py: 1.5,
                     fontWeight: 800,
-                    '&:hover': { bgcolor: 'grey.200' },
+                    '&:hover': { filter: 'brightness(1.05)', bgcolor: '#F5C518' },
                   }}
                 >
                   {isSigningIn ? <CircularProgress size={18} sx={{ color: 'inherit' }} /> : 'Log In'}
@@ -363,8 +361,8 @@ export const AccountPage: React.FC = () => {
                   onClick={handleRecovery}
                   disabled={isSendingRecovery || !isConfigured}
                   sx={{
-                    color: 'white',
-                    border: '1px solid rgba(255,255,255,0.18)',
+                    color: '#0b1b33',
+                    border: '1px solid rgba(11,27,51,0.18)',
                     borderRadius: '999px',
                     py: 1.5,
                     fontWeight: 700,
@@ -385,8 +383,8 @@ export const AccountPage: React.FC = () => {
             <Box sx={{ display: 'grid', gap: 4 }}>
               <Box
                 sx={{
-                  bgcolor: '#111111',
-                  border: '1px solid rgba(255,255,255,0.08)',
+                  bgcolor: '#eef4fb',
+                  border: '1px solid rgba(11,27,51,0.08)',
                   borderRadius: '1.5rem',
                   p: { xs: 3, md: 4 },
                   display: 'flex',
@@ -396,21 +394,21 @@ export const AccountPage: React.FC = () => {
                 }}
               >
                 <Box>
-                  <Typography sx={{ color: 'grey.500', textTransform: 'uppercase', fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.1em', mb: 1 }}>
+                  <Typography sx={{ color: '#5b6476', textTransform: 'uppercase', fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.1em', mb: 1 }}>
                     Signed In
                   </Typography>
-                  <Typography sx={{ color: 'white', fontWeight: 900, fontSize: { xs: '1.35rem', md: '1.8rem' } }}>
+                  <Typography sx={{ color: '#0b1b33', fontWeight: 600, fontSize: { xs: '1.35rem', md: '1.8rem' } }}>
                     {subscription?.businessName || user.email}
                   </Typography>
-                  <Typography sx={{ color: 'grey.400', mt: 0.75 }}>{user.email}</Typography>
+                  <Typography sx={{ color: '#5b6476', mt: 0.75 }}>{user.email}</Typography>
                 </Box>
 
                 <Box sx={{ display: 'flex', gap: 1.5, alignItems: { xs: 'stretch', md: 'center' }, flexWrap: 'wrap' }}>
                   <Button
                     onClick={() => refetch()}
                     sx={{
-                      color: 'white',
-                      border: '1px solid rgba(255,255,255,0.15)',
+                      color: '#0b1b33',
+                      border: '1px solid rgba(11,27,51,0.15)',
                       borderRadius: '999px',
                       px: 2.5,
                     }}
@@ -421,8 +419,8 @@ export const AccountPage: React.FC = () => {
                   <Button
                     onClick={signOut}
                     sx={{
-                      color: 'white',
-                      border: '1px solid rgba(255,255,255,0.15)',
+                      color: '#0b1b33',
+                      border: '1px solid rgba(11,27,51,0.15)',
                       borderRadius: '999px',
                       px: 2.5,
                     }}
@@ -441,7 +439,7 @@ export const AccountPage: React.FC = () => {
 
               {isSubscriptionLoading ? (
                 <Box sx={{ display: 'grid', placeItems: 'center', minHeight: 240 }}>
-                  <CircularProgress sx={{ color: 'white' }} />
+                  <CircularProgress sx={{ color: '#0b1b33' }} />
                 </Box>
               ) : !subscription?.planType ? (
                 <Alert severity="warning">
@@ -451,42 +449,42 @@ export const AccountPage: React.FC = () => {
                 <>
                   <Box
                     sx={{
-                      bgcolor: '#111111',
-                      border: '1px solid rgba(255,255,255,0.08)',
+                      bgcolor: '#eef4fb',
+                      border: '1px solid rgba(11,27,51,0.08)',
                       borderRadius: '1.5rem',
                       p: { xs: 3, md: 4 },
                     }}
                   >
-                    <Typography sx={{ color: 'grey.500', textTransform: 'uppercase', fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.1em', mb: 1 }}>
+                    <Typography sx={{ color: '#5b6476', textTransform: 'uppercase', fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.1em', mb: 1 }}>
                       Current Access
                     </Typography>
-                    <Typography sx={{ color: 'white', fontWeight: 900, fontSize: { xs: '1.4rem', md: '2rem' }, mb: 1 }}>
+                    <Typography sx={{ color: '#0b1b33', fontWeight: 600, fontSize: { xs: '1.4rem', md: '2rem' }, mb: 1 }}>
                       {PLAN_CONFIG[normalizedCurrentPlan].name} plan
                     </Typography>
-                    <Typography sx={{ color: 'grey.400', mb: 2 }}>
+                    <Typography sx={{ color: '#5b6476', mb: 2 }}>
                       Status: {statusLabels[subscription.status || 'pending'] || subscription.status}
                     </Typography>
 
                     <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' }, gap: 2 }}>
-                      <Box sx={{ bgcolor: '#070707', borderRadius: '1rem', p: 2.5 }}>
-                        <Typography sx={{ color: 'grey.500', fontSize: '0.75rem', textTransform: 'uppercase', fontWeight: 700, mb: 1 }}>
+                      <Box sx={{ bgcolor: '#fff', borderRadius: '1rem', p: 2.5 }}>
+                        <Typography sx={{ color: '#5b6476', fontSize: '0.75rem', textTransform: 'uppercase', fontWeight: 700, mb: 1 }}>
                           Renewal Date
                         </Typography>
-                        <Typography sx={{ color: 'white', fontWeight: 700 }}>{formatDate(subscription.nextPaymentDate)}</Typography>
+                        <Typography sx={{ color: '#0b1b33', fontWeight: 700 }}>{formatDate(subscription.nextPaymentDate)}</Typography>
                       </Box>
-                      <Box sx={{ bgcolor: '#070707', borderRadius: '1rem', p: 2.5 }}>
-                        <Typography sx={{ color: 'grey.500', fontSize: '0.75rem', textTransform: 'uppercase', fontWeight: 700, mb: 1 }}>
+                      <Box sx={{ bgcolor: '#fff', borderRadius: '1rem', p: 2.5 }}>
+                        <Typography sx={{ color: '#5b6476', fontSize: '0.75rem', textTransform: 'uppercase', fontWeight: 700, mb: 1 }}>
                           Current Billing
                         </Typography>
-                        <Typography sx={{ color: 'white', fontWeight: 700 }}>
+                        <Typography sx={{ color: '#0b1b33', fontWeight: 700 }}>
                           {formatPrice(BASE_PRICES_NGN[normalizedCurrentPlan])} {PLAN_CONFIG[normalizedCurrentPlan].period}
                         </Typography>
                       </Box>
-                      <Box sx={{ bgcolor: '#070707', borderRadius: '1rem', p: 2.5 }}>
-                        <Typography sx={{ color: 'grey.500', fontSize: '0.75rem', textTransform: 'uppercase', fontWeight: 700, mb: 1 }}>
+                      <Box sx={{ bgcolor: '#fff', borderRadius: '1rem', p: 2.5 }}>
+                        <Typography sx={{ color: '#5b6476', fontSize: '0.75rem', textTransform: 'uppercase', fontWeight: 700, mb: 1 }}>
                           Access Behavior
                         </Typography>
-                        <Typography sx={{ color: 'white', fontWeight: 700 }}>
+                        <Typography sx={{ color: '#0b1b33', fontWeight: 700 }}>
                           {subscription.hasActiveSubscription ? 'App access remains on for the current cycle.' : 'Access is not currently active.'}
                         </Typography>
                       </Box>
@@ -510,16 +508,16 @@ export const AccountPage: React.FC = () => {
 
                   <Box
                     sx={{
-                      bgcolor: '#111111',
-                      border: '1px solid rgba(255,255,255,0.08)',
+                      bgcolor: '#eef4fb',
+                      border: '1px solid rgba(11,27,51,0.08)',
                       borderRadius: '1.5rem',
                       p: { xs: 3, md: 4 },
                     }}
                   >
-                    <Typography sx={{ color: 'white', fontWeight: 900, fontSize: { xs: '1.35rem', md: '1.8rem' }, mb: 1 }}>
+                    <Typography sx={{ color: '#0b1b33', fontWeight: 600, fontSize: { xs: '1.35rem', md: '1.8rem' }, mb: 1 }}>
                       Schedule a different plan
                     </Typography>
-                    <Typography sx={{ color: 'grey.400', mb: 4, lineHeight: 1.7 }}>
+                    <Typography sx={{ color: '#5b6476', mb: 4, lineHeight: 1.7 }}>
                       Upgrades and downgrades are queued for the next renewal date.
                     </Typography>
 
@@ -535,17 +533,17 @@ export const AccountPage: React.FC = () => {
                             sx={{
                               borderRadius: '1.2rem',
                               p: 2.5,
-                              bgcolor: isCurrent ? 'rgba(201,168,76,0.12)' : '#070707',
+                              bgcolor: isCurrent ? '#e3edf9' : '#fff',
                               border: isCurrent
                                 ? '1px solid rgba(201,168,76,0.45)'
-                                : '1px solid rgba(255,255,255,0.08)',
+                                : '1px solid rgba(11,27,51,0.08)',
                             }}
                           >
-                            <Typography sx={{ color: 'white', fontWeight: 800, mb: 0.5 }}>{plan.title}</Typography>
-                            <Typography sx={{ color: 'grey.400', fontSize: '0.92rem', mb: 2 }}>{plan.description}</Typography>
-                            <Typography sx={{ color: 'white', fontWeight: 900, fontSize: '1.3rem', mb: 2 }}>
+                            <Typography sx={{ color: '#0b1b33', fontWeight: 800, mb: 0.5 }}>{plan.title}</Typography>
+                            <Typography sx={{ color: '#5b6476', fontSize: '0.92rem', mb: 2 }}>{plan.description}</Typography>
+                            <Typography sx={{ color: '#0b1b33', fontWeight: 600, fontSize: '1.3rem', mb: 2 }}>
                               {plan.displayPrice}
-                              <Box component="span" sx={{ color: 'grey.500', fontWeight: 600, fontSize: '0.95rem', ml: 0.75 }}>
+                              <Box component="span" sx={{ color: '#5b6476', fontWeight: 600, fontSize: '0.95rem', ml: 0.75 }}>
                                 {plan.period}
                               </Box>
                             </Typography>
@@ -557,9 +555,9 @@ export const AccountPage: React.FC = () => {
                                 borderRadius: '999px',
                                 py: 1.3,
                                 fontWeight: 800,
-                                bgcolor: isCurrent ? 'rgba(201,168,76,0.2)' : 'white',
-                                color: isCurrent ? '#f1d38b' : 'black',
-                                '&:hover': { bgcolor: isCurrent ? 'rgba(201,168,76,0.24)' : 'grey.200' },
+                                bgcolor: isCurrent ? 'rgba(11,27,51,0.08)' : '#F5C518',
+                                color: isCurrent ? '#0b1b33' : '#1d1d1f',
+                                '&:hover': { bgcolor: isCurrent ? 'rgba(11,27,51,0.12)' : '#F5C518' },
                               }}
                             >
                               {isBusy ? (
@@ -580,25 +578,25 @@ export const AccountPage: React.FC = () => {
 
                   <Box
                     sx={{
-                      bgcolor: '#111111',
-                      border: '1px solid rgba(255,255,255,0.08)',
+                      bgcolor: '#eef4fb',
+                      border: '1px solid rgba(11,27,51,0.08)',
                       borderRadius: '1.5rem',
                       p: { xs: 3, md: 4 },
                     }}
                   >
-                    <Typography sx={{ color: 'white', fontWeight: 900, fontSize: { xs: '1.35rem', md: '1.8rem' }, mb: 1 }}>
+                    <Typography sx={{ color: '#0b1b33', fontWeight: 600, fontSize: { xs: '1.35rem', md: '1.8rem' }, mb: 1 }}>
                       Cancel auto-renewal
                     </Typography>
-                    <Typography sx={{ color: 'grey.400', mb: 3, lineHeight: 1.7 }}>
+                    <Typography sx={{ color: '#5b6476', mb: 3, lineHeight: 1.7 }}>
                       This does not strip the current tier immediately. It marks the subscription as non-renewing and the app should keep honoring the current tier until the next payment date.
                     </Typography>
 
-                    <Divider sx={{ borderColor: 'rgba(255,255,255,0.08)', mb: 3 }} />
+                    <Divider sx={{ borderColor: 'rgba(11,27,51,0.08)', mb: 3 }} />
 
                     <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 2, alignItems: { xs: 'stretch', md: 'center' }, justifyContent: 'space-between' }}>
                       <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
                         <FontAwesomeIcon icon={faShieldHalved} style={{ marginTop: 4, color: '#fbbf24' }} />
-                        <Typography sx={{ color: 'grey.400', lineHeight: 1.7 }}>
+                        <Typography sx={{ color: '#5b6476', lineHeight: 1.7 }}>
                           Cancelling here stops the next renewal. Your current plan stays active until the end of the billing period.
                         </Typography>
                       </Box>

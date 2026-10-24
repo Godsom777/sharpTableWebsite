@@ -174,7 +174,7 @@ const PricingTiers: React.FC = () => {
         </Box>
 
         <Typography sx={{ mt: 5, textAlign: 'center', color: 'grey.500', fontSize: '0.9rem' }}>
-          No commission on orders. No setup fees. Cancel anytime. All prices in naira.
+          No setup fees. Cancel anytime. All prices in naira.
         </Typography>
       </Container>
     </Box>
