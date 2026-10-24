@@ -63,7 +63,7 @@
 .card-shot{position:relative;width:min(100%,520px);border-radius:20px;overflow:hidden;background:#fff;box-shadow:0 20px 60px -20px rgba(11,27,51,.25)}
 .card-shot img{display:block;width:100%}
 .cap{font-size:14px;color:var(--ink2);margin-top:10px;text-align:center}
-@media(min-width:1069px){.dash{flex-direction:row;align-items:flex-end;justify-content:center;gap:64px}.dash .laptop{flex:0 1 760px}.dash .card-shot{flex:0 0 380px}.dash figure:first-child{flex:0 1 760px}.dash figure:last-child{flex:0 0 380px}}
+@media(min-width:1069px){.dash{flex-direction:row;align-items:flex-end;justify-content:center;gap:64px}.dash .laptop{flex:0 1 760px}.dash .card-shot{flex:0 0 380px}.dash figure:first-child{flex:0 1 760px}.dash figure:last-child{flex:0 0 340px;width:340px}.dash figure:first-child{min-width:0}}
 .lid .ph{aspect-ratio:16/10;height:auto;border-radius:6px}
 /* photo tile */
 .photo{height:min(110vw,760px);padding:0}
