@@ -1,9 +1,15 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import { ThemeRegistry } from '@/components/ThemeRegistry';
 import '@fontsource/noto-sans/400.css';
 import '@fontsource/noto-sans/600.css';
 import '@/app/globals.css';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+};
 
 export const metadata: Metadata = {
   title: 'SharpTable — Operating System for Nigerian Restaurants & Hotels',

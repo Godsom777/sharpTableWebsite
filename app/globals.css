@@ -63,6 +63,17 @@
 /* ----------------------------------------------------------------
    Base Styles
    ---------------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 60px);
+  -webkit-text-size-adjust: 100%;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 *,
 *::before,
 *::after {
