@@ -68,8 +68,8 @@
 .cap{font-size:14px;color:var(--ink2);margin-top:10px;text-align:center}
 /* dash lockup: laptop + phone side by side, bottoms aligned, one centred unit (>=1068) */
 .dash .dash-side{display:flex;flex-direction:column;align-items:center;width:auto}
-@media(min-width:1068px){.dash{flex-direction:row;align-items:flex-end;justify-content:center;gap:56px;max-width:1520px;margin:0 auto 48px}.dash .dash-main{flex:0 1 760px;min-width:0}.dash .dash-side{flex:none}}
-@media(min-width:1400px){.dash{gap:64px}.dash .dash-main{flex-basis:1040px}}
+@media(min-width:1068px){.dash{flex-direction:row;align-items:flex-end;justify-content:center;gap:48px;max-width:1280px;margin:0 auto 48px}.dash .dash-main{flex:0 1 760px;min-width:0}.dash .dash-side{flex:none}.dash .phone{width:230px;border-radius:38px;padding:8px}.dash .phone .scr{border-radius:30px}.dash .phone .scr img{border-radius:27px}.dash .phone::after{top:22%;height:11%}}
+@media(min-width:1400px){.dash{gap:56px;max-width:1480px}.dash .dash-main{flex-basis:1040px}.dash .phone{width:260px;border-radius:42px;padding:9px}.dash .phone .scr{border-radius:34px}.dash .phone .scr img{border-radius:31px}}
 .lid .ph{aspect-ratio:16/10;height:auto;border-radius:6px}
 /* photo tile */
 .photo{height:min(110vw,760px);padding:0}
