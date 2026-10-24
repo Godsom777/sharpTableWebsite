@@ -66,7 +66,9 @@
 .dash figure{width:100%;max-width:100%;min-width:0;box-sizing:border-box}.dash .card-shot{width:100%;max-width:520px;margin:0 auto}
 @media(max-width:600px){.lid .scrn{aspect-ratio:8/5}.dash-h .sub{margin-top:12px}}
 .cap{font-size:14px;color:var(--ink2);margin-top:10px;text-align:center}
-@media(min-width:1069px){.dash{flex-direction:row;align-items:flex-end;justify-content:center;gap:64px}.dash .laptop{flex:0 1 760px}.dash .card-shot{flex:0 0 380px}.dash figure:first-child{flex:0 1 760px}.dash figure:last-child{flex:0 0 340px;width:340px}.dash figure:first-child{min-width:0}}
+/* dash lockup: laptop centred, sales card overlaps its lower-right bezel (>=734) */
+@media(min-width:734px){.dash{display:block;position:relative;width:min(100%,760px);margin:0 auto 120px}.dash .dash-main{width:100%}.dash .dash-side{position:absolute;right:-4%;bottom:-96px;width:300px;z-index:2}.dash .dash-side .card-shot{max-width:none;box-shadow:0 24px 60px -18px rgba(11,27,51,.35),0 0 0 1px rgba(0,0,0,.06)}.dash .dash-main .cap{text-align:left;padding-left:4px}}
+@media(min-width:1400px){.dash{width:min(100%,1040px);margin-bottom:140px}.dash .dash-side{width:320px;bottom:-110px}}
 .lid .ph{aspect-ratio:16/10;height:auto;border-radius:6px}
 /* photo tile */
 .photo{height:min(110vw,760px);padding:0}
@@ -127,6 +129,11 @@
 @media (min-width:1068px){
   .ap h1,.ap h2{font-size:64px;line-height:68px}.sub{font-size:28px;line-height:32px}
   .grid.c4{grid-template-columns:repeat(4,1fr)}
+}
+@media (min-width:1400px){
+  .ipad,.lid,.laptop,.tab,.art figure{width:min(100%,1040px)}
+  .phone{width:410px;border-radius:64px;padding:14px}.phone .scr{border-radius:50px}.phone .scr img{border-radius:47px}
+  .tile.pb{padding-bottom:56px}.art figure{margin-bottom:32px}
 }
 @media (prefers-reduced-motion:no-preference){.ap.js .dev{will-change:transform}}
 body:has(.ap){background:#fff;color:#0b1b33}
