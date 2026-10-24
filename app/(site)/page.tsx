@@ -42,7 +42,7 @@ export default function HomePage() {
           <h2>Every branch.<br />One screen.</h2>
           <p className="sub">Every sale, void and discount. Live.</p>
         </div>
-        <div className="art dev"><div className="dash"><figure className="dash-main"><Screen kind="laptop" src="/app-shots/dashboard.webp" mobileSrc="/app-shots/dashboard-390.webp" alt="SharpTable owner dashboard menu manager" /><Cap>Your menu, live.</Cap></figure><figure className="dash-side"><Card src="/app-shots/history.webp" alt="SharpTable sales history with daily totals by payment type" /><Cap>Every sale, accounted for.</Cap></figure></div></div>
+        <div className="art dev"><div className="dash"><figure className="dash-main"><Screen kind="laptop" src="/app-shots/admin-desktop.webp" alt="SharpTable Admin menu manager with dishes and naira prices" /><Cap>Your menu, live.</Cap></figure><figure className="dash-side"><Phone src="/app-shots/admin-mobile.webp" alt="SharpTable Admin menu on a phone" /><Cap>Same Admin. Pocket.</Cap></figure></div></div>
       </section>
 
       <section className="tile pale pb">
