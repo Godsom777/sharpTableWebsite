@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowRight, ArrowUp, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Reveal } from "@/components/motion/Reveal";
 import { LegalModal, useLegalModal } from "@/components/LegalModal";
 import { cn } from "@/lib/utils";
 
@@ -48,8 +47,8 @@ export function CinematicFooter({ onOpenPrivacyPolicy, onOpenTermsOfService, cla
           ))}
         </ul>
 
-        <div className="container relative max-w-4xl py-14 text-center md:py-24">
-          <Reveal>
+        <div className="container relative max-w-4xl py-10 text-center md:py-24">
+          <div>
             <h2 className="display-serif mb-4 text-4xl leading-[1.08] sm:text-6xl md:text-7xl">
               {isHotelsPage ? "Run the hotel." : "See what's really happening at your branches."}
             </h2>
@@ -71,7 +70,7 @@ export function CinematicFooter({ onOpenPrivacyPolicy, onOpenTermsOfService, cla
               </Button>
             </div>
             <p className="mt-5 text-sm text-muted-foreground">No setup fees · Cancel anytime</p>
-          </Reveal>
+          </div>
 
           <nav aria-label="Footer" className="mt-10 flex flex-wrap justify-center gap-1">
             <Button variant="ghost" className={pill} onClick={openPrivacy}>Privacy Policy</Button>

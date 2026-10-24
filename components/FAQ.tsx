@@ -146,9 +146,11 @@ const categories: { id: Category; label: string }[] = [
   { id: 'operations', label: 'Operations' },
 ];
 
-export const FAQ: React.FC = () => {
+/** `compact` (home page): first few questions only, no category tabs, links to the full FAQ page. */
+export const FAQ: React.FC<{ compact?: boolean }> = ({ compact = false }) => {
   const [active, setActive] = useState<Category>('all');
-  const list = active === 'all' ? faqs : faqs.filter((f) => f.category === active);
+  const filtered = active === 'all' ? faqs : faqs.filter((f) => f.category === active);
+  const list = compact ? faqs.slice(0, 5) : filtered;
 
   return (
     <section className="relative bg-navy-950 py-14 md:py-24">
@@ -164,7 +166,7 @@ export const FAQ: React.FC = () => {
           </p>
         </Reveal>
 
-        <Tabs value={active} onValueChange={(v) => setActive(v as Category)} className="mb-8">
+        {!compact && (<Tabs value={active} onValueChange={(v) => setActive(v as Category)} className="mb-8">
           <TabsList className="no-scrollbar flex h-auto w-full justify-start gap-2 overflow-x-auto bg-transparent p-0 md:justify-center">
             {categories.map((c) => (
               <TabsTrigger
@@ -176,7 +178,7 @@ export const FAQ: React.FC = () => {
               </TabsTrigger>
             ))}
           </TabsList>
-        </Tabs>
+        </Tabs>)}
 
         <Accordion type="single" collapsible className="flex flex-col gap-3">
           {list.map((f) => (
@@ -192,13 +194,21 @@ export const FAQ: React.FC = () => {
           ))}
         </Accordion>
 
-        <Reveal className="mt-12 rounded-3xl border border-white/10 bg-navy-900 p-7 text-center md:p-12">
+        {compact && (
+          <div className="mt-6 text-center">
+            <Button asChild variant="outline" className="min-h-11 border-white/20 bg-transparent text-white hover:bg-white/5 hover:text-white">
+              <a href="/faq">See all questions</a>
+            </Button>
+          </div>
+        )}
+
+        {!compact && (<Reveal className="mt-12 rounded-3xl border border-white/10 bg-navy-900 p-7 text-center md:p-12">
           <h3 className="mb-3 text-3xl font-black tracking-tight text-white md:text-4xl">Still not sure? Let's talk.</h3>
           <p className="mx-auto mb-6 max-w-md text-muted-foreground">We're real people who actually use this software. We know restaurants because we built this for ourselves first.</p>
           <Button asChild size="lg">
             <a href="mailto:info@sharptable.com.ng">Get in Touch <Mail aria-hidden /></a>
           </Button>
-        </Reveal>
+        </Reveal>)}
       </div>
     </section>
   );

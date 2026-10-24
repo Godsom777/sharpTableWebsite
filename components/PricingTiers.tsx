@@ -56,7 +56,7 @@ const PricingTiers: React.FC = () => {
       <div className="container relative">
         <div className="mb-8 flex flex-col gap-6 md:mb-12 md:flex-row md:items-end md:justify-between">
           <div className="min-w-0">
-            <h2 className="display-serif mb-3 text-4xl leading-[1.05] text-white md:text-7xl">Simple pricing, by branch</h2>
+            <h2 className="sr-only">Plans</h2>
             <p className="text-base text-muted-foreground md:text-lg">Every plan includes everything. You only pick the size.</p>
           </div>
           <Tabs value={billingCycle} onValueChange={(v) => setBillingCycle(v as BillingCycle)} aria-label="Billing period">
@@ -71,7 +71,7 @@ const PricingTiers: React.FC = () => {
         </div>
 
         <div className="mb-4 flex md:justify-end">
-          <Button asChild variant="outline" className="w-full border-white/20 bg-transparent text-white hover:bg-white/5 hover:text-white md:w-auto">
+          <Button asChild variant="outline" className="h-auto min-h-11 w-full whitespace-normal py-2 text-center leading-snug border-white/20 bg-transparent text-white hover:bg-white/5 hover:text-white md:w-auto">
             <a href="/account"><Lock aria-hidden />Existing customer? Log in to manage your plan</a>
           </Button>
         </div>

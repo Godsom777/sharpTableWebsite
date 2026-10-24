@@ -85,9 +85,9 @@ export const PartnerApplyForm: React.FC = () => {
   };
 
   return (
-    <Box component="section" sx={{ position: 'relative', bgcolor: '#050B1F', py: { xs: 8, md: 16 } }}>
+    <Box component="section" sx={{ position: 'relative', bgcolor: '#050B1F', py: { xs: 4, md: 10 } }}>
       <Container maxWidth="sm" sx={{ px: 3 }}>
-        <Box component={Link} href="/partnership" sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, color: 'grey.500', fontSize: '0.875rem', mb: 6, fontWeight: 600, textDecoration: 'none', transition: 'color 0.2s', '&:hover': { color: 'white' } }}>
+        <Box component={Link} href="/partnership" sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, minHeight: 44, minWidth: 44, py: 1, pr: 1, color: 'grey.400', fontSize: '0.875rem', mb: 3, fontWeight: 600, textDecoration: 'none', transition: 'color 0.2s', '&:hover': { color: 'white' } }}>
           <Icon icon={ArrowLeftIcon} /> Abort Registration
         </Box>
 

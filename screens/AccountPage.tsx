@@ -345,6 +345,7 @@ export const AccountPage: React.FC = () => {
                     py: 1.5,
                     fontWeight: 800,
                     '&:hover': { bgcolor: 'grey.200' },
+                    '&.Mui-disabled': { bgcolor: 'rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.2)' },
                   }}
                 >
                   {isSigningIn ? <CircularProgress size={18} sx={{ color: 'inherit' }} /> : 'Log In'}
