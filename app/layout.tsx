@@ -36,7 +36,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap"
           rel="stylesheet"
         />
-        <meta name="theme-color" content="#000000" />
+        <meta name="theme-color" content="#ffffff" />
 
         <script
           type="application/ld+json"
@@ -47,17 +47,12 @@ export default function RootLayout({
               "name": "SharpTable",
               "operatingSystem": "Web",
               "applicationCategory": "BusinessApplication",
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "4.9",
-                "ratingCount": "128"
-              },
               "offers": {
                 "@type": "Offer",
-                "price": "0",
+                "price": "50000",
                 "priceCurrency": "NGN"
               },
-              "description": "Absolute command of hospitality operations across ordering, visitor tracking, room service logistics, and fraud prevention."
+              "description": "Restaurant and hotel software for Nigeria: table ordering and payment, kitchen display, owner oversight and keycard logging."
             })
           }}
         />

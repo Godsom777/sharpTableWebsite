@@ -1,21 +1,15 @@
-
-import { PageHeader } from '@/components/PageHeader';
 import { PartnerApplyForm } from '@/components/PartnerApplyForm';
-
-const applySymbols = [
-  '✦', '◈', '⊹', '⟡', '⊕', '◇', '⟐', '⊛',
-  '△', '⬡', '✧', '⬥', '⊙', '◉', '⟠', '⊗',
-];
 
 export default function PartnershipApplyPage() {
   return (
     <>
-      <PageHeader
-        title="Become a Partner"
-        subtitle="Fill out the quick application form below and start earning commissions within 24 hours."
-        badge="Apply Now"
-        symbols={applySymbols}
-      />
+      <section className="tile pale pb">
+        <div className="head">
+          <p className="eyebrow">Partners</p>
+          <h1>Become a partner.</h1>
+          <p className="sub">A short form. Your link comes right after.</p>
+        </div>
+      </section>
       <PartnerApplyForm />
     </>
   );

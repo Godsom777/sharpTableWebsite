@@ -1,41 +1,67 @@
-import { HeroSection } from '@/components/homepage/HeroSection';
-import { FourthSetOfEyesSection } from '@/components/homepage/FourthSetOfEyesSection';
-import { MechanismSection } from '@/components/homepage/MechanismSection';
-import FeaturesCards from '@/components/ui/feature-shader-cards';
-import IntegrationsSection from '@/components/ui/integrations-3';
-import { WhatsAppDemoSection } from '@/components/homepage/WhatsAppDemoSection';
-import { CredibilitySection } from '@/components/homepage/CredibilitySection';
-import { PricingAnchor } from '@/components/PricingAnchor';
+import { Cta, Demo, Phone, Placeholder } from '@/components/apple/Bits';
+import { BASE_PRICES_NGN } from '@godsom777/sharptable-backend';
+import Link from 'next/link';
 
-// Section order follows the UI/UX copy doc (sharptable-copy-v1.md, section 1):
-// problem -> fix -> proof -> price, with integrations as a detail after pricing.
-// The closing call to action lives in the site footer (components/ui/motion-footer.tsx).
+const naira = (n: number) => new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(n);
+
 export default function HomePage() {
+  const from = naira(Math.min(BASE_PRICES_NGN.lite, BASE_PRICES_NGN.pro, BASE_PRICES_NGN.enterprise));
   return (
     <>
-      {/* 1. Hero — "Every naira. Every branch. Every shift." */}
-      <HeroSection />
+      <section className="tile pale">
+        <div className="head">
+          <h1>SharpTable.</h1>
+          <p className="sub">Your restaurant, in your pocket.</p>
+          <Cta more="Learn more" moreHref="/features" />
+        </div>
+        <div className="art dev"><Phone src="/app-shots/diner-menu.png" alt="SharpTable diner menu on a phone" /></div>
+        <Demo />
+      </section>
 
-      {/* 2. Accountability — "a fourth set of eyes" */}
-      <FourthSetOfEyesSection />
+      <section className="tile photo" aria-label="A busy restaurant evening">
+        <img className="par" src="/assets/photos/happy_diners.jpg" alt="Friends sharing a meal at a busy restaurant" />
+        <div className="head"><h2>Made for busy nights.</h2></div>
+      </section>
 
-      {/* 3. How orders come in (Mechanism) */}
-      <MechanismSection />
+      <section className="tile">
+        <div className="head">
+          <h2>Order. Pay. Cook.</h2>
+          <p className="sub">Guests order and pay from the table.</p>
+        </div>
+        <div className="art dev"><Phone src="/app-shots/diner-menu-cart-390.png" alt="SharpTable diner menu with an item in the cart and a checkout button" /></div>
+        <Demo />
+      </section>
 
-      {/* 4. Features (six cards) */}
-      <FeaturesCards />
+      <section className="tile pale">
+        <div className="head"><h2>Only paid orders<br />reach the kitchen.</h2></div>
+        <div className="art dev"><Placeholder kind="tablet" label="Kitchen display" /></div>
+        <p className="demo" style={{ paddingBottom: 48 }} />
+      </section>
 
-      {/* 5. WhatsApp ordering demo */}
-      <WhatsAppDemoSection />
+      <section className="tile">
+        <div className="head">
+          <h2>Every branch.<br />One screen.</h2>
+          <p className="sub">Every sale, void and discount. Live.</p>
+        </div>
+        <div className="art dev"><Placeholder kind="laptop" label="Owner dashboard" /></div>
+        <p className="demo" style={{ paddingBottom: 48 }} />
+      </section>
 
-      {/* 6. Proof — Old English Bar and Grills */}
-      <CredibilitySection />
+      <section className="tile pale pb">
+        <div className="head">
+          <h2>Hotels too.</h2>
+          <p className="sub">Room service and keycard logging.</p>
+          <div className="links"><Link className="lm" href="/for-hotels">Learn more ›</Link></div>
+        </div>
+      </section>
 
-      {/* 7. Pricing */}
-      <PricingAnchor />
-
-      {/* 8. Integrations */}
-      <IntegrationsSection />
+      <section className="tile pb">
+        <div className="head">
+          <h2>From {from} a month.</h2>
+          <p className="sub">Every feature. Every plan.</p>
+          <Cta more="See pricing" moreHref="/pricing" />
+        </div>
+      </section>
     </>
   );
 }
