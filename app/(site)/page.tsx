@@ -1,4 +1,4 @@
-import { Cta, Demo, Phone, Screen, Card } from '@/components/apple/Bits';
+import { Cta, Demo, Phone, Screen, Card, Cap } from '@/components/apple/Bits';
 import { BASE_PRICES_NGN } from '@godsom777/sharptable-backend';
 import Link from 'next/link';
 
@@ -34,15 +34,15 @@ export default function HomePage() {
 
       <section className="tile pale">
         <div className="head"><h2>Only paid orders<br />reach the kitchen.</h2></div>
-        <div className="art dev"><figure><Screen kind="tablet" src="/app-shots/kitchen.webp" alt="SharpTable kitchen display with paid orders queued by table" /><figcaption className="cap">Every order, in order.</figcaption></figure></div>
+        <div className="art dev"><figure><Screen kind="tablet" src="/app-shots/kitchen.webp" alt="SharpTable kitchen display with paid orders queued by table" /><Cap>Every order, in order.</Cap></figure></div>
       </section>
 
       <section className="tile">
-        <div className="head">
+        <div className="head dash-h">
           <h2>Every branch.<br />One screen.</h2>
           <p className="sub">Every sale, void and discount. Live.</p>
         </div>
-        <div className="art dev"><div className="dash"><figure><Screen kind="laptop" src="/app-shots/dashboard.webp" alt="SharpTable owner dashboard menu manager" /><figcaption className="cap">Your menu, live.</figcaption></figure><figure><Card src="/app-shots/history.webp" alt="SharpTable sales history with daily totals by payment type" /><figcaption className="cap">Every sale, accounted for.</figcaption></figure></div></div>
+        <div className="art dev"><div className="dash"><figure><Screen kind="laptop" src="/app-shots/dashboard.webp" mobileSrc="/app-shots/dashboard-390.webp" alt="SharpTable owner dashboard menu manager" /><Cap>Your menu, live.</Cap></figure><figure><Card src="/app-shots/history.webp" alt="SharpTable sales history with daily totals by payment type" /><Cap>Every sale, accounted for.</Cap></figure></div></div>
       </section>
 
       <section className="tile pale pb">

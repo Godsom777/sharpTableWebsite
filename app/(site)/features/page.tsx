@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Cta, Demo, Phone, Screen, Card } from '@/components/apple/Bits';
+import { Cta, Demo, Phone, Screen, Card, Cap } from '@/components/apple/Bits';
 
 export const metadata: Metadata = {
   title: 'Features — SharpTable Restaurant Operating System',
@@ -34,15 +34,15 @@ export default function FeaturesPage() {
           <h2>Kitchen display.</h2>
           <p className="sub">Paid orders appear live. Nothing unpaid gets cooked.</p>
         </div>
-        <div className="art dev"><figure><Screen kind="tablet" src="/app-shots/kitchen.webp" alt="SharpTable kitchen display with paid orders queued by table" /><figcaption className="cap">Every order, in order.</figcaption></figure></div>
+        <div className="art dev"><figure><Screen kind="tablet" src="/app-shots/kitchen.webp" alt="SharpTable kitchen display with paid orders queued by table" /><Cap>Every order, in order.</Cap></figure></div>
       </section>
 
       <section className="tile pale">
-        <div className="head">
+        <div className="head dash-h">
           <h2>The admin app.</h2>
           <p className="sub">Sales, voids and discounts across every branch.</p>
         </div>
-        <div className="art dev"><div className="dash"><figure><Screen kind="laptop" src="/app-shots/dashboard.webp" alt="SharpTable owner dashboard menu manager" /><figcaption className="cap">Your menu, live.</figcaption></figure><figure><Card src="/app-shots/history.webp" alt="SharpTable sales history with daily totals by payment type" /><figcaption className="cap">Every sale, accounted for.</figcaption></figure></div></div>
+        <div className="art dev"><div className="dash"><figure><Screen kind="laptop" src="/app-shots/dashboard.webp" mobileSrc="/app-shots/dashboard-390.webp" alt="SharpTable owner dashboard menu manager" /><Cap>Your menu, live.</Cap></figure><figure><Card src="/app-shots/history.webp" alt="SharpTable sales history with daily totals by payment type" /><Cap>Every sale, accounted for.</Cap></figure></div></div>
       </section>
 
       <section className="tile pb">

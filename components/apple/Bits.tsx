@@ -7,28 +7,24 @@ export function Phone({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-/** Space reserved for a real screenshot that is not ready yet. Nothing is drawn to look like the product. */
-export function Placeholder({ kind, label }: { kind: 'tablet' | 'laptop'; label: string }) {
-  const inner = (
-    <div className="ph" role="img" aria-label={`${label} screenshot coming soon`}>
-      <b>{label}</b>
-      <span>Screenshot coming soon</span>
-    </div>
-  );
-  if (kind === 'tablet') return <div className="ipad">{inner}</div>;
-  return <div className="laptop"><div className="lid">{inner}</div><div className="base" /></div>;
-}
-
 /** A real product screenshot inside a tablet or laptop frame. */
-export function Screen({ kind, src, alt }: { kind: 'tablet' | 'laptop'; src: string; alt: string }) {
-  const img = <div className="scrn"><img className="shot" src={src} alt={alt} loading="lazy" /><span className="tag">Demo data</span></div>;
+export function Screen({ kind, src, alt, mobileSrc }: { kind: 'tablet' | 'laptop'; src: string; alt: string; mobileSrc?: string }) {
+  const pic = mobileSrc
+    ? <picture><source media="(max-width: 600px)" srcSet={mobileSrc} /><img className="shot" src={src} alt={alt} loading="lazy" /></picture>
+    : <img className="shot" src={src} alt={alt} loading="lazy" />;
+  const img = <div className="scrn">{pic}</div>;
   if (kind === 'tablet') return <div className="tab">{img}</div>;
   return <div className="laptop"><div className="lid">{img}</div><div className="base" /></div>;
 }
 
 /** A real screenshot on a bare rounded card (no device frame). */
 export function Card({ src, alt }: { src: string; alt: string }) {
-  return <div className="card-shot"><img src={src} alt={alt} loading="lazy" /><span className="tag">Demo data</span></div>;
+  return <div className="card-shot"><img src={src} alt={alt} loading="lazy" /></div>;
+}
+
+/** Caption under a staff screenshot, followed by the inline Demo data tag. */
+export function Cap({ children }: { children: ReactNode }) {
+  return <figcaption className="cap">{children} <span className="tag">· Demo data</span></figcaption>;
 }
 
 export function Demo({ text = 'Demo data' }: { text?: string }) {
