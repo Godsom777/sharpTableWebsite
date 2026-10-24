@@ -19,6 +19,18 @@ export function Placeholder({ kind, label }: { kind: 'tablet' | 'laptop'; label:
   return <div className="laptop"><div className="lid">{inner}</div><div className="base" /></div>;
 }
 
+/** A real product screenshot inside a tablet or laptop frame. */
+export function Screen({ kind, src, alt }: { kind: 'tablet' | 'laptop'; src: string; alt: string }) {
+  const img = <div className="scrn"><img className="shot" src={src} alt={alt} loading="lazy" /><span className="tag">Demo data</span></div>;
+  if (kind === 'tablet') return <div className="tab">{img}</div>;
+  return <div className="laptop"><div className="lid">{img}</div><div className="base" /></div>;
+}
+
+/** A real screenshot on a bare rounded card (no device frame). */
+export function Card({ src, alt }: { src: string; alt: string }) {
+  return <div className="card-shot"><img src={src} alt={alt} loading="lazy" /><span className="tag">Demo data</span></div>;
+}
+
 export function Demo({ text = 'Demo data' }: { text?: string }) {
   return <p className="demo">{text}</p>;
 }

@@ -1,4 +1,4 @@
-import { Cta, Demo, Phone, Placeholder } from '@/components/apple/Bits';
+import { Cta, Demo, Phone, Screen, Card } from '@/components/apple/Bits';
 import { BASE_PRICES_NGN } from '@godsom777/sharptable-backend';
 import Link from 'next/link';
 
@@ -34,8 +34,7 @@ export default function HomePage() {
 
       <section className="tile pale">
         <div className="head"><h2>Only paid orders<br />reach the kitchen.</h2></div>
-        <div className="art dev"><Placeholder kind="tablet" label="Kitchen display" /></div>
-        <p className="demo" style={{ paddingBottom: 48 }} />
+        <div className="art dev"><figure><Screen kind="tablet" src="/app-shots/kitchen.webp" alt="SharpTable kitchen display with paid orders queued by table" /><figcaption className="cap">Every order, in order.</figcaption></figure></div>
       </section>
 
       <section className="tile">
@@ -43,8 +42,7 @@ export default function HomePage() {
           <h2>Every branch.<br />One screen.</h2>
           <p className="sub">Every sale, void and discount. Live.</p>
         </div>
-        <div className="art dev"><Placeholder kind="laptop" label="Owner dashboard" /></div>
-        <p className="demo" style={{ paddingBottom: 48 }} />
+        <div className="art dev"><div className="dash"><figure><Screen kind="laptop" src="/app-shots/dashboard.webp" alt="SharpTable owner dashboard menu manager" /><figcaption className="cap">Your menu, live.</figcaption></figure><figure><Card src="/app-shots/history.webp" alt="SharpTable sales history with daily totals by payment type" /><figcaption className="cap">Every sale, accounted for.</figcaption></figure></div></div>
       </section>
 
       <section className="tile pale pb">

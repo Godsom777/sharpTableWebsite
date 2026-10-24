@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Cta, Demo, Phone, Placeholder } from '@/components/apple/Bits';
+import { Cta, Demo, Phone, Screen, Card } from '@/components/apple/Bits';
 
 export const metadata: Metadata = {
   title: 'Features — SharpTable Restaurant Operating System',
@@ -34,8 +34,7 @@ export default function FeaturesPage() {
           <h2>Kitchen display.</h2>
           <p className="sub">Paid orders appear live. Nothing unpaid gets cooked.</p>
         </div>
-        <div className="art dev"><Placeholder kind="tablet" label="Kitchen display" /></div>
-        <p className="demo" style={{ paddingBottom: 48 }} />
+        <div className="art dev"><figure><Screen kind="tablet" src="/app-shots/kitchen.webp" alt="SharpTable kitchen display with paid orders queued by table" /><figcaption className="cap">Every order, in order.</figcaption></figure></div>
       </section>
 
       <section className="tile pale">
@@ -43,8 +42,7 @@ export default function FeaturesPage() {
           <h2>The admin app.</h2>
           <p className="sub">Sales, voids and discounts across every branch.</p>
         </div>
-        <div className="art dev"><Placeholder kind="laptop" label="Owner dashboard" /></div>
-        <p className="demo" style={{ paddingBottom: 48 }} />
+        <div className="art dev"><div className="dash"><figure><Screen kind="laptop" src="/app-shots/dashboard.webp" alt="SharpTable owner dashboard menu manager" /><figcaption className="cap">Your menu, live.</figcaption></figure><figure><Card src="/app-shots/history.webp" alt="SharpTable sales history with daily totals by payment type" /><figcaption className="cap">Every sale, accounted for.</figcaption></figure></div></div>
       </section>
 
       <section className="tile pb">
