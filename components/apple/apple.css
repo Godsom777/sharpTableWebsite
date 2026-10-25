@@ -21,6 +21,7 @@
 .gn .sheet a{min-height:48px;display:flex;align-items:center;font-size:24px;font-weight:600;letter-spacing:-.02em;border-bottom:1px solid rgba(11,27,51,.06)}
 /* tiles */
 .tile{text-align:center;padding:56px 0 0;overflow:hidden;position:relative}
+.tile:has(.dash){overflow:visible}
 .tile.pale{background:var(--pale)}.tile.navy{background:var(--navy);color:#fff}.tile+.tile{margin-top:12px}
 .tile.pb{padding-bottom:64px}
 .head{padding-inline:16px;position:relative;z-index:2;max-width:980px;margin:0 auto}
@@ -38,7 +39,7 @@
 .pill:disabled{opacity:.5;cursor:not-allowed}
 .lm{display:inline-flex;align-items:center;min-height:44px;font-size:17px;color:#0a66c2}.lm:hover{text-decoration:underline}
 .navy .lm{color:#9cc7f5}
-.art{margin:40px auto 0;display:flex;justify-content:center;align-items:flex-end;position:relative;padding-inline:16px}
+.art{margin:40px auto 0;display:flex;justify-content:center;align-items:flex-end;position:relative;padding-inline:16px;overflow:visible}
 .demo{font-size:12px;color:var(--ink2);padding:16px 0 32px;position:relative;z-index:2}
 /* phone frame with a real screenshot */
 .phone{width:min(72vw,300px);flex:none;aspect-ratio:780/1688;box-sizing:content-box;border-radius:46px;padding:10px;background:linear-gradient(145deg,#d9dde4,#8e939b 40%,#c7ccd3 60%,#6e737b);box-shadow:0 0 0 1px rgba(0,0,0,.18),0 50px 100px -30px rgba(11,27,51,.45);position:relative}
@@ -66,7 +67,28 @@
 .dash figure{width:100%;max-width:100%;min-width:0;box-sizing:border-box}.dash .card-shot{width:100%;max-width:520px;margin:0 auto}
 @media(max-width:600px){.lid .scrn{aspect-ratio:8/5}.dash-h .sub{margin-top:12px}}
 .cap{font-size:14px;color:var(--ink2);margin-top:10px;text-align:center}
-@media(min-width:1069px){.dash{flex-direction:row;align-items:flex-end;justify-content:center;gap:64px}.dash .laptop{flex:0 1 760px}.dash .card-shot{flex:0 0 380px}.dash figure:first-child{flex:0 1 760px}.dash figure:last-child{flex:0 0 340px;width:340px}.dash figure:first-child{min-width:0}}
+/* dash lockup: laptop centred; small phone overlaps lower-right with bases flush; more of phone outside the screen (>=1068). Stack below that. */
+.dash .dash-side{display:flex;flex-direction:column;align-items:center;width:auto}
+@media(min-width:1068px){
+  /* display:contents lifts laptop + Cap into the dash grid so phone can share the laptop row and align-self:end (bases flush) */
+  .dash{display:grid;grid-template-columns:1fr;grid-template-rows:auto auto;width:min(100%,760px);max-width:none;margin:0 auto 72px;overflow:visible;justify-items:stretch}
+  .dash .dash-main{display:contents;margin:0}
+  .dash .dash-main .laptop{grid-row:1;grid-column:1;width:100%}
+  .dash .dash-main .cap{grid-row:2;grid-column:1;text-align:center;margin-top:14px}
+  .dash .dash-side{grid-row:1;grid-column:1;justify-self:end;align-self:end;z-index:2;width:auto;margin:0;transform:translateX(58%);align-items:stretch}
+  .dash .dash-side .cap{display:none}
+  .dash .phone{width:168px;border-radius:30px;padding:6px;box-shadow:0 0 0 1px rgba(0,0,0,.18),0 24px 56px -16px rgba(11,27,51,.55)}
+  .dash .phone .scr{border-radius:24px}
+  .dash .phone .scr img{border-radius:21px}
+  .dash .phone::after{top:22%;height:11%;width:2px}
+}
+@media(min-width:1400px){
+  .dash{width:min(100%,1040px);margin-bottom:80px}
+  .dash .dash-side{transform:translateX(55%)}
+  .dash .phone{width:190px;border-radius:34px;padding:7px}
+  .dash .phone .scr{border-radius:27px}
+  .dash .phone .scr img{border-radius:24px}
+}
 .lid .ph{aspect-ratio:16/10;height:auto;border-radius:6px}
 /* photo tile */
 .photo{height:min(110vw,760px);padding:0}
@@ -127,6 +149,11 @@
 @media (min-width:1068px){
   .ap h1,.ap h2{font-size:64px;line-height:68px}.sub{font-size:28px;line-height:32px}
   .grid.c4{grid-template-columns:repeat(4,1fr)}
+}
+@media (min-width:1400px){
+  .ipad,.lid,.laptop,.tab,.art figure{width:min(100%,1040px)}
+  .phone{width:410px;border-radius:64px;padding:14px}.phone .scr{border-radius:50px}.phone .scr img{border-radius:47px}
+  .tile.pb{padding-bottom:56px}.art figure{margin-bottom:32px}
 }
 @media (prefers-reduced-motion:no-preference){.ap.js .dev{will-change:transform}}
 body:has(.ap){background:#fff;color:#0b1b33}
