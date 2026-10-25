@@ -50,7 +50,7 @@ export default function HomePage() {
           <h2>Every branch.<br />One screen.</h2>
           <p className="sub">Every sale, void and discount. Live, from anywhere.</p>
         </div>
-        <div className="art dev"><div className="dash"><figure className="dash-main"><Screen kind="laptop" src="/app-shots/admin-desktop.webp" alt="SharpTable Admin menu manager with dishes and naira prices" /><Cap>Your menu, live.</Cap></figure><figure className="dash-side"><Phone src="/app-shots/admin-mobile.webp" alt="SharpTable Admin menu on a phone" /><Cap>Same Admin. Pocket.</Cap></figure></div></div>
+        <div className="art dev"><figure className="dash-lockup"><img src="/app-shots/admin-lockup-desktop.webp" srcSet="/app-shots/admin-lockup-desktop.webp 1x, /app-shots/admin-lockup-desktop@2x.webp 2x, /app-shots/admin-lockup-desktop@3x.webp 3x" width={1247} height={772} alt="SharpTable Admin menu manager on a laptop, with the same Admin on a phone" loading="lazy" decoding="async" /><Cap>Your menu, live. Same Admin, pocket.</Cap></figure><div className="dash"><figure className="dash-main"><Screen kind="laptop" src="/app-shots/admin-desktop.webp" alt="SharpTable Admin menu manager with dishes and naira prices" /><Cap>Your menu, live.</Cap></figure><figure className="dash-side"><Phone src="/app-shots/admin-mobile.webp" alt="SharpTable Admin menu on a phone" /><Cap>Same Admin. Pocket.</Cap></figure></div></div>
       </section>
 
       <section className="tile pale pb">
