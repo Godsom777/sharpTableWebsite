@@ -11,11 +11,19 @@ export default function HomePage() {
       <section className="tile pale">
         <div className="head">
           <h1>SharpTable.</h1>
-          <p className="sub">Your restaurant, in your pocket.</p>
+          <p className="sub">Your restaurant or hotel, in your pocket.</p>
           <Cta more="Learn more" moreHref="/features" />
         </div>
         <div className="art dev"><Phone src="/app-shots/diner-menu.png" alt="SharpTable diner menu on a phone" /></div>
         <Demo />
+      </section>
+
+      <section className="tile pb">
+        <div className="head">
+          <h2>One system. Your whole restaurant.</h2>
+          <p className="sub">SharpTable runs ordering, payments, the kitchen and every branch, for restaurants and hotels across Nigeria.</p>
+          <p className="points">Every feature, every plan. · No commission. No setup fee. · Cancel anytime.</p>
+        </div>
       </section>
 
       <section className="tile photo" aria-label="A busy restaurant evening">
@@ -26,7 +34,7 @@ export default function HomePage() {
       <section className="tile">
         <div className="head">
           <h2>Order. Pay. Cook.</h2>
-          <p className="sub">Guests order and pay from the table.</p>
+          <p className="sub">Guests scan, order and pay from the table.</p>
         </div>
         <div className="art dev"><Phone src="/app-shots/diner-menu-cart-390.png" alt="SharpTable diner menu with an item in the cart and a checkout button" /></div>
         <Demo />
@@ -40,7 +48,7 @@ export default function HomePage() {
       <section className="tile">
         <div className="head dash-h">
           <h2>Every branch.<br />One screen.</h2>
-          <p className="sub">Every sale, void and discount. Live.</p>
+          <p className="sub">Every sale, void and discount. Live, from anywhere.</p>
         </div>
         <div className="art dev"><div className="dash"><figure><Screen kind="laptop" src="/app-shots/dashboard.webp" mobileSrc="/app-shots/dashboard-390.webp" alt="SharpTable owner dashboard menu manager" /><Cap>Your menu, live.</Cap></figure><figure><Card src="/app-shots/history.webp" alt="SharpTable sales history with daily totals by payment type" /><Cap>Every sale, accounted for.</Cap></figure></div></div>
       </section>
@@ -56,7 +64,7 @@ export default function HomePage() {
       <section className="tile pb">
         <div className="head">
           <h2>From {from} a month.</h2>
-          <p className="sub">Every feature. Every plan.</p>
+          <p className="sub">Every feature. Every plan. No commission.</p>
           <Cta more="See pricing" moreHref="/pricing" />
         </div>
       </section>

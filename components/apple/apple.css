@@ -136,3 +136,5 @@ body:has(.ap){background:#fff;color:#0b1b33}
 .ap .MuiAlert-standardSuccess{background:#e8f5ec;color:#14532d}.ap .MuiAlert-standardInfo{background:var(--pale);color:var(--ink)}
 .ap .Mui-disabled{color:rgba(11,27,51,.4)!important}
 .ap .MuiTypography-root,.ap .MuiButton-root,.ap .MuiInputBase-root,.ap .MuiAlert-root{font-family:var(--f);letter-spacing:-.01em}
+.points{font-size:14px;line-height:20px;margin-top:14px;color:var(--ink2)}
+@media(min-width:734px){.points{font-size:17px;line-height:22px;margin-top:16px}}
