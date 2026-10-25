@@ -21,6 +21,7 @@
 .gn .sheet a{min-height:48px;display:flex;align-items:center;font-size:24px;font-weight:600;letter-spacing:-.02em;border-bottom:1px solid rgba(11,27,51,.06)}
 /* tiles */
 .tile{text-align:center;padding:56px 0 0;overflow:hidden;position:relative}
+.tile:has(.dash){overflow:visible}
 .tile.pale{background:var(--pale)}.tile.navy{background:var(--navy);color:#fff}.tile+.tile{margin-top:12px}
 .tile.pb{padding-bottom:64px}
 .head{padding-inline:16px;position:relative;z-index:2;max-width:980px;margin:0 auto}
@@ -38,7 +39,7 @@
 .pill:disabled{opacity:.5;cursor:not-allowed}
 .lm{display:inline-flex;align-items:center;min-height:44px;font-size:17px;color:#0a66c2}.lm:hover{text-decoration:underline}
 .navy .lm{color:#9cc7f5}
-.art{margin:40px auto 0;display:flex;justify-content:center;align-items:flex-end;position:relative;padding-inline:16px}
+.art{margin:40px auto 0;display:flex;justify-content:center;align-items:flex-end;position:relative;padding-inline:16px;overflow:visible}
 .demo{font-size:12px;color:var(--ink2);padding:16px 0 32px;position:relative;z-index:2}
 /* phone frame with a real screenshot */
 .phone{width:min(72vw,300px);flex:none;aspect-ratio:780/1688;box-sizing:content-box;border-radius:46px;padding:10px;background:linear-gradient(145deg,#d9dde4,#8e939b 40%,#c7ccd3 60%,#6e737b);box-shadow:0 0 0 1px rgba(0,0,0,.18),0 50px 100px -30px rgba(11,27,51,.45);position:relative}
