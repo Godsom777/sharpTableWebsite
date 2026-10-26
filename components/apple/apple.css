@@ -156,7 +156,7 @@ body:has(.ap){background:#fff;color:#0b1b33}
 @media(min-width:734px){.points{font-size:17px;line-height:22px;margin-top:16px}}
 /* Compare */
 .ap .cmp .cmp-scroll{max-width:980px;margin:32px auto 0;overflow-x:auto;-webkit-overflow-scrolling:touch}
-.ap .cmp table{width:100%;min-width:720px;border-collapse:collapse;font-size:15px}
+.ap .cmp table{width:100%;min-width:820px;border-collapse:collapse;font-size:15px}
 .ap .cmp th,.ap .cmp td{padding:16px 12px;text-align:center;border-bottom:1px solid rgba(11,27,51,.1);font-weight:400}
 .ap .cmp tbody th{text-align:left;font-size:15px;color:var(--ink);position:sticky;left:0;background:#fff;z-index:2;min-width:150px}
 .ap .cmp thead td{position:sticky;left:0;background:#fff;z-index:1}
@@ -173,4 +173,4 @@ body:has(.ap){background:#fff;color:#0b1b33}
 .ap .cmp .sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .ap .cmp-more{text-align:center;margin-top:24px;font-size:17px}
 .ap .cmp-note{text-align:center;font-size:12px;color:var(--ink2);margin-top:12px;padding:0 20px}
-@media (max-width:600px){.ap .cmp table{min-width:620px}.ap .cmp th,.ap .cmp td{padding:14px 8px}.ap .cmp tbody th{min-width:128px;max-width:140px;font-size:14px;box-shadow:1px 0 0 rgba(11,27,51,.1)}}
+@media (max-width:600px){.ap .cmp table{min-width:700px}.ap .cmp th,.ap .cmp td{padding:14px 8px}.ap .cmp tbody th{min-width:128px;max-width:140px;font-size:14px;box-shadow:1px 0 0 rgba(11,27,51,.1)}}
