@@ -14,13 +14,13 @@ const cols = [
 const price = ['₦50,000/mo', '₦4,000/mo', '₦7,199/mo', '₦10,999/mo', 'Free', '$339 once'];
 const rows: [string, V[]][] = [
   ['Guest QR ordering', ['y', 'y', 'y', 'y', 'y', 'p']],
+  ['Built-in payments', ['y', 'y', 'y', 'y', 'y', 'y']],
   ['Kitchen display', ['y', 'y', 'y', 'y', 'n', 'y']],
-  ['Multi-branch admin', ['y', 'y', 'y', 'y', 'y', 'y']],
-  ['Hotel rooms', ['y', 'n', 'p', 'p', 'p', 'n']],
+  ['WhatsApp ordering bot', ['y', 'p', 'n', 'p', 'p', 'n']],
   ['Manager mobile app', ['y', 'n', 'n', 'n', 'n', 'n']],
   ['Auditing', ['y', 'n', 'y', 'n', 'n', 'y']],
-  ['WhatsApp ordering bot', ['y', 'p', 'n', 'p', 'p', 'n']],
-  ['Built-in payments', ['y', 'y', 'y', 'y', 'y', 'y']],
+  ['Multi-branch admin', ['y', 'y', 'y', 'y', 'y', 'y']],
+  ['Hotel rooms', ['y', 'n', 'p', 'p', 'p', 'n']],
   ['No commission', ['y', 'y', 'n', 'n', 'n', 'n']],
   ['Every feature on every plan', ['y', 'n', 'n', 'n', 'n', 'n']],
 ];
