@@ -11,21 +11,24 @@ const cols = [
   { name: 'MyQR', logo: '/compare/myqr.png' },
   { name: 'SambaPOS', logo: '/compare/sambapos.png' },
 ];
+const price = ['₦50,000/mo', '₦4,000/mo', '₦7,199/mo', '₦10,999/mo', 'Free', '$339 once'];
 const rows: [string, V[]][] = [
-  ['Guest QR ordering', ['y', 'y', 'y', 'y', 'p', 'p']],
-  ['Kitchen display', ['y', 'y', 'p', 'y', 'n', 'p']],
-  ['Multi-branch admin', ['y', 'p', 'p', 'p', 'p', 'p']],
-  ['Hotel rooms', ['y', 'n', 'p', 'p', 'p', 'n']],
-  ['Every feature on every plan', ['y', 'n', 'n', 'n', 'n', 'n']],
-  ['No commission', ['y', 'y', 'n', 'n', 'n', 'n']],
+  ['Guest QR ordering', ['y', 'y', 'y', 'y', 'y', 'p']],
+  ['Built-in payments', ['y', 'y', 'y', 'y', 'y', 'y']],
+  ['Kitchen display', ['y', 'y', 'y', 'y', 'n', 'y']],
   ['WhatsApp ordering bot', ['y', 'p', 'n', 'p', 'p', 'n']],
-  ['Built-in payments', ['y', 'y', 'p', 'y', 'p', 'p']],
+  ['Manager mobile app', ['y', 'n', 'n', 'n', 'n', 'n']],
+  ['Auditing', ['y', 'n', 'y', 'n', 'n', 'y']],
+  ['Multi-branch admin', ['y', 'y', 'y', 'y', 'y', 'y']],
+  ['Hotel rooms', ['y', 'n', 'p', 'p', 'p', 'n']],
+  ['No commission', ['y', 'y', 'n', 'n', 'n', 'n']],
+  ['Every feature on every plan', ['y', 'n', 'n', 'n', 'n', 'n']],
 ];
 const has = (src: string) => fs.existsSync(path.join(process.cwd(), 'public', src));
 
 function Cell({ v }: { v: V }) {
   if (v === 'y') return <span role="img" aria-label="Yes" className="ck">✓</span>;
-  if (v === 'p') return <span className="pt">Partial</span>;
+  if (v === 'p') return <span role="img" aria-label="Partial" className="pt">~</span>;
   return <span role="img" aria-label="Not stated" className="nd">—</span>;
 }
 
@@ -51,6 +54,10 @@ export default function Compare() {
             </tr>
           </thead>
           <tbody>
+            <tr className="pr">
+              <th scope="row">Entry price</th>
+              {price.map((t, i) => <td key={i} className={i === 0 ? 'st' : undefined}>{t}</td>)}
+            </tr>
             {rows.map(([label, vals]) => (
               <tr key={label}>
                 <th scope="row">{label}</th>
