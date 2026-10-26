@@ -12,7 +12,7 @@ const faqs: QA[] = [
 
 export default function HomePage() {
   return (
-    <>
+    <div className="home">
       {/* 1. Hero */}
       <section className="tile pale">
         <div className="head">
@@ -117,6 +117,6 @@ export default function HomePage() {
           <Cta href={DEMO_URL} label="Book a 15-minute demo" more="Chat on WhatsApp" moreHref={WA_URL} />
         </div>
       </section>
-    </>
+    </div>
   );
 }
