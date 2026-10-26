@@ -1,6 +1,7 @@
 import { Cta, Demo, Phone, Screen, Card, Cap } from '@/components/apple/Bits';
 import { BASE_PRICES_NGN } from '@godsom777/sharptable-backend';
 import Link from 'next/link';
+import Compare from '@/components/apple/Compare';
 
 const naira = (n: number) => new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(n);
 
@@ -60,6 +61,8 @@ export default function HomePage() {
           <div className="links"><Link className="lm" href="/for-hotels">Learn more ›</Link></div>
         </div>
       </section>
+
+      <Compare />
 
       <section className="tile pb">
         <div className="head">
