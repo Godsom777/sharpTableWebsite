@@ -22,12 +22,12 @@ export function Card({ src, alt }: { src: string; alt: string }) {
   return <div className="card-shot"><img src={src} alt={alt} loading="lazy" /></div>;
 }
 
-/** Caption under a staff screenshot, followed by the inline Demo data tag. */
+/** Caption under a staff screenshot, followed by the inline Sample data tag. */
 export function Cap({ children }: { children: ReactNode }) {
-  return <figcaption className="cap">{children} <span className="tag">· Demo data</span></figcaption>;
+  return <figcaption className="cap">{children} <span className="tag">· Sample data</span></figcaption>;
 }
 
-export function Demo({ text = 'Demo data' }: { text?: string }) {
+export function Demo({ text = 'Sample data' }: { text?: string }) {
   return <p className="demo">{text}</p>;
 }
 
@@ -43,11 +43,18 @@ export function Hero({ title, sub, children, pale = true }: { title: ReactNode; 
   );
 }
 
-export function Cta({ href = '/pricing', more, moreHref }: { href?: string; more?: string; moreHref?: string }) {
+// TODO(Okoro): DEMO_URL — replace with Calendly/booking link once confirmed.
+export const DEMO_URL = '/pricing';
+// TODO(Okoro): WA_URL — replace with https://wa.me/234… sales number once confirmed.
+export const WA_URL = '#whatsapp';
+
+/** Primary pill, optional secondary pill, optional text link. */
+export function Cta({ href = '/pricing', label = 'Get started', more, moreHref, text, textHref }: { href?: string; label?: string; more?: string; moreHref?: string; text?: string; textHref?: string }) {
   return (
     <div className="links">
-      <Link className="pill" href={href}>Get started</Link>
+      <Link className="pill" href={href}>{label}</Link>
       {more && moreHref && <Link className="pill o" href={moreHref}>{more} ›</Link>}
+      {text && textHref && <Link className="lm" href={textHref}>{text} ›</Link>}
     </div>
   );
 }
