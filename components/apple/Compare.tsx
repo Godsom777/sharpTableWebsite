@@ -18,7 +18,6 @@ const rows: [string, V[]][] = [
   ['Multi-branch admin', ['y', 'y', 'y', 'y', 'y', 'y']],
   ['Hotel rooms', ['y', 'n', 'p', 'p', 'p', 'n']],
   ['Manager mobile app', ['y', 'n', 'n', 'n', 'n', 'n']],
-  ['Customer app', ['y', 'n', 'n', 'y', 'n', 'n']],
   ['Auditing', ['y', 'n', 'y', 'n', 'n', 'y']],
   ['WhatsApp ordering bot', ['y', 'p', 'n', 'p', 'p', 'n']],
   ['Built-in payments', ['y', 'y', 'y', 'y', 'y', 'y']],
