@@ -9,16 +9,17 @@ const cols = [
   { name: 'Ordara', logo: '/compare/ordara.svg' },
   { name: 'Restoflow', logo: '/compare/restoflow.png' },
   { name: 'MyQR', logo: '/compare/myqr.png' },
+  { name: 'SambaPOS', logo: '/compare/sambapos.png' },
 ];
 const rows: [string, V[]][] = [
-  ['Guest QR ordering', ['y', 'y', 'y', 'y', 'p']],
-  ['Kitchen display', ['y', 'y', 'p', 'y', 'n']],
-  ['Multi-branch admin', ['y', 'p', 'p', 'p', 'p']],
-  ['Hotel rooms', ['y', 'n', 'p', 'p', 'p']],
-  ['Every feature on every plan', ['y', 'n', 'n', 'n', 'n']],
-  ['No commission', ['y', 'y', 'n', 'n', 'n']],
-  ['WhatsApp ordering bot', ['y', 'p', 'n', 'p', 'p']],
-  ['Built-in payments', ['y', 'y', 'p', 'y', 'p']],
+  ['Guest QR ordering', ['y', 'y', 'y', 'y', 'p', 'p']],
+  ['Kitchen display', ['y', 'y', 'p', 'y', 'n', 'p']],
+  ['Multi-branch admin', ['y', 'p', 'p', 'p', 'p', 'p']],
+  ['Hotel rooms', ['y', 'n', 'p', 'p', 'p', 'n']],
+  ['Every feature on every plan', ['y', 'n', 'n', 'n', 'n', 'n']],
+  ['No commission', ['y', 'y', 'n', 'n', 'n', 'n']],
+  ['WhatsApp ordering bot', ['y', 'p', 'n', 'p', 'p', 'n']],
+  ['Built-in payments', ['y', 'y', 'p', 'y', 'p', 'p']],
 ];
 const has = (src: string) => fs.existsSync(path.join(process.cwd(), 'public', src));
 
@@ -37,7 +38,7 @@ export default function Compare() {
       </div>
       <div className="cmp-scroll" tabIndex={0} role="region" aria-label="Feature comparison, scroll sideways">
         <table>
-          <caption className="sr">SharpTable compared with Rezta, Ordara, Restoflow and MyQR</caption>
+          <caption className="sr">SharpTable compared with Rezta, Ordara, Restoflow, MyQR and SambaPOS</caption>
           <thead>
             <tr>
               <td />
