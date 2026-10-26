@@ -1,6 +1,5 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import Link from 'next/link';
 
 type V = 'y' | 'p' | 'n';
 const cols = [
@@ -11,18 +10,17 @@ const cols = [
   { name: 'MyQR', logo: '/compare/myqr.png' },
   { name: 'SambaPOS', logo: '/compare/sambapos.png' },
 ];
-const price = ['₦50,000/mo', '₦4,000/mo', '₦7,199/mo', '₦10,999/mo', 'Free', '$339 once'];
+const price = ['₦50,000/mo', '₦4,000/mo', '₦7,199/mo', '₦10,999/mo', 'Free*', '$339 once*'];
 const rows: [string, V[]][] = [
+  ['Manager mobile app', ['y', 'n', 'n', 'n', 'n', 'n']],
+  ['WhatsApp ordering bot', ['y', 'p', 'n', 'p', 'p', 'n']],
+  ['Auditing', ['y', 'n', 'y', 'n', 'n', 'y']],
+  ['Hotel rooms', ['y', 'n', 'p', 'p', 'p', 'n']],
+  ['No commission', ['y', 'y', 'n', 'n', 'n', 'n']],
   ['Guest QR ordering', ['y', 'y', 'y', 'y', 'y', 'p']],
   ['Built-in payments', ['y', 'y', 'y', 'y', 'y', 'y']],
   ['Kitchen display', ['y', 'y', 'y', 'y', 'n', 'y']],
-  ['WhatsApp ordering bot', ['y', 'p', 'n', 'p', 'p', 'n']],
-  ['Manager mobile app', ['y', 'n', 'n', 'n', 'n', 'n']],
-  ['Auditing', ['y', 'n', 'y', 'n', 'n', 'y']],
   ['Multi-branch admin', ['y', 'y', 'y', 'y', 'y', 'y']],
-  ['Hotel rooms', ['y', 'n', 'p', 'p', 'p', 'n']],
-  ['No commission', ['y', 'y', 'n', 'n', 'n', 'n']],
-  ['Every feature on every plan', ['y', 'n', 'n', 'n', 'n', 'n']],
 ];
 const has = (src: string) => fs.existsSync(path.join(process.cwd(), 'public', src));
 
@@ -54,20 +52,20 @@ export default function Compare() {
             </tr>
           </thead>
           <tbody>
-            <tr className="pr">
-              <th scope="row">Entry price</th>
-              {price.map((t, i) => <td key={i} className={i === 0 ? 'st' : undefined}>{t}</td>)}
-            </tr>
             {rows.map(([label, vals]) => (
               <tr key={label}>
                 <th scope="row">{label}</th>
                 {vals.map((v, i) => <td key={i} className={i === 0 ? 'st' : undefined}><Cell v={v} /></td>)}
               </tr>
             ))}
+            <tr className="pr">
+              <th scope="row">From (monthly)</th>
+              {price.map((t, i) => <td key={i} className={i === 0 ? 'st' : undefined}>{t}</td>)}
+            </tr>
           </tbody>
         </table>
       </div>
-      <p className="cmp-more"><Link className="lm" href="/pricing">Every plan includes every SharpTable feature. ›</Link></p>
+      <p className="cmp-note">* Not like-for-like: MyQR’s free tier is limited; SambaPOS is a one-time licence, not a monthly plan.</p>
       <p className="cmp-note">Logos and names are trademarks of their owners. Feature notes as of October 2026 from public sites.</p>
     </section>
   );
