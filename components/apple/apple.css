@@ -175,3 +175,11 @@ body:has(.ap){background:#fff;color:#0b1b33}
 .ap .cmp-more{text-align:center;margin-top:24px;font-size:17px}
 .ap .cmp-note{text-align:center;font-size:12px;color:var(--ink2);margin-top:12px;padding:0 20px}
 @media (max-width:733px){.ap .cmp h2{font-size:32px;line-height:36px}.ap .cmp .sub{font-size:17px;line-height:22px}.ap .cmp .cmp-scroll{margin-top:20px}.ap .cmp table{min-width:540px;font-size:13px}.ap .cmp th,.ap .cmp td{padding:10px 5px}.ap .cmp thead th{font-size:11px}.ap .cmp .lg{height:22px;margin-bottom:4px}.ap .cmp .lg img{max-height:20px;max-width:56px}.ap .cmp tbody th{min-width:96px;max-width:104px;font-size:12px;line-height:1.25;box-shadow:1px 0 0 rgba(11,27,51,.1)}.ap .cmp .ck,.ap .cmp .pt{font-size:15px}.ap .cmp .pr td{font-size:11px}.ap .cmp thead th.st{border-radius:10px 10px 0 0}.ap .cmp-more{font-size:15px;margin-top:16px}.ap .cmp-note{font-size:11px}}
+/* Homepage type: bolder H1, smaller supporting copy */
+.ap .home h1{font-weight:700;letter-spacing:-.025em}
+.home .sub{font-size:17px;line-height:22px}
+.home .points{font-size:13px;line-height:18px}
+.home .faq details p{font-size:15px;line-height:22px}
+.home .cmp-note{font-size:11px}
+@media(min-width:734px){.home .sub{font-size:21px;line-height:26px}.home .points{font-size:15px;line-height:20px}.home .faq details p{font-size:16px;line-height:24px}}
+@media(min-width:1068px){.home .sub{font-size:24px;line-height:29px}}
