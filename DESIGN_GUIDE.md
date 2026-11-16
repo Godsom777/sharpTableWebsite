@@ -44,7 +44,7 @@ Hierarchy runs H1 (boldest) → section titles → smaller sub and body copy. Ho
 
 ## CTAs
 - Primary: **Book a 15-minute demo** → `DEMO_URL`. This is a placeholder (`/pricing`) until Okoro supplies the real URL.
-- Secondary: **Chat on WhatsApp** → `WA_URL`. This is a placeholder (`#whatsapp`).
+- Secondary: **Chat on WhatsApp** → `WA_URL` (`https://wa.me/2348136772107` with pre-filled website referral text).
 - Both constants live in `components/apple/Bits.tsx`. Never invent real URLs for them.
 
 ## Lockups

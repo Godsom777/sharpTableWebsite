@@ -45,15 +45,18 @@ export function Hero({ title, sub, children, pale = true }: { title: ReactNode; 
 
 // TODO(Okoro): DEMO_URL — replace with Calendly/booking link once confirmed.
 export const DEMO_URL = '/pricing';
-// TODO(Okoro): WA_URL — replace with https://wa.me/234… sales number once confirmed.
-export const WA_URL = '#whatsapp';
+export const WA_URL = 'https://wa.me/2348136772107?text=' + encodeURIComponent("Hi, I'm reaching out from the SharpTable website.");
+
+function linkProps(href: string) {
+  return href.startsWith('http') ? { target: '_blank' as const, rel: 'noopener noreferrer' } : {};
+}
 
 /** Primary pill, optional secondary pill, optional text link. */
 export function Cta({ href = '/pricing', label = 'Get started', more, moreHref, text, textHref }: { href?: string; label?: string; more?: string; moreHref?: string; text?: string; textHref?: string }) {
   return (
     <div className="links">
-      <Link className="pill" href={href}>{label}</Link>
-      {more && moreHref && <Link className="pill o" href={moreHref}>{more} ›</Link>}
+      <Link className="pill" href={href} {...linkProps(href)}>{label}</Link>
+      {more && moreHref && <Link className="pill o" href={moreHref} {...linkProps(moreHref)}>{more} ›</Link>}
       {text && textHref && <Link className="lm" href={textHref}>{text} ›</Link>}
     </div>
   );

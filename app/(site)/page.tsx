@@ -18,7 +18,7 @@ export default function HomePage() {
         <div className="head">
           <h1>The operating system for Nigerian restaurants and hotels.</h1>
           <p className="sub">Guests scan, order and pay at the table. Only paid orders reach the kitchen. You see every sale, void and discount live, from anywhere.</p>
-          {/* TODO(Okoro): DEMO_URL (interim /pricing) and WA_URL (interim #whatsapp) live in components/apple/Bits.tsx */}
+          {/* TODO(Okoro): DEMO_URL (interim /pricing) lives in components/apple/Bits.tsx */}
           <Cta href={DEMO_URL} label="Book a 15-minute demo" more="Chat on WhatsApp" moreHref={WA_URL} text="See pricing" textHref="/pricing" />
           <p className="points">No commission · No setup fee · Every feature on every plan · Cancel anytime</p>
         </div>
