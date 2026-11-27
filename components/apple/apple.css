@@ -3638,3 +3638,489 @@ body:has(.ap) {
     animation: none !important;
   }
 }
+
+/* ================================================================
+   Dedicated Mobile-First Experience (< 900px, < 820px, < 734px)
+   ================================================================ */
+.cmp-swipe-hint {
+  display: none;
+}
+
+.beam-v-arrow {
+  display: flex;
+  justify-content: center;
+  height: 28px;
+}
+
+.beam-v-line {
+  width: 2px;
+  height: 100%;
+  border-radius: 2px;
+  background: rgba(11, 27, 51, 0.16);
+}
+
+.beam-v-arrow.paid .beam-v-line {
+  background: linear-gradient(180deg, #0a66c2 0%, #147a42 100%);
+}
+
+.beam-v-arrow.blocked .beam-v-line {
+  background: #c42b2b;
+}
+
+.beam-v-arrow.stopped .beam-v-line {
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(196, 43, 43, 0.35) 0 4px,
+    transparent 4px 8px
+  );
+}
+
+@media (min-width: 820px) {
+  .beam-v-arrow {
+    display: none;
+  }
+}
+
+@media (max-width: 899px) {
+  /* Hide wide desktop laptop lockup in hero on mobile so Featured Modules sits cleanly above the fold */
+  .zh-desktop-only {
+    display: none;
+  }
+
+  .zh-hero {
+    padding: 32px 0 40px;
+  }
+
+  .zh-hero-in {
+    gap: 28px;
+  }
+
+  .zh-hero-left h1 {
+    font-size: 34px;
+    line-height: 1.08;
+    letter-spacing: -0.028em;
+  }
+
+  .zh-accent-rule {
+    margin: 16px 0;
+  }
+
+  .zh-lede {
+    font-size: 16px;
+    line-height: 1.56;
+  }
+
+  .zh-hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  .ap .zh-btn-primary,
+  .ap .zh-btn-navy {
+    width: 100%;
+    min-height: 50px;
+  }
+
+  .ap .zh-btn-secondary {
+    justify-content: center;
+    min-height: 46px;
+    border-radius: 6px;
+    border: 1px solid #d5dfed;
+    background: #ffffff;
+  }
+
+  /* Compact, thumb-friendly Featured Modules card on phones */
+  .zh-apps-head {
+    padding: 14px 18px 12px;
+  }
+
+  .zh-app-row {
+    grid-template-columns: 38px 1fr 14px;
+    gap: 12px;
+    padding: 14px 18px;
+  }
+
+  .zh-app-ic {
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
+  }
+
+  .zh-app-text strong {
+    font-size: 15px;
+  }
+
+  .zh-app-text span {
+    font-size: 13px;
+  }
+
+  .zh-apps-foot {
+    padding: 14px 18px;
+  }
+
+  /* Yellow all-in-one band on phones */
+  .zh-yellow-band {
+    padding: 44px 0;
+  }
+
+  .zh-yellow-left h2 {
+    font-size: 28px;
+  }
+
+  .zh-yellow-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .ap .zh-link-dark {
+    justify-content: center;
+  }
+
+  .zh-story-quote {
+    font-size: 16.5px;
+    line-height: 1.55;
+    padding-top: 22px;
+    border-top: 1px solid rgba(11, 27, 51, 0.14);
+  }
+
+  .zh-yellow-facts {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .zh-yellow-facts > div {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: rgba(11, 27, 51, 0.06);
+  }
+
+  .zh-yellow-facts strong {
+    font-size: 17px;
+  }
+
+  /* Interactive Suite Explorer: pill tabs + visual preview FIRST on mobile */
+  .zh-suite-band {
+    padding: 56px 0;
+  }
+
+  .zh-section-head {
+    margin-bottom: 24px;
+  }
+
+  .zh-section-head h2 {
+    font-size: 30px;
+  }
+
+  .zh-section-head p {
+    font-size: 15.5px;
+  }
+
+  .zh-tabs {
+    border-bottom: 0;
+    gap: 8px;
+    padding: 2px 0 8px;
+    margin-bottom: 20px;
+    scroll-snap-type: x proximity;
+  }
+
+  .zh-tab-btn {
+    min-height: 42px;
+    padding: 0 14px;
+    border-radius: 980px;
+    background: #f1f5fb;
+    border: 1px solid #e1e8f2;
+    font-size: 13.5px;
+    scroll-snap-align: start;
+  }
+
+  .zh-tab-btn.active {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: #ffffff;
+  }
+
+  .zh-tab-btn.active .zh-tab-ic {
+    color: var(--y) !important;
+  }
+
+  .zh-tab-bar {
+    display: none;
+  }
+
+  .zh-stage-panel {
+    padding: 22px 16px;
+  }
+
+  .zh-stage-visual {
+    order: -1;
+  }
+
+  .zh-stage-visual .phone {
+    width: min(62vw, 236px);
+    border-radius: 38px;
+    padding: 8px;
+  }
+
+  .zh-stage-visual .phone .scr {
+    border-radius: 30px;
+  }
+
+  .zh-stage-visual .phone .scr img {
+    border-radius: 27px;
+  }
+
+  .zh-stage-copy h3 {
+    font-size: 22px;
+  }
+
+  .zh-stage-copy p {
+    font-size: 15px;
+  }
+
+  .zh-stage-links {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .zh-stage-links .lm {
+    justify-content: center;
+  }
+
+  /* Deep blue brand & hotels band */
+  .zh-blue-band {
+    padding: 56px 0;
+  }
+
+  .zh-blue-left h2 {
+    font-size: 30px;
+  }
+
+  .zh-blue-left p {
+    font-size: 15.5px;
+  }
+
+  .zh-stats-grid {
+    gap: 18px 16px;
+    margin-top: 28px;
+  }
+
+  .zh-stat-cell strong {
+    font-size: 24px;
+  }
+
+  .zh-stat-cell span {
+    font-size: 12.5px;
+  }
+
+  .zh-hotel-panel {
+    padding: 22px 18px;
+  }
+
+  /* Editorial Woman Portrait + Trust band centered cleanly on mobile */
+  .zh-editorial-band {
+    padding: 56px 0;
+    text-align: center;
+  }
+
+  .zh-editorial-in {
+    gap: 24px;
+  }
+
+  .zh-editorial-photo img {
+    max-width: 310px;
+  }
+
+  .zh-editorial-copy h2 {
+    font-size: 30px;
+  }
+
+  .zh-editorial-copy p {
+    font-size: 15.5px;
+  }
+
+  .zh-editorial-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .zh-editorial-actions .lm {
+    justify-content: center;
+  }
+
+  .zh-prefoot {
+    padding: 56px 0;
+  }
+}
+
+@media (max-width: 819px) {
+  /* Native vertical Payment Gate flow on mobile phones */
+  .beam-card {
+    padding: 20px 14px;
+    border-radius: 20px;
+  }
+
+  .beam-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .beam-toolbar .sim-mode-group {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .beam-toolbar .sim-mode-btn {
+    padding: 0 10px;
+    font-size: 13px;
+  }
+
+  .beam-live-note {
+    font-size: 12.5px;
+    text-align: center;
+  }
+
+  .beam-stage {
+    gap: 0;
+  }
+
+  .beam-left {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .beam-pill-node {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 6px;
+    gap: 6px;
+    border-radius: 14px;
+  }
+
+  .beam-pill-node strong {
+    font-size: 12px;
+    line-height: 1.2;
+  }
+
+  .beam-hub {
+    width: 100%;
+    max-width: 240px;
+    height: auto;
+    padding: 16px 20px;
+    border-radius: 18px;
+    flex-direction: row;
+    gap: 12px;
+    text-align: left;
+  }
+
+  .beam-hub strong,
+  .beam-hub span {
+    display: block;
+  }
+
+  .beam-right {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 733px) {
+  /* Clean uncrowded mobile navbar */
+  .gn {
+    height: 60px;
+  }
+
+  .gn .in {
+    padding: 0 8px 0 14px;
+    gap: 8px;
+  }
+
+  .gn .login {
+    display: none;
+  }
+
+  .mark {
+    font-size: 16.5px;
+    gap: 7px;
+  }
+
+  .ap .gn .cta span {
+    padding: 8px 13px;
+    font-size: 12.5px;
+  }
+
+  .gn .sheet {
+    inset: 60px 0 auto;
+  }
+
+  /* Tighter mobile spacing across standard tiles */
+  .tile {
+    padding-top: 52px;
+  }
+
+  .tile.pb {
+    padding-bottom: 56px;
+  }
+
+  .ap h1,
+  .ap h2 {
+    font-size: 32px;
+    line-height: 1.1;
+  }
+
+  .sub {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .links {
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 340px;
+    margin-inline: auto;
+  }
+
+  .links .pill,
+  .links .lm {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cmp-swipe-hint {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink2);
+    margin: 18px 0 -8px;
+  }
+
+  .seg {
+    max-width: 100%;
+    width: calc(100% - 32px);
+    display: grid;
+    grid-template-columns: auto 1fr;
+  }
+
+  .seg button {
+    font-size: 13.5px;
+    padding: 0 12px;
+  }
+
+  .faq-trigger {
+    font-size: 16px;
+    padding: 16px 0;
+  }
+
+  .vs-card {
+    padding: 22px 18px;
+  }
+}

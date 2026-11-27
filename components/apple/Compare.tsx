@@ -37,6 +37,7 @@ export default function Compare() {
         <h2 id="cmp-h">How SharpTable compares</h2>
         <p className="sub">Every feature included from day one, with no upgrade tiers.</p>
       </div>
+      <p className="cmp-swipe-hint" aria-hidden="true">Swipe sideways to compare →</p>
       <div className="cmp-scroll" tabIndex={0} role="region" aria-label="Feature comparison, scroll sideways">
         <table>
           <caption className="sr">SharpTable compared with Rezta, Ordara, Restoflow, MyQR and SambaPOS</caption>

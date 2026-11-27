@@ -159,6 +159,11 @@ export function EcosystemBeams() {
             ))}
           </div>
 
+          {/* Mobile-only vertical flow connector (inputs -> hub) */}
+          <div className={`beam-v-arrow${isPaid ? ' paid' : ' blocked'}`} aria-hidden="true">
+            <span className="beam-v-line" />
+          </div>
+
           {/* Center Hub: SharpTable Payment Gate */}
           <div className="beam-col beam-center">
             <motion.div
@@ -172,6 +177,11 @@ export function EcosystemBeams() {
               <strong>{isPaid ? 'Payment Gate' : 'Blocked'}</strong>
               <span>{isPaid ? 'Verified' : 'Unpaid order'}</span>
             </motion.div>
+          </div>
+
+          {/* Mobile-only vertical flow connector (hub -> outputs) */}
+          <div className={`beam-v-arrow${isPaid ? ' paid' : ' stopped'}`} aria-hidden="true">
+            <span className="beam-v-line" />
           </div>
 
           {/* Right Column: 4 Synchronized Systems */}
