@@ -34,8 +34,8 @@ export default function Compare() {
   return (
     <section className="tile cmp" aria-labelledby="cmp-h">
       <div className="head">
-        <h2 id="cmp-h">Compare.</h2>
-        <p className="sub">One system. Every feature. No upgrades.</p>
+        <h2 id="cmp-h">How SharpTable compares</h2>
+        <p className="sub">Every feature included from day one, with no upgrade tiers.</p>
       </div>
       <div className="cmp-scroll" tabIndex={0} role="region" aria-label="Feature comparison, scroll sideways">
         <table>
