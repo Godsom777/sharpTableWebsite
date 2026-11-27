@@ -174,8 +174,10 @@ export function EcosystemBeams() {
               <div className="beam-hub-ic">
                 {isPaid ? <IconShieldCheck size={28} /> : <IconShieldBlock size={28} />}
               </div>
-              <strong>{isPaid ? 'Payment Gate' : 'Blocked'}</strong>
-              <span>{isPaid ? 'Verified' : 'Unpaid order'}</span>
+              <div>
+                <strong>{isPaid ? 'Payment Gate' : 'Blocked'}</strong>
+                <span>{isPaid ? 'Verified' : 'Unpaid order'}</span>
+              </div>
             </motion.div>
           </div>
 
