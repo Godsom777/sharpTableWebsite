@@ -1824,6 +1824,8 @@
 
 /* Band 7: Zoho-Style Editorial Photography + Trust & Accountability Band */
 .zh-editorial-band {
+  position: relative;
+  overflow: hidden;
   background: #f8f9fb;
   border-top: 1px solid #e6ebf2;
   border-bottom: 1px solid #e6ebf2;
@@ -1831,7 +1833,24 @@
   text-align: left;
 }
 
+.zh-trust-watermark {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.045;
+  overflow: hidden;
+}
+
+.zh-trust-watermark svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 .zh-editorial-in {
+  position: relative;
+  z-index: 2;
   max-width: 1220px;
   margin: 0 auto;
   padding: 0 20px;

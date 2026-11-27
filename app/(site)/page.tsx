@@ -138,6 +138,75 @@ export default function HomePage() {
 
       {/* Band 7: Zoho-Style Editorial Photography + Trust & Accountability Band */}
       <section className="zh-editorial-band">
+        {/* Very faint architectural "Trusted" badges & ribbon banner watermark */}
+        <div className="zh-trust-watermark" aria-hidden="true">
+          <svg viewBox="0 0 1280 560" fill="none" preserveAspectRatio="xMidYMid slice">
+            {/* Faint horizontal trust ribbon banner */}
+            <path
+              d="M -40 120 L 1320 120 M -40 176 L 1320 176"
+              stroke="#0b1b33"
+              strokeWidth="1"
+              strokeDasharray="6 8"
+            />
+            <text
+              x="640"
+              y="156"
+              textAnchor="middle"
+              fill="#0b1b33"
+              fontSize="22"
+              fontWeight="700"
+              letterSpacing="14"
+            >
+              TRUSTED · VERIFIED · AUDITED · TRUSTED · VERIFIED
+            </text>
+
+            {/* Faint left rosette badge */}
+            <g transform="translate(110 390)">
+              <circle cx="0" cy="0" r="82" stroke="#0b1b33" strokeWidth="1.5" strokeDasharray="5 5" />
+              <circle cx="0" cy="0" r="64" stroke="#0b1b33" strokeWidth="1.2" />
+              <path
+                d="M -18 2 L -5 15 L 22 -14"
+                stroke="#0b1b33"
+                strokeWidth="3.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <text x="0" y="44" textAnchor="middle" fill="#0b1b33" fontSize="11" fontWeight="700" letterSpacing="4">
+                TRUSTED
+              </text>
+            </g>
+
+            {/* Faint right shield seal badge */}
+            <g transform="translate(1140 375)">
+              <circle cx="0" cy="0" r="96" stroke="#0b1b33" strokeWidth="1.4" strokeDasharray="4 6" />
+              <circle cx="0" cy="0" r="76" stroke="#0b1b33" strokeWidth="1.2" />
+              <path
+                d="M 0 -34 L 26 -22 V -2 C 26 16 14 30 0 36 C -14 30 -26 16 -26 -2 V -22 L 0 -34 Z"
+                stroke="#0b1b33"
+                strokeWidth="2.2"
+              />
+              <path
+                d="M -10 -1 L -2 7 L 12 -9"
+                stroke="#0b1b33"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <text x="0" y="56" textAnchor="middle" fill="#0b1b33" fontSize="11" fontWeight="700" letterSpacing="4">
+                TRUSTED
+              </text>
+            </g>
+
+            {/* Faint top-right subtle seal */}
+            <g transform="translate(960 72)">
+              <circle cx="0" cy="0" r="46" stroke="#0b1b33" strokeWidth="1.2" />
+              <text x="0" y="4" textAnchor="middle" fill="#0b1b33" fontSize="10" fontWeight="700" letterSpacing="3">
+                TRUSTED
+              </text>
+            </g>
+          </svg>
+        </div>
+
         <div className="zh-editorial-in">
           <Reveal>
             <div className="zh-editorial-photo">
