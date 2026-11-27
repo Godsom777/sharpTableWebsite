@@ -142,10 +142,10 @@ export default function HomePage() {
           <Reveal>
             <div className="zh-editorial-photo">
               <img
-                src="/assets/photos/lagos-hospitality-editorial.jpg"
-                alt="Hospitality owner reviewing live branch operations on a tablet inside an upscale Lagos lounge and dining room"
-                width={1408}
-                height={768}
+                src="/assets/photos/lagos-hospitality-owner-portrait.jpg"
+                alt="Smiling Nigerian hospitality business owner framed in SharpTable gold, navy, and pale blue graphic circles"
+                width={1200}
+                height={900}
                 loading="lazy"
                 decoding="async"
               />

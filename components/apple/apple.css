@@ -1842,20 +1842,21 @@
 }
 
 .zh-editorial-photo {
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid #e1e7f0;
-  box-shadow: 0 24px 60px -28px rgba(11, 27, 51, 0.24);
-  background: #0b1b33;
+  border-radius: 0;
+  overflow: visible;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .zh-editorial-photo img {
   display: block;
   width: 100%;
+  max-width: 560px;
   height: auto;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  object-position: center 22%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
 }
 
 .zh-editorial-copy h2 {
